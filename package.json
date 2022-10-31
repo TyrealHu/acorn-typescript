@@ -23,6 +23,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "charcodes": "^0.2.0",
     "acorn": "^8.8.0"
   }
 }

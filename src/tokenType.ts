@@ -11,7 +11,8 @@ function kw(name, options: any = {}) {
 export const tsTokenType = {
   as: kw('name', { startsExpr }),
   type: kw('name', { startsExpr }),
-  from: kw('name', { startsExpr })
+  from: kw('name', { startsExpr }),
+  require: kw('name', { startsExpr })
 }
 
-export const tsKeywordsRegExp = new RegExp('^(?:as|type|from)$')
+export const tsKeywordsRegExp = new RegExp('^(?:as|type|from|require)$')
