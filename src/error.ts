@@ -128,5 +128,7 @@ export const TypeScriptError = {
   UnsupportedParameterPropertyKind:
     'A parameter property may not be declared using a binding pattern.',
   UnsupportedSignatureParameterKind: ({ type }) =>
-    `Name in a signature must be an Identifier, ObjectPattern or ArrayPattern, instead got ${type}.`
+    `Name in a signature must be an Identifier, ObjectPattern or ArrayPattern, instead got ${type}.`,
+  LetInLexicalBinding:
+    "'let' is not allowed to be used as a name in 'let' or 'const' declarations.",
 }

@@ -10,9 +10,23 @@ function kw(name, options: any = {}) {
 
 export const tsTokenType = {
   as: kw('name', { startsExpr }),
-  type: kw('name', { startsExpr }),
   from: kw('name', { startsExpr }),
-  require: kw('name', { startsExpr })
+  require: kw('name', { startsExpr }),
+  abstract: kw('name', { startsExpr }),
+  declare: kw('name', { startsExpr }),
+  namespace: kw('name', { startsExpr }),
+  interface: kw('name', { startsExpr }),
+  type: kw('name', { startsExpr }),
+  asserts: kw('name', { startsExpr }),
+  is: kw("name", { startsExpr }),
+  let: kw("name", { startsExpr }),
+  enum: kw("name", { startsExpr }),
+  global: kw("name", { startsExpr }),
+
+  // jsx
+  jsxTagStart: new TokenType('jsxTagStart', { startsExpr })
 }
 
-export const tsKeywordsRegExp = new RegExp('^(?:as|type|from|require)$')
+export const tsKeywordsRegExp = new RegExp(
+  '^(?:global|enum|let|is|asserts|declare|abstract|as|type|from|require|namespace|interface)$'
+)
