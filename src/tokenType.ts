@@ -1,32 +1,70 @@
-import { TokenType } from 'acorn'
+// @ts-ignore
+import { TokenType, keywordTypes } from 'acorn'
 
 const startsExpr = true
 
 // Succinct definitions of keyword token types
+// @ts-ignore
 function kw(name, options: any = {}) {
   options.keyword = name
   return new TokenType(name, options)
 }
 
-export const tsTokenType = {
-  as: kw('name', { startsExpr }),
-  from: kw('name', { startsExpr }),
-  require: kw('name', { startsExpr }),
-  abstract: kw('name', { startsExpr }),
-  declare: kw('name', { startsExpr }),
-  namespace: kw('name', { startsExpr }),
-  interface: kw('name', { startsExpr }),
-  type: kw('name', { startsExpr }),
-  asserts: kw('name', { startsExpr }),
-  is: kw("name", { startsExpr }),
-  let: kw("name", { startsExpr }),
-  enum: kw("name", { startsExpr }),
-  global: kw("name", { startsExpr }),
+function kwLike(_name, options: any = {}) {
+  return new TokenType('name', options)
+}
 
+export const tsTokenType = {
+  as: kwLike('name', { startsExpr }),
+  assert: kwLike('assert', { startsExpr }),
+  async: kwLike('async', { startsExpr }),
+  await: kwLike('await', { startsExpr }),
+  from: kwLike('from', { startsExpr }),
+  get: kwLike('get', { startsExpr }),
+  let: kwLike('let', { startsExpr }),
+  meta: kwLike('meta', { startsExpr }),
+  of: kwLike('of', { startsExpr }),
+  sent: kwLike('sent', { startsExpr }),
+  set: kwLike('set', { startsExpr }),
+  static: kwLike('static', { startsExpr }),
+  yield: kwLike('yield', { startsExpr }),
+
+  // Flow and TypeScript Keywordlike
+  asserts: kwLike('asserts', { startsExpr }),
+  checks: kwLike('checks', { startsExpr }),
+  exports: kwLike('exports', { startsExpr }),
+  global: kwLike('global', { startsExpr }),
+  implements: kwLike('implements', { startsExpr }),
+  intrinsic: kwLike('intrinsic', { startsExpr }),
+  infer: kwLike('infer', { startsExpr }),
+  is: kwLike('is', { startsExpr }),
+  mixins: kwLike('mixins', { startsExpr }),
+  proto: kwLike('proto', { startsExpr }),
+  require: kwLike('require', { startsExpr }),
+  // start: isTSTypeOperator
+  keyof: kwLike('keyof', { startsExpr }),
+  readonly: kwLike('readonly', { startsExpr }),
+  unique: kwLike('unique', { startsExpr }),
+  // end: isTSTypeOperator
+  // start: isTSDeclarationStart
+  abstract: kwLike('abstract', { startsExpr }),
+  declare: kwLike('declare', { startsExpr }),
+  enum: kwLike('enum', { startsExpr }),
+  module: kwLike('module', { startsExpr }),
+  namespace: kwLike('namespace', { startsExpr }),
+  // start: isFlowInterfaceOrTypeOrOpaque
+  interface: kwLike('interface', { startsExpr }),
+  type: kwLike('type', { startsExpr }),
+  // end: isTSDeclarationStart
+  opaque: kwLike('opaque', { startsExpr }),
+  // end: isFlowInterfaceOrTypeOrOpaque
+}
+
+export const jsxTokenType = {
   // jsx
   jsxTagStart: new TokenType('jsxTagStart', { startsExpr })
 }
 
 export const tsKeywordsRegExp = new RegExp(
-  '^(?:global|enum|let|is|asserts|declare|abstract|as|type|from|require|namespace|interface)$'
+  `^(?:${Object.keys(tsTokenType).join('|')})$`
 )
