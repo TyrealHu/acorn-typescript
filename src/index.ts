@@ -23,9 +23,10 @@ import {
   SCOPE_TS_MODULE
 } from './scopeflags'
 import {
-  ArrayPattern, Class,
+  ArrayExpression,
+  ArrayPattern, ArrowFunctionExpression, Class,
   Declaration, Expression,
-  Identifier,
+  Identifier, ObjectExpression,
   ObjectPattern, Pattern,
   RestElement
 } from 'estree'
@@ -2565,20 +2566,6 @@ export default function tsPlugin(options?: {
         }
       }
 
-      // Handle type assertions
-      parseMaybeUnary(
-        refExpressionErrors?: any,
-        sawUnary?: boolean
-      ): Expression {
-        // todo support jsx
-        // if (!this.hasPlugin("jsx") && this.match(tt.lt)) {
-        //   return this.tsParseTypeAssertion();
-        // } else {
-        // }
-
-        return super.parseMaybeUnary(refExpressionErrors, sawUnary)
-      }
-
       parseClassField(field) {
         if (checkKeyName(field, 'constructor')) {
           this.raise(field.key.start, 'Classes can\'t have a field named \'constructor\'')
@@ -2739,9 +2726,17 @@ export default function tsPlugin(options?: {
         return node
       }
 
+      typeCastToParameter(node: Node): Node {
+        node.expression.typeAnnotation = node.typeAnnotation
+
+        this.resetEndLocation(node.expression, node.typeAnnotation.loc.end)
+
+        return node.expression
+      }
+
       toAssignableList(
         exprList: Expression[],
-        isLHS: boolean
+        isBinding: boolean
       ): void {
         for (let i = 0; i < exprList.length; i++) {
           const expr = exprList[i]
@@ -2749,15 +2744,236 @@ export default function tsPlugin(options?: {
             exprList[i] = this.typeCastToParameter(expr)
           }
         }
-        super.toAssignableList(exprList, isLHS)
+        super.toAssignableList(exprList, isBinding)
       }
 
-      typeCastToParameter(node: Node): Node {
-        node.expression.typeAnnotation = node.typeAnnotation
+      reportReservedArrowTypeParam(node: any) {
+        if (
+          node.params.length === 1 &&
+          !node.extra?.trailingComma &&
+          disallowAmbiguousJSXLike
+        ) {
+          this.raise(node.start, TSErrors.ReservedArrowTypeParam)
+        }
+      }
 
-        this.resetEndLocation(node.expression, node.typeAnnotation.loc.end)
+      // Handle type assertions
+      parseMaybeUnary(
+        refExpressionErrors?: any,
+        sawUnary?: boolean
+      ): Expression {
+        // todo support jsx
+        // if (!this.hasPlugin("jsx") && this.match(tt.lt)) {
+        //   return this.tsParseTypeAssertion();
+        // } else {
+        // }
 
-        return node.expression
+        return super.parseMaybeUnary(refExpressionErrors, sawUnary)
+      }
+
+      parseArrow(
+        node: ArrowFunctionExpression
+      ): ArrowFunctionExpression | undefined | null {
+        if (this.match(tokTypes.colon)) {
+          // This is different from how the TS parser does it.
+          // TS uses lookahead. The Babel Parser parses it as a parenthesized expression and converts.
+
+          const result = this.tryParse(abort => {
+            const returnType = this.tsParseTypeOrTypePredicateAnnotation(
+              tokTypes.colon
+            )
+            if (this.canInsertSemicolon() || !this.match(tt.arrow)) abort()
+            return returnType
+          })
+
+          if (result.aborted) return
+
+          if (!result.thrown) {
+            if (result.error) this.state = result.failState
+            // @ts-expect-error refine typings
+            node.returnType = result.node
+          }
+        }
+
+        if (this.eat(tokTypes.arrow)) {
+          return node
+        }
+      }
+
+      // Allow type annotations inside of a parameter list.
+      parseAssignableListItemTypes(param: Pattern) {
+        if (this.eat(tokTypes.question)) {
+          if (
+            param.type !== 'Identifier' &&
+            !this.isAmbientContext &&
+            !this.inType
+          ) {
+            this.raise(param.start, TSErrors.PatternIsOptional)
+          }
+
+          (param as any as Identifier).optional = true
+        }
+        const type = this.tsTryParseTypeAnnotation()
+        if (type) param.typeAnnotation = type
+        this.resetEndLocation(param)
+
+        return param
+      }
+
+      isAssignable(node: Node, isBinding?: boolean): boolean {
+        switch (node.type) {
+          case 'TSTypeCastExpression':
+            return this.isAssignable(node.expression, isBinding)
+          case 'TSParameterProperty':
+            return true
+          case 'Identifier':
+          case 'ObjectPattern':
+          case 'ArrayPattern':
+          case 'AssignmentPattern':
+          case 'RestElement':
+            return true
+
+          case 'ObjectExpression': {
+            const last = node.properties.length - 1
+            return (node.properties as ObjectExpression['properties']).every(
+              (prop, i) => {
+                return (
+                  prop.type !== 'ObjectMethod' &&
+                  (i === last || prop.type !== 'SpreadElement') &&
+                  this.isAssignable(prop)
+                )
+              }
+            )
+          }
+
+          case 'ObjectProperty':
+            return this.isAssignable(node.value)
+
+          case 'SpreadElement':
+            return this.isAssignable(node.argument)
+
+          case 'ArrayExpression':
+            return (node as ArrayExpression).elements.every(
+              element => element === null || this.isAssignable(element)
+            )
+
+          case 'AssignmentExpression':
+            return node.operator === '='
+
+          case 'ParenthesizedExpression':
+            return this.isAssignable(node.expression)
+
+          case 'MemberExpression':
+          case 'OptionalMemberExpression':
+            return !isBinding
+
+          default:
+            return false
+        }
+      }
+
+      toAssignable(
+        node: Node,
+        isBinding: boolean = false,
+        refDestructuringErrors = new DestructuringErrors()
+      ): void {
+        switch (node.type) {
+          case 'ParenthesizedExpression':
+            this.toAssignableParenthesizedExpression(node, isBinding, refDestructuringErrors)
+            break
+          case 'TSAsExpression':
+          case 'TSNonNullExpression':
+          case 'TSTypeAssertion':
+            if (isBinding) {
+              // todo do nothing here
+              // this.expressionScope.recordArrowParemeterBindingError(
+              //   TSErrors.UnexpectedTypeCastInParameter,
+              //   { at: node }
+              // )
+            } else {
+              this.raise(node.start, TSErrors.UnexpectedTypeCastInParameter)
+            }
+            this.toAssignable(node.expression, isBinding, refDestructuringErrors)
+            break
+          case 'AssignmentExpression':
+            if (!isBinding && node.left.type === 'TSTypeCastExpression') {
+              node.left = this.typeCastToParameter(node.left)
+            }
+          /* fall through */
+          default:
+            super.toAssignable(node, isBinding, refDestructuringErrors)
+        }
+      }
+
+      toAssignableParenthesizedExpression(
+        node: Node,
+        isBinding: boolean,
+        refDestructuringErrors: DestructuringErrors
+      ): void {
+        switch (node.expression.type) {
+          case 'TSAsExpression':
+          case 'TSNonNullExpression':
+          case 'TSTypeAssertion':
+          case 'ParenthesizedExpression':
+            this.toAssignable(node.expression, isBinding, refDestructuringErrors)
+            break
+          default:
+            super.toAssignable(node, isBinding, refDestructuringErrors)
+        }
+      }
+
+      // todo we don't need to check checkToRestConversion
+      // checkToRestConversion(node: Node, allowPattern: boolean): void {
+      //   switch (node.type) {
+      //     case 'TSAsExpression':
+      //     case 'TSTypeAssertion':
+      //     case 'TSNonNullExpression':
+      //       this.checkToRestConversion(node.expression, false)
+      //       break
+      //     default:
+      //       super.checkToRestConversion(node, allowPattern)
+      //   }
+      // }
+
+      // @ts-expect-error plugin overrides interfaces
+      // todo we don't need this function here
+      // isValidLVal(
+      //   type:
+      //     | "TSTypeCastExpression"
+      //     | "TSParameterProperty"
+      //     | "TSNonNullExpression"
+      //     | "TSAsExpression"
+      //     | "TSTypeAssertion",
+      //   isUnparenthesizedInAssign: boolean,
+      //   binding: BindingTypes,
+      // ) {
+      //   return (
+      //     getOwn(
+      //       {
+      //         // Allow "typecasts" to appear on the left of assignment expressions,
+      //         // because it may be in an arrow function.
+      //         // e.g. `const f = (foo: number = 0) => foo;`
+      //         TSTypeCastExpression: true,
+      //         TSParameterProperty: "parameter",
+      //         TSNonNullExpression: "expression",
+      //         TSAsExpression: (binding !== BIND_NONE ||
+      //           !isUnparenthesizedInAssign) && ["expression", true],
+      //         TSTypeAssertion: (binding !== BIND_NONE ||
+      //           !isUnparenthesizedInAssign) && ["expression", true],
+      //       },
+      //       type,
+      //     ) || super.isValidLVal(type, isUnparenthesizedInAssign, binding)
+      //   );
+      // }
+
+      parseBindingAtom(): Pattern {
+        switch (this.type) {
+          case tokTypes._this:
+            // "this" may be the name of a parameter, so allow it.
+            return this.parseIdent(/* liberal */ true)
+          default:
+            return super.parseBindingAtom()
+        }
       }
 
       // todo we don't need checkCommaAfterRest and shouldParseArrow, achieve this feature in
@@ -2849,7 +3065,7 @@ export default function tsPlugin(options?: {
           let innerEndPos = this.lastTokEnd, innerEndLoc = this.lastTokEndLoc
           this.expect(tokTypes.parenR)
 
-          // todo typescript shouldParseArrow
+          // todo typescript shouldParseArrow parseArrow
           const shouldParseArrow = ((): boolean => {
             if (this.match(tokTypes.colon)) {
               return exprList.every(expr => this.isAssignable(expr, true))
@@ -2857,12 +3073,20 @@ export default function tsPlugin(options?: {
             return !this.canInsertSemicolon()
           })()
 
-          if (canBeArrow && shouldParseArrow && this.eat(tokTypes.arrow)) {
+          let arrowNode = this.startNodeAt<ArrowFunctionExpression>(
+            startPos,
+            startLoc
+          )
+          if (
+            canBeArrow &&
+            shouldParseArrow &&
+            (arrowNode = this.parseArrow(arrowNode))
+          ) {
             this.checkPatternErrors(refDestructuringErrors, false)
             this.checkYieldAwaitInDefaultParams()
             this.yieldPos = oldYieldPos
             this.awaitPos = oldAwaitPos
-            return this.parseParenArrowList(startPos, startLoc, exprList, forInit)
+            return this.parseArrowExpression(arrowNode, exprList, false, forInit)
           }
 
           if (!exprList.length || lastIsComma) this.unexpected(this.lastTokStart)
