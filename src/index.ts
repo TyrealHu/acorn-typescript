@@ -11,7 +11,7 @@ import * as charCodes from 'charcodes'
 import type { Node, TokenType, Parser as AcornParser } from 'acorn'
 import { TypeScriptError } from './error'
 import { tsKeywordsRegExp, tsTokenType, jsxTokenType } from './tokenType'
-import { LookaheadState, ModifierBase, TsModifier } from './types'
+import { LookaheadState, ModifierBase, TryParse, TsModifier } from './types'
 import {
   BIND_LEXICAL,
   BIND_TS_CONST_ENUM,
@@ -28,7 +28,7 @@ import {
   Declaration, Expression,
   Identifier, ObjectExpression,
   ObjectPattern, Pattern,
-  RestElement
+  RestElement, VariableDeclarator
 } from 'estree'
 import { skipWhiteSpaceToLineBreak } from './whitespace'
 import {
@@ -145,6 +145,75 @@ export default function tsPlugin(options?: {
         return super.getTokenFromCode(code)
       }
 
+      // tryParse will clone parser state.
+      // It is expensive and should be used with cautions
+      tryParse<T extends Node | ReadonlyArray<Node>>(
+        fn: (abort: (node?: T) => never) => T,
+        oldState: State = this.cloneCurLookaheadState()
+      ):
+        | TryParse<T, null, false, false, null>
+        | TryParse<T | null, SyntaxError, boolean, false, LookaheadState>
+        | TryParse<T | null, null, false, true, LookaheadState> {
+        const abortSignal: {
+          node: T | null;
+        } = { node: null }
+        try {
+          const node = fn((node = null) => {
+            abortSignal.node = node
+            throw abortSignal
+          })
+
+          // todo we will throw error and exit the process
+          // if (this.state.errors.length > oldState.errors.length) {
+          //   const failState = this.state;
+          //   this.state = oldState;
+          //   // tokensLength should be preserved during error recovery mode
+          //   // since the parser does not halt and will instead parse the
+          //   // remaining tokens
+          //   this.state.tokensLength = failState.tokensLength;
+          //   return {
+          //     node,
+          //     error: failState.errors[oldState.errors.length] as ParseError<any>,
+          //     thrown: false,
+          //     aborted: false,
+          //     failState,
+          //   };
+          // }
+
+          return {
+            node,
+            error: null,
+            thrown: false,
+            aborted: false,
+            failState: null
+          }
+        } catch (error) {
+          const failState = this.getCurLookaheadState()
+          this.setLookaheadState(oldState)
+          if (error instanceof SyntaxError) {
+            // @ts-expect-error casting general syntax error to parse error
+            return {
+              node: null,
+              error,
+              thrown: true,
+              aborted: false,
+              failState
+            }
+          }
+          if (error === abortSignal) {
+            return {
+              node: abortSignal.node,
+              error: null,
+              thrown: false,
+              aborted: true,
+              failState
+            }
+          }
+
+          throw error
+        }
+      }
+
       // used after we have finished parsing types
       reScan_lt_gt() {
         const { type } = this
@@ -231,6 +300,14 @@ export default function tsPlugin(options?: {
         return this.input.charCodeAt(this.nextTokenStart())
       }
 
+      compareLookaheadState(state: LookaheadState, state2: LookaheadState): boolean {
+        for (const key of Object.keys(state)) {
+          if (state[key] !== state2[key]) return false
+        }
+
+        return true
+      }
+
       createLookaheadState() {
         this.value = null
         this.context = [this.curContext()]
@@ -248,6 +325,33 @@ export default function tsPlugin(options?: {
           lastTokEndLoc: this.lastTokEndLoc,
           curLine: this.curLine,
           lineStart: this.lineStart,
+          curPosition: this.curPosition
+        }
+      }
+
+      cloneCurLookaheadState(): LookaheadState {
+        return {
+          // number
+          pos: this.pos,
+          // str
+          value: this.value,
+          // type
+          type: this.type,
+          // number
+          start: this.start,
+          // number
+          end: this.end,
+          // array
+          context: this.context && this.context.slice(),
+          // Position
+          startLoc: this.startLoc,
+          // Position
+          lastTokEndLoc: this.lastTokEndLoc,
+          // number
+          curLine: this.curLine,
+          // number
+          lineStart: this.lineStart,
+          // Position
           curPosition: this.curPosition
         }
       }
@@ -2769,6 +2873,204 @@ export default function tsPlugin(options?: {
         // }
 
         return super.parseMaybeUnary(refExpressionErrors, sawUnary)
+      }
+
+      // `let x: number;`
+      parseVarId(
+        decl: VariableDeclarator,
+        kind: 'var' | 'let' | 'const'
+      ): void {
+        super.parseVarId(decl, kind)
+
+        if (
+          decl.id.type === 'Identifier' &&
+          !this.hasPrecedingLineBreak() &&
+          // todo bang : type === prefix && value === '!'
+          (this.eat(tokTypes.prefix) && this.value === '!')
+        ) {
+          decl.definite = true
+        }
+
+        const type = this.tsTryParseTypeAnnotation()
+        if (type) {
+          decl.id.typeAnnotation = type
+          this.resetEndLocation(decl.id) // set end position to end of type
+        }
+      }
+
+      // parse the return type of an async arrow function - let foo = (async (): number => {});
+      parseArrowExpression(
+        node: Node,
+        params: Node[],
+        isAsync: boolean,
+        forInit: boolean
+      ): ArrowFunctionExpression {
+        if (this.match(tokTypes.colon)) {
+          node.returnType = this.tsParseTypeAnnotation()
+        }
+        return super.parseArrowExpression(
+          node,
+          params,
+          isAsync,
+          forInit
+        )
+      }
+
+      parseMaybeAssign(
+        forInit: boolean,
+        refExpressionErrors?: ExpressionErrors | null,
+        afterLeftParse?: Function
+      ): Expression {
+        // Note: When the JSX plugin is on, type assertions (`<T> x`) aren't valid syntax.
+
+        let state: LookaheadState | undefined | null
+        let jsx
+        let typeCast
+
+        if (
+          // todo we don't support jsx now
+          // this.hasPlugin("jsx") &&
+          false &&
+          (this.match(tsTokenType.jsxTagStart) || this.match(tokTypes.relational))
+        ) {
+          // Prefer to parse JSX if possible. But may be an arrow fn.
+          state = this.cloneCurLookaheadState()
+
+          jsx = this.tryParse(
+            () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
+            state
+          )
+
+          /*:: invariant(!jsx.aborted) */
+          /*:: invariant(jsx.node != null) */
+          if (!jsx.error) return jsx.node
+
+          // Remove `tc.j_expr` or `tc.j_oTag` from context added
+          // by parsing `jsxTagStart` to stop the JSX plugin from
+          // messing with the tokens
+          const { context } = this
+          const currentContext = context[context.length - 1]
+
+          // todo delete the follow lines
+          // if (currentContext === tc.j_oTag || currentContext === tc.j_expr) {
+          //   context.pop()
+          // }
+        }
+
+        if (!jsx?.error && !this.match(tokTypes.relational)) {
+          return super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse)
+        }
+
+        // Either way, we're looking at a '<': tt.jsxTagStart or relational.
+
+        // If the state was cloned in the JSX parsing branch above but there
+        // have been any error in the tryParse call, this.state is set to state
+        // so we still need to clone it.
+        if (!state || this.compareLookaheadState(state, this.getCurLookaheadState())) {
+          state = this.cloneCurLookaheadState()
+        }
+
+        let typeParameters: Node | undefined | null
+        const arrow = this.tryParse(abort => {
+          // This is similar to TypeScript's `tryParseParenthesizedArrowFunctionExpression`.
+          typeParameters = this.tsParseTypeParameters()
+          const expr = super.parseMaybeAssign(
+            forInit,
+            refExpressionErrors,
+            afterLeftParse
+          )
+
+          if (
+            expr.type !== 'ArrowFunctionExpression' ||
+            expr.extra?.parenthesized
+          ) {
+            abort()
+          }
+
+          // Correct TypeScript code should have at least 1 type parameter, but don't crash on bad code.
+          if (typeParameters?.params.length !== 0) {
+            this.resetStartLocationFromNode(expr, typeParameters)
+          }
+          expr.typeParameters = typeParameters
+
+          // todo we don't support BABEL_8_BREAKING
+          // if (process.env.BABEL_8_BREAKING) {
+          //   if (
+          //     this.hasPlugin('jsx') &&
+          //     expr.typeParameters.params.length === 1 &&
+          //     !expr.typeParameters.extra?.trailingComma
+          //   ) {
+          //     // report error if single type parameter used without trailing comma.
+          //     const parameter = expr.typeParameters.params[0]
+          //     if (!parameter.constraint) {
+          //       // A single type parameter must either have constraints
+          //       // or a trailing comma, otherwise it's ambiguous with JSX.
+          //       this.raise(TSErrors.SingleTypeParameterWithoutTrailingComma, {
+          //         at: createPositionWithColumnOffset(parameter.loc.end, 1),
+          //         typeParameterName: parameter.name.name
+          //       })
+          //     }
+          //   }
+          // }
+
+          return expr
+        }, state)
+
+        /*:: invariant(arrow.node != null) */
+        if (!arrow.error && !arrow.aborted) {
+          // This error is reported outside of the this.tryParse call so that
+          // in case of <T>(x) => 2, we don't consider <T>(x) as a type assertion
+          // because of this error.
+          if (typeParameters) this.reportReservedArrowTypeParam(typeParameters)
+          // @ts-expect-error refine typings
+          return arrow.node
+        }
+
+        if (!jsx) {
+          // Try parsing a type cast instead of an arrow function.
+          // This will never happen outside of JSX.
+          // (Because in JSX the '<' should be a jsxTagStart and not a relational.
+
+          // this will always be true
+          // assert(!this.hasPlugin('jsx'))
+          assert(true)
+
+          // This will start with a type assertion (via parseMaybeUnary).
+          // But don't directly call `this.tsParseTypeAssertion` because we want to handle any binary after it.
+          typeCast = this.tryParse(
+            () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
+            state
+          )
+          /*:: invariant(!typeCast.aborted) */
+          /*:: invariant(typeCast.node != null) */
+          if (!typeCast.error) return typeCast.node
+        }
+
+        if (jsx?.node) {
+          /*:: invariant(jsx.failState) */
+          this.setLookaheadState(jsx.failState)
+          return jsx.node
+        }
+
+        if (arrow.node) {
+          /*:: invariant(arrow.failState) */
+          this.setLookaheadState(arrow.failState)
+          if (typeParameters) this.reportReservedArrowTypeParam(typeParameters)
+          // @ts-expect-error refine typings
+          return arrow.node
+        }
+
+        if (typeCast?.node) {
+          /*:: invariant(typeCast.failState) */
+          this.setLookaheadState(typeCast.failState)
+          return typeCast.node
+        }
+
+        if (jsx?.thrown) throw jsx.error
+        if (arrow.thrown) throw arrow.error
+        if (typeCast?.thrown) throw typeCast.error
+
+        throw jsx?.error || arrow.error || typeCast?.error
       }
 
       parseArrow(

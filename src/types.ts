@@ -39,3 +39,11 @@ export type ModifierBase = {
 } & {
   [key in TsModifier]?: boolean | undefined | null;
 };
+
+export type TryParse<Node, Error, Thrown, Aborted, FailState> = {
+  node: Node;
+  error: Error;
+  thrown: Thrown;
+  aborted: Aborted;
+  failState: FailState;
+};
