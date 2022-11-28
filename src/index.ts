@@ -256,6 +256,15 @@ export default function tsPlugin(options?: {
         return tokenIsIdentifier(this.type)
       }
 
+      // Used when parsing type arguments from ES productions, where the first token
+      // has been created without state.inType. Thus we need to rescan the lt token.
+      tsParseTypeArgumentsInExpression(): Node | void {
+        if (this.reScan_lt() !== tokTypes.relational) {
+          return undefined
+        }
+        return this.tsParseTypeArguments()
+      }
+
       tsInNoContext<T>(cb: () => T): T {
         const oldContext = this.context
         this.context = [oldContext[0]]
@@ -1348,13 +1357,13 @@ export default function tsPlugin(options?: {
           node.readonly = this.value
           this.next()
           this.expectContextual('readonly')
-        } else if (this.eatContextual(tsTokenType.readonly)) {
+        } else if (this.eatContextual('readonly')) {
           node.readonly = true
         }
 
         this.expect(tokTypes.bracketL)
         node.typeParameter = this.tsParseMappedTypeParameter()
-        node.nameType = this.eatContextual(tsTokenType.as) ? this.tsParseType() : null
+        node.nameType = this.eatContextual('as') ? this.tsParseType() : null
 
         this.expect(tokTypes.bracketR)
 
@@ -2519,7 +2528,7 @@ export default function tsPlugin(options?: {
         const startPos = this.start
         const startLoc = this.startLoc
 
-        const isDeclare = this.eatContextual(tsTokenType.declare)
+        const isDeclare = this.eatContextual('declare')
 
         if (
           isDeclare &&
@@ -2647,7 +2656,7 @@ export default function tsPlugin(options?: {
           assign.expression = super.parseExpression()
           super.semicolon()
           return this.finishNode(assign, 'TSExportAssignment')
-        } else if (this.eatContextual(tsTokenType.as)) {
+        } else if (this.eatContextual('as')) {
           // `export as namespace A;`
           const decl = node
           // See `parseNamespaceExportDeclaration` in TypeScript's own parser
@@ -2668,131 +2677,6 @@ export default function tsPlugin(options?: {
 
           return this.originParseExport(node)
         }
-      }
-
-      parseClassField(field) {
-        if (checkKeyName(field, 'constructor')) {
-          this.raise(field.key.start, 'Classes can\'t have a field named \'constructor\'')
-        } else if (field.static && checkKeyName(field, 'prototype')) {
-          this.raise(field.key.start, 'Classes can\'t have a static field named \'prototype\'')
-        }
-
-        if (this.eat(tokTypes.eq)) {
-          // To raise SyntaxError if 'arguments' exists in the initializer.
-          const scope = this.currentThisScope()
-          const inClassFieldInit = scope.inClassFieldInit
-          scope.inClassFieldInit = true
-          field.value = this.parseMaybeAssign()
-          scope.inClassFieldInit = inClassFieldInit
-        } else {
-          field.value = null
-        }
-        this.semicolon()
-
-        return this.finishNode(field, 'PropertyDefinition')
-      }
-
-      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
-        // start typescript parse class method
-        const isConstructor = method.kind === 'constructor'
-        const typeParameters = this.tsTryParseTypeParameters()
-        if (typeParameters && isConstructor) {
-          this.raise(TSErrors.ConstructorHasTypeParameters, {
-            at: typeParameters
-          })
-        }
-
-        // @ts-expect-error declare does not exist in ClassMethod
-        const { declare = false, kind } = method
-
-        if (declare && (kind === 'get' || kind === 'set')) {
-          this.raise(TSErrors.DeclareAccessor, { at: method, kind })
-        }
-        if (typeParameters) method.typeParameters = typeParameters
-        // end
-
-        super.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper)
-      }
-
-      parseClassElement(constructorAllowsSuper) {
-        if (this.eat(tokTypes.semi)) return null
-
-        const ecmaVersion = this.options.ecmaVersion
-        const node = this.startNode()
-        let keyName = ''
-        let isGenerator = false
-        let isAsync = false
-        let kind = 'method'
-        let isStatic = false
-
-        // todo we don't need parseClassMemberFromModifier here
-        //  if (this.parseClassMemberFromModifier(classBody, member)) {
-        //     return;
-        //  }
-        if (this.eatContextual('static')) {
-          // Parse static init block
-          if (ecmaVersion >= 13 && this.eat(tokTypes.braceL)) {
-            this.parseClassStaticBlock(node)
-            return node
-          }
-          if (this.isClassElementNameStart() || this.type === tokTypes.star) {
-            isStatic = true
-          } else {
-            keyName = 'static'
-          }
-        }
-        node.static = isStatic
-        // todo we don't need parsePropertyNamePrefixOperator here, this
-        //  plugin don't support flow
-        //  this.parsePropertyNamePrefixOperator(member);
-        if (!keyName && ecmaVersion >= 8 && this.eatContextual('async')) {
-          if ((this.isClassElementNameStart() || this.type === tokTypes.star) && !this.canInsertSemicolon()) {
-            isAsync = true
-          } else {
-            keyName = 'async'
-          }
-        }
-        if (!keyName && (ecmaVersion >= 9 || !isAsync) && this.eat(tokTypes.star)) {
-          isGenerator = true
-        }
-        if (!keyName && !isAsync && !isGenerator) {
-          const lastValue = this.value
-          if (this.eatContextual('get') || this.eatContextual('set')) {
-            if (this.isClassElementNameStart()) {
-              kind = lastValue
-            } else {
-              keyName = lastValue
-            }
-          }
-        }
-
-        // Parse element name
-        if (keyName) {
-          // 'async', 'get', 'set', or 'static' were not a keyword contextually.
-          // The last token is any of those. Make it the element name.
-          node.computed = false
-          node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
-          node.key.name = keyName
-          this.finishNode(node.key, 'Identifier')
-        } else {
-          this.parseClassElementName(node)
-        }
-
-        // todo isClassMethod
-        const isClassMethod = this.match(tokTypes.relational) || this.match(tokTypes.parenL)
-        // Parse element value
-        if (ecmaVersion < 13 || isClassMethod || kind !== 'method' || isGenerator || isAsync) {
-          const isConstructor = !node.static && checkKeyName(node, 'constructor')
-          const allowsDirectSuper = isConstructor && constructorAllowsSuper
-          // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
-          if (isConstructor && kind !== 'method') this.raise(node.key.start, 'Constructor can\'t have get/set modifier')
-          node.kind = isConstructor ? 'constructor' : kind
-          this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
-        } else {
-          this.parseClassField(node)
-        }
-
-        return node
       }
 
       // todo we don't need these functions, we have to rewrite the
@@ -2873,6 +2757,281 @@ export default function tsPlugin(options?: {
         // }
 
         return super.parseMaybeUnary(refExpressionErrors, sawUnary)
+      }
+
+      parseClassId(
+        node: Class,
+        isStatement: boolean
+      ): void {
+        if ((!isStatement) && this.ts_isContextual(tsTokenType.implements)) {
+          return
+        }
+
+        super.parseClassId(
+          node,
+          isStatement
+        )
+        const typeParameters = this.tsTryParseTypeParameters(
+          this.tsParseInOutModifiers.bind(this)
+        )
+        if (typeParameters) node.typeParameters = typeParameters
+      }
+
+      parseClassPropertyAnnotation(
+        node: Node
+      ): void {
+        if (!node.optional && this.eat(tsTokenType.bang)) {
+          node.definite = true
+        }
+
+        const type = this.tsTryParseTypeAnnotation()
+        if (type) node.typeAnnotation = type
+      }
+
+      parsePrivateClassField(field) {
+        // --- start ts parseClassPrivateProperty
+        if (field.abstract) {
+          this.raise(field.start, TSErrors.PrivateElementHasAbstract)
+        }
+
+        // @ts-expect-error accessibility may not index node
+        if (field.accessibility) {
+          this.raise(field.start, TSErrors.PrivateElementHasAccessibility({
+            // @ts-expect-error refine typings
+            modifier: field.accessibility
+          }))
+        }
+
+        this.parseClassPropertyAnnotation(field)
+        // --- end
+
+        return super.parseClassField(field)
+      }
+
+      parseClassField(field) {
+        // --- start ts parseClassProperty
+        this.parseClassPropertyAnnotation(field)
+
+        if (
+          this.isAmbientContext &&
+          !(field.readonly && !field.typeAnnotation) &&
+          this.match(tokTypes.eq)
+        ) {
+          this.raise(this.startLoc, TSErrors.DeclareClassFieldHasInitializer)
+        }
+        if (field.abstract && this.match(tokTypes.eq)) {
+          const { key } = field
+          this.raise(this.startLoc, TSErrors.AbstractPropertyHasInitializer({
+            propertyName:
+              key.type === 'Identifier' && !field.computed
+                ? key.name
+                : `[${this.input.slice(key.start, key.end)}]`
+          }))
+        }
+        // --- end
+
+        return super.parseClassField(field)
+      }
+
+      parsePrivateClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
+        const typeParameters = this.tsTryParseTypeParameters()
+        if (typeParameters) method.typeParameters = typeParameters
+        super.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper)
+      }
+
+      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
+        // start typescript parse class method
+        const isConstructor = method.kind === 'constructor'
+        // todo pushClassPrivateMethod
+        const typeParameters = this.tsTryParseTypeParameters()
+        if (typeParameters && isConstructor) {
+          this.raise(TSErrors.ConstructorHasTypeParameters, {
+            at: typeParameters
+          })
+        }
+
+        // @ts-expect-error declare does not exist in ClassMethod
+        const { declare = false, kind } = method
+
+        if (declare && (kind === 'get' || kind === 'set')) {
+          this.raise(TSErrors.DeclareAccessor, { at: method, kind })
+        }
+        if (typeParameters) method.typeParameters = typeParameters
+        // end
+
+        super.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper)
+      }
+
+      parseClassElementName(element) {
+        if (this.type === tokTypes.privateId) {
+          if (this.value === 'constructor') {
+            this.raise(this.start, 'Classes can\'t have an element named \'#constructor\'')
+          }
+          element.computed = false
+          element.key = this.parsePrivateIdent()
+        } else {
+          this.parsePropertyName(element)
+        }
+      }
+
+      parseClassElement(constructorAllowsSuper) {
+        if (this.eat(tokTypes.semi)) return null
+
+        const ecmaVersion = this.options.ecmaVersion
+        const node = this.startNode()
+        let keyName = ''
+        let isGenerator = false
+        let isAsync = false
+        let kind = 'method'
+        let isStatic = false
+
+        // todo we don't need parseClassMemberFromModifier here
+        //  if (this.parseClassMemberFromModifier(classBody, member)) {
+        //     return;
+        //  }
+        if (this.eatContextual('static')) {
+          // Parse static init block
+          if (ecmaVersion >= 13 && this.eat(tokTypes.braceL)) {
+            this.parseClassStaticBlock(node)
+            return node
+          }
+          if (this.isClassElementNameStart() || this.type === tokTypes.star) {
+            isStatic = true
+          } else {
+            keyName = 'static'
+          }
+        }
+        node.static = isStatic
+        // todo we don't need parsePropertyNamePrefixOperator here, this
+        //  plugin don't support flow
+        //  this.parsePropertyNamePrefixOperator(member);
+        if (!keyName && ecmaVersion >= 8 && this.eatContextual('async')) {
+          if ((this.isClassElementNameStart() || this.type === tokTypes.star) && !this.canInsertSemicolon()) {
+            isAsync = true
+          } else {
+            keyName = 'async'
+          }
+        }
+        if (!keyName && (ecmaVersion >= 9 || !isAsync) && this.eat(tokTypes.star)) {
+          isGenerator = true
+        }
+        if (!keyName && !isAsync && !isGenerator) {
+          const lastValue = this.value
+          if (this.eatContextual('get') || this.eatContextual('set')) {
+            if (this.isClassElementNameStart()) {
+              kind = lastValue
+            } else {
+              keyName = lastValue
+            }
+          }
+        }
+
+        let isPrivate = this.type === tokTypes.privateId
+        // Parse element name
+        if (keyName) {
+          // 'async', 'get', 'set', or 'static' were not a keyword contextually.
+          // The last token is any of those. Make it the element name.
+          node.computed = false
+          node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
+          node.key.name = keyName
+          this.finishNode(node.key, 'Identifier')
+        } else {
+          this.parseClassElementName(node)
+        }
+
+        // todo isClassMethod
+        const isClassMethod = this.match(tokTypes.relational) || this.match(tokTypes.parenL)
+        // Parse element value
+        if (ecmaVersion < 13 || isClassMethod || kind !== 'method' || isGenerator || isAsync) {
+          const isConstructor = !node.static && checkKeyName(node, 'constructor')
+          const allowsDirectSuper = isConstructor && constructorAllowsSuper
+          // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
+          if (isConstructor && kind !== 'method') this.raise(node.key.start, 'Constructor can\'t have get/set modifier')
+          node.kind = isConstructor ? 'constructor' : kind
+          // todo private or not
+          if (!isPrivate) {
+            this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
+          } else {
+            this.parsePrivateClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
+          }
+        } else {
+          // todo private or not
+          if (!isPrivate) {
+            this.parseClassField(node)
+          } else {
+            this.parsePrivateClassField(node)
+          }
+        }
+
+        return node
+      }
+
+      // todo parseClassMethod
+      // pushClassPrivateMethod(
+      //   classBody: N.ClassBody,
+      //   method: N.ClassPrivateMethod,
+      //   isGenerator: boolean,
+      //   isAsync: boolean,
+      // ): void {
+      //   const typeParameters = this.tsTryParseTypeParameters();
+      //   if (typeParameters) method.typeParameters = typeParameters;
+      //   super.pushClassPrivateMethod(classBody, method, isGenerator, isAsync);
+      // }
+
+      // todo parseClassMethod
+      // declareClassPrivateMethodInScope(
+      //   node: N.ClassPrivateMethod | N.EstreeMethodDefinition | N.TSDeclareMethod,
+      //   kind: number,
+      // ) {
+      //   if (node.type === "TSDeclareMethod") return;
+      //   // This happens when using the "estree" plugin.
+      //   if (node.type === "MethodDefinition" && !node.value.body) return;
+      //
+      //   super.declareClassPrivateMethodInScope(node, kind);
+      // }
+
+      parseClassSuper(node: Class): void {
+        super.parseClassSuper(node)
+        // handle `extends f<<T>
+        if (node.superClass && (this.match(tokTypes.relational) || this.match(tokTypes.bitShift))) {
+          // @ts-expect-error refine typings
+          node.superTypeParameters = this.tsParseTypeArgumentsInExpression()
+        }
+        if (this.eatContextual('implements')) {
+          node.implements = this.tsParseHeritageClause('implements')
+        }
+      }
+
+      // todo parsePropertyValue
+      // parseObjPropValue(
+      //   prop: Undone<N.ObjectMethod | N.ObjectProperty>,
+      //   startPos: number | undefined | null,
+      //   startLoc: Position | undefined | null,
+      //   isGenerator: boolean,
+      //   isAsync: boolean,
+      //   isPattern: boolean,
+      //   isAccessor: boolean,
+      //   refExpressionErrors?: ExpressionErrors | null
+      // ) {
+      //   const typeParameters = this.tsTryParseTypeParameters()
+      //   if (typeParameters) prop.typeParameters = typeParameters
+      //
+      //   return super.parseObjPropValue(
+      //     prop,
+      //     startPos,
+      //     startLoc,
+      //     isGenerator,
+      //     isAsync,
+      //     isPattern,
+      //     isAccessor,
+      //     refExpressionErrors
+      //   )
+      // }
+
+      parseFunctionParams(node: Function): void {
+        const typeParameters = this.tsTryParseTypeParameters()
+        if (typeParameters) node.typeParameters = typeParameters
+        super.parseFunctionParams(node)
       }
 
       // `let x: number;`
@@ -3503,6 +3662,10 @@ export default function tsPlugin(options?: {
       // }
 
       parsePropertyValue(prop, isPattern, isGenerator, isAsync, startPos, startLoc, refDestructuringErrors, containsEsc) {
+        // todo parseObjPropValue
+        const typeParameters = this.tsTryParseTypeParameters()
+        if (typeParameters) prop.typeParameters = typeParameters
+
         if ((isGenerator || isAsync) && this.type === tokTypes.colon)
           this.unexpected()
 
