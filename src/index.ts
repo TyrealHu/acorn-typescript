@@ -11,7 +11,13 @@ import * as charCodes from 'charcodes'
 import type { Node, TokenType, Parser as AcornParser } from 'acorn'
 import { TypeScriptError } from './error'
 import { tsKeywordsRegExp, tsTokenType, jsxTokenType } from './tokenType'
-import { LookaheadState, ModifierBase, TryParse, TsModifier } from './types'
+import {
+  Accessibility,
+  LookaheadState,
+  ModifierBase,
+  TryParse,
+  TsModifier
+} from './types'
 import {
   BIND_LEXICAL,
   BIND_TS_INTERFACE,
@@ -50,6 +56,36 @@ function assert(x: boolean): void {
 }
 
 const FUNC_STATEMENT = 1, FUNC_HANGING_STATEMENT = 2, FUNC_NULLABLE_ID = 4
+
+function isPossiblyLiteralEnum(expression: Expression): boolean {
+  if (expression.type !== 'MemberExpression') return false
+
+  const { computed, property } = expression
+
+  if (
+    computed &&
+    property.type !== 'StringLiteral' &&
+    (property.type !== 'TemplateLiteral' || property.expressions.length > 0)
+  ) {
+    return false
+  }
+
+  return isUncomputedMemberExpressionChain(expression.object)
+}
+
+function isUncomputedMemberExpressionChain(expression: Expression): boolean {
+  if (expression.type === 'Identifier') return true
+  if (expression.type !== 'MemberExpression') return false
+  if (expression.computed) return false
+
+  return isUncomputedMemberExpressionChain(expression.object)
+}
+
+function tsIsAccessModifier(modifier: string): modifier is Accessibility {
+  return (
+    modifier === 'private' || modifier === 'public' || modifier === 'protected'
+  )
+}
 
 function nonNull<T>(x?: T | null): T {
   if (x == null) {
@@ -148,6 +184,12 @@ export default function tsPlugin(options?: {
           }
         }
         return super.getTokenFromCode(code)
+      }
+
+      isAbstractClass(): boolean {
+        return (
+          this.ts_isContextual(tsTokenType.abstract) && this.lookahead().type === tokTypes._class
+        )
       }
 
       // tryParse will clone parser state.
@@ -261,6 +303,22 @@ export default function tsPlugin(options?: {
 
       nextTokenStart(): number {
         return this.nextTokenStartSince(this.pos)
+      }
+
+      tsHasSomeModifiers(member: any, modifiers: readonly TsModifier[]): boolean {
+        return modifiers.some(modifier => {
+          if (tsIsAccessModifier(modifier)) {
+            return member.accessibility === modifier
+          }
+          return !!member[modifier]
+        })
+      }
+
+      tsIsStartOfStaticBlocks() {
+        return (
+          this.eatContextual('static') &&
+          this.lookaheadCharCode() === charCodes.leftCurlyBrace
+        )
       }
 
       tsIsIdentifier(): boolean {
@@ -667,17 +725,17 @@ export default function tsPlugin(options?: {
           this.unexpected()
         }
         // For compatibility to estree we cannot call parseLiteral directly here
-        node.expression = super.parseExprAtom()
+        node.expression = this.parseExprAtom()
         this.expect(tokTypes.parenR)
         return this.finishNode(node, 'TSExternalModuleReference')
       }
 
       tsParseEntityName(allowReservedWords: boolean = true): Node {
-        let entity = super.parseIdent(allowReservedWords)
+        let entity = this.parseIdent(allowReservedWords)
         while (this.eat(tokTypes.dot)) {
           const node = this.startNodeAtNode(entity)
           node.left = entity
-          node.right = super.parseIdent(allowReservedWords)
+          node.right = this.parseIdent(allowReservedWords)
           entity = this.finishNode(node, 'TSQualifiedName')
         }
         return entity
@@ -687,10 +745,10 @@ export default function tsPlugin(options?: {
         const node = this.startNode()
         // Computed property names are grammar errors in an enum, so accept just string literal or identifier.
         node.id = this.match(tokTypes.string)
-          ? super.parseLiteral(this.value)
+          ? this.parseLiteral(this.value)
           : this.parseIdent(/* liberal */ true)
         if (this.eat(tokTypes.eq)) {
-          node.initializer = super.parseMaybeAssign()
+          node.initializer = this.parseMaybeAssign()
         }
         return this.finishNode(node, 'TSEnumMember')
       }
@@ -706,7 +764,7 @@ export default function tsPlugin(options?: {
         if (properties.declare) node.declare = true
         this.expectContextual('enum')
         node.id = this.parseIdent()
-        super.checkLValSimple(node.id)
+        this.checkLValSimple(node.id)
 
         this.expect(tokTypes.braceL)
         node.members = this.tsParseDelimitedList(
@@ -725,7 +783,7 @@ export default function tsPlugin(options?: {
         // Inside of a module block is considered "top-level", meaning it can have imports and exports.
         node.body = []
         while (this.type !== tokTypes.braceR) {
-          let stmt = super.parseStatement(null, true)
+          let stmt = this.parseStatement(null, true)
           node.body.push(stmt)
         }
         super.exitScope()
@@ -737,9 +795,9 @@ export default function tsPlugin(options?: {
       ): Node {
         if (this.ts_isContextual(tsTokenType.global)) {
           node.global = true
-          node.id = super.parseIdent()
+          node.id = this.parseIdent()
         } else if (this.match(tokTypes.string)) {
-          node.id = super.parseLiteral(this.value)
+          node.id = this.parseLiteral(this.value)
         } else {
           this.unexpected()
         }
@@ -770,7 +828,7 @@ export default function tsPlugin(options?: {
         return this.tsInAmbientContext(() => {
           if (starttype === tokTypes._function) {
             nany.declare = true
-            return super.parseFunctionStatement(
+            return this.parseFunctionStatement(
               nany,
               /* async */ false,
               /* declarationPosition */ true
@@ -795,7 +853,7 @@ export default function tsPlugin(options?: {
           if (starttype === tokTypes._const || starttype === tokTypes._var) {
             if (!this.match(tokTypes._const) || !this.isLookaheadContextual('enum')) {
               nany.declare = true
-              return this.parseVarStatement(nany, kind || this.value)
+              return this.parseVarStatement(nany, kind || this.value, true)
             }
 
             // `const enum = 0;` not allowed because "enum" is a strict mode reserved word.
@@ -971,7 +1029,7 @@ export default function tsPlugin(options?: {
         if (this.match(tokTypes.braceL)) {
           // Return true if we can parse an object pattern without errors
           try {
-            super.parseObj(true)
+            this.parseObj(true)
             return true
           } catch {
             return false
@@ -981,7 +1039,7 @@ export default function tsPlugin(options?: {
         if (this.match(tokTypes.bracketL)) {
           this.next()
           try {
-            super.parseBindingList(
+            this.parseBindingList(
               tokTypes.bracketR,
               true,
               true
@@ -1210,6 +1268,25 @@ export default function tsPlugin(options?: {
         }
       }
 
+      tsTryNextParseConstantContext(): Node | undefined | null {
+        if (this.lookahead().type !== tokTypes._const) return null
+
+        this.next()
+        const typeReference = this.tsParseTypeReference()
+
+        // If the type reference has type parameters, then you are using it as a
+        // type and not as a const signifier. We'll *never* be able to find this
+        // name, since const isn't allowed as a type name. So in this instance we
+        // get to pretend we're the type checker.
+        if (typeReference.typeParameters) {
+          this.raise(typeReference.typeName.start, TSErrors.CannotFindName({
+            name: 'const'
+          }))
+        }
+
+        return typeReference
+      }
+
       tsParseFunctionOrConstructorType(
         type: 'TSFunctionType' | 'TSConstructorType',
         abstract?: boolean
@@ -1309,7 +1386,7 @@ export default function tsPlugin(options?: {
             case tokTypes._true:
             case tokTypes._false:
               // For compatibility to estree we cannot call parseLiteral directly here
-              return super.parseExprAtom()
+              return this.parseExprAtom()
             default:
               this.unexpected()
           }
@@ -1326,7 +1403,7 @@ export default function tsPlugin(options?: {
         }
 
         // For compatibility to estree we cannot call parseLiteral directly here
-        node.argument = super.parseExprAtom()
+        node.argument = this.parseExprAtom()
         this.expect(tokTypes.parenR)
 
         if (this.eat(tokTypes.dot)) {
@@ -1493,7 +1570,7 @@ export default function tsPlugin(options?: {
 
       tsParseTemplateLiteralType(): Node {
         const node = this.startNode()
-        node.literal = super.parseTemplate({ isTagged: false })
+        node.literal = this.parseTemplate({ isTagged: false })
         return this.finishNode(node, 'TSLiteralType')
       }
 
@@ -2118,7 +2195,7 @@ export default function tsPlugin(options?: {
           return idx
         }
 
-        super.parsePropertyName(node)
+        this.parsePropertyName(node)
         if (
           !node.computed &&
           node.key.type === 'Identifier' &&
@@ -2126,7 +2203,7 @@ export default function tsPlugin(options?: {
           this.tsTokenCanFollowModifier()
         ) {
           node.kind = node.key.name
-          super.parsePropertyName(node)
+          this.parsePropertyName(node)
         }
         return this.tsParsePropertyOrMethodSignature(node, !!node.readonly)
       }
@@ -2429,8 +2506,8 @@ export default function tsPlugin(options?: {
         isExport?: boolean
       ): Node {
         node.isExport = isExport || false
-        node.id = super.parseIdent()
-        super.checkLValSimple(node.id, BIND_LEXICAL)
+        node.id = this.parseIdent()
+        this.checkLValSimple(node.id, BIND_LEXICAL)
         super.expect(tokTypes.eq)
         const moduleReference = this.tsParseModuleReference()
         if (
@@ -2444,121 +2521,94 @@ export default function tsPlugin(options?: {
         return this.finishNode(node, 'TSImportEqualsDeclaration')
       }
 
-      originParseExport(node, exports) {
-        // export * from '...'
-        if (this.eat(tokTypes.star)) {
-          if (super.options.ecmaVersion >= 11) {
-            if (this.eatContextual('as')) {
-              node.exported = super.parseModuleExportName()
-              super.checkExport(exports, node.exported, super.lastTokStart)
-            } else {
-              node.exported = null
-            }
-          }
-          this.expectContextual('from')
-          if (this.type !== tokTypes.string) this.unexpected()
-          node.source = super.parseExprAtom()
-          super.semicolon()
-          return this.finishNode(node, 'ExportAllDeclaration')
-        }
-        if (this.eat(tokTypes._default)) { // export default ...
-          super.checkExport(exports, 'default', this.lastTokStart)
-          let isAsync
-          if (this.type === tokTypes._function || (isAsync = this.isAsyncFunction())) {
-            let fNode = super.startNode()
-            this.next()
-            if (isAsync) this.next()
-            node.declaration = this.parseFunction(fNode, FUNC_STATEMENT | FUNC_NULLABLE_ID, false, isAsync)
-          } else if (this.type === tokTypes._class) {
-            let cNode = super.startNode()
-            node.declaration = this.parseClass(cNode, 'nullableID')
-          } else {
-            node.declaration = super.parseMaybeAssign()
-            super.semicolon()
-          }
-          return super.finishNode(node, 'ExportDefaultDeclaration')
-        }
-        // export var|const|let|function|class ...
-        if (this.shouldParseExportStatement()) {
-          node.declaration = this.parseExportDeclaration(node)
-          if (node.declaration.type === 'VariableDeclaration')
-            super.checkVariableExport(exports, node.declaration.declarations)
-          else
-            super.checkExport(exports, node.declaration.id, node.declaration.id.start)
-          node.specifiers = []
-          node.source = null
-        } else { // export { x, y as z } [from '...']
-          node.declaration = null
-          const isTypeExport = node.exportKind === 'type'
-          node.specifiers = this.parseExportSpecifiers(exports, isTypeExport)
-          if (this.eatContextual('from')) {
-            if (this.type !== tokTypes.string) this.unexpected()
-            node.source = super.parseExprAtom()
-          } else {
-            for (let spec of node.specifiers) {
-              // check for keywords used as local names
-              super.checkUnreserved(spec.local)
-              // check if export is defined
-              super.checkLocalExport(spec.local)
+      // todo overwritten in parseNew
+      // parseNewCallee(node: N.NewExpression): void {
+      //   super.parseNewCallee(node);
+      //
+      //   const { callee } = node;
+      //   if (
+      //     callee.type === "TSInstantiationExpression" &&
+      //     !callee.extra?.parenthesized
+      //   ) {
+      //     node.typeParameters = callee.typeParameters;
+      //     node.callee = callee.expression;
+      //   }
+      // }
 
-              if (spec.local.type === 'Literal') {
-                super.raise(spec.local.start, 'A string literal cannot be used as an exported binding without `from`.')
-              }
-            }
-
-            node.source = null
-          }
-          super.semicolon()
+      parseNew() {
+        if (this.containsEsc) this.raiseRecoverable(this.start, 'Escape sequence in keyword new')
+        let node = this.startNode()
+        let meta = this.parseIdent(true)
+        if (this.options.ecmaVersion >= 6 && this.eat(tt.dot)) {
+          node.meta = meta
+          let containsEsc = this.containsEsc
+          node.property = this.parseIdent(true)
+          if (node.property.name !== 'target')
+            this.raiseRecoverable(node.property.start, 'The only valid meta property for new is \'new.target\'')
+          if (containsEsc)
+            this.raiseRecoverable(node.start, '\'new.target\' must not contain escaped characters')
+          if (!this.allowNewDotTarget)
+            this.raiseRecoverable(node.start, '\'new.target\' can only be used in functions and class static block')
+          return this.finishNode(node, 'MetaProperty')
         }
-        return super.finishNode(node, 'ExportNamedDeclaration')
+        let startPos = this.start, startLoc = this.startLoc,
+          isImport = this.type === tt._import
+        node.callee = this.parseSubscripts(this.parseExprAtom(), startPos, startLoc, true, false)
+        if (isImport && node.callee.type === 'ImportExpression') {
+          this.raise(startPos, 'Cannot use new with import()')
+        }
+        // ---start parseNewCallee extension
+        const { callee } = node
+        if (
+          callee.type === 'TSInstantiationExpression' &&
+          !callee.extra?.parenthesized
+        ) {
+          node.typeParameters = callee.typeParameters
+          node.callee = callee.expression
+        }
+        // ---end
+        if (this.eat(tt.parenL)) node.arguments = this.parseExprList(tt.parenR, this.options.ecmaVersion >= 8, false)
+        else node.arguments = empty
+        return this.finishNode(node, 'NewExpression')
       }
 
-      originParseImport(node: Node) {
-        if (this.type === tokTypes.string) {
-          node.specifiers = empty
-          node.source = this.parseExprAtom()
-        } else {
-          node.specifiers = this.parseImportSpecifiers()
-          this.expectContextual('from')
-          node.source = this.type === tokTypes.string ? super.parseExprAtom() : this.unexpected()
-        }
-        super.semicolon()
-        return super.finishNode(node, 'ImportDeclaration')
-      }
-
-      originParseClass(node, isStatement) {
-        this.next()
-
-        // ecma-262 14.6 Class Definitions
-        // A class definition is always strict mode code.
-        const oldStrict = this.strict
-        this.strict = true
-
-        this.parseClassId(node, isStatement)
-        this.parseClassSuper(node)
-        const privateNameMap = this.enterClassBody()
-        const classBody = this.startNode()
-        let hadConstructor = false
-        classBody.body = []
-        this.expect(tokTypes.braceL)
-        while (this.type !== tokTypes.braceR) {
-          const element = this.parseClassElement(node.superClass !== null)
-          if (element) {
-            classBody.body.push(element)
-            if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
-              if (hadConstructor) this.raise(element.start, 'Duplicate constructor in the same class')
-              // todo typescript support duplicate constructor
-              // hadConstructor = true
-            } else if (element.key && element.key.type === 'PrivateIdentifier' && isPrivateNameConflicted(privateNameMap, element)) {
-              this.raiseRecoverable(element.key.start, `Identifier '#${element.key.name}' has already been declared`)
-            }
+      parseExprOp(
+        left: Expression,
+        leftStartPos: number,
+        leftStartLoc: Position,
+        minPrec: number,
+        forInit: boolean
+      ): Expression {
+        if (
+          tokTypes._in.binop > minPrec &&
+          !this.hasPrecedingLineBreak() &&
+          this.ts_isContextual(tokTypes.as)
+        ) {
+          const node = this.startNodeAt(
+            leftStartPos,
+            leftStartLoc
+          )
+          node.expression = left
+          const _const = this.tsTryNextParseConstantContext()
+          if (_const) {
+            node.typeAnnotation = _const
+          } else {
+            node.typeAnnotation = this.tsNextThenParseType()
           }
+          this.finishNode(node, 'TSAsExpression')
+          // rescan `<`, `>` because they were scanned when this.state.inType was true
+          this.reScan_lt_gt()
+          return this.parseExprOp(
+            // @ts-expect-error todo(flow->ts)
+            node,
+            leftStartPos,
+            leftStartLoc,
+            minPrec,
+            forInit
+          )
         }
-        this.strict = oldStrict
-        this.next()
-        node.body = this.finishNode(classBody, 'ClassBody')
-        this.exitClassBody()
-        return this.finishNode(node, isStatement ? 'ClassDeclaration' : 'ClassExpression')
+
+        return super.parseExprOp(left, leftStartPos, leftStartLoc, minPrec)
       }
 
       /**
@@ -2596,8 +2646,18 @@ export default function tsPlugin(options?: {
           }
         }
 
-
-        const importNode = this.originParseImport(node)
+        // ---start origin parseImport
+        if (this.type === tokTypes.string) {
+          node.specifiers = empty
+          node.source = this.parseExprAtom()
+        } else {
+          node.specifiers = this.parseImportSpecifiers()
+          this.expectContextual('from')
+          node.source = this.type === tokTypes.string ? this.parseExprAtom() : this.unexpected()
+        }
+        super.semicolon()
+        const importNode = this.finishNode(node, 'ImportDeclaration')
+        // ---end
 
         /*:: invariant(importNode.type !== "TSImportEqualsDeclaration") */
 
@@ -2614,7 +2674,7 @@ export default function tsPlugin(options?: {
         return importNode
       }
 
-      parseExport(node: Node): Node {
+      parseExport(node: Node, exports: any): Node {
         this.next()
         if (this.match(tokTypes._import)) {
           this.next() // eat `tokTypes._import`
@@ -2631,19 +2691,19 @@ export default function tsPlugin(options?: {
             node,
             /* isExport */ true
           )
-        } else if (super.eat(tokTypes.eq)) {
+        } else if (this.eat(tokTypes.eq)) {
           // `export = x;`
           const assign = node
-          assign.expression = super.parseExpression()
-          super.semicolon()
+          assign.expression = this.parseExpression()
+          this.semicolon()
           return this.finishNode(assign, 'TSExportAssignment')
         } else if (this.eatContextual('as')) {
           // `export as namespace A;`
           const decl = node
           // See `parseNamespaceExportDeclaration` in TypeScript's own parser
           this.expectContextual(tsTokenType.namespace)
-          decl.id = super.parseIdent()
-          super.semicolon()
+          decl.id = this.parseIdent()
+          this.semicolon()
           return this.finishNode(decl, 'TSNamespaceExportDeclaration')
         } else {
           if (
@@ -2656,7 +2716,89 @@ export default function tsPlugin(options?: {
             node.exportKind = 'value'
           }
 
-          return this.originParseExport(node)
+          // ---start origin parseExport
+          // export * from '...'
+          if (this.eat(tokTypes.star)) {
+            if (this.options.ecmaVersion >= 11) {
+              if (this.eatContextual('as')) {
+                node.exported = this.parseModuleExportName()
+                this.checkExport(exports, node.exported, this.lastTokStart)
+              } else {
+                node.exported = null
+              }
+            }
+            this.expectContextual('from')
+            if (this.type !== tokTypes.string) this.unexpected()
+            node.source = this.parseExprAtom()
+            this.semicolon()
+            return this.finishNode(node, 'ExportAllDeclaration')
+          }
+          if (this.eat(tokTypes._default)) { // export default ...
+            // ---start ts extension
+            if (this.isAbstractClass()) {
+              const cls = this.startNode<Class>()
+              this.next() // Skip "abstract"
+              cls.abstract = true
+              return this.parseClass(cls, true, true)
+            }
+
+            // export default interface allowed in:
+            // https://github.com/Microsoft/TypeScript/pull/16040
+            if (this.match(tsTokenType.interface)) {
+              const result = this.tsParseInterfaceDeclaration(this.startNode())
+              if (result) return result
+            }
+            // ---end
+            this.checkExport(exports, 'default', this.lastTokStart)
+            let isAsync
+            if (this.type === tokTypes._function || (isAsync = this.isAsyncFunction())) {
+              let fNode = this.startNode()
+              this.next()
+              if (isAsync) this.next()
+              node.declaration = this.parseFunction(fNode, FUNC_STATEMENT | FUNC_NULLABLE_ID, false, isAsync)
+            } else if (this.type === tokTypes._class) {
+              let cNode = this.startNode()
+              node.declaration = this.parseClass(cNode, 'nullableID')
+            } else {
+              node.declaration = this.parseMaybeAssign()
+              this.semicolon()
+            }
+            return this.finishNode(node, 'ExportDefaultDeclaration')
+          }
+          // export var|const|let|function|class ...
+          if (this.shouldParseExportStatement()) {
+            node.declaration = this.parseExportDeclaration(node)
+            if (node.declaration.type === 'VariableDeclaration')
+              this.checkVariableExport(exports, node.declaration.declarations)
+            else
+              this.checkExport(exports, node.declaration.id, node.declaration.id.start)
+            node.specifiers = []
+            node.source = null
+          } else { // export { x, y as z } [from '...']
+            node.declaration = null
+            const isTypeExport = node.exportKind === 'type'
+            node.specifiers = this.parseExportSpecifiers(exports, isTypeExport)
+            if (this.eatContextual('from')) {
+              if (this.type !== tokTypes.string) this.unexpected()
+              node.source = this.parseExprAtom()
+            } else {
+              for (let spec of node.specifiers) {
+                // check for keywords used as local names
+                this.checkUnreserved(spec.local)
+                // check if export is defined
+                this.checkLocalExport(spec.local)
+
+                if (spec.local.type === 'Literal') {
+                  this.raise(spec.local.start, 'A string literal cannot be used as an exported binding without `from`.')
+                }
+              }
+
+              node.source = null
+            }
+            this.semicolon()
+          }
+          return this.finishNode(node, 'ExportNamedDeclaration')
+          // ---end
         }
       }
 
@@ -2738,6 +2880,97 @@ export default function tsPlugin(options?: {
         // }
 
         return super.parseMaybeUnary(refExpressionErrors, sawUnary)
+      }
+
+      parseVar(node, isFor, kind, allowMissingInitializer: boolean = false) {
+        node.declarations = []
+        node.kind = kind
+        for (; ;) {
+          let decl = this.startNode()
+          this.parseVarId(decl, kind)
+          if (this.eat(tokTypes.eq)) {
+            decl.init = this.parseMaybeAssign(isFor)
+          } else if (!allowMissingInitializer && kind === 'const' && !(this.type === tokTypes._in || (this.options.ecmaVersion >= 6 && this.isContextual('of')))) {
+            this.unexpected()
+          } else if (!allowMissingInitializer && decl.id.type !== 'Identifier' && !(isFor && (this.type === tokTypes._in || this.isContextual('of')))) {
+            this.raise(this.lastTokEnd, 'Complex binding patterns require an initialization value')
+          } else {
+            decl.init = null
+          }
+          node.declarations.push(this.finishNode(decl, 'VariableDeclarator'))
+          if (!this.eat(tokTypes.comma)) break
+        }
+        return node
+      }
+
+      parseVarStatement(node, kind, allowMissingInitializer: boolean = false) {
+        const { isAmbientContext } = this
+
+        // ---start origin parseVarStatement
+        this.next()
+        this.parseVar(node, false, kind, allowMissingInitializer || isAmbientContext)
+        this.semicolon()
+        const declaration = this.finishNode(node, 'VariableDeclaration')
+        // ---end
+
+        if (!isAmbientContext) return declaration
+
+        for (const { id, init } of declaration.declarations) {
+          // Empty initializer is the easy case that we want.
+          if (!init) continue
+
+          // var and let aren't ever allowed initializers.
+          //
+          // If a const declaration has no type annotation and is initiailized to
+          // a string literal, numeric literal, or enum reference, then it is
+          // allowed. In an ideal world, we'd check whether init was *actually* an
+          // enum reference, but we allow anything that "could be" a literal enum
+          // in `isPossiblyLiteralEnum` since we don't have all the information
+          // that the typescript compiler has.
+          if (kind !== 'const' || !!id.typeAnnotation) {
+            this.raise(init.start, TSErrors.InitializerNotAllowedInAmbientContext)
+          } else if (
+            init.type !== 'StringLiteral' &&
+            init.type !== 'BooleanLiteral' &&
+            init.type !== 'NumericLiteral' &&
+            init.type !== 'BigIntLiteral' &&
+            (init.type !== 'TemplateLiteral' || init.expressions.length > 0) &&
+            !isPossiblyLiteralEnum(init)
+          ) {
+          }
+          this.raise(
+            init.start,
+            TSErrors.ConstInitiailizerMustBeStringOrNumericLiteralOrLiteralEnumReference
+          )
+        }
+
+        return declaration
+      }
+
+      parseStatement(context: any, topLevel: any, exports: any) {
+        if (this.match(tokTypes._const) && this.isLookaheadContextual('enum')) {
+          const node = this.startNode()
+          this.expect(tokTypes._const) // eat 'const'
+          return this.tsParseEnumDeclaration(node, { const: true })
+        }
+
+        if (this.ts_isContextual(tsTokenType.enum)) {
+          return this.tsParseEnumDeclaration(
+            this.startNode()
+          )
+        }
+
+        if (this.ts_isContextual(tsTokenType.interface)) {
+          const result = this.tsParseInterfaceDeclaration(this.startNode())
+          if (result) return result
+        }
+
+        return super.parseStatement(context, topLevel, exports)
+      }
+
+      // NOTE: unused function
+      parseAccessModifier(): Accessibility | undefined | null {
+        return this.tsParseModifier(['public', 'protected', 'private'])
       }
 
       parsePostMemberNameModifiers(
@@ -3970,7 +4203,40 @@ export default function tsPlugin(options?: {
         const oldInAbstractClass = this.inAbstractClass
         this.inAbstractClass = !!(node as any).abstract
         try {
-          return this.originParseClass(node, isStatement)
+          this.next()
+
+          // ---start origin parseClass
+          // ecma-262 14.6 Class Definitions
+          // A class definition is always strict mode code.
+          const oldStrict = this.strict
+          this.strict = true
+
+          this.parseClassId(node, isStatement)
+          this.parseClassSuper(node)
+          const privateNameMap = this.enterClassBody()
+          const classBody = this.startNode()
+          let hadConstructor = false
+          classBody.body = []
+          this.expect(tokTypes.braceL)
+          while (this.type !== tokTypes.braceR) {
+            const element = this.parseClassElement(node.superClass !== null)
+            if (element) {
+              classBody.body.push(element)
+              if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
+                if (hadConstructor) this.raise(element.start, 'Duplicate constructor in the same class')
+                // todo typescript support duplicate constructor
+                // hadConstructor = true
+              } else if (element.key && element.key.type === 'PrivateIdentifier' && isPrivateNameConflicted(privateNameMap, element)) {
+                this.raiseRecoverable(element.key.start, `Identifier '#${element.key.name}' has already been declared`)
+              }
+            }
+          }
+          this.strict = oldStrict
+          this.next()
+          node.body = this.finishNode(classBody, 'ClassBody')
+          this.exitClassBody()
+          return this.finishNode(node, isStatement ? 'ClassDeclaration' : 'ClassExpression')
+          // ---end
         } finally {
           this.inAbstractClass = oldInAbstractClass
         }
