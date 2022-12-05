@@ -29,7 +29,7 @@ import {
 import {
   ArrayExpression,
   ArrayPattern,
-  ArrowFunctionExpression,
+  ArrowFunctionExpression, BaseNode,
   Class,
   Declaration,
   Expression,
@@ -37,7 +37,7 @@ import {
   ObjectExpression,
   ObjectPattern,
   Pattern,
-  RestElement,
+  RestElement, TaggedTemplateExpression,
   VariableDeclarator
 } from 'estree'
 import { skipWhiteSpaceToLineBreak } from './whitespace'
@@ -85,6 +85,10 @@ function tsIsAccessModifier(modifier: string): modifier is Accessibility {
   return (
     modifier === 'private' || modifier === 'public' || modifier === 'protected'
   )
+}
+
+export function tokenCanStartExpression(token: TokenType): boolean {
+  return Boolean(token.startsExpr)
 }
 
 function nonNull<T>(x?: T | null): T {
@@ -157,6 +161,10 @@ export function tokenIsTSTypeOperator(token: TokenType): boolean {
   ].includes(token)
 }
 
+export function tokenIsTemplate(token: TokenType): boolean {
+  return token >= tokTypes.invalidTemplate
+}
+
 export default function tsPlugin(options?: {
   // default false
   dts?: boolean
@@ -172,6 +180,7 @@ export default function tsPlugin(options?: {
       inType: boolean = false
       inDisallowConditionalTypesContext: boolean = false
       maybeInArrowParameters: boolean = false
+      canStartJSXElement: boolean = false
 
       // ensure that inside types, we bypass the jsx parser plugin
       getTokenFromCode(code: number): void {
@@ -321,10 +330,75 @@ export default function tsPlugin(options?: {
         )
       }
 
+      tsCheckForInvalidTypeCasts(items: Array<Expression | undefined | null>) {
+        items.forEach(node => {
+          if (node?.type === 'TSTypeCastExpression') {
+            this.raise(node.typeAnnotation.start, TSErrors.UnexpectedTypeAnnotation)
+          }
+        })
+      }
+
+      atPossibleAsyncArrow(base: Expression): boolean {
+        return (
+          base.type === 'Identifier' &&
+          base.name === 'async' &&
+          this.lastTokEndLoc.index === base.end &&
+          !this.canInsertSemicolon() &&
+          // check there are no escape sequences, such as \u{61}sync
+          base.end - base.start === 5 &&
+          base.start === this.potentialArrowAt
+        )
+      }
+
       tsIsIdentifier(): boolean {
         // TODO: actually a bit more complex in TypeScript, but shouldn't matter.
         // See https://github.com/Microsoft/TypeScript/issues/15008
         return tokenIsIdentifier(this.type)
+      }
+
+      tsTryParseTypeOrTypePredicateAnnotation() {
+        return this.match(tokTypes.colon)
+          ? this.tsParseTypeOrTypePredicateAnnotation(tokTypes.colon)
+          : undefined
+      }
+
+      tsTryParseGenericAsyncArrowFunction(
+        startPos: number,
+        startLoc: Position,
+        forInit: boolean
+      ): ArrowFunctionExpression | undefined | null {
+        if (!this.match(tokTypes.relational)) {
+          return undefined
+        }
+
+        const oldMaybeInArrowParameters = this.maybeInArrowParameters
+        this.maybeInArrowParameters = true
+
+        const res = this.tsTryParseAndCatch(() => {
+          const node = this.startNodeAt(
+            startPos,
+            startLoc
+          )
+          node.typeParameters = this.tsParseTypeParameters()
+          // Don't use overloaded parseFunctionParams which would look for "<" again.
+          super.parseFunctionParams(node)
+          node.returnType = this.tsTryParseTypeOrTypePredicateAnnotation()
+          this.expect(tokTypes.arrow)
+          return node
+        })
+
+        this.maybeInArrowParameters = oldMaybeInArrowParameters
+
+        if (!res) {
+          return undefined
+        }
+
+        return super.parseArrowExpression(
+          res,
+          /* params are already set */ null,
+          /* async */ true,
+          /* forInit */forInit
+        )
       }
 
       // Used when parsing type arguments from ES productions, where the first token
@@ -2082,6 +2156,21 @@ export default function tsPlugin(options?: {
         if (!this.eat(tokTypes.comma) && !this.isLineTerminator()) {
           this.expect(tokTypes.semi)
         }
+      }
+
+      tsTryParseAndCatch<T extends BaseNode | undefined | null>(
+        f: () => T
+      ): T | undefined | null {
+        const result = this.tryParse(
+          abort =>
+            // @ts-expect-error todo(flow->ts)
+            f() || abort()
+        )
+
+        if (result.aborted || !result.node) return undefined
+        if (result.error) this.setLookaheadState(result.failState)
+        // @ts-expect-error refine typings
+        return result.node
       }
 
       tsParseSignatureMember(
@@ -4018,7 +4107,178 @@ export default function tsPlugin(options?: {
       //   return this.match(tt.colon) || super.shouldParseAsyncArrow()
       // }
 
+      parseTaggedTemplateExpression(
+        base: Expression,
+        startPos: number,
+        startLoc: Position,
+        optionalChainMember: boolean
+      ): TaggedTemplateExpression {
+        const node = this.startNodeAt(
+          startPos,
+          startLoc
+        )
+        node.tag = base
+        node.quasi = this.parseTemplate(true)
+        if (optionalChainMember) {
+          this.raise(startLoc.start, 'Tagged Template Literals are not allowed'
+            + ' in'
+            + ' optionalChain.')
+        }
+        return this.finishNode(node, 'TaggedTemplateExpression')
+      }
+
       parseSubscript(base, startPos, startLoc, noCalls, maybeAsyncArrow, optionalChained, forInit) {
+        let _optionalChained = optionalChained
+        // --- start extend parseSubscript
+        if (
+          !this.hasPrecedingLineBreak() &&
+          // NODE: replace bang
+          this.match(tokTypes.prefix) &&
+          this.value === '!'
+        ) {
+          // When ! is consumed as a postfix operator (non-null assertion),
+          // disallow JSX tag forming after. e.g. When parsing `p! < n.p!`
+          // `<n.p` can not be a start of JSX tag
+          this.canStartJSXElement = false
+          this.next()
+
+          const nonNullExpression = this.startNodeAt(
+            startPos,
+            startLoc
+          )
+          nonNullExpression.expression = base
+          base = this.finishNode(nonNullExpression, 'TSNonNullExpression')
+          return base
+        }
+
+        let isOptionalCall = false
+        if (
+          this.match(tokTypes.questionDot) &&
+          this.lookaheadCharCode() === charCodes.lessThan
+        ) {
+          if (noCalls) {
+            // NODE: we don't need to change state's stop to false.
+            // state.stop = true
+            return base
+          }
+          base.optional = true
+          _optionalChained = isOptionalCall = true
+          this.next()
+        }
+
+        // handles 'f<<T>'
+        if (this.match(tokTypes.relational) || this.match(tokTypes.bitShift)) {
+          let missingParenErrorLoc
+          // tsTryParseAndCatch is expensive, so avoid if not necessary.
+          // There are number of things we are going to "maybe" parse, like type arguments on
+          // tagged template expressions. If any of them fail, walk it back and continue.
+          const result = this.tsTryParseAndCatch(() => {
+            if (!noCalls && this.atPossibleAsyncArrow(base)) {
+              // Almost certainly this is a generic async function `async <T>() => ...
+              // But it might be a call with a type argument `async<T>();`
+              const asyncArrowFn = this.tsTryParseGenericAsyncArrowFunction(
+                startPos,
+                startLoc,
+                forInit
+              )
+              if (asyncArrowFn) {
+                base = asyncArrowFn
+                return base
+              }
+            }
+
+            const typeArguments = this.tsParseTypeArgumentsInExpression()
+            if (!typeArguments) return base
+
+            if (isOptionalCall && !this.match(tokTypes.parenL)) {
+              missingParenErrorLoc = this.curPosition()
+              return base
+            }
+
+            if (tokenIsTemplate(this.type)) {
+              const result = this.parseTaggedTemplateExpression(
+                base,
+                startPos,
+                startLoc,
+                _optionalChained
+              )
+              result.typeParameters = typeArguments
+              base = result
+              return base
+            }
+
+            if (!noCalls && this.eat(tokTypes.parenL)) {
+              let refDestructuringErrors = new DestructuringErrors
+              const node = this.startNodeAt(startPos, startLoc)
+              node.callee = base
+              // possibleAsync always false here, because we would have handled it above.
+              // @ts-expect-error (won't be any undefined arguments)
+              node.arguments = this.parseExprList(
+                tokTypes.parenR,
+                this.options.ecmaVersion >= 8,
+                false,
+                refDestructuringErrors
+              )
+
+              // Handles invalid case: `f<T>(a:b)`
+              this.tsCheckForInvalidTypeCasts(node.arguments)
+
+              node.typeParameters = typeArguments
+              if (_optionalChained) {
+                node.optional = isOptionalCall
+              }
+
+              this.checkExpressionErrors(refDestructuringErrors, true)
+              base = this.finishNode(node, 'CallExpression')
+              return base
+            }
+
+            const tokenType = this.type
+            if (
+              // a<b>>c is not (a<b>)>c, but a<(b>>c)
+              tokenType === tokTypes.relational ||
+              // a<b>>>c is not (a<b>)>>c, but a<(b>>>c)
+              tokenType === tokTypes.bitShift ||
+              // a<b>c is (a<b)>c
+              (tokenType !== tokTypes.parenL &&
+                tokenCanStartExpression(tokenType) &&
+                !this.hasPrecedingLineBreak())
+            ) {
+              // Bail out.
+              return base
+            }
+
+            const node = this.startNodeAt(
+              startPos,
+              startLoc
+            )
+            node.expression = base
+            node.typeParameters = typeArguments
+            base = this.finishNode(node, 'TSInstantiationExpression')
+            return base
+          })
+
+          if (missingParenErrorLoc) {
+            this.unexpected(missingParenErrorLoc, tt.parenL)
+          }
+
+          if (result) {
+            if (
+              result.type === 'TSInstantiationExpression' &&
+              (this.match(tokTypes.dot) ||
+                (this.match(tokTypes.questionDot) &&
+                  this.lookaheadCharCode() !== charCodes.leftParenthesis))
+            ) {
+              this.raise(
+                this.startLoc.start,
+                TSErrors.InvalidPropertyAccessAfterInstantiationExpression
+              )
+            }
+            base = result
+            return base
+          }
+        }
+        // --- end
         let optionalSupported = this.options.ecmaVersion >= 11
         let optional = optionalSupported && this.eat(tokTypes.questionDot)
         if (noCalls && optional) this.raise(this.lastTokStart, 'Optional chaining cannot appear in the callee of new expressions')
@@ -4079,7 +4339,8 @@ export default function tsPlugin(options?: {
           }
           base = this.finishNode(node, 'CallExpression')
         } else if (this.type === tokTypes.backQuote) {
-          if (optional || optionalChained) {
+          // NOTE: change to _optionalChained
+          if (optional || _optionalChained) {
             this.raise(this.start, 'Optional chaining cannot appear in the tag of tagged template expressions')
           }
           let node = this.startNodeAt(startPos, startLoc)
