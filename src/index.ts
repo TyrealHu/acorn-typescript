@@ -2698,11 +2698,11 @@ export default function tsPlugin(options?: {
         let curElt = this.parseTemplateElement({isTagged})
         node.quasis = [curElt]
         while (!curElt.tail) {
-          if (this.type === tt.eof) this.raise(this.pos, "Unterminated template literal")
-          this.expect(tt.dollarBraceL)
+          if (this.type === tokTypes.eof) this.raise(this.pos, "Unterminated template literal")
+          this.expect(tokTypes.dollarBraceL)
           // NOTE: extend parseTemplateSubstitution
           node.expressions.push(this.inType ? this.tsParseType() : this.parseExpression())
-          this.expect(tt.braceR)
+          this.expect(tokTypes.braceR)
           node.quasis.push(curElt = this.parseTemplateElement({isTagged}))
         }
         this.next()
