@@ -1516,7 +1516,7 @@ export default function tsPlugin(options?: {
         } else {
           node.exprName = this.tsParseEntityName()
         }
-        if (!this.hasPrecedingLineBreak() && this.match(tt.lt)) {
+        if (!this.hasPrecedingLineBreak() && this.match(tokTypes.relational)) {
           node.typeParameters = this.tsParseTypeArguments()
         }
         return this.finishNode(node, 'TSTypeQuery')
@@ -2739,7 +2739,7 @@ export default function tsPlugin(options?: {
         if (this.containsEsc) this.raiseRecoverable(this.start, 'Escape sequence in keyword new')
         let node = this.startNode()
         let meta = this.parseIdent(true)
-        if (this.options.ecmaVersion >= 6 && this.eat(tt.dot)) {
+        if (this.options.ecmaVersion >= 6 && this.eat(tokTypes.dot)) {
           node.meta = meta
           let containsEsc = this.containsEsc
           node.property = this.parseIdent(true)
@@ -2752,7 +2752,7 @@ export default function tsPlugin(options?: {
           return this.finishNode(node, 'MetaProperty')
         }
         let startPos = this.start, startLoc = this.startLoc,
-          isImport = this.type === tt._import
+          isImport = this.type === tokTypes._import
         node.callee = this.parseSubscripts(this.parseExprAtom(), startPos, startLoc, true, false)
         if (isImport && node.callee.type === 'ImportExpression') {
           this.raise(startPos, 'Cannot use new with import()')
@@ -2767,7 +2767,7 @@ export default function tsPlugin(options?: {
           node.callee = callee.expression
         }
         // ---end
-        if (this.eat(tt.parenL)) node.arguments = this.parseExprList(tt.parenR, this.options.ecmaVersion >= 8, false)
+        if (this.eat(tokTypes.parenL)) node.arguments = this.parseExprList(tokTypes.parenR, this.options.ecmaVersion >= 8, false)
         else node.arguments = empty
         return this.finishNode(node, 'NewExpression')
       }
@@ -3997,7 +3997,7 @@ export default function tsPlugin(options?: {
             const returnType = this.tsParseTypeOrTypePredicateAnnotation(
               tokTypes.colon
             )
-            if (this.canInsertSemicolon() || !this.match(tt.arrow)) abort()
+            if (this.canInsertSemicolon() || !this.match(tokTypes.arrow)) abort()
             return returnType
           })
 
@@ -4488,7 +4488,7 @@ export default function tsPlugin(options?: {
           })
 
           if (missingParenErrorLoc) {
-            this.unexpected(missingParenErrorLoc, tt.parenL)
+            this.unexpected(missingParenErrorLoc, tokTypes.parenL)
           }
 
           if (result) {
@@ -4670,7 +4670,7 @@ export default function tsPlugin(options?: {
             // end
 
             clause.param = param
-            this.expect(tt.parenR)
+            this.expect(tokTypes.parenR)
           } else {
             if (this.options.ecmaVersion < 10) this.unexpected()
             clause.param = null
