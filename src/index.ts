@@ -32,7 +32,7 @@ import {
   ArrowFunctionExpression, BaseNode,
   Class,
   Declaration,
-  Expression,
+  Expression, FunctionDeclaration,
   Identifier,
   ObjectExpression,
   ObjectPattern,
@@ -56,6 +56,23 @@ function assert(x: boolean): void {
 }
 
 const FUNC_STATEMENT = 1, FUNC_HANGING_STATEMENT = 2, FUNC_NULLABLE_ID = 4
+
+const arcoScope = {
+  SCOPE_TOP: 1,
+  SCOPE_FUNCTION: 2,
+  SCOPE_ASYNC: 4,
+  SCOPE_GENERATOR: 8,
+  SCOPE_ARROW: 16,
+  SCOPE_SIMPLE_CATCH: 32,
+  SCOPE_SUPER: 64,
+  SCOPE_DIRECT_SUPER: 128,
+  SCOPE_CLASS_STATIC_BLOCK: 256,
+  SCOPE_VAR: arcoScope.SCOPE_TOP | arcoScope.SCOPE_FUNCTION | arcoScope.SCOPE_CLASS_STATIC_BLOCK
+}
+
+function functionFlags(async, generator) {
+  return arcoScope.SCOPE_FUNCTION | (async ? arcoScope.SCOPE_ASYNC : 0) | (generator ? arcoScope.SCOPE_GENERATOR : 0)
+}
 
 function isPossiblyLiteralEnum(expression: Expression): boolean {
   if (expression.type !== 'MemberExpression') return false
@@ -2624,6 +2641,100 @@ export default function tsPlugin(options?: {
       //   }
       // }
 
+      // todo we don't support export default from now
+      isExportDefaultSpecifier(): boolean {
+        if (this.tsIsDeclarationStart()) return false
+
+        const { type } = this
+        if (tokenIsIdentifier(type)) {
+          if ((type === tsTokenType.async && !this.containsEsc) || type === tsTokenType.let) {
+            return false
+          }
+          if (
+            (type === tsTokenType.type || type === tsTokenType.interface) &&
+            !this.containsEsc
+          ) {
+            const { type: nextType } = this.lookahead()
+            // If we see any variable name other than `from` after `type` keyword,
+            // we consider it as flow/typescript type exports
+            // note that this approach may fail on some pedantic cases
+            // export type from = number
+            if (
+              (tokenIsIdentifier(nextType) && nextType !== tsTokenType.from) ||
+              nextType === tokTypes.braceL
+            ) {
+              return false
+            }
+          }
+        } else if (!this.match(tokTypes._default)) {
+          return false
+        }
+
+        const next = this.nextTokenStart()
+        const hasFrom = this.isUnparsedContextual(next, 'from')
+        if (
+          this.input.charCodeAt(next) === charCodes.comma ||
+          (tokenIsIdentifier(this.type) && hasFrom)
+        ) {
+          return true
+        }
+        // lookahead again when `export default from` is seen
+        if (this.match(tokTypes._default) && hasFrom) {
+          const nextAfterFrom = this.input.charCodeAt(
+            this.nextTokenStartSince(next + 4)
+          )
+          return (
+            nextAfterFrom === charCodes.quotationMark ||
+            nextAfterFrom === charCodes.apostrophe
+          )
+        }
+        return false
+      }
+
+      parseTemplate({isTagged = false} = {}) {
+        let node = this.startNode()
+        this.next()
+        node.expressions = []
+        let curElt = this.parseTemplateElement({isTagged})
+        node.quasis = [curElt]
+        while (!curElt.tail) {
+          if (this.type === tt.eof) this.raise(this.pos, "Unterminated template literal")
+          this.expect(tt.dollarBraceL)
+          // NOTE: extend parseTemplateSubstitution
+          node.expressions.push(this.inType ? this.tsParseType() : this.parseExpression())
+          this.expect(tt.braceR)
+          node.quasis.push(curElt = this.parseTemplateElement({isTagged}))
+        }
+        this.next()
+        return this.finishNode(node, "TemplateLiteral")
+      }
+
+      parseFunctionBodyAndFinish(node: Node, type: string, isMethod: boolean = false) {
+        if (this.match(tokTypes.colon)) {
+          node.returnType = this.tsParseTypeOrTypePredicateAnnotation(tokTypes.colon)
+        }
+
+        const bodilessType =
+          type === 'FunctionDeclaration'
+            ? 'TSDeclareFunction'
+            : type === 'ClassMethod' || type === 'ClassPrivateMethod'
+              ? 'TSDeclareMethod'
+              : undefined
+        if (bodilessType && !this.match(tokTypes.braceL) && this.isLineTerminator()) {
+          return this.finishNode(node, bodilessType)
+        }
+        if (bodilessType === 'TSDeclareFunction' && this.isAmbientContext) {
+          this.raise(node.start, TSErrors.DeclareFunctionHasImplementation)
+          if ((node as FunctionDeclaration).declare) {
+            this.parseFunctionBody(node, false, isMethod, false)
+            return this.finishNode(node, bodilessType)
+          }
+        }
+
+        this.parseFunctionBody(node, false, isMethod, false)
+        return this.finishNode(node, type)
+      }
+
       parseNew() {
         if (this.containsEsc) this.raiseRecoverable(this.start, 'Escape sequence in keyword new')
         let node = this.startNode()
@@ -4626,11 +4737,34 @@ export default function tsPlugin(options?: {
         isAsync: boolean,
         allowDirectSuper: boolean
       ) {
-        const method = super.parseMethod(
-          isGenerator,
-          isAsync,
-          allowDirectSuper
+        let node = this.startNode(), oldYieldPos = this.yieldPos,
+          oldAwaitPos = this.awaitPos, oldAwaitIdentPos = this.awaitIdentPos
+
+        this.initFunction(node)
+        if (this.options.ecmaVersion >= 6)
+          node.generator = isGenerator
+        if (this.options.ecmaVersion >= 8)
+          node.async = !!isAsync
+
+        this.yieldPos = 0
+        this.awaitPos = 0
+        this.awaitIdentPos = 0
+        this.enterScope(
+          functionFlags(isAsync, node.generator) |
+          arcoScope.SCOPE_SUPER |
+          (allowDirectSuper ? arcoScope.SCOPE_DIRECT_SUPER : 0)
         )
+
+        this.expect(tokTypes.parenL)
+        node.params = this.parseBindingList(tokTypes.parenR, false, this.options.ecmaVersion >= 8)
+        this.checkYieldAwaitInDefaultParams()
+        this.parseFunctionBody(node, false, true, false)
+        const finishNode = this.parseFunctionBodyAndFinish(node, 'FunctionExpression', true)
+        this.yieldPos = oldYieldPos
+        this.awaitPos = oldAwaitPos
+        this.awaitIdentPos = oldAwaitIdentPos
+        const method = finishNode
+
         // @ts-expect-error todo(flow->ts) property not defined for all types in union
         if (method.abstract) {
           const hasBody = !!method.body
@@ -4732,12 +4866,9 @@ export default function tsPlugin(options?: {
 
           const isMaybeTypeOnly = this.ts_isContextual(tsTokenType.type)
           const isString = this.match(tokTypes.string)
+          // todo support exportDefaultFrom
+          // const isDefaultSpecifier = this.isExportDefaultSpecifier()
           let node = this.startNode()
-          this.checkExport(
-            exports,
-            node.exported,
-            node.exported.start
-          )
 
           if (!isString && isMaybeTypeOnly) {
             this.parseTypeOnlyImportExportSpecifier(
@@ -4757,6 +4888,12 @@ export default function tsPlugin(options?: {
             }
             this.finishNode(node, 'ExportSpecifier')
           }
+
+          this.checkExport(
+            exports,
+            node.exported,
+            node.exported.start
+          )
 
           nodes.push(node)
         }
