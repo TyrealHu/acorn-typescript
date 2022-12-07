@@ -67,7 +67,7 @@ const arcoScope = {
   SCOPE_SUPER: 64,
   SCOPE_DIRECT_SUPER: 128,
   SCOPE_CLASS_STATIC_BLOCK: 256,
-  SCOPE_VAR: arcoScope.SCOPE_TOP | arcoScope.SCOPE_FUNCTION | arcoScope.SCOPE_CLASS_STATIC_BLOCK
+  SCOPE_VAR: 256
 }
 
 function functionFlags(async, generator) {
@@ -318,9 +318,9 @@ export default function tsPlugin(options?: {
         node: Node,
         endLoc: Position = this.lastTokEndLoc
       ): void {
-        node.end = endLoc.index
+        node.end = endLoc.column
         node.loc.end = endLoc
-        if (this.options.ranges) node.range[1] = endLoc.index
+        if (this.options.ranges) node.range[1] = endLoc.column
       }
 
       startNodeAtNode(type: Node): Node {
@@ -3807,6 +3807,7 @@ export default function tsPlugin(options?: {
         const type = this.tsTryParseTypeAnnotation()
         if (type) {
           decl.id.typeAnnotation = type
+          debugger
           this.resetEndLocation(decl.id) // set end position to end of type
         }
       }

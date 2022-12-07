@@ -1,9 +1,14 @@
 import * as acorn from 'acorn'
 import tsPlugin from './src'
 
-acorn.Parser.extend(tsPlugin()).parse(`
+const node = acorn.Parser.extend(tsPlugin()).parse(`
+const message: number = 1
 export type Test = '111111'
 `, {
   sourceType: 'module',
-  ecmaVersion: 'latest'
+  ecmaVersion: 'latest',
+  locations: true
 })
+
+console.log(node)
+debugger
