@@ -700,29 +700,6 @@ export default function tsPlugin(options?: {
         }
       }
 
-      nextToken() {
-        // @ts-ignore
-        let curContext = this.curContext()
-        // @ts-ignore
-        if (!curContext || !curContext.preserveSpace) this.skipSpace()
-
-        this.start = this.pos
-        if (this.options.locations && !this.isLookahead) {
-          // @ts-ignore
-          this.startLoc = this.curPosition()
-        }
-        if (this.pos >= this.input.length) {
-          return this.finishToken(tokTypes.eof)
-        }
-
-        if (curContext.override) {
-          return curContext.override(this)
-        } else {
-          // @ts-ignore
-          this.readToken(this.fullCharCodeAtPos())
-        }
-      }
-
       resetStartLocation(node: Node, start: number, startLoc: Position): void {
         node.start = start
         node.loc.start = startLoc

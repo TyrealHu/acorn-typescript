@@ -1,10 +1,7 @@
 import * as acorn from 'acorn'
 import tsPlugin from './src'
 
-const node = acorn.Parser.extend(tsPlugin()).parse(`
-const message: number = 1 
-export type Test = '111111'
-`, {
+const node = acorn.Parser.extend(tsPlugin()).parse(`import './index.js'`, {
   sourceType: 'module',
   ecmaVersion: 'latest',
   locations: true

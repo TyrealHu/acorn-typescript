@@ -11,7 +11,7 @@
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "removeComments": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "strict": false
   },
   "include": ["./src/*", "./types/*"],
