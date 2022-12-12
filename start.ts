@@ -1,5 +1,5 @@
 import * as acorn from 'acorn'
-import tsPlugin from './src'
+import tsPlugin from './'
 
 const node = acorn.Parser.extend(tsPlugin()).parse(`import './index.js'`, {
   sourceType: 'module',

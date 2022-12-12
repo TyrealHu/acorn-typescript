@@ -1,4 +1,4 @@
-import acorn, {
+import {
   tokTypes,
   // @ts-ignore
   keywordTypes,
@@ -6,7 +6,8 @@ import acorn, {
   tokContexts,
   isIdentifierChar,
   Position,
-  lineBreak
+  lineBreak,
+  Options
 } from 'acorn'
 import * as charCodes from 'charcodes'
 import type { Node, TokenType, Parser as AcornParser } from 'acorn'
@@ -225,27 +226,9 @@ export default function tsPlugin(options?: {
       maybeInArrowParameters: boolean = false
       canStartJSXElement: boolean = false
 
-      // ensure that inside types, we bypass the jsx parser plugin
-      private startLoc: any
-      private pos: number
-      private lastTokEndLoc: acorn.Position
-      private potentialArrowAt: any
-      private context: any
-      private value: string
-      private keywords: RegExp
-      // @ts-ignore
-      private endLoc: any
-      private lastTokEnd: number
-      private containsEsc: boolean
-      private lastTokStart: number
-      private allowNewDotTarget: boolean
-      private allowSuper: boolean
-      private allowDirectSuper: boolean
-      private lastTokStartLoc: any
-      private awaitIdentPos: any
-      private strict: any
-      private yieldPos: any
-      private awaitPos: any
+      constructor(options: Options, input: string, startPos?: number) {
+        super(options, input, startPos)
+      }
 
       getTokenFromCode(code: number): void {
         if (this.inType) {
@@ -342,14 +325,14 @@ export default function tsPlugin(options?: {
       ) {
         refExpressionErrors.optionalParametersLoc =
 
-          resultError?.loc ?? this.startLoc
+          resultError?.loc ?? this['startLoc']
       }
 
       // used after we have finished parsing types
       reScan_lt_gt() {
         const { type } = this
         if (type === tokTypes.relational) {
-          this.pos -= 1
+          this['pos'] -= 1
           // @ts-ignore
           this.readToken_lt_gt(this.fullCharCodeAtPos())
         }
@@ -358,7 +341,7 @@ export default function tsPlugin(options?: {
       reScan_lt() {
         const { type } = this
         if (type === tokTypes.bitShift) {
-          this.pos -= 2
+          this['pos'] -= 2
           // @ts-ignore
           this.finishOp(tokTypes.relational, 1)
           return tokTypes.relational
@@ -368,7 +351,7 @@ export default function tsPlugin(options?: {
 
       resetEndLocation(
         node: any,
-        endLoc: Position = this.lastTokEndLoc
+        endLoc: Position = this['lastTokEndLoc']
       ): void {
         node.end = endLoc.column
         node.loc.end = endLoc
@@ -381,7 +364,7 @@ export default function tsPlugin(options?: {
       }
 
       nextTokenStart(): number {
-        return this.nextTokenStartSince(this.pos)
+        return this.nextTokenStartSince(this['pos'])
       }
 
       tsHasSomeModifiers(member: any, modifiers: readonly TsModifier[]): boolean {
@@ -413,14 +396,14 @@ export default function tsPlugin(options?: {
           base.type === 'Identifier' &&
           base.name === 'async' &&
           // @ts-ignore
-          this.lastTokEndLoc.column === base.end &&
+          this['lastTokEndLoc'].column === base.end &&
           // @ts-ignore
           !this.canInsertSemicolon() &&
           // check there are no escape sequences, such as \u{61}sync
           // @ts-ignore
           base.end - base.start === 5 &&
           // @ts-ignore
-          base.start === this.potentialArrowAt
+          base.start === this['potentialArrowAt']
         )
       }
 
@@ -489,12 +472,12 @@ export default function tsPlugin(options?: {
       }
 
       tsInNoContext<T>(cb: () => T): T {
-        const oldContext = this.context
-        this.context = [oldContext[0]]
+        const oldContext = this['context']
+        this['context'] = [oldContext[0]]
         try {
           return cb()
         } finally {
-          this.context = oldContext
+          this['context'] = oldContext
         }
       }
 
@@ -541,21 +524,21 @@ export default function tsPlugin(options?: {
       }
 
       createLookaheadState() {
-        this.value = null
+        this['value'] = null
         // @ts-ignore
-        this.context = [this.curContext()]
+        this['context'] = [this.curContext()]
       }
 
       getCurLookaheadState(): LookaheadState {
         return {
-          pos: this.pos,
-          value: this.value,
+          pos: this['pos'],
+          value: this['value'],
           type: this.type,
           start: this.start,
           end: this.end,
-          context: this.context,
-          startLoc: this.startLoc,
-          lastTokEndLoc: this.lastTokEndLoc,
+          context: this['context'],
+          startLoc: this['startLoc'],
+          lastTokEndLoc: this['lastTokEndLoc'],
           curLine: this.curLine,
           lineStart: this.lineStart,
           // @ts-ignore
@@ -566,9 +549,9 @@ export default function tsPlugin(options?: {
       cloneCurLookaheadState(): LookaheadState {
         return {
           // number
-          pos: this.pos,
+          pos: this['pos'],
           // str
-          value: this.value,
+          value: this['value'],
           // type
           type: this.type,
           // number
@@ -576,11 +559,11 @@ export default function tsPlugin(options?: {
           // number
           end: this.end,
           // array
-          context: this.context && this.context.slice(),
+          context: this['context'] && this['context'].slice(),
           // Position
-          startLoc: this.startLoc,
+          startLoc: this['startLoc'],
           // Position
-          lastTokEndLoc: this.lastTokEndLoc,
+          lastTokEndLoc: this['lastTokEndLoc'],
           // number
           curLine: this.curLine,
           // number
@@ -592,14 +575,14 @@ export default function tsPlugin(options?: {
       }
 
       setLookaheadState(state: LookaheadState) {
-        this.pos = state.pos
-        this.value = state.value
+        this['pos'] = state.pos
+        this['value'] = state.value
         this.type = state.type
         this.start = state.start
         this.end = state.end
-        this.context = state.context
-        this.startLoc = state.startLoc
-        this.lastTokEndLoc = state.lastTokEndLoc
+        this['context'] = state.context
+        this['startLoc'] = state.startLoc
+        this['lastTokEndLoc'] = state.lastTokEndLoc
         this.curLine = state.curLine
         this.lineStart = state.lineStart
         // @ts-ignore
@@ -635,7 +618,7 @@ export default function tsPlugin(options?: {
         let word = this.readWord1()
         let type = tokTypes.name
 
-        if (this.keywords.test(word)) {
+        if (this['keywords'].test(word)) {
           type = keywordTypes[word]
         } else if (new RegExp(tsKeywordsRegExp).test(word)) {
           type = tsTokenType[word]
@@ -648,11 +631,11 @@ export default function tsPlugin(options?: {
         let startLoc
         // @ts-ignore
         if (!this.isLookahead) startLoc = this.options.onComment && this.curPosition()
-        let start = this.pos, end = this.input.indexOf('*/', this.pos += 2)
-        if (end === -1) this.raise(this.pos - 2, 'Unterminated comment')
-        this.pos = end + 2
+        let start = this['pos'], end = this.input.indexOf('*/', this['pos'] += 2)
+        if (end === -1) this.raise(this['pos'] - 2, 'Unterminated comment')
+        this['pos'] = end + 2
         if (this.options.locations) {
-          for (let nextBreak, pos = start; (nextBreak = nextLineBreak(this.input, pos, this.pos)) > -1;) {
+          for (let nextBreak, pos = start; (nextBreak = nextLineBreak(this.input, pos, this['pos'])) > -1;) {
             ++this.curLine
             pos = this.lineStart = nextBreak
           }
@@ -662,37 +645,37 @@ export default function tsPlugin(options?: {
 
         if (this.options.onComment)
           // @ts-ignore
-          this.options.onComment(true, this.input.slice(start + 2, end), start, this.pos,
+          this.options.onComment(true, this.input.slice(start + 2, end), start, this['pos'],
             // @ts-ignore
             startLoc, this.curPosition())
       }
 
       skipLineComment(startSkip) {
-        let start = this.pos
+        let start = this['pos']
         let startLoc
         // @ts-ignore
         if (!this.isLookahead) startLoc = this.options.onComment && this.curPosition()
-        let ch = this.input.charCodeAt(this.pos += startSkip)
-        while (this.pos < this.input.length && !isNewLine(ch)) {
-          ch = this.input.charCodeAt(++this.pos)
+        let ch = this.input.charCodeAt(this['pos'] += startSkip)
+        while (this['pos'] < this.input.length && !isNewLine(ch)) {
+          ch = this.input.charCodeAt(++this['pos'])
         }
 
         if (this.isLookahead) return
 
         if (this.options.onComment)
           // @ts-ignore
-          this.options.onComment(false, this.input.slice(start + startSkip, this.pos), start, this.pos,
+          this.options.onComment(false, this.input.slice(start + startSkip, this['pos']), start, this['pos'],
             // @ts-ignore
             startLoc, this.curPosition())
       }
 
       finishToken(type: TokenType, val?: string) {
-        this.end = this.pos
+        this.end = this['pos']
         // @ts-ignore
         if (this.options.locations) this.endLoc = this.curPosition()
         let prevType = this.type
         this.type = type
-        this.value = val
+        this['value'] = val
 
         if (!this.isLookahead) {
           // @ts-ignore
@@ -747,7 +730,7 @@ export default function tsPlugin(options?: {
 
       hasPrecedingLineBreak(): boolean {
         return lineBreak.test(
-          this.input.slice(this.lastTokEnd, this.start)
+          this.input.slice(this['lastTokEnd'], this.start)
         )
       }
 
@@ -786,7 +769,7 @@ export default function tsPlugin(options?: {
        * @returns {boolean}
        * */
       ts_isContextual(token: TokenType): boolean {
-        return this.type === token && !this.containsEsc
+        return this.type === token && !this['containsEsc']
       }
 
       tsIsStartOfMappedType(): boolean {
@@ -828,7 +811,7 @@ export default function tsPlugin(options?: {
        * @returns {boolean}
        * */
       ts_type_isContextual(type: TokenType, token: TokenType): boolean {
-        return type === token && !this.containsEsc
+        return type === token && !this['containsEsc']
       }
 
       tsTryParseType(): Node | undefined | null {
@@ -905,7 +888,7 @@ export default function tsPlugin(options?: {
         // Computed property names are grammar errors in an enum, so accept just string literal or identifier.
         node.id = this.match(tokTypes.string)
           // @ts-ignore
-          ? this.parseLiteral(this.value)
+          ? this.parseLiteral(this['value'])
           // @ts-ignore
           : this.parseIdent(/* liberal */ true)
         // @ts-ignore
@@ -973,7 +956,7 @@ export default function tsPlugin(options?: {
           node.id = this.parseIdent()
         } else if (this.match(tokTypes.string)) {
           // @ts-ignore
-          node.id = this.parseLiteral(this.value)
+          node.id = this.parseLiteral(this['value'])
         } else {
           // @ts-ignore
           this.unexpected()
@@ -1034,7 +1017,7 @@ export default function tsPlugin(options?: {
           if (starttype === tokTypes._const || starttype === tokTypes._var) {
             if (!this.match(tokTypes._const) || !this.isLookaheadContextual('enum')) {
               nany.declare = true
-              return this.parseVarStatement(nany, kind || this.value, true)
+              return this.parseVarStatement(nany, kind || this['value'], true)
             }
 
             // `const enum = 0;` not allowed because "enum" is a strict mode reserved word.
@@ -1056,7 +1039,7 @@ export default function tsPlugin(options?: {
           if (tokenIsIdentifier(starttype)) {
             return this.tsParseDeclaration(
               nany,
-              this.value,
+              this['value'],
               /* next */ true
             )
           }
@@ -1107,7 +1090,7 @@ export default function tsPlugin(options?: {
           result.push(element)
           // @ts-ignore
           if (this.eat(tokTypes.comma)) {
-            trailingCommaPos = this.lastTokStart
+            trailingCommaPos = this['lastTokStart']
             continue
           }
 
@@ -1317,14 +1300,14 @@ export default function tsPlugin(options?: {
         if (this.type !== tsTokenType.asserts) {
           return false
         }
-        const containsEsc = this.containsEsc
+        const containsEsc = this['containsEsc']
         this.next()
         if (!tokenIsIdentifier(this.type) && !this.match(tokTypes._this)) {
           return false
         }
 
         if (containsEsc) {
-          this.raise(this.lastTokStart, 'Escape sequence in keyword'
+          this.raise(this['lastTokStart'], 'Escape sequence in keyword'
             + ' asserts')
         }
 
@@ -1545,7 +1528,7 @@ export default function tsPlugin(options?: {
       tsParseTypeOperator(): Node {
         // @ts-ignore
         const node = this.startNode()
-        const operator = this.value
+        const operator = this['value']
         this.next() // eat operator
         node.operator = operator
         node.typeAnnotation = this.tsParseTypeOperatorOrHigher()
@@ -1669,7 +1652,7 @@ export default function tsPlugin(options?: {
         this.expect(tokTypes.braceL)
 
         if (this.match(tokTypes.plusMin)) {
-          node.readonly = this.value
+          node.readonly = this['value']
           this.next()
           // @ts-ignore
           this.expectContextual('readonly')
@@ -1684,7 +1667,7 @@ export default function tsPlugin(options?: {
         this.expect(tokTypes.bracketR)
 
         if (this.match(tokTypes.plusMin)) {
-          node.optional = this.value
+          node.optional = this['value']
           this.next()
           // @ts-ignore
           this.expect(tokTypes.question)
@@ -1712,7 +1695,8 @@ export default function tsPlugin(options?: {
       tsParseTupleElementType(): Node {
         // parses `...TsType[]`
 
-        const { start: startPos, startLoc } = this
+        const startLoc = this["startLoc"]
+        const startPos = this["start"]
         // @ts-ignore
         const rest = this.eat(tokTypes.ellipsis)
         let type: any = this.tsParseType()
@@ -1845,7 +1829,7 @@ export default function tsPlugin(options?: {
           case tokTypes._false:
             return this.tsParseLiteralTypeNode()
           case tokTypes.plusMin:
-            if (this.value === '-') {
+            if (this['value'] === '-') {
               // @ts-ignore
               const node = this.startNode()
               const nextToken = this.lookahead()
@@ -1901,7 +1885,7 @@ export default function tsPlugin(options?: {
                   ? 'TSVoidKeyword'
                   : type === tokTypes._null
                     ? 'TSNullKeyword'
-                    : keywordTypeFromName(this.value)
+                    : keywordTypeFromName(this['value'])
               if (
                 nodeType !== undefined &&
                 this.lookaheadCharCode() !== charCodes.dot
@@ -1946,7 +1930,7 @@ export default function tsPlugin(options?: {
 
       tsParseTypeOperatorOrHigher(): Node {
         const isTypeOperator =
-          tokenIsTSTypeOperator(this.type) && !this.containsEsc
+          tokenIsTSTypeOperator(this.type) && !this['containsEsc']
         return isTypeOperator
           ? this.tsParseTypeOperator()
           : this.ts_isContextual(tsTokenType.infer)
@@ -2186,7 +2170,7 @@ export default function tsPlugin(options?: {
           return undefined
         }
 
-        const modifier = this.value
+        const modifier = this['value']
         // @ts-ignore
         if (allowedModifiers.indexOf(modifier) !== -1) {
           if (stopOnStartOfClassStaticBlock && this.tsIsStartOfStaticBlocks()) {
@@ -2244,7 +2228,7 @@ export default function tsPlugin(options?: {
         }
 
         for (; ;) {
-          const { startLoc } = this
+          const startLoc = this["startLoc"]
           const modifier: TsModifier | undefined | null = this.tsParseModifier(
             allowedModifiers.concat(disallowedModifiers ?? []),
             stopOnStartOfClassStaticBlock
@@ -2643,12 +2627,12 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         const isLet = this.isLet()
         if (tokenIsIdentifier(type)) {
-          if ((isAsync && !this.containsEsc) || isLet) {
+          if ((isAsync && !this['containsEsc']) || isLet) {
             return false
           }
           if (
             (type === tsTokenType.type || type === tsTokenType.interface) &&
-            !this.containsEsc
+            !this['containsEsc']
           ) {
             const { type: nextType } = this.lookahead()
             // If we see any variable name other than `from` after `type` keyword,
@@ -2821,7 +2805,7 @@ export default function tsPlugin(options?: {
         return this.tsParseDeclaration(
           // @ts-ignore
           this.startNode(),
-          this.value,
+          this['value'],
           /* next */ true
         )
       }
@@ -2870,12 +2854,12 @@ export default function tsPlugin(options?: {
 
         const { type } = this
         if (tokenIsIdentifier(type)) {
-          if ((type === tsTokenType.async && !this.containsEsc) || type === tsTokenType.let) {
+          if ((type === tsTokenType.async && !this['containsEsc']) || type === tsTokenType.let) {
             return false
           }
           if (
             (type === tsTokenType.type || type === tsTokenType.interface) &&
-            !this.containsEsc
+            !this['containsEsc']
           ) {
             const { type: nextType } = this.lookahead()
             // If we see any variable name other than `from` after `type` keyword,
@@ -2923,7 +2907,7 @@ export default function tsPlugin(options?: {
         let curElt = this.parseTemplateElement({ isTagged })
         node.quasis = [curElt]
         while (!curElt.tail) {
-          if (this.type === tokTypes.eof) this.raise(this.pos, 'Unterminated template literal')
+          if (this.type === tokTypes.eof) this.raise(this['pos'], 'Unterminated template literal')
           // @ts-ignore
           this.expect(tokTypes.dollarBraceL)
           // NOTE: extend parseTemplateSubstitution
@@ -2968,7 +2952,7 @@ export default function tsPlugin(options?: {
       }
 
       parseNew() {
-        if (this.containsEsc) this.raiseRecoverable(this.start, 'Escape sequence in keyword new')
+        if (this['containsEsc']) this.raiseRecoverable(this.start, 'Escape sequence in keyword new')
         // @ts-ignore
         let node = this.startNode()
         // @ts-ignore
@@ -2976,18 +2960,18 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         if (this.options.ecmaVersion >= 6 && this.eat(tokTypes.dot)) {
           node.meta = meta
-          let containsEsc = this.containsEsc
+          let containsEsc = this['containsEsc']
           // @ts-ignore
           node.property = this.parseIdent(true)
           if (node.property.name !== 'target')
             this.raiseRecoverable(node.property.start, 'The only valid meta property for new is \'new.target\'')
           if (containsEsc)
             this.raiseRecoverable(node.start, '\'new.target\' must not contain escaped characters')
-          if (!this.allowNewDotTarget)
+          if (!this['allowNewDotTarget'])
             this.raiseRecoverable(node.start, '\'new.target\' can only be used in functions and class static block')
           return this.finishNode(node, 'MetaProperty')
         }
-        let startPos = this.start, startLoc = this.startLoc,
+        let startPos = this.start, startLoc = this['startLoc'],
           isImport = this.type === tokTypes._import
         // @ts-ignore
         node.callee = this.parseSubscripts(this.parseExprAtom(), startPos, startLoc, true, false)
@@ -3179,7 +3163,7 @@ export default function tsPlugin(options?: {
                 // @ts-ignore
                 node.exported = this.parseModuleExportName()
                 // @ts-ignore
-                this.checkExport(exports, node.exported, this.lastTokStart)
+                this.checkExport(exports, node.exported, this['lastTokStart'])
               } else {
                 // @ts-ignore
                 node.exported = null
@@ -3215,7 +3199,7 @@ export default function tsPlugin(options?: {
             }
             // ---end
             // @ts-ignore
-            this.checkExport(exports, 'default', this.lastTokStart)
+            this.checkExport(exports, 'default', this['lastTokStart'])
             let isAsync
             // @ts-ignore
             if (this.type === tokTypes._function || (isAsync = this.isAsyncFunction())) {
@@ -3381,15 +3365,15 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         if (this.type === tokTypes.slash) this.readRegexp()
 
-        let node, canBeArrow = this.potentialArrowAt === this.start
+        let node, canBeArrow = this['potentialArrowAt'] === this.start
         switch (this.type) {
           case tokTypes._super:
-            if (!this.allowSuper)
+            if (!this['allowSuper'])
               this.raise(this.start, '\'super\' keyword outside a method')
             // @ts-ignore
             node = this.startNode()
             this.next()
-            if (this.type === tokTypes.parenL && !this.allowDirectSuper)
+            if (this.type === tokTypes.parenL && !this['allowDirectSuper'])
               this.raise(node.start, 'super() call outside constructor of a subclass')
             // The `super` keyword can appear at below:
             // SuperProperty:
@@ -3409,8 +3393,8 @@ export default function tsPlugin(options?: {
             return this.finishNode(node, 'ThisExpression')
 
           case tokTypes.name:
-            let startPos = this.start, startLoc = this.startLoc,
-              containsEsc = this.containsEsc
+            let startPos = this.start, startLoc = this['startLoc'],
+              containsEsc = this['containsEsc']
             // @ts-ignore
             let id = this.parseIdent(false)
             // @ts-ignore
@@ -3428,7 +3412,7 @@ export default function tsPlugin(options?: {
                 return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
               if (this.options.ecmaVersion >= 8 && id.name === 'async' && this.type === tokTypes.name && !containsEsc &&
                 // @ts-ignore
-                (!this.potentialArrowInForAwait || this.value !== 'of' || this.containsEsc)) {
+                (!this.potentialArrowInForAwait || this['value'] !== 'of' || this['containsEsc'])) {
                 // @ts-ignore
                 id = this.parseIdent(false)
                 // @ts-ignore
@@ -3442,7 +3426,7 @@ export default function tsPlugin(options?: {
             return id
 
           case tokTypes.regexp:
-            let value = this.value
+            let value = this['value']
             // @ts-ignore
             node = this.parseLiteral(value.value)
             // @ts-ignore
@@ -3452,7 +3436,7 @@ export default function tsPlugin(options?: {
           case tokTypes.num:
           case tokTypes.string:
             // @ts-ignore
-            return this.parseLiteral(this.value)
+            return this.parseLiteral(this['value'])
 
           case tokTypes._null:
           case tokTypes._true:
@@ -3540,7 +3524,7 @@ export default function tsPlugin(options?: {
             this.unexpected()
             // @ts-ignore
           } else if (!allowMissingInitializer && decl.id.type !== 'Identifier' && !(isFor && (this.type === tokTypes._in || this.isContextual('of')))) {
-            this.raise(this.lastTokEnd, 'Complex binding patterns require an initialization value')
+            this.raise(this['lastTokEnd'], 'Complex binding patterns require an initialization value')
           } else {
             decl.init = null
           }
@@ -3688,7 +3672,7 @@ export default function tsPlugin(options?: {
       }
 
       parseMaybeConditional(forInit, refDestructuringErrors) {
-        let startPos = this.start, startLoc = this.startLoc
+        let startPos = this.start, startLoc = this['startLoc']
         // @ts-ignore
         let expr = this.parseExprOps(forInit, refDestructuringErrors)
         // @ts-ignore
@@ -3722,7 +3706,7 @@ export default function tsPlugin(options?: {
 
       parseParenItem(node: Expression) {
         const startPos = this.start
-        const startLoc = this.startLoc
+        const startLoc = this['startLoc']
         // @ts-ignore
         node = super.parseParenItem(node)
         // @ts-ignore
@@ -3759,7 +3743,7 @@ export default function tsPlugin(options?: {
 
         // Store original location/position
         const startPos = this.start
-        const startLoc = this.startLoc
+        const startLoc = this['startLoc']
 
         const isDeclare = this.eatContextual('declare')
 
@@ -3852,11 +3836,11 @@ export default function tsPlugin(options?: {
           !(field.readonly && !field.typeAnnotation) &&
           this.match(tokTypes.eq)
         ) {
-          this.raise(this.startLoc, TypeScriptError.DeclareClassFieldHasInitializer)
+          this.raise(this['startLoc'], TypeScriptError.DeclareClassFieldHasInitializer)
         }
         if (field.abstract && this.match(tokTypes.eq)) {
           const { key } = field
-          this.raise(this.startLoc, TypeScriptError.AbstractPropertyHasInitializer({
+          this.raise(this['startLoc'], TypeScriptError.AbstractPropertyHasInitializer({
             propertyName:
               key.type === 'Identifier' && !field.computed
                 ? key.name
@@ -3897,7 +3881,7 @@ export default function tsPlugin(options?: {
 
       parseClassElementName(element) {
         if (this.type === tokTypes.privateId) {
-          if (this.value === 'constructor') {
+          if (this['value'] === 'constructor') {
             this.raise(this.start, 'Classes can\'t have an element named \'#constructor\'')
           }
           element.computed = false
@@ -4009,7 +3993,7 @@ export default function tsPlugin(options?: {
               isGenerator = true
             }
             if (!keyName && !isAsync && !isGenerator) {
-              const lastValue = this.value
+              const lastValue = this['value']
               if (this.eatContextual('get') || this.eatContextual('set')) {
                 // @ts-ignore
                 if (this.isClassElementNameStart()) {
@@ -4027,7 +4011,7 @@ export default function tsPlugin(options?: {
               // The last token is any of those. Make it the element name.
               node.computed = false
               // @ts-ignore
-              node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
+              node.key = this.startNodeAt(this['lastTokStart'], this['lastTokStartLoc'])
               node.key.name = keyName
               this.finishNode(node.key, 'Identifier')
             } else {
@@ -4159,7 +4143,7 @@ export default function tsPlugin(options?: {
           !this.hasPrecedingLineBreak() &&
           // todo bang : type === prefix && value === '!'
           // @ts-ignore
-          (this.eat(tokTypes.prefix) && this.value === '!')
+          (this.eat(tokTypes.prefix) && this['value'] === '!')
         ) {
           // @ts-ignore
           decl.definite = true
@@ -4228,7 +4212,7 @@ export default function tsPlugin(options?: {
           // Remove `tc.j_expr` or `tc.j_oTag` from context added
           // by parsing `jsxTagStart` to stop the JSX plugin from
           // messing with the tokens
-          const { context } = this
+          const context = this["context"]
           // @ts-ignore
           const currentContext = context[context.length - 1]
 
@@ -4622,21 +4606,21 @@ export default function tsPlugin(options?: {
       // }
 
       parseParenAndDistinguishExpression(canBeArrow, forInit) {
-        let startPos = this.start, startLoc = this.startLoc, val,
+        let startPos = this.start, startLoc = this['startLoc'], val,
           allowTrailingComma = this.options.ecmaVersion >= 8
         if (this.options.ecmaVersion >= 6) {
           this.next()
 
-          let innerStartPos = this.start, innerStartLoc = this.startLoc
+          let innerStartPos = this.start, innerStartLoc = this['startLoc']
           let exprList = [], first = true, lastIsComma = false
           let refDestructuringErrors = new DestructuringErrors,
             // @ts-ignore
-            oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
+            oldYieldPos = this['yieldPos'], oldAwaitPos = this['awaitPos'],
             spreadStart
           // @ts-ignore
-          this.yieldPos = 0
+          this['yieldPos'] = 0
           // @ts-ignore
-          this.awaitPos = 0
+          this['awaitPos'] = 0
           // Do not save awaitIdentPos to allow checking awaits nested in parameters
           while (this.type !== tokTypes.parenR) {
             // @ts-ignore
@@ -4671,7 +4655,7 @@ export default function tsPlugin(options?: {
               exprList.push(this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem))
             }
           }
-          let innerEndPos = this.lastTokEnd, innerEndLoc = this.lastTokEndLoc
+          let innerEndPos = this['lastTokEnd'], innerEndLoc = this['lastTokEndLoc']
           // @ts-ignore
           this.expect(tokTypes.parenR)
 
@@ -4699,20 +4683,20 @@ export default function tsPlugin(options?: {
             // @ts-ignore
             this.checkYieldAwaitInDefaultParams()
             // @ts-ignore
-            this.yieldPos = oldYieldPos
+            this['yieldPos'] = oldYieldPos
             // @ts-ignore
-            this.awaitPos = oldAwaitPos
+            this['awaitPos'] = oldAwaitPos
             return this.parseArrowExpression(arrowNode, exprList, false, forInit)
           }
 
-          if (!exprList.length || lastIsComma) this.unexpected(this.lastTokStart)
+          if (!exprList.length || lastIsComma) this.unexpected(this['lastTokStart'])
           if (spreadStart) this.unexpected(spreadStart)
           // @ts-ignore
           this.checkExpressionErrors(refDestructuringErrors, true)
           // @ts-ignore
-          this.yieldPos = oldYieldPos || this.yieldPos
+          this['yieldPos'] = oldYieldPos || this['yieldPos']
           // @ts-ignore
-          this.awaitPos = oldAwaitPos || this.awaitPos
+          this['awaitPos'] = oldAwaitPos || this['awaitPos']
 
           if (exprList.length > 1) {
             // @ts-ignore
@@ -4773,7 +4757,7 @@ export default function tsPlugin(options?: {
           !this.hasPrecedingLineBreak() &&
           // NODE: replace bang
           this.match(tokTypes.prefix) &&
-          this.value === '!'
+          this['value'] === '!'
         ) {
           // When ! is consumed as a postfix operator (non-null assertion),
           // disallow JSX tag forming after. e.g. When parsing `p! < n.p!`
@@ -4911,7 +4895,7 @@ export default function tsPlugin(options?: {
                   this.lookaheadCharCode() !== charCodes.leftParenthesis))
             ) {
               this.raise(
-                this.startLoc.start,
+                this['startLoc'].start,
                 TypeScriptError.InvalidPropertyAccessAfterInstantiationExpression
               )
             }
@@ -4923,7 +4907,7 @@ export default function tsPlugin(options?: {
         let optionalSupported = this.options.ecmaVersion >= 11
         // @ts-ignore
         let optional = optionalSupported && this.eat(tokTypes.questionDot)
-        if (noCalls && optional) this.raise(this.lastTokStart, 'Optional chaining cannot appear in the callee of new expressions')
+        if (noCalls && optional) this.raise(this['lastTokStart'], 'Optional chaining cannot appear in the callee of new expressions')
         // @ts-ignore
         let computed = this.eat(tokTypes.bracketL)
         // @ts-ignore
@@ -4952,15 +4936,15 @@ export default function tsPlugin(options?: {
         } else if (!noCalls && this.eat(tokTypes.parenL)) {
           let refDestructuringErrors = new DestructuringErrors,
             // @ts-ignore
-            oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
+            oldYieldPos = this['yieldPos'], oldAwaitPos = this['awaitPos'],
             // @ts-ignore
-            oldAwaitIdentPos = this.awaitIdentPos
+            oldAwaitIdentPos = this['awaitIdentPos']
           // @ts-ignore
-          this.yieldPos = 0
+          this['yieldPos'] = 0
           // @ts-ignore
-          this.awaitPos = 0
+          this['awaitPos'] = 0
           // @ts-ignore
-          this.awaitIdentPos = 0
+          this['awaitIdentPos'] = 0
           // @ts-ignore
           let exprList = this.parseExprList(tokTypes.parenR, this.options.ecmaVersion >= 8, false, refDestructuringErrors)
 
@@ -4978,26 +4962,26 @@ export default function tsPlugin(options?: {
             // @ts-ignore
             this.checkYieldAwaitInDefaultParams()
             // @ts-ignore
-            if (this.awaitIdentPos > 0)
+            if (this['awaitIdentPos'] > 0)
               // @ts-ignore
-              this.raise(this.awaitIdentPos, 'Cannot use \'await\' as identifier inside an async function')
+              this.raise(this['awaitIdentPos'], 'Cannot use \'await\' as identifier inside an async function')
             // @ts-ignore
-            this.yieldPos = oldYieldPos
+            this['yieldPos'] = oldYieldPos
             // @ts-ignore
-            this.awaitPos = oldAwaitPos
+            this['awaitPos'] = oldAwaitPos
             // @ts-ignore
-            this.awaitIdentPos = oldAwaitIdentPos
+            this['awaitIdentPos'] = oldAwaitIdentPos
             // @ts-ignore
             return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), exprList, true, forInit)
           }
           // @ts-ignore
           this.checkExpressionErrors(refDestructuringErrors, true)
           // @ts-ignore
-          this.yieldPos = oldYieldPos || this.yieldPos
+          this['yieldPos'] = oldYieldPos || this['yieldPos']
           // @ts-ignore
-          this.awaitPos = oldAwaitPos || this.awaitPos
+          this['awaitPos'] = oldAwaitPos || this['awaitPos']
           // @ts-ignore
-          this.awaitIdentPos = oldAwaitIdentPos || this.awaitIdentPos
+          this['awaitIdentPos'] = oldAwaitIdentPos || this['awaitIdentPos']
           // @ts-ignore
           let node = this.startNodeAt(startPos, startLoc)
           node.callee = base
@@ -5037,7 +5021,7 @@ export default function tsPlugin(options?: {
           this.unexpected()
         // @ts-ignore
         if (this.eat(tokTypes.colon)) {
-          prop.value = isPattern ? this.parseMaybeDefault(this.start, this.startLoc) : this.parseMaybeAssign(false, refDestructuringErrors)
+          prop.value = isPattern ? this.parseMaybeDefault(this.start, this['startLoc']) : this.parseMaybeAssign(false, refDestructuringErrors)
           prop.kind = 'init'
         } else if (this.options.ecmaVersion >= 6 && this.type === tokTypes.parenL) {
           // @ts-ignore
@@ -5078,8 +5062,8 @@ export default function tsPlugin(options?: {
           if (isGenerator || isAsync) this.unexpected()
           // @ts-ignore
           this.checkUnreserved(prop.key)
-          if (prop.key.name === 'await' && !this.awaitIdentPos)
-            this.awaitIdentPos = startPos
+          if (prop.key.name === 'await' && !this['awaitIdentPos'])
+            this['awaitIdentPos'] = startPos
           prop.kind = 'init'
           if (isPattern) {
             // @ts-ignore
@@ -5160,8 +5144,8 @@ export default function tsPlugin(options?: {
           // ---start origin parseClass
           // ecma-262 14.6 Class Definitions
           // A class definition is always strict mode code.
-          const oldStrict = this.strict
-          this.strict = true
+          const oldStrict = this['strict']
+          this['strict'] = true
 
           this.parseClassId(node, isStatement)
           this.parseClassSuper(node)
@@ -5186,7 +5170,7 @@ export default function tsPlugin(options?: {
               }
             }
           }
-          this.strict = oldStrict
+          this['strict'] = oldStrict
           this.next()
           // @ts-ignore
           node.body = this.finishNode(classBody, 'ClassBody')
@@ -5205,8 +5189,8 @@ export default function tsPlugin(options?: {
         allowDirectSuper?: boolean
       ) {
         // @ts-ignore
-        let node = this.startNode(), oldYieldPos = this.yieldPos,
-          oldAwaitPos = this.awaitPos, oldAwaitIdentPos = this.awaitIdentPos
+        let node = this.startNode(), oldYieldPos = this['yieldPos'],
+          oldAwaitPos = this['awaitPos'], oldAwaitIdentPos = this['awaitIdentPos']
         // @ts-ignore
         this.initFunction(node)
         if (this.options.ecmaVersion >= 6)
@@ -5214,9 +5198,9 @@ export default function tsPlugin(options?: {
         if (this.options.ecmaVersion >= 8)
           node.async = !!isAsync
 
-        this.yieldPos = 0
-        this.awaitPos = 0
-        this.awaitIdentPos = 0
+        this['yieldPos'] = 0
+        this['awaitPos'] = 0
+        this['awaitIdentPos'] = 0
         // @ts-ignore
         this.enterScope(
           functionFlags(isAsync, node.generator) |
@@ -5232,9 +5216,9 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         this.parseFunctionBody(node, false, true, false)
         const finishNode = this.parseFunctionBodyAndFinish(node, 'FunctionExpression', true)
-        this.yieldPos = oldYieldPos
-        this.awaitPos = oldAwaitPos
-        this.awaitIdentPos = oldAwaitIdentPos
+        this['yieldPos'] = oldYieldPos
+        this['awaitPos'] = oldAwaitPos
+        this['awaitIdentPos'] = oldAwaitIdentPos
         const method = finishNode
 
         // @ts-expect-error todo(flow->ts) property not defined for all types in union
@@ -5257,19 +5241,22 @@ export default function tsPlugin(options?: {
         return method
       }
 
-      parse() {
+      static parse(input: string, options: Options) {
+        const parser = new this(options, input)
         if (dts) {
-          this.isAmbientContext = true
+          parser.isAmbientContext = true
         }
-        return super.parse()
+        return parser.parse()
       }
 
-      parseExpressionAt() {
+      static parseExpressionAt(input: string, pos: number, options: Options) {
+        const parser = new this(options, input, pos)
         if (dts) {
-          this.isAmbientContext = true
+          parser.isAmbientContext = true
         }
+        parser.nextToken()
         // @ts-ignore
-        return super.parseExpressionAt()
+        return parser.parseExpressionAt()
       }
 
       parseImportSpecifiers() {
