@@ -10,3 +10,7 @@ export function parseSource(input: string) {
     locations: true
   })
 }
+
+export function generateSource(input: string[]): string {
+  return input.join('\n')
+}
