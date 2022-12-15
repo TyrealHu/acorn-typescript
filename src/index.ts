@@ -3332,7 +3332,7 @@ export default function tsPlugin(options?: {
           }
         }
         // @ts-ignore
-        super.toAssignableList(exprList, isBinding)
+        return super.toAssignableList(exprList, isBinding)
       }
 
       reportReservedArrowTypeParam(node: any) {
@@ -5336,6 +5336,7 @@ export default function tsPlugin(options?: {
         // export { x, y as z } [from '...']
         // @ts-ignore
         this.expect(tokTypes.braceL)
+        debugger
         // @ts-ignore
         while (!this.eat(tokTypes.braceR)) {
           if (!first) {
@@ -5362,15 +5363,14 @@ export default function tsPlugin(options?: {
             )
             this.finishNode(node, 'ExportSpecifier')
           } else {
+            // @ts-ignore
+            node.local = this.parseModuleExportName()
             node.exportKind = 'value'
             // @ts-ignore
             if (this.eatContextual(tsTokenType.as)) {
               // @ts-ignore
               node.exported = this.parseModuleExportName()
-            } else if (isString) {
-              // @ts-ignore
-              node.exported = this.copyNode(node.local)
-            } else if (!node.exported) {
+            } else {
               // @ts-ignore
               node.exported = this.copyNode(node.local)
             }
