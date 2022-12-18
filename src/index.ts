@@ -772,6 +772,18 @@ export default function tsPlugin(options?: {
         return this.type === token && !this['containsEsc']
       }
 
+      isContextual(keyword: string): boolean {
+        switch (keyword) {
+          case 'let': {
+            return this.ts_isContextual(tsTokenType.let)
+          }
+          default: {
+            // @ts-ignore
+            return super.isContextual(keyword)
+          }
+        }
+      }
+
       tsIsStartOfMappedType(): boolean {
         this.next()
         // @ts-ignore
