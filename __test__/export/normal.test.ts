@@ -52,13 +52,14 @@ describe('normal export', () => {
 
   it('export', () => {
     const node = parseSource(generateSource([
+      `const Name = 'tyreal'`,
+      `let Age = 22`,
       `export {`,
-      `  test: 1`,
-      `  testFunction: '123'`,
+      `  Name,`,
+      `  Age`,
       `}`
     ]))
 
-    // expect(node).toEqual(NormalExportSnapshot.ExportConst)
-    console.log(JSON.stringify(node, null, 2))
+    expect(node).toEqual(NormalExportSnapshot.Export)
   })
 })

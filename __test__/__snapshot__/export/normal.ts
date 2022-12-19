@@ -728,6 +728,272 @@ const NormalExportSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  Export: {
+    'type': 'Program',
+    'start': 0,
+    'end': 59,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0
+      },
+      'end': {
+        'line': 6,
+        'column': 1
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 21,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 21
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 6,
+            'end': 21,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 6
+              },
+              'end': {
+                'line': 1,
+                'column': 21
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 6,
+              'end': 10,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 6
+                },
+                'end': {
+                  'line': 1,
+                  'column': 10
+                }
+              },
+              'name': 'Name'
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 13,
+              'end': 21,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 13
+                },
+                'end': {
+                  'line': 1,
+                  'column': 21
+                }
+              },
+              'value': 'tyreal',
+              'raw': '\'tyreal\''
+            }
+          }
+        ],
+        'kind': 'const'
+      },
+      {
+        'type': 'VariableDeclaration',
+        'start': 22,
+        'end': 34,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0
+          },
+          'end': {
+            'line': 2,
+            'column': 12
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 26,
+            'end': 34,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 4
+              },
+              'end': {
+                'line': 2,
+                'column': 12
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 26,
+              'end': 29,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 4
+                },
+                'end': {
+                  'line': 2,
+                  'column': 7
+                }
+              },
+              'name': 'Age'
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 32,
+              'end': 34,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 10
+                },
+                'end': {
+                  'line': 2,
+                  'column': 12
+                }
+              },
+              'value': 22,
+              'raw': '22'
+            }
+          }
+        ],
+        'kind': 'let'
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 35,
+        'end': 59,
+        'loc': {
+          'start': {
+            'line': 3,
+            'column': 0
+          },
+          'end': {
+            'line': 6,
+            'column': 1
+          }
+        },
+        'exportKind': 'value',
+        'declaration': null,
+        'specifiers': [
+          {
+            'type': 'ExportSpecifier',
+            'start': 46,
+            'end': 50,
+            'loc': {
+              'start': {
+                'line': 4,
+                'column': 2
+              },
+              'end': {
+                'line': 4,
+                'column': 6
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 46,
+              'end': 50,
+              'loc': {
+                'start': {
+                  'line': 4,
+                  'column': 2
+                },
+                'end': {
+                  'line': 4,
+                  'column': 6
+                }
+              },
+              'name': 'Name'
+            },
+            'exportKind': 'value',
+            'exported': {
+              'type': 'Identifier',
+              'start': 46,
+              'end': 50,
+              'loc': {
+                'start': {
+                  'line': 4,
+                  'column': 2
+                },
+                'end': {
+                  'line': 4,
+                  'column': 6
+                }
+              },
+              'name': 'Name'
+            }
+          },
+          {
+            'type': 'ExportSpecifier',
+            'start': 54,
+            'end': 57,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 2
+              },
+              'end': {
+                'line': 5,
+                'column': 5
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 54,
+              'end': 57,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 2
+                },
+                'end': {
+                  'line': 5,
+                  'column': 5
+                }
+              },
+              'name': 'Age'
+            },
+            'exportKind': 'value',
+            'exported': {
+              'type': 'Identifier',
+              'start': 54,
+              'end': 57,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 2
+                },
+                'end': {
+                  'line': 5,
+                  'column': 5
+                }
+              },
+              'name': 'Age'
+            }
+          }
+        ],
+        'source': null
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
