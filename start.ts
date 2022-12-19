@@ -2,8 +2,8 @@ import * as acorn from 'acorn'
 import tsPlugin from './src/index'
 
 const node = acorn.Parser.extend(tsPlugin()).parse(`
-const Name = 'tyreal'
-let Age = 22
+type Name = 'tyreal'
+type Age = 22
 export {
   Name,
   Age

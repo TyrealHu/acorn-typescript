@@ -631,7 +631,8 @@ export default function tsPlugin(options?: {
         let startLoc
         // @ts-ignore
         if (!this.isLookahead) startLoc = this.options.onComment && this.curPosition()
-        let start = this['pos'], end = this.input.indexOf('*/', this['pos'] += 2)
+        let start = this['pos'],
+          end = this.input.indexOf('*/', this['pos'] += 2)
         if (end === -1) this.raise(this['pos'] - 2, 'Unterminated comment')
         this['pos'] = end + 2
         if (this.options.locations) {
@@ -1707,8 +1708,8 @@ export default function tsPlugin(options?: {
       tsParseTupleElementType(): Node {
         // parses `...TsType[]`
 
-        const startLoc = this["startLoc"]
-        const startPos = this["start"]
+        const startLoc = this['startLoc']
+        const startPos = this['start']
         // @ts-ignore
         const rest = this.eat(tokTypes.ellipsis)
         let type: any = this.tsParseType()
@@ -2240,7 +2241,7 @@ export default function tsPlugin(options?: {
         }
 
         for (; ;) {
-          const startLoc = this["startLoc"]
+          const startLoc = this['startLoc']
           const modifier: TsModifier | undefined | null = this.tsParseModifier(
             allowedModifiers.concat(disallowedModifiers ?? []),
             stopOnStartOfClassStaticBlock
@@ -2344,7 +2345,7 @@ export default function tsPlugin(options?: {
         )
 
         if (!delimitedList.length) {
-          this.raise(originalStart, TypeScriptError.EmptyHeritageClauseType({token}))
+          this.raise(originalStart, TypeScriptError.EmptyHeritageClauseType({ token }))
         }
 
         return delimitedList
@@ -3515,10 +3516,124 @@ export default function tsPlugin(options?: {
             }
 
           default:
-            // @ts-ignore
-            this.unexpected()
+            if (tokenIsIdentifier(this.type)) {
+              // if (
+              //   this.ts_isContextual(tsTokenType.module) &&
+              //   this.lookaheadCharCode() === charCodes.leftCurlyBrace &&
+              //   !this.hasFollowingLineBreak()
+              // ) {
+              //   return this.parseModuleExpression();
+              // }
+              const canBeArrow = this['potentialArrowAt'] === this.start
+              const containsEsc = this['containsEsc']
+              // @ts-ignore
+              const id = this.parseIdent()
+
+              if (
+                !containsEsc &&
+                id.name === 'async' &&
+                // @ts-ignore
+                !this.canInsertSemicolon()
+              ) {
+                const { type } = this
+                if (type === tokTypes._function) {
+                  this.next()
+                  // @ts-ignore
+                  return this.parseFunction(
+                    this.startNodeAtNode(id),
+                    undefined,
+                    true,
+                    true,
+                    forInit
+                  )
+                } else if (tokenIsIdentifier(type)) {
+                  // If the next token begins with "=", commit to parsing an async
+                  // arrow function. (Peeking ahead for "=" lets us avoid a more
+                  // expensive full-token lookahead on this common path.)
+                  if (this.lookaheadCharCode() === charCodes.equalsTo) {
+                    // although `id` is not used in async arrow unary function,
+                    // we don't need to reset `async`'s trailing comments because
+                    // it will be attached to the upcoming async arrow binding identifier
+                    // @ts-ignore
+                    if (this.canInsertSemicolon() || !this.eat(tt.arrow))
+                      // @ts-ignore
+                      this.unexpected()
+
+                    return this.parseArrowExpression(
+                      this.startNodeAtNode(id),
+                      [id], true, forInit
+                    )
+                  } else {
+                    // Otherwise, treat "async" as an identifier and let calling code
+                    // deal with the current tt.name token.
+                    return id
+                  }
+                }
+                // todo supprt parse do
+                // else if (type === tokTypes._do) {
+                //   this.resetPreviousNodeTrailingComments(id);
+                //   return this.parseDo(this.startNodeAtNode(id), true);
+                // }
+              }
+
+              if (
+                canBeArrow &&
+                this.match(tokTypes.arrow) &&
+                // @ts-ignore
+                !this.canInsertSemicolon()
+              ) {
+                this.next()
+                return this.parseArrowExpression(
+                  this.startNodeAtNode(id),
+                  [id],
+                  false,
+                  forInit
+                )
+              }
+
+              return id
+            } else {
+              // @ts-ignore
+              this.unexpected()
+            }
         }
       }
+
+      // @ts-ignore
+      parseIdent(liberal?: boolean, isBinding?: boolean) {
+        // @ts-ignore
+        var node = this.startNode()
+        if (this.type === tokTypes.name) {
+          node.name = this['value']
+        } else if (tokenIsKeywordOrIdentifier(this.type)) {
+          node.name = this['value']
+        } else if (this.type.keyword) {
+          node.name = this.type.keyword
+
+          // To fix https://github.com/acornjs/acorn/issues/575
+          // `class` and `function` keywords push new context into this.context.
+          // But there is no chance to pop the context if the keyword is consumed as an identifier such as a property name.
+          // If the previous token is a dot, this does not apply because the context-managing code already ignored the keyword
+          if ((node.name === 'class' || node.name === 'function') &&
+            (this["lastTokEnd"] !== this["lastTokStart"] + 1 || this.input.charCodeAt(this["lastTokStart"]) !== 46)) {
+            this["context"].pop()
+          }
+        } else {
+          // @ts-ignore
+          this.unexpected()
+        }
+        // @ts-ignore
+        this.next(!!liberal)
+        this.finishNode(node, 'Identifier')
+        if (!liberal) {
+          // @ts-ignore
+          this.checkUnreserved(node)
+          if (node.name === 'await' && !this["awaitIdentPos"]) {
+            this["awaitIdentPos"] = node.start
+          }
+        }
+        return node
+      };
 
       parseVar(node, isFor, kind, allowMissingInitializer: boolean = false) {
         node.declarations = []
@@ -4224,7 +4339,7 @@ export default function tsPlugin(options?: {
           // Remove `tc.j_expr` or `tc.j_oTag` from context added
           // by parsing `jsxTagStart` to stop the JSX plugin from
           // messing with the tokens
-          const context = this["context"]
+          const context = this['context']
           // @ts-ignore
           const currentContext = context[context.length - 1]
 
@@ -4667,7 +4782,8 @@ export default function tsPlugin(options?: {
               exprList.push(this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem))
             }
           }
-          let innerEndPos = this['lastTokEnd'], innerEndLoc = this['lastTokEndLoc']
+          let innerEndPos = this['lastTokEnd'],
+            innerEndLoc = this['lastTokEndLoc']
           // @ts-ignore
           this.expect(tokTypes.parenR)
 
@@ -5202,7 +5318,8 @@ export default function tsPlugin(options?: {
       ) {
         // @ts-ignore
         let node = this.startNode(), oldYieldPos = this['yieldPos'],
-          oldAwaitPos = this['awaitPos'], oldAwaitIdentPos = this['awaitIdentPos']
+          oldAwaitPos = this['awaitPos'],
+          oldAwaitIdentPos = this['awaitIdentPos']
         // @ts-ignore
         this.initFunction(node)
         if (this.options.ecmaVersion >= 6)
