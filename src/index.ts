@@ -75,7 +75,7 @@ function tsIsVarianceAnnotations(
 // @ts-ignore
 const FUNC_STATEMENT = 1, FUNC_HANGING_STATEMENT = 2, FUNC_NULLABLE_ID = 4
 
-const arcoScope = {
+const acornScope = {
   SCOPE_TOP: 1,
   SCOPE_FUNCTION: 2,
   SCOPE_ASYNC: 4,
@@ -96,7 +96,7 @@ const arcoScope = {
 }
 
 function functionFlags(async, generator) {
-  return arcoScope.SCOPE_FUNCTION | (async ? arcoScope.SCOPE_ASYNC : 0) | (generator ? arcoScope.SCOPE_GENERATOR : 0)
+  return acornScope.SCOPE_FUNCTION | (async ? acornScope.SCOPE_ASYNC : 0) | (generator ? acornScope.SCOPE_GENERATOR : 0)
 }
 
 function isPossiblyLiteralEnum(expression: Expression): boolean {
@@ -2935,7 +2935,74 @@ export default function tsPlugin(options?: {
         return this.finishNode(node, 'TemplateLiteral')
       }
 
-      parseFunctionBodyAndFinish(node: Node, type: string, isMethod: boolean = false) {
+      parseFunction(
+        node: any,
+        statement?: any,
+        // @ts-ignore
+        allowExpressionBody?: boolean,
+        isAsync?: boolean,
+        // @ts-ignore
+        forInit?: boolean
+      ) {
+        // @ts-ignore
+        this.initFunction(node)
+        if (this.options.ecmaVersion >= 9 || this.options.ecmaVersion >= 6 && !isAsync) {
+          if (this.type === tokTypes.star && (statement && FUNC_HANGING_STATEMENT))
+            // @ts-ignore
+            this.unexpected()
+          // @ts-ignore
+          node.generator = this.eat(tokTypes.star)
+        }
+        if (this.options.ecmaVersion >= 8)
+          node.async = !!isAsync
+
+        if (statement && FUNC_STATEMENT) {
+          node.id = (statement && FUNC_NULLABLE_ID) && this.type !== tokTypes.name ? null : this.parseIdent()
+          if (node.id && !(statement && FUNC_HANGING_STATEMENT))
+            // If it is a regular function declaration in sloppy mode, then it is
+            // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
+            // mode depends on properties of the current scope (see
+            // treatFunctionsAsVar).
+            // @ts-ignore
+            this.checkLValSimple(
+              node.id,
+              (this['strict'] || node.generator || node.async) ?
+                this['treatFunctionsAsVar'] ?
+                  acornScope.BIND_VAR : acornScope.BIND_LEXICAL : acornScope.BIND_FUNCTION
+            )
+        }
+
+        let oldYieldPos = this['yieldPos'], oldAwaitPos = this['awaitPos'],
+          oldAwaitIdentPos = this['awaitIdentPos']
+        this['yieldPos'] = 0
+        this['awaitPos'] = 0
+        this['awaitIdentPos'] = 0
+        // @ts-ignore
+        this.enterScope(functionFlags(node.async, node.generator))
+
+        if (!(statement && FUNC_STATEMENT))
+          node.id = this.type === tokTypes.name ? this.parseIdent() : null
+
+        this.parseFunctionParams(node)
+        const finishNode = this.parseFunctionBodyAndFinish(
+          node,
+          (statement && FUNC_STATEMENT) ? 'FunctionDeclaration' : 'FunctionExpression',
+          false,
+          forInit
+        )
+
+        this['yieldPos'] = oldYieldPos
+        this['awaitPos'] = oldAwaitPos
+        this['awaitIdentPos'] = oldAwaitIdentPos
+        return finishNode
+      }
+
+      parseFunctionBodyAndFinish(
+        node: Node,
+        type: string,
+        isMethod: boolean = false,
+        forInit: boolean = false
+      ) {
         if (this.match(tokTypes.colon)) {
           // @ts-ignore
           node.returnType = this.tsParseTypeOrTypePredicateAnnotation(tokTypes.colon)
@@ -2960,7 +3027,7 @@ export default function tsPlugin(options?: {
           }
         }
         // @ts-ignore
-        this.parseFunctionBody(node, false, isMethod, false)
+        this.parseFunctionBody(node, false, isMethod, forInit)
         return this.finishNode(node, type)
       }
 
@@ -3615,8 +3682,8 @@ export default function tsPlugin(options?: {
           // But there is no chance to pop the context if the keyword is consumed as an identifier such as a property name.
           // If the previous token is a dot, this does not apply because the context-managing code already ignored the keyword
           if ((node.name === 'class' || node.name === 'function') &&
-            (this["lastTokEnd"] !== this["lastTokStart"] + 1 || this.input.charCodeAt(this["lastTokStart"]) !== 46)) {
-            this["context"].pop()
+            (this['lastTokEnd'] !== this['lastTokStart'] + 1 || this.input.charCodeAt(this['lastTokStart']) !== 46)) {
+            this['context'].pop()
           }
         } else {
           // @ts-ignore
@@ -3628,8 +3695,8 @@ export default function tsPlugin(options?: {
         if (!liberal) {
           // @ts-ignore
           this.checkUnreserved(node)
-          if (node.name === 'await' && !this["awaitIdentPos"]) {
-            this["awaitIdentPos"] = node.start
+          if (node.name === 'await' && !this['awaitIdentPos']) {
+            this['awaitIdentPos'] = node.start
           }
         }
         return node
@@ -5226,7 +5293,7 @@ export default function tsPlugin(options?: {
             // @ts-ignore
             this.enterScope(simple ? SCOPE_SIMPLE_CATCH : 0)
             // @ts-ignore
-            this.checkLValPattern(param, simple ? arcoScope.BIND_SIMPLE_CATCH : arcoScope.BIND_LEXICAL)
+            this.checkLValPattern(param, simple ? acornScope.BIND_SIMPLE_CATCH : acornScope.BIND_LEXICAL)
 
             // start add ts support
             const type = this.tsTryParseTypeAnnotation()
@@ -5333,8 +5400,8 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         this.enterScope(
           functionFlags(isAsync, node.generator) |
-          arcoScope.SCOPE_SUPER |
-          (allowDirectSuper ? arcoScope.SCOPE_DIRECT_SUPER : 0)
+          acornScope.SCOPE_SUPER |
+          (allowDirectSuper ? acornScope.SCOPE_DIRECT_SUPER : 0)
         )
         // @ts-ignore
         this.expect(tokTypes.parenL)
@@ -5397,7 +5464,7 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           node.local = this.parseIdent()
           // @ts-ignore
-          this.checkLValSimple(node.local, arcoScope.BIND_LEXICAL)
+          this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
           nodes.push(this.finishNode(node, 'ImportDefaultSpecifier'))
           // @ts-ignore
           if (!super.eat(tokTypes.comma)) return nodes
@@ -5411,7 +5478,7 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           node.local = this.parseIdent()
           // @ts-ignore
-          this.checkLValSimple(node.local, arcoScope.BIND_LEXICAL)
+          this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
           nodes.push(this.finishNode(node, 'ImportNamespaceSpecifier'))
           return nodes
         }
@@ -5453,7 +5520,7 @@ export default function tsPlugin(options?: {
               node.local = node.imported
             }
             // @ts-ignore
-            this.checkLValSimple(node.local, arcoScope.BIND_LEXICAL)
+            this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
             nodes.push(this.finishNode(node, 'ImportSpecifier'))
           }
         }

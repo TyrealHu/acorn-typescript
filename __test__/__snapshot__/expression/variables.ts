@@ -2084,6 +2084,152 @@ const VariablesTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  LetUnion: {
+    'type': 'Program',
+    'start': 0,
+    'end': 31,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 31
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 31,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 31
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 31,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 31
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 25,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 25
+                }
+              },
+              'name': 'test',
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 8,
+                'end': 25,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 8
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 25
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSUnionType',
+                  'start': 10,
+                  'end': 25,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 10
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 25
+                    }
+                  },
+                  'types': [
+                    {
+                      'type': 'TSStringKeyword',
+                      'start': 10,
+                      'end': 16,
+                      'loc': {
+                        'start': {
+                          'line': 1,
+                          'column': 10
+                        },
+                        'end': {
+                          'line': 1,
+                          'column': 16
+                        }
+                      }
+                    },
+                    {
+                      'type': 'TSNumberKeyword',
+                      'start': 19,
+                      'end': 25,
+                      'loc': {
+                        'start': {
+                          'line': 1,
+                          'column': 19
+                        },
+                        'end': {
+                          'line': 1,
+                          'column': 25
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 28,
+              'end': 31,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 28
+                },
+                'end': {
+                  'line': 1,
+                  'column': 31
+                }
+              },
+              'value': 123,
+              'raw': '123'
+            }
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 

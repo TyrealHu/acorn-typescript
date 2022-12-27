@@ -2,11 +2,8 @@ import * as acorn from 'acorn'
 import tsPlugin from './src/index'
 
 const node = acorn.Parser.extend(tsPlugin()).parse(`
-type Name = 'tyreal'
-type Age = 22
-export {
-  Name,
-  Age
+function test(): void {
+  console.log(123)
 }
 `, {
   sourceType: 'module',
@@ -14,4 +11,5 @@ export {
   locations: true
 })
 
-console.log(node)
+// @ts-ignore
+console.log(JSON.stringify(node, null, 2))

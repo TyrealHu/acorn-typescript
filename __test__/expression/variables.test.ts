@@ -103,11 +103,19 @@ describe('variables declaration', () => {
     expect(node).toEqual(VariablesTypeSnapshot.Interface)
   })
 
-  it('Union', () => {
+  it('union', () => {
     const node = parseSource(generateSource([
       `const test: string | number = 123`,
     ]))
 
     expect(node).toEqual(VariablesTypeSnapshot.Union)
+  })
+
+  it('let union', () => {
+    const node = parseSource(generateSource([
+      `let test: string | number = 123`,
+    ]))
+
+    expect(node).toEqual(VariablesTypeSnapshot.LetUnion)
   })
 })
