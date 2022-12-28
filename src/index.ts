@@ -4566,8 +4566,61 @@ export default function tsPlugin(options?: {
         }
       }
 
+      parseAssignableListItem(
+        allowModifiers: boolean | undefined | null,
+      ) {
+        // Store original location/position to include modifiers in range
+        const startPos = this.start
+        const startLoc = this['startLoc']
+
+        let accessibility: any
+        let readonly = false
+        let override = false
+        if (allowModifiers !== undefined) {
+          const modified: ModifierBase = {}
+          this.tsParseModifiers({
+            modified,
+            allowedModifiers: [
+              'public',
+              'private',
+              'protected',
+              'override',
+              'readonly'
+            ]
+          })
+          accessibility = modified.accessibility
+          override = modified.override
+          readonly = modified.readonly
+          if (
+            allowModifiers === false &&
+            (accessibility || readonly || override)
+          ) {
+            this.raise(startLoc.start, TypeScriptError.UnexpectedParameterModifier)
+          }
+        }
+
+        const left = this.parseMaybeDefault(startPos, startLoc)
+        this.parseBindingListItem(left)
+        // @ts-ignore
+        const elt = this.parseMaybeDefault(left['start'], left['loc'], left)
+        if (accessibility || readonly || override) {
+          // @ts-ignore
+          const pp = this.startNodeAt(startPos, startLoc)
+          if (accessibility) pp.accessibility = accessibility
+          if (readonly) pp.readonly = readonly
+          if (override) pp.override = override
+          if (elt.type !== 'Identifier' && elt.type !== 'AssignmentPattern') {
+            this.raise(pp.start, TypeScriptError.UnsupportedParameterPropertyKind)
+          }
+          pp.parameter = elt as any
+          return this.finishNode(pp, 'TSParameterProperty')
+        }
+
+        return elt
+      }
+
       // Allow type annotations inside of a parameter list.
-      parseAssignableListItemTypes(param: Pattern) {
+      parseBindingListItem(param: Pattern) {
         // @ts-ignore
         if (this.eat(tokTypes.question)) {
           if (
@@ -5376,6 +5429,34 @@ export default function tsPlugin(options?: {
         } finally {
           this.inAbstractClass = oldInAbstractClass
         }
+      }
+
+      parseBindingList(close, allowEmpty, allowTrailingComma) {
+        let elts = [], first = true
+        // @ts-ignore
+        while (!this.eat(close)) {
+          if (first) first = false
+          // @ts-ignore
+          else this.expect(tokTypes.comma)
+          if (allowEmpty && this.match(tokTypes.comma)) {
+            elts.push(null)
+            // @ts-ignore
+          } else if (allowTrailingComma && this.afterTrailingComma(close)) {
+            break
+          } else if (this.match(tokTypes.ellipsis)) {
+            // @ts-ignore
+            let rest = this.parseRestBinding()
+            this.parseBindingListItem(rest)
+            elts.push(rest)
+            if (this.type === tokTypes.comma) this.raise(this.start, "Comma is not permitted after the rest element")
+            // @ts-ignore
+            this.expect(close)
+            break
+          } else {
+            elts.push(this.parseAssignableListItem(false))
+          }
+        }
+        return elts
       }
 
       parseMethod(

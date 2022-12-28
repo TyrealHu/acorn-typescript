@@ -2,8 +2,8 @@ import * as acorn from 'acorn'
 import tsPlugin from './src/index'
 
 const node = acorn.Parser.extend(tsPlugin()).parse(`
-function test(): void {
-  console.log(123)
+function test(name?: string, age: number): void {
+  console.log(name)
 }
 `, {
   sourceType: 'module',

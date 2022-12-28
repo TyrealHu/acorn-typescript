@@ -159,7 +159,31 @@ describe('function type test', () => {
       `}`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
-    // expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithVoid)
+    expect(node).toEqual(FunctionTypeSnapshot.OneParameterWithVoid)
+  })
+
+  it('one optional parameter with void', () => {
+    const node = parseSource(generateSource([
+      `function test(name?: string): void {`,
+      `  console.log(name)`,
+      `}`
+    ]))
+
+    expect(node).toEqual(FunctionTypeSnapshot.OneOptionalParameterWithVoid)
+  })
+
+  it('complex function', () => {
+    const node = parseSource(generateSource([
+      `interface Family {`,
+      `  father: string`,
+      `  mother: string`,
+      `}`,
+      `function test(name: string, family: Family, age?: number): Family {`,
+      `  console.log(name, age)`,
+      `  return family`,
+      `}`
+    ]))
+
+    expect(node).toEqual(FunctionTypeSnapshot.ComplexFunction)
   })
 })
