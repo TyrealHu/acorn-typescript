@@ -1,9 +1,7 @@
 // @ts-ignore
 import { TokenType, keywordTypes } from 'acorn'
 
-const beforeExpr = true
 const startsExpr = true
-const prefix = true
 
 // Succinct definitions of keyword token types
 // @ts-ignore
@@ -17,8 +15,6 @@ function kwLike(_name, options: any = {}) {
 }
 
 export const tsTokenType = {
-  bang: new TokenType('!', { beforeExpr, prefix, startsExpr }),
-
   as: kwLike('name', { startsExpr }),
   assert: kwLike('assert', { startsExpr }),
   async: kwLike('async', { startsExpr }),

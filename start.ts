@@ -3,9 +3,9 @@ import tsPlugin from './src/index'
 
 const node = acorn.Parser.extend(tsPlugin()).parse(`
 class Student {
-   name: string
-   age: number
-   school: string
+   private name: string
+   private age: number
+   private school: string
    
    constructor(name: string, age: number, school: string) {
      this.name = name

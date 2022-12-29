@@ -174,11 +174,19 @@ function keywordTypeFromName(
 }
 
 function tokenIsLiteralPropertyName(token: TokenType): boolean {
-  return [...Object.values(keywordTypes), ...Object.values(tsTokenType)].includes(token)
+  return [
+    ...[tokTypes.name, tokTypes.string, tokTypes.num],
+    ...Object.values(keywordTypes),
+    ...Object.values(tsTokenType)
+  ].includes(token)
 }
 
 function tokenIsKeywordOrIdentifier(token: TokenType): boolean {
-  return [...Object.values(keywordTypes), ...Object.values(tsTokenType)].includes(token)
+  return [
+    ...[tokTypes.name],
+    ...Object.values(keywordTypes),
+    ...Object.values(tsTokenType)
+  ].includes(token)
 }
 
 function tokenIsIdentifier(token: TokenType): boolean {
@@ -206,7 +214,7 @@ export function tokenIsTSTypeOperator(token: TokenType): boolean {
 }
 
 export function tokenIsTemplate(token: TokenType): boolean {
-  return token >= tokTypes.invalidTemplate
+  return token === tokTypes.invalidTemplate
 }
 
 export default function tsPlugin(options?: {
@@ -3996,7 +4004,7 @@ export default function tsPlugin(options?: {
         node: Node
       ): void {
         // @ts-ignore
-        if (!node.optional && this.eat(tsTokenType.bang)) node.definite = true
+        if (!node.optional && (this.eat(tokTypes.prefix) && this['value'] === '!')) node.definite = true
 
         const type = this.tsTryParseTypeAnnotation()
         // @ts-ignore
@@ -4567,7 +4575,7 @@ export default function tsPlugin(options?: {
       }
 
       parseAssignableListItem(
-        allowModifiers: boolean | undefined | null,
+        allowModifiers: boolean | undefined | null
       ) {
         // Store original location/position to include modifiers in range
         const startPos = this.start
@@ -5446,7 +5454,7 @@ export default function tsPlugin(options?: {
             let rest = this.parseRestBinding()
             this.parseBindingListItem(rest)
             elts.push(rest)
-            if (this.type === tokTypes.comma) this.raise(this.start, "Comma is not permitted after the rest element")
+            if (this.type === tokTypes.comma) this.raise(this.start, 'Comma is not permitted after the rest element')
             // @ts-ignore
             this.expect(close)
             break
