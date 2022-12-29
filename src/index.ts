@@ -4702,11 +4702,10 @@ export default function tsPlugin(options?: {
         node: Node,
         isBinding: boolean = false,
         refDestructuringErrors = new DestructuringErrors()
-      ): void {
+      ): any {
         switch (node.type) {
           case 'ParenthesizedExpression':
-            this.toAssignableParenthesizedExpression(node, isBinding, refDestructuringErrors)
-            break
+            return this.toAssignableParenthesizedExpression(node, isBinding, refDestructuringErrors)
           case 'TSAsExpression':
           case 'TSNonNullExpression':
           case 'TSTypeAssertion':
@@ -4720,18 +4719,18 @@ export default function tsPlugin(options?: {
               this.raise(node.start, TypeScriptError.UnexpectedTypeCastInParameter)
             }
             // @ts-ignore
-            this.toAssignable(node.expression, isBinding, refDestructuringErrors)
-            break
+            return this.toAssignable(node.expression, isBinding, refDestructuringErrors)
           case 'AssignmentExpression':
             // @ts-ignore
             if (!isBinding && node.left.type === 'TSTypeCastExpression') {
               // @ts-ignore
               node.left = this.typeCastToParameter(node.left)
             }
+            return node
           /* fall through */
           default:
             // @ts-ignore
-            super.toAssignable(node, isBinding, refDestructuringErrors)
+            return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
       }
 
@@ -4747,11 +4746,10 @@ export default function tsPlugin(options?: {
           case 'TSTypeAssertion':
           case 'ParenthesizedExpression':
             // @ts-ignore
-            this.toAssignable(node.expression, isBinding, refDestructuringErrors)
-            break
+            return this.toAssignable(node.expression, isBinding, refDestructuringErrors)
           default:
             // @ts-ignore
-            super.toAssignable(node, isBinding, refDestructuringErrors)
+            return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
       }
 
@@ -5491,7 +5489,6 @@ export default function tsPlugin(options?: {
         // @ts-ignore
         this.checkYieldAwaitInDefaultParams()
         // @ts-ignore
-        this.parseFunctionBody(node, false, true, false)
         const finishNode = this.parseFunctionBodyAndFinish(node, 'FunctionExpression', true)
         this['yieldPos'] = oldYieldPos
         this['awaitPos'] = oldAwaitPos
