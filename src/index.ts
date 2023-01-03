@@ -7,10 +7,11 @@ import {
   isIdentifierChar,
   Position,
   lineBreak,
-  Options
+  Options,
+  Parser as AcornParser
 } from 'acorn'
 import * as charCodes from 'charcodes'
-import type { Node, TokenType, Parser as AcornParser } from 'acorn'
+import type { Node, TokenType } from 'acorn'
 import { tsKeywordsRegExp, tsTokenType, jsxTokenType } from './tokenType'
 import {
   Accessibility,
@@ -386,7 +387,7 @@ export default function tsPlugin(options?: {
 
       tsIsStartOfStaticBlocks() {
         return (
-          this.eatContextual('static') &&
+          this.ts_isContextual(tsTokenType.static) &&
           this.lookaheadCharCode() === charCodes.leftCurlyBrace
         )
       }
@@ -739,7 +740,7 @@ export default function tsPlugin(options?: {
 
       hasPrecedingLineBreak(): boolean {
         return lineBreak.test(
-          this.input.slice(this['lastTokEnd'], this.start)
+          this.input.slice(this['lastTokEndLoc']["index"], this.start)
         )
       }
 
@@ -4106,7 +4107,6 @@ export default function tsPlugin(options?: {
         let isGenerator = false
         let isAsync = false
         let kind = 'method'
-        let isStatic = false
 
         // todo parseClassMember
         // --- start parseClassMember extension
@@ -4127,6 +4127,8 @@ export default function tsPlugin(options?: {
           stopOnStartOfClassStaticBlock: true,
           errorTemplate: TypeScriptError.InvalidModifierOnTypeParameterPositions
         })
+
+        let isStatic = !!node.static
 
         const callParseClassMemberWithIsStatic = () => {
           if (this.tsIsStartOfStaticBlocks()) {
@@ -4355,7 +4357,6 @@ export default function tsPlugin(options?: {
         if (type) {
           // @ts-ignore
           decl.id.typeAnnotation = type
-          debugger
           this.resetEndLocation(decl.id) // set end position to end of type
         }
       }
@@ -4758,6 +4759,21 @@ export default function tsPlugin(options?: {
           default:
             // @ts-ignore
             return super.toAssignable(node, isBinding, refDestructuringErrors)
+        }
+      }
+
+      curPosition() {
+        if (this.options.locations) {
+          // @ts-ignore
+          const position = super.curPosition()
+          position.offset = function(n: number) {
+            // @ts-ignore
+            const np = new AcornParser.acorn.Position(this.line, this.column + n)
+            np['index'] = this['index'] + n
+            return np
+          }
+          position['index'] = this['pos']
+          return position
         }
       }
 
@@ -5618,7 +5634,6 @@ export default function tsPlugin(options?: {
         // export { x, y as z } [from '...']
         // @ts-ignore
         this.expect(tokTypes.braceL)
-        debugger
         // @ts-ignore
         while (!this.eat(tokTypes.braceR)) {
           if (!first) {
