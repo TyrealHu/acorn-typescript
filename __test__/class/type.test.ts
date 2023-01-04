@@ -92,12 +92,23 @@ describe('class', () => {
       `}`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
     expect(node).toEqual(ClassTypeSnapshot.StaticFunction)
+  })
+
+  it('computed property', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` private _school: string`,
+      ` get school() {`,
+      `   return this._school`,
+      ` }`,
+      ` set school(value: string) {`,
+      `   this._school = value`,
+      ` }`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ClassTypeSnapshot.ComputedProperty)
   })
 })
 
-// class A {
-//   static school: string = 'gdut'
-//   static study() {}
-// }

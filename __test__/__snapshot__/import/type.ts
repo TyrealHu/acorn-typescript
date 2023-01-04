@@ -6,11 +6,13 @@ const ImportTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 34
+        'column': 34,
+        'index': 34
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 34
+            'column': 34,
+            'index': 34
           }
         },
         'importKind': 'type',
@@ -37,11 +41,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 12
+                'column': 12,
+                'index': 12
               },
               'end': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               }
             },
             'local': {
@@ -51,11 +57,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 12
+                  'column': 12,
+                  'index': 12
                 },
                 'end': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 }
               },
               'name': 'Test'
@@ -69,11 +77,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 22
+              'column': 22,
+              'index': 22
             },
             'end': {
               'line': 1,
-              'column': 34
+              'column': 34,
+              'index': 34
             }
           },
           'value': './index.ts',
@@ -90,11 +100,13 @@ const ImportTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 47
+        'column': 47,
+        'index': 47
       }
     },
     'body': [
@@ -105,11 +117,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 47
+            'column': 47,
+            'index': 47
           }
         },
         'importKind': 'type',
@@ -121,11 +135,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 14
+                'column': 14,
+                'index': 14
               },
               'end': {
                 'line': 1,
-                'column': 27
+                'column': 27,
+                'index': 27
               }
             },
             'imported': {
@@ -135,11 +151,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 14
+                  'column': 14,
+                  'index': 14
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'Test'
@@ -152,11 +170,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 },
                 'end': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 }
               },
               'name': 'Test1'
@@ -170,11 +190,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 35
+              'column': 35,
+              'index': 35
             },
             'end': {
               'line': 1,
-              'column': 47
+              'column': 47,
+              'index': 47
             }
           },
           'value': './index.ts',
@@ -191,11 +213,13 @@ const ImportTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 39
+        'column': 39,
+        'index': 39
       }
     },
     'body': [
@@ -206,11 +230,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 39
+            'column': 39,
+            'index': 39
           }
         },
         'importKind': 'type',
@@ -222,11 +248,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 12
+                'column': 12,
+                'index': 12
               },
               'end': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               }
             },
             'local': {
@@ -236,11 +264,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 17
+                  'column': 17,
+                  'index': 17
                 },
                 'end': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 }
               },
               'name': 'Test'
@@ -254,11 +284,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 27
+              'column': 27,
+              'index': 27
             },
             'end': {
               'line': 1,
-              'column': 39
+              'column': 39,
+              'index': 39
             }
           },
           'value': './index.ts',
@@ -275,11 +307,13 @@ const ImportTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 4,
-        'column': 41
+        'column': 41,
+        'index': 147
       }
     },
     'body': [
@@ -290,11 +324,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 19
+            'column': 19,
+            'index': 19
           }
         },
         'importKind': 'value',
@@ -306,11 +342,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 7
+              'column': 7,
+              'index': 7
             },
             'end': {
               'line': 1,
-              'column': 19
+              'column': 19,
+              'index': 19
             }
           },
           'value': './index.ts',
@@ -324,11 +362,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 2,
-            'column': 0
+            'column': 0,
+            'index': 20
           },
           'end': {
             'line': 2,
-            'column': 36
+            'column': 36,
+            'index': 56
           }
         },
         'importKind': 'type',
@@ -340,11 +380,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 12
+                'column': 12,
+                'index': 32
               },
               'end': {
                 'line': 2,
-                'column': 22
+                'column': 22,
+                'index': 42
               }
             },
             'local': {
@@ -354,11 +396,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 32
                 },
                 'end': {
                   'line': 2,
-                  'column': 22
+                  'column': 22,
+                  'index': 42
                 }
               },
               'name': 'Test1'
@@ -372,11 +416,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 2,
-              'column': 23
+              'column': 23,
+              'index': 43
             },
             'end': {
               'line': 2,
-              'column': 36
+              'column': 36,
+              'index': 56
             }
           },
           'value': './index1.ts',
@@ -390,11 +436,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 3,
-            'column': 0
+            'column': 0,
+            'index': 57
           },
           'end': {
             'line': 3,
-            'column': 48
+            'column': 48,
+            'index': 105
           }
         },
         'importKind': 'type',
@@ -406,11 +454,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 3,
-                'column': 14
+                'column': 14,
+                'index': 71
               },
               'end': {
                 'line': 3,
-                'column': 27
+                'column': 27,
+                'index': 84
               }
             },
             'imported': {
@@ -420,11 +470,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 14
+                  'column': 14,
+                  'index': 71
                 },
                 'end': {
                   'line': 3,
-                  'column': 18
+                  'column': 18,
+                  'index': 75
                 }
               },
               'name': 'Test'
@@ -437,11 +489,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 22
+                  'column': 22,
+                  'index': 79
                 },
                 'end': {
                   'line': 3,
-                  'column': 27
+                  'column': 27,
+                  'index': 84
                 }
               },
               'name': 'Test2'
@@ -455,11 +509,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 3,
-              'column': 35
+              'column': 35,
+              'index': 92
             },
             'end': {
               'line': 3,
-              'column': 48
+              'column': 48,
+              'index': 105
             }
           },
           'value': './index2.ts',
@@ -473,11 +529,13 @@ const ImportTypeSnapshot = {
         'loc': {
           'start': {
             'line': 4,
-            'column': 0
+            'column': 0,
+            'index': 106
           },
           'end': {
             'line': 4,
-            'column': 41
+            'column': 41,
+            'index': 147
           }
         },
         'importKind': 'type',
@@ -489,11 +547,13 @@ const ImportTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 4,
-                'column': 12
+                'column': 12,
+                'index': 118
               },
               'end': {
                 'line': 4,
-                'column': 22
+                'column': 22,
+                'index': 128
               }
             },
             'local': {
@@ -503,11 +563,13 @@ const ImportTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 17
+                  'column': 17,
+                  'index': 123
                 },
                 'end': {
                   'line': 4,
-                  'column': 22
+                  'column': 22,
+                  'index': 128
                 }
               },
               'name': 'Test3'
@@ -521,11 +583,13 @@ const ImportTypeSnapshot = {
           'loc': {
             'start': {
               'line': 4,
-              'column': 28
+              'column': 28,
+              'index': 134
             },
             'end': {
               'line': 4,
-              'column': 41
+              'column': 41,
+              'index': 147
             }
           },
           'value': './index3.ts',

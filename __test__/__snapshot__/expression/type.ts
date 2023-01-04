@@ -6,11 +6,13 @@ const ExpressionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 5,
-        'column': 1
+        'column': 1,
+        'index': 64
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const ExpressionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 5,
-            'column': 1
+            'column': 1,
+            'index': 64
           }
         },
         'id': {
@@ -35,11 +39,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             }
           },
           'name': 'Student'
@@ -51,11 +57,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 18
+              'column': 18,
+              'index': 18
             },
             'end': {
               'line': 5,
-              'column': 1
+              'column': 1,
+              'index': 64
             }
           },
           'body': [
@@ -66,11 +74,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 21
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 33
                 }
               },
               'computed': false,
@@ -81,11 +91,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   }
                 },
                 'name': 'name'
@@ -97,11 +109,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 33
                   }
                 },
                 'typeAnnotation': {
@@ -111,11 +125,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 27
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 33
                     }
                   }
                 }
@@ -128,11 +144,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 35
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 46
                 }
               },
               'computed': false,
@@ -143,11 +161,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 35
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   }
                 },
                 'name': 'age'
@@ -159,11 +179,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 46
                   }
                 },
                 'typeAnnotation': {
@@ -173,11 +195,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 40
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 46
                     }
                   }
                 }
@@ -190,11 +214,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 48
                 },
                 'end': {
                   'line': 4,
-                  'column': 15
+                  'column': 15,
+                  'index': 62
                 }
               },
               'computed': false,
@@ -205,11 +231,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 1
+                    'column': 1,
+                    'index': 48
                   },
                   'end': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   }
                 },
                 'name': 'school'
@@ -221,11 +249,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   },
                   'end': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 62
                   }
                 },
                 'typeAnnotation': {
@@ -235,11 +265,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 9
+                      'column': 9,
+                      'index': 56
                     },
                     'end': {
                       'line': 4,
-                      'column': 15
+                      'column': 15,
+                      'index': 62
                     }
                   }
                 }
@@ -258,11 +290,13 @@ const ExpressionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 9,
-        'column': 1
+        'column': 1,
+        'index': 131
       }
     },
     'body': [
@@ -273,11 +307,13 @@ const ExpressionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 9,
-            'column': 1
+            'column': 1,
+            'index': 131
           }
         },
         'id': {
@@ -287,11 +323,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             }
           },
           'name': 'Student'
@@ -303,11 +341,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 18
+              'column': 18,
+              'index': 18
             },
             'end': {
               'line': 9,
-              'column': 1
+              'column': 1,
+              'index': 131
             }
           },
           'body': [
@@ -318,11 +358,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 21
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 33
                 }
               },
               'computed': false,
@@ -333,11 +375,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   }
                 },
                 'name': 'name'
@@ -349,11 +393,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 33
                   }
                 },
                 'typeAnnotation': {
@@ -363,11 +409,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 27
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 33
                     }
                   }
                 }
@@ -380,11 +428,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 35
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 46
                 }
               },
               'computed': false,
@@ -395,11 +445,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 35
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   }
                 },
                 'name': 'age'
@@ -411,11 +463,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 46
                   }
                 },
                 'typeAnnotation': {
@@ -425,11 +479,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 40
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 46
                     }
                   }
                 }
@@ -442,11 +498,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 48
                 },
                 'end': {
                   'line': 4,
-                  'column': 17
+                  'column': 17,
+                  'index': 64
                 }
               },
               'computed': false,
@@ -457,11 +515,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 1
+                    'column': 1,
+                    'index': 48
                   },
                   'end': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   }
                 },
                 'name': 'family'
@@ -473,11 +533,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   },
                   'end': {
                     'line': 4,
-                    'column': 17
+                    'column': 17,
+                    'index': 64
                   }
                 },
                 'typeAnnotation': {
@@ -487,11 +549,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 9
+                      'column': 9,
+                      'index': 56
                     },
                     'end': {
                       'line': 4,
-                      'column': 17
+                      'column': 17,
+                      'index': 64
                     }
                   },
                   'elementType': {
@@ -501,11 +565,13 @@ const ExpressionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 4,
-                        'column': 9
+                        'column': 9,
+                        'index': 56
                       },
                       'end': {
                         'line': 4,
-                        'column': 15
+                        'column': 15,
+                        'index': 62
                       }
                     }
                   }
@@ -519,11 +585,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 1
+                  'column': 1,
+                  'index': 66
                 },
                 'end': {
                   'line': 8,
-                  'column': 2
+                  'column': 2,
+                  'index': 129
                 }
               },
               'computed': false,
@@ -534,11 +602,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 1
+                    'column': 1,
+                    'index': 66
                   },
                   'end': {
                     'line': 5,
-                    'column': 9
+                    'column': 9,
+                    'index': 74
                   }
                 },
                 'name': 'interest'
@@ -550,11 +620,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 9
+                    'column': 9,
+                    'index': 74
                   },
                   'end': {
                     'line': 8,
-                    'column': 2
+                    'column': 2,
+                    'index': 129
                   }
                 },
                 'typeAnnotation': {
@@ -564,11 +636,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 11
+                      'column': 11,
+                      'index': 76
                     },
                     'end': {
                       'line': 8,
-                      'column': 2
+                      'column': 2,
+                      'index': 129
                     }
                   },
                   'members': [
@@ -579,11 +653,13 @@ const ExpressionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 6,
-                          'column': 2
+                          'column': 2,
+                          'index': 80
                         },
                         'end': {
                           'line': 6,
-                          'column': 32
+                          'column': 32,
+                          'index': 110
                         }
                       },
                       'computed': false,
@@ -594,11 +670,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 2
+                            'column': 2,
+                            'index': 80
                           },
                           'end': {
                             'line': 6,
-                            'column': 24
+                            'column': 24,
+                            'index': 102
                           }
                         },
                         'name': 'artificialIntelligence'
@@ -610,11 +688,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 24
+                            'column': 24,
+                            'index': 102
                           },
                           'end': {
                             'line': 6,
-                            'column': 32
+                            'column': 32,
+                            'index': 110
                           }
                         },
                         'typeAnnotation': {
@@ -624,11 +704,13 @@ const ExpressionTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 26
+                              'column': 26,
+                              'index': 104
                             },
                             'end': {
                               'line': 6,
-                              'column': 32
+                              'column': 32,
+                              'index': 110
                             }
                           }
                         }
@@ -641,11 +723,13 @@ const ExpressionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 7,
-                          'column': 2
+                          'column': 2,
+                          'index': 113
                         },
                         'end': {
                           'line': 7,
-                          'column': 15
+                          'column': 15,
+                          'index': 126
                         }
                       },
                       'computed': false,
@@ -656,11 +740,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 2
+                            'column': 2,
+                            'index': 113
                           },
                           'end': {
                             'line': 7,
-                            'column': 7
+                            'column': 7,
+                            'index': 118
                           }
                         },
                         'name': 'study'
@@ -672,11 +758,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 7
+                            'column': 7,
+                            'index': 118
                           },
                           'end': {
                             'line': 7,
-                            'column': 15
+                            'column': 15,
+                            'index': 126
                           }
                         },
                         'typeAnnotation': {
@@ -686,11 +774,13 @@ const ExpressionTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 9
+                              'column': 9,
+                              'index': 120
                             },
                             'end': {
                               'line': 7,
-                              'column': 15
+                              'column': 15,
+                              'index': 126
                             }
                           }
                         }
@@ -713,11 +803,13 @@ const ExpressionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 12,
-        'column': 1
+        'column': 1,
+        'index': 168
       }
     },
     'body': [
@@ -728,11 +820,13 @@ const ExpressionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 4,
-            'column': 1
+            'column': 1,
+            'index': 47
           }
         },
         'id': {
@@ -742,11 +836,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 16
+              'column': 16,
+              'index': 16
             }
           },
           'name': 'Person'
@@ -758,11 +854,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             },
             'end': {
               'line': 4,
-              'column': 1
+              'column': 1,
+              'index': 47
             }
           },
           'body': [
@@ -773,11 +871,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 20
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 32
                 }
               },
               'computed': false,
@@ -788,11 +888,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 20
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 24
                   }
                 },
                 'name': 'name'
@@ -804,11 +906,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 24
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 32
                   }
                 },
                 'typeAnnotation': {
@@ -818,11 +922,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 26
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 32
                     }
                   }
                 }
@@ -835,11 +941,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 34
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 45
                 }
               },
               'computed': false,
@@ -850,11 +958,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 34
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 37
                   }
                 },
                 'name': 'age'
@@ -866,11 +976,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 37
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 45
                   }
                 },
                 'typeAnnotation': {
@@ -880,11 +992,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 39
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 45
                     }
                   }
                 }
@@ -900,11 +1014,13 @@ const ExpressionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 6,
-            'column': 0
+            'column': 0,
+            'index': 49
           },
           'end': {
             'line': 12,
-            'column': 1
+            'column': 1,
+            'index': 168
           }
         },
         'id': {
@@ -914,11 +1030,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 6,
-              'column': 10
+              'column': 10,
+              'index': 59
             },
             'end': {
               'line': 6,
-              'column': 17
+              'column': 17,
+              'index': 66
             }
           },
           'name': 'Student'
@@ -931,11 +1049,13 @@ const ExpressionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 6,
-                'column': 26
+                'column': 26,
+                'index': 75
               },
               'end': {
                 'line': 6,
-                'column': 32
+                'column': 32,
+                'index': 81
               }
             },
             'expression': {
@@ -945,11 +1065,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 6,
-                  'column': 26
+                  'column': 26,
+                  'index': 75
                 },
                 'end': {
                   'line': 6,
-                  'column': 32
+                  'column': 32,
+                  'index': 81
                 }
               },
               'name': 'Person'
@@ -963,11 +1085,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 6,
-              'column': 33
+              'column': 33,
+              'index': 82
             },
             'end': {
               'line': 12,
-              'column': 1
+              'column': 1,
+              'index': 168
             }
           },
           'body': [
@@ -978,11 +1102,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 7,
-                  'column': 1
+                  'column': 1,
+                  'index': 85
                 },
                 'end': {
                   'line': 7,
-                  'column': 17
+                  'column': 17,
+                  'index': 101
                 }
               },
               'computed': false,
@@ -993,11 +1119,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 7,
-                    'column': 1
+                    'column': 1,
+                    'index': 85
                   },
                   'end': {
                     'line': 7,
-                    'column': 7
+                    'column': 7,
+                    'index': 91
                   }
                 },
                 'name': 'family'
@@ -1009,11 +1137,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 7,
-                    'column': 7
+                    'column': 7,
+                    'index': 91
                   },
                   'end': {
                     'line': 7,
-                    'column': 17
+                    'column': 17,
+                    'index': 101
                   }
                 },
                 'typeAnnotation': {
@@ -1023,11 +1153,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 7,
-                      'column': 9
+                      'column': 9,
+                      'index': 93
                     },
                     'end': {
                       'line': 7,
-                      'column': 17
+                      'column': 17,
+                      'index': 101
                     }
                   },
                   'elementType': {
@@ -1037,11 +1169,13 @@ const ExpressionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 7,
-                        'column': 9
+                        'column': 9,
+                        'index': 93
                       },
                       'end': {
                         'line': 7,
-                        'column': 15
+                        'column': 15,
+                        'index': 99
                       }
                     }
                   }
@@ -1055,11 +1189,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 8,
-                  'column': 1
+                  'column': 1,
+                  'index': 103
                 },
                 'end': {
                   'line': 11,
-                  'column': 2
+                  'column': 2,
+                  'index': 166
                 }
               },
               'computed': false,
@@ -1070,11 +1206,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 8,
-                    'column': 1
+                    'column': 1,
+                    'index': 103
                   },
                   'end': {
                     'line': 8,
-                    'column': 9
+                    'column': 9,
+                    'index': 111
                   }
                 },
                 'name': 'interest'
@@ -1086,11 +1224,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 8,
-                    'column': 9
+                    'column': 9,
+                    'index': 111
                   },
                   'end': {
                     'line': 11,
-                    'column': 2
+                    'column': 2,
+                    'index': 166
                   }
                 },
                 'typeAnnotation': {
@@ -1100,11 +1240,13 @@ const ExpressionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 8,
-                      'column': 11
+                      'column': 11,
+                      'index': 113
                     },
                     'end': {
                       'line': 11,
-                      'column': 2
+                      'column': 2,
+                      'index': 166
                     }
                   },
                   'members': [
@@ -1115,11 +1257,13 @@ const ExpressionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 9,
-                          'column': 2
+                          'column': 2,
+                          'index': 117
                         },
                         'end': {
                           'line': 9,
-                          'column': 32
+                          'column': 32,
+                          'index': 147
                         }
                       },
                       'computed': false,
@@ -1130,11 +1274,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 9,
-                            'column': 2
+                            'column': 2,
+                            'index': 117
                           },
                           'end': {
                             'line': 9,
-                            'column': 24
+                            'column': 24,
+                            'index': 139
                           }
                         },
                         'name': 'artificialIntelligence'
@@ -1146,11 +1292,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 9,
-                            'column': 24
+                            'column': 24,
+                            'index': 139
                           },
                           'end': {
                             'line': 9,
-                            'column': 32
+                            'column': 32,
+                            'index': 147
                           }
                         },
                         'typeAnnotation': {
@@ -1160,11 +1308,13 @@ const ExpressionTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 9,
-                              'column': 26
+                              'column': 26,
+                              'index': 141
                             },
                             'end': {
                               'line': 9,
-                              'column': 32
+                              'column': 32,
+                              'index': 147
                             }
                           }
                         }
@@ -1177,11 +1327,13 @@ const ExpressionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 10,
-                          'column': 2
+                          'column': 2,
+                          'index': 150
                         },
                         'end': {
                           'line': 10,
-                          'column': 15
+                          'column': 15,
+                          'index': 163
                         }
                       },
                       'computed': false,
@@ -1192,11 +1344,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 10,
-                            'column': 2
+                            'column': 2,
+                            'index': 150
                           },
                           'end': {
                             'line': 10,
-                            'column': 7
+                            'column': 7,
+                            'index': 155
                           }
                         },
                         'name': 'study'
@@ -1208,11 +1362,13 @@ const ExpressionTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 10,
-                            'column': 7
+                            'column': 7,
+                            'index': 155
                           },
                           'end': {
                             'line': 10,
-                            'column': 15
+                            'column': 15,
+                            'index': 163
                           }
                         },
                         'typeAnnotation': {
@@ -1222,11 +1378,13 @@ const ExpressionTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 10,
-                              'column': 9
+                              'column': 9,
+                              'index': 157
                             },
                             'end': {
                               'line': 10,
-                              'column': 15
+                              'column': 15,
+                              'index': 163
                             }
                           }
                         }
@@ -1249,11 +1407,13 @@ const ExpressionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 44
+        'column': 44,
+        'index': 44
       }
     },
     'body': [
@@ -1264,11 +1424,13 @@ const ExpressionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 44
+            'column': 44,
+            'index': 44
           }
         },
         'id': {
@@ -1278,11 +1440,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 5
+              'column': 5,
+              'index': 5
             },
             'end': {
               'line': 1,
-              'column': 11
+              'column': 11,
+              'index': 11
             }
           },
           'name': 'School'
@@ -1294,11 +1458,13 @@ const ExpressionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 14
+              'column': 14,
+              'index': 14
             },
             'end': {
               'line': 1,
-              'column': 44
+              'column': 44,
+              'index': 44
             }
           },
           'types': [
@@ -1309,11 +1475,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 14
+                  'column': 14,
+                  'index': 14
                 },
                 'end': {
                   'line': 1,
-                  'column': 24
+                  'column': 24,
+                  'index': 24
                 }
               },
               'literal': {
@@ -1323,11 +1491,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 14
+                    'column': 14,
+                    'index': 14
                   },
                   'end': {
                     'line': 1,
-                    'column': 24
+                    'column': 24,
+                    'index': 24
                   }
                 },
                 'value': 'Tsinghua',
@@ -1341,11 +1511,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 },
                 'end': {
                   'line': 1,
-                  'column': 35
+                  'column': 35,
+                  'index': 35
                 }
               },
               'literal': {
@@ -1355,11 +1527,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   },
                   'end': {
                     'line': 1,
-                    'column': 35
+                    'column': 35,
+                    'index': 35
                   }
                 },
                 'value': 'Peking',
@@ -1373,11 +1547,13 @@ const ExpressionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 38
+                  'column': 38,
+                  'index': 38
                 },
                 'end': {
                   'line': 1,
-                  'column': 44
+                  'column': 44,
+                  'index': 44
                 }
               },
               'literal': {
@@ -1387,11 +1563,13 @@ const ExpressionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 38
+                    'column': 38,
+                    'index': 38
                   },
                   'end': {
                     'line': 1,
-                    'column': 44
+                    'column': 44,
+                    'index': 44
                   }
                 },
                 'value': 'GDUT',

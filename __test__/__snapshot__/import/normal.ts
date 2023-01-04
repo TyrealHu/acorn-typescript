@@ -6,11 +6,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 19
+        'column': 19,
+        'index': 19
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 19
+            'column': 19,
+            'index': 19
           }
         },
         'importKind': 'value',
@@ -37,11 +41,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 7
+              'column': 7,
+              'index': 7
             },
             'end': {
               'line': 1,
-              'column': 19
+              'column': 19,
+              'index': 19
             }
           },
           'value': './index.js',
@@ -58,11 +64,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 29
+        'column': 29,
+        'index': 29
       }
     },
     'body': [
@@ -73,11 +81,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 29
+            'column': 29,
+            'index': 29
           }
         },
         'importKind': 'value',
@@ -89,11 +99,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 7
+                'column': 7,
+                'index': 7
               },
               'end': {
                 'line': 1,
-                'column': 16
+                'column': 16,
+                'index': 16
               }
             },
             'local': {
@@ -103,11 +115,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 7
+                  'column': 7,
+                  'index': 7
                 },
                 'end': {
                   'line': 1,
-                  'column': 16
+                  'column': 16,
+                  'index': 16
                 }
               },
               'name': 'test'
@@ -121,11 +135,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             },
             'end': {
               'line': 1,
-              'column': 29
+              'column': 29,
+              'index': 29
             }
           },
           'value': './index.js',
@@ -142,11 +158,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 39
+        'column': 39,
+        'index': 39
       }
     },
     'body': [
@@ -157,11 +175,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 39
+            'column': 39,
+            'index': 39
           }
         },
         'importKind': 'value',
@@ -173,11 +193,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 9
+                'column': 9,
+                'index': 9
               },
               'end': {
                 'line': 1,
-                'column': 13
+                'column': 13,
+                'index': 13
               }
             },
             'imported': {
@@ -187,11 +209,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 9
+                  'column': 9,
+                  'index': 9
                 },
                 'end': {
                   'line': 1,
-                  'column': 13
+                  'column': 13,
+                  'index': 13
                 }
               },
               'name': 'test'
@@ -204,11 +228,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 9
+                  'column': 9,
+                  'index': 9
                 },
                 'end': {
                   'line': 1,
-                  'column': 13
+                  'column': 13,
+                  'index': 13
                 }
               },
               'name': 'test'
@@ -221,11 +247,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 15
+                'column': 15,
+                'index': 15
               },
               'end': {
                 'line': 1,
-                'column': 19
+                'column': 19,
+                'index': 19
               }
             },
             'imported': {
@@ -235,11 +263,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 15
+                  'column': 15,
+                  'index': 15
                 },
                 'end': {
                   'line': 1,
-                  'column': 19
+                  'column': 19,
+                  'index': 19
                 }
               },
               'name': 'name'
@@ -252,11 +282,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 15
+                  'column': 15,
+                  'index': 15
                 },
                 'end': {
                   'line': 1,
-                  'column': 19
+                  'column': 19,
+                  'index': 19
                 }
               },
               'name': 'name'
@@ -270,11 +302,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 27
+              'column': 27,
+              'index': 27
             },
             'end': {
               'line': 1,
-              'column': 39
+              'column': 39,
+              'index': 39
             }
           },
           'value': './index.js',
@@ -291,11 +325,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 34
+        'column': 34,
+        'index': 34
       }
     },
     'body': [
@@ -306,11 +342,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 34
+            'column': 34,
+            'index': 34
           }
         },
         'importKind': 'value',
@@ -322,11 +360,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 7
+                'column': 7,
+                'index': 7
               },
               'end': {
                 'line': 1,
-                'column': 16
+                'column': 16,
+                'index': 16
               }
             },
             'local': {
@@ -336,11 +376,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 12
+                  'column': 12,
+                  'index': 12
                 },
                 'end': {
                   'line': 1,
-                  'column': 16
+                  'column': 16,
+                  'index': 16
                 }
               },
               'name': 'test'
@@ -354,11 +396,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 22
+              'column': 22,
+              'index': 22
             },
             'end': {
               'line': 1,
-              'column': 34
+              'column': 34,
+              'index': 34
             }
           },
           'value': './index.js',
@@ -375,11 +419,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 42
+        'column': 42,
+        'index': 42
       }
     },
     'body': [
@@ -390,11 +436,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 42
+            'column': 42,
+            'index': 42
           }
         },
         'importKind': 'value',
@@ -406,11 +454,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 9
+                'column': 9,
+                'index': 9
               },
               'end': {
                 'line': 1,
-                'column': 22
+                'column': 22,
+                'index': 22
               }
             },
             'imported': {
@@ -420,11 +470,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 9
+                  'column': 9,
+                  'index': 9
                 },
                 'end': {
                   'line': 1,
-                  'column': 13
+                  'column': 13,
+                  'index': 13
                 }
               },
               'name': 'test'
@@ -437,11 +489,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 17
+                  'column': 17,
+                  'index': 17
                 },
                 'end': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 }
               },
               'name': 'test1'
@@ -455,11 +509,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 30
+              'column': 30,
+              'index': 30
             },
             'end': {
               'line': 1,
-              'column': 42
+              'column': 42,
+              'index': 42
             }
           },
           'value': './index.js',
@@ -476,11 +532,13 @@ const NormalImportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 36
+        'column': 36,
+        'index': 121
       }
     },
     'body': [
@@ -491,11 +549,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 20
+            'column': 20,
+            'index': 20
           }
         },
         'importKind': 'value',
@@ -507,11 +567,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 7
+              'column': 7,
+              'index': 7
             },
             'end': {
               'line': 1,
-              'column': 20
+              'column': 20,
+              'index': 20
             }
           },
           'value': './index3.js',
@@ -525,11 +587,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 2,
-            'column': 0
+            'column': 0,
+            'index': 21
           },
           'end': {
             'line': 2,
-            'column': 63
+            'column': 63,
+            'index': 84
           }
         },
         'importKind': 'value',
@@ -541,11 +605,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 7
+                'column': 7,
+                'index': 28
               },
               'end': {
                 'line': 2,
-                'column': 12
+                'column': 12,
+                'index': 33
               }
             },
             'local': {
@@ -555,11 +621,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 7
+                  'column': 7,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 33
                 }
               },
               'name': 'test'
@@ -572,11 +640,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 15
+                'column': 15,
+                'index': 36
               },
               'end': {
                 'line': 2,
-                'column': 19
+                'column': 19,
+                'index': 40
               }
             },
             'imported': {
@@ -586,11 +656,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 15
+                  'column': 15,
+                  'index': 36
                 },
                 'end': {
                   'line': 2,
-                  'column': 19
+                  'column': 19,
+                  'index': 40
                 }
               },
               'name': 'name'
@@ -603,11 +675,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 15
+                  'column': 15,
+                  'index': 36
                 },
                 'end': {
                   'line': 2,
-                  'column': 19
+                  'column': 19,
+                  'index': 40
                 }
               },
               'name': 'name'
@@ -620,11 +694,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 21
+                'column': 21,
+                'index': 42
               },
               'end': {
                 'line': 2,
-                'column': 24
+                'column': 24,
+                'index': 45
               }
             },
             'imported': {
@@ -634,11 +710,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 21
+                  'column': 21,
+                  'index': 42
                 },
                 'end': {
                   'line': 2,
-                  'column': 24
+                  'column': 24,
+                  'index': 45
                 }
               },
               'name': 'age'
@@ -651,11 +729,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 21
+                  'column': 21,
+                  'index': 42
                 },
                 'end': {
                   'line': 2,
-                  'column': 24
+                  'column': 24,
+                  'index': 45
                 }
               },
               'name': 'age'
@@ -668,11 +748,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 26
+                'column': 26,
+                'index': 47
               },
               'end': {
                 'line': 2,
-                'column': 43
+                'column': 43,
+                'index': 64
               }
             },
             'imported': {
@@ -682,11 +764,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 26
+                  'column': 26,
+                  'index': 47
                 },
                 'end': {
                   'line': 2,
-                  'column': 32
+                  'column': 32,
+                  'index': 53
                 }
               },
               'name': 'school'
@@ -699,11 +783,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 36
+                  'column': 36,
+                  'index': 57
                 },
                 'end': {
                   'line': 2,
-                  'column': 43
+                  'column': 43,
+                  'index': 64
                 }
               },
               'name': 'school1'
@@ -717,11 +803,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 2,
-              'column': 51
+              'column': 51,
+              'index': 72
             },
             'end': {
               'line': 2,
-              'column': 63
+              'column': 63,
+              'index': 84
             }
           },
           'value': './index.js',
@@ -735,11 +823,13 @@ const NormalImportSnapshot = {
         'loc': {
           'start': {
             'line': 3,
-            'column': 0
+            'column': 0,
+            'index': 85
           },
           'end': {
             'line': 3,
-            'column': 36
+            'column': 36,
+            'index': 121
           }
         },
         'importKind': 'value',
@@ -751,11 +841,13 @@ const NormalImportSnapshot = {
             'loc': {
               'start': {
                 'line': 3,
-                'column': 7
+                'column': 7,
+                'index': 92
               },
               'end': {
                 'line': 3,
-                'column': 17
+                'column': 17,
+                'index': 102
               }
             },
             'local': {
@@ -765,11 +857,13 @@ const NormalImportSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 97
                 },
                 'end': {
                   'line': 3,
-                  'column': 17
+                  'column': 17,
+                  'index': 102
                 }
               },
               'name': 'test1'
@@ -783,11 +877,13 @@ const NormalImportSnapshot = {
           'loc': {
             'start': {
               'line': 3,
-              'column': 23
+              'column': 23,
+              'index': 108
             },
             'end': {
               'line': 3,
-              'column': 36
+              'column': 36,
+              'index': 121
             }
           },
           'value': './index1.js',

@@ -7,7 +7,6 @@ describe('export type', () => {
       `export type Test = string | number`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
     expect(node).toEqual(ExportTypeSnapshot.Type)
   })
 

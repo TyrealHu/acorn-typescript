@@ -6,11 +6,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 31
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 31
           }
         },
         'exportKind': 'value',
@@ -36,11 +40,13 @@ const NormalExportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 31
             }
           },
           'properties': [
@@ -51,11 +57,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 19
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 29
                 }
               },
               'method': false,
@@ -68,11 +76,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 19
                   },
                   'end': {
                     'line': 2,
-                    'column': 3
+                    'column': 3,
+                    'index': 20
                   }
                 },
                 'name': 'a'
@@ -84,11 +94,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 22
                   },
                   'end': {
                     'line': 2,
-                    'column': 12
+                    'column': 12,
+                    'index': 29
                   }
                 },
                 'value': '12345',
@@ -109,11 +121,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 52
       }
     },
     'body': [
@@ -124,11 +138,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 52
           }
         },
         'exportKind': 'value',
@@ -139,11 +155,13 @@ const NormalExportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 52
             }
           },
           'id': null,
@@ -158,11 +176,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 26
+                'column': 26,
+                'index': 26
               },
               'end': {
                 'line': 3,
-                'column': 1
+                'column': 1,
+                'index': 52
               }
             },
             'body': [
@@ -173,11 +193,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 30
                   },
                   'end': {
                     'line': 2,
-                    'column': 22
+                    'column': 22,
+                    'index': 50
                   }
                 },
                 'expression': {
@@ -187,11 +209,13 @@ const NormalExportSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 30
                     },
                     'end': {
                       'line': 2,
-                      'column': 22
+                      'column': 22,
+                      'index': 50
                     }
                   },
                   'callee': {
@@ -201,11 +225,13 @@ const NormalExportSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 30
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 41
                       }
                     },
                     'object': {
@@ -215,11 +241,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 2
+                          'column': 2,
+                          'index': 30
                         },
                         'end': {
                           'line': 2,
-                          'column': 9
+                          'column': 9,
+                          'index': 37
                         }
                       },
                       'name': 'console'
@@ -231,11 +259,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 10
+                          'column': 10,
+                          'index': 38
                         },
                         'end': {
                           'line': 2,
-                          'column': 13
+                          'column': 13,
+                          'index': 41
                         }
                       },
                       'name': 'log'
@@ -251,11 +281,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 14
+                          'column': 14,
+                          'index': 42
                         },
                         'end': {
                           'line': 2,
-                          'column': 21
+                          'column': 21,
+                          'index': 49
                         }
                       },
                       'value': '12345',
@@ -279,11 +311,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 57
       }
     },
     'body': [
@@ -294,11 +328,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 57
           }
         },
         'exportKind': 'value',
@@ -309,11 +345,13 @@ const NormalExportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 57
             }
           },
           'id': {
@@ -323,11 +361,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 24
+                'column': 24,
+                'index': 24
               },
               'end': {
                 'line': 1,
-                'column': 28
+                'column': 28,
+                'index': 28
               }
             },
             'name': 'Test'
@@ -343,11 +383,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 31
+                'column': 31,
+                'index': 31
               },
               'end': {
                 'line': 3,
-                'column': 1
+                'column': 1,
+                'index': 57
               }
             },
             'body': [
@@ -358,11 +400,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 22
+                    'column': 22,
+                    'index': 55
                   }
                 },
                 'expression': {
@@ -372,11 +416,13 @@ const NormalExportSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 35
                     },
                     'end': {
                       'line': 2,
-                      'column': 22
+                      'column': 22,
+                      'index': 55
                     }
                   },
                   'callee': {
@@ -386,11 +432,13 @@ const NormalExportSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 35
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 46
                       }
                     },
                     'object': {
@@ -400,11 +448,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 2
+                          'column': 2,
+                          'index': 35
                         },
                         'end': {
                           'line': 2,
-                          'column': 9
+                          'column': 9,
+                          'index': 42
                         }
                       },
                       'name': 'console'
@@ -416,11 +466,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 10
+                          'column': 10,
+                          'index': 43
                         },
                         'end': {
                           'line': 2,
-                          'column': 13
+                          'column': 13,
+                          'index': 46
                         }
                       },
                       'name': 'log'
@@ -436,11 +488,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 14
+                          'column': 14,
+                          'index': 47
                         },
                         'end': {
                           'line': 2,
-                          'column': 21
+                          'column': 21,
+                          'index': 54
                         }
                       },
                       'value': '12345',
@@ -464,11 +518,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 47
       }
     },
     'body': [
@@ -479,11 +535,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 47
           }
         },
         'exportKind': 'value',
@@ -494,11 +552,13 @@ const NormalExportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 47
             }
           },
           'id': null,
@@ -513,11 +573,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               },
               'end': {
                 'line': 3,
-                'column': 1
+                'column': 1,
+                'index': 47
               }
             },
             'body': [
@@ -528,11 +590,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 22
+                    'column': 22,
+                    'index': 45
                   }
                 },
                 'expression': {
@@ -542,11 +606,13 @@ const NormalExportSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 25
                     },
                     'end': {
                       'line': 2,
-                      'column': 22
+                      'column': 22,
+                      'index': 45
                     }
                   },
                   'callee': {
@@ -556,11 +622,13 @@ const NormalExportSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 25
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 36
                       }
                     },
                     'object': {
@@ -570,11 +638,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 2
+                          'column': 2,
+                          'index': 25
                         },
                         'end': {
                           'line': 2,
-                          'column': 9
+                          'column': 9,
+                          'index': 32
                         }
                       },
                       'name': 'console'
@@ -586,11 +656,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 10
+                          'column': 10,
+                          'index': 33
                         },
                         'end': {
                           'line': 2,
-                          'column': 13
+                          'column': 13,
+                          'index': 36
                         }
                       },
                       'name': 'log'
@@ -606,11 +678,13 @@ const NormalExportSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 14
+                          'column': 14,
+                          'index': 37
                         },
                         'end': {
                           'line': 2,
-                          'column': 21
+                          'column': 21,
+                          'index': 44
                         }
                       },
                       'value': '12345',
@@ -634,11 +708,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 27
+        'column': 27,
+        'index': 27
       }
     },
     'body': [
@@ -649,11 +725,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 27
+            'column': 27,
+            'index': 27
           }
         },
         'exportKind': 'value',
@@ -664,11 +742,13 @@ const NormalExportSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 7
+              'column': 7,
+              'index': 7
             },
             'end': {
               'line': 1,
-              'column': 27
+              'column': 27,
+              'index': 27
             }
           },
           'declarations': [
@@ -679,11 +759,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 13
+                  'column': 13,
+                  'index': 13
                 },
                 'end': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 }
               },
               'id': {
@@ -693,11 +775,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 13
+                    'column': 13,
+                    'index': 13
                   },
                   'end': {
                     'line': 1,
-                    'column': 17
+                    'column': 17,
+                    'index': 17
                   }
                 },
                 'name': 'test'
@@ -709,11 +793,13 @@ const NormalExportSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 20
+                    'column': 20,
+                    'index': 20
                   },
                   'end': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   }
                 },
                 'value': '12345',
@@ -736,11 +822,13 @@ const NormalExportSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 6,
-        'column': 1
+        'column': 1,
+        'index': 59
       }
     },
     'body': [
@@ -751,11 +839,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 21
+            'column': 21,
+            'index': 21
           }
         },
         'declarations': [
@@ -766,11 +856,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               }
             },
             'id': {
@@ -780,11 +872,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 10
+                  'column': 10,
+                  'index': 10
                 }
               },
               'name': 'Name'
@@ -796,11 +890,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 13
+                  'column': 13,
+                  'index': 13
                 },
                 'end': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 }
               },
               'value': 'tyreal',
@@ -817,11 +913,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 2,
-            'column': 0
+            'column': 0,
+            'index': 22
           },
           'end': {
             'line': 2,
-            'column': 12
+            'column': 12,
+            'index': 34
           }
         },
         'declarations': [
@@ -832,11 +930,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 4
+                'column': 4,
+                'index': 26
               },
               'end': {
                 'line': 2,
-                'column': 12
+                'column': 12,
+                'index': 34
               }
             },
             'id': {
@@ -846,11 +946,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 4
+                  'column': 4,
+                  'index': 26
                 },
                 'end': {
                   'line': 2,
-                  'column': 7
+                  'column': 7,
+                  'index': 29
                 }
               },
               'name': 'Age'
@@ -862,11 +964,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 10
+                  'column': 10,
+                  'index': 32
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 34
                 }
               },
               'value': 22,
@@ -883,11 +987,13 @@ const NormalExportSnapshot = {
         'loc': {
           'start': {
             'line': 3,
-            'column': 0
+            'column': 0,
+            'index': 35
           },
           'end': {
             'line': 6,
-            'column': 1
+            'column': 1,
+            'index': 59
           }
         },
         'exportKind': 'value',
@@ -900,11 +1006,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 4,
-                'column': 2
+                'column': 2,
+                'index': 46
               },
               'end': {
                 'line': 4,
-                'column': 6
+                'column': 6,
+                'index': 50
               }
             },
             'local': {
@@ -914,11 +1022,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 2
+                  'column': 2,
+                  'index': 46
                 },
                 'end': {
                   'line': 4,
-                  'column': 6
+                  'column': 6,
+                  'index': 50
                 }
               },
               'name': 'Name'
@@ -931,11 +1041,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 2
+                  'column': 2,
+                  'index': 46
                 },
                 'end': {
                   'line': 4,
-                  'column': 6
+                  'column': 6,
+                  'index': 50
                 }
               },
               'name': 'Name'
@@ -948,11 +1060,13 @@ const NormalExportSnapshot = {
             'loc': {
               'start': {
                 'line': 5,
-                'column': 2
+                'column': 2,
+                'index': 54
               },
               'end': {
                 'line': 5,
-                'column': 5
+                'column': 5,
+                'index': 57
               }
             },
             'local': {
@@ -962,11 +1076,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 2
+                  'column': 2,
+                  'index': 54
                 },
                 'end': {
                   'line': 5,
-                  'column': 5
+                  'column': 5,
+                  'index': 57
                 }
               },
               'name': 'Age'
@@ -979,11 +1095,13 @@ const NormalExportSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 2
+                  'column': 2,
+                  'index': 54
                 },
                 'end': {
                   'line': 5,
-                  'column': 5
+                  'column': 5,
+                  'index': 57
                 }
               },
               'name': 'Age'

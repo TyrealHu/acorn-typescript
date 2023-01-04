@@ -6,11 +6,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 44
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 44
           }
         },
         'id': {
@@ -35,11 +39,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -55,11 +61,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 21
+              'column': 21,
+              'index': 21
             }
           },
           'typeAnnotation': {
@@ -69,11 +77,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               }
             }
           }
@@ -85,11 +95,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 22
+              'column': 22,
+              'index': 22
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 44
             }
           },
           'body': [
@@ -100,11 +112,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 26
                 },
                 'end': {
                   'line': 2,
-                  'column': 18
+                  'column': 18,
+                  'index': 42
                 }
               },
               'expression': {
@@ -114,11 +128,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 26
                   },
                   'end': {
                     'line': 2,
-                    'column': 18
+                    'column': 18,
+                    'index': 42
                   }
                 },
                 'callee': {
@@ -128,11 +144,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 26
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 37
                     }
                   },
                   'object': {
@@ -142,11 +160,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 26
                       },
                       'end': {
                         'line': 2,
-                        'column': 9
+                        'column': 9,
+                        'index': 33
                       }
                     },
                     'name': 'console'
@@ -158,11 +178,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 10
+                        'column': 10,
+                        'index': 34
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 37
                       }
                     },
                     'name': 'log'
@@ -178,11 +200,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 14
+                        'column': 14,
+                        'index': 38
                       },
                       'end': {
                         'line': 2,
-                        'column': 17
+                        'column': 17,
+                        'index': 41
                       }
                     },
                     'value': 123,
@@ -205,11 +229,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 51
       }
     },
     'body': [
@@ -220,11 +246,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 51
           }
         },
         'id': {
@@ -234,11 +262,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -254,11 +284,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             }
           },
           'typeAnnotation': {
@@ -268,11 +300,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 24
+                'column': 24,
+                'index': 24
               }
             }
           }
@@ -284,11 +318,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 23
+              'column': 23,
+              'index': 23
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 51
             }
           },
           'body': [
@@ -299,11 +335,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 27
                 },
                 'end': {
                   'line': 2,
-                  'column': 24
+                  'column': 24,
+                  'index': 49
                 }
               },
               'argument': {
@@ -313,11 +351,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 8
+                    'column': 8,
+                    'index': 33
                   },
                   'end': {
                     'line': 2,
-                    'column': 24
+                    'column': 24,
+                    'index': 49
                   }
                 },
                 'callee': {
@@ -327,11 +367,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 12
+                      'column': 12,
+                      'index': 37
                     },
                     'end': {
                       'line': 2,
-                      'column': 17
+                      'column': 17,
+                      'index': 42
                     }
                   },
                   'name': 'Error'
@@ -344,11 +386,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 18
+                        'column': 18,
+                        'index': 43
                       },
                       'end': {
                         'line': 2,
-                        'column': 23
+                        'column': 23,
+                        'index': 48
                       }
                     },
                     'value': '123',
@@ -370,11 +414,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 42
       }
     },
     'body': [
@@ -385,11 +431,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 42
           }
         },
         'id': {
@@ -399,11 +447,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -419,11 +469,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             }
           },
           'typeAnnotation': {
@@ -433,11 +485,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             }
           }
@@ -449,11 +503,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 42
             }
           },
           'body': [
@@ -464,11 +520,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 14
+                  'column': 14,
+                  'index': 40
                 }
               },
               'argument': {
@@ -478,11 +536,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 14
+                    'column': 14,
+                    'index': 40
                   }
                 },
                 'value': '123',
@@ -502,11 +562,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 40
       }
     },
     'body': [
@@ -517,11 +579,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 40
           }
         },
         'id': {
@@ -531,11 +595,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -551,11 +617,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             }
           },
           'typeAnnotation': {
@@ -565,11 +633,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             }
           }
@@ -581,11 +651,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 40
             }
           },
           'body': [
@@ -596,11 +668,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 38
                 }
               },
               'argument': {
@@ -610,11 +684,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 12
+                    'column': 12,
+                    'index': 38
                   }
                 },
                 'value': 123,
@@ -634,11 +710,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 49
       }
     },
     'body': [
@@ -649,11 +727,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 49
           }
         },
         'id': {
@@ -663,11 +743,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -683,11 +765,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 28
+              'column': 28,
+              'index': 28
             }
           },
           'typeAnnotation': {
@@ -697,11 +781,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 28
+                'column': 28,
+                'index': 28
               }
             }
           }
@@ -713,11 +799,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 27
+              'column': 27,
+              'index': 27
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 49
             }
           },
           'body': [
@@ -728,11 +816,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 31
                 },
                 'end': {
                   'line': 2,
-                  'column': 18
+                  'column': 18,
+                  'index': 47
                 }
               },
               'argument': {
@@ -742,11 +832,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 38
                   },
                   'end': {
                     'line': 2,
-                    'column': 18
+                    'column': 18,
+                    'index': 47
                   }
                 },
                 'name': 'undefined'
@@ -765,11 +857,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 42
       }
     },
     'body': [
@@ -780,11 +874,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 42
           }
         },
         'id': {
@@ -794,11 +890,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -814,11 +912,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 26
+              'column': 26,
+              'index': 26
             }
           },
           'typeAnnotation': {
@@ -828,11 +928,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 26
+                'column': 26,
+                'index': 26
               }
             }
           }
@@ -844,11 +946,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 42
             }
           },
           'body': [
@@ -859,11 +963,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 29
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 40
                 }
               },
               'argument': {
@@ -873,11 +979,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 36
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 40
                   }
                 },
                 'value': true,
@@ -897,11 +1005,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 53
       }
     },
     'body': [
@@ -912,11 +1022,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 53
           }
         },
         'id': {
@@ -926,11 +1038,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -946,11 +1060,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             }
           },
           'typeAnnotation': {
@@ -960,11 +1076,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             }
           }
@@ -976,11 +1094,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 53
             }
           },
           'body': [
@@ -991,11 +1111,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 25
+                  'column': 25,
+                  'index': 51
                 }
               },
               'argument': {
@@ -1005,11 +1127,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 25
+                    'column': 25,
+                    'index': 51
                   }
                 },
                 'callee': {
@@ -1019,11 +1143,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 9
+                      'column': 9,
+                      'index': 35
                     },
                     'end': {
                       'line': 2,
-                      'column': 15
+                      'column': 15,
+                      'index': 41
                     }
                   },
                   'name': 'BigInt'
@@ -1036,11 +1162,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 16
+                        'column': 16,
+                        'index': 42
                       },
                       'end': {
                         'line': 2,
-                        'column': 24
+                        'column': 24,
+                        'index': 50
                       }
                     },
                     'value': '123123',
@@ -1063,11 +1191,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 45
       }
     },
     'body': [
@@ -1078,11 +1208,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 45
           }
         },
         'id': {
@@ -1092,11 +1224,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -1112,11 +1246,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             }
           },
           'typeAnnotation': {
@@ -1126,11 +1262,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             }
           }
@@ -1142,11 +1280,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 45
             }
           },
           'body': [
@@ -1157,11 +1297,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 17
+                  'column': 17,
+                  'index': 43
                 }
               },
               'argument': {
@@ -1171,11 +1313,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 17
+                    'column': 17,
+                    'index': 43
                   }
                 },
                 'properties': [
@@ -1186,11 +1330,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 11
+                        'column': 11,
+                        'index': 37
                       },
                       'end': {
                         'line': 2,
-                        'column': 15
+                        'column': 15,
+                        'index': 41
                       }
                     },
                     'method': false,
@@ -1203,11 +1349,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 11
+                          'column': 11,
+                          'index': 37
                         },
                         'end': {
                           'line': 2,
-                          'column': 12
+                          'column': 12,
+                          'index': 38
                         }
                       },
                       'name': 'a'
@@ -1219,11 +1367,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 2,
-                          'column': 14
+                          'column': 14,
+                          'index': 40
                         },
                         'end': {
                           'line': 2,
-                          'column': 15
+                          'column': 15,
+                          'index': 41
                         }
                       },
                       'value': 1,
@@ -1247,11 +1397,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 50
       }
     },
     'body': [
@@ -1262,11 +1414,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 50
           }
         },
         'id': {
@@ -1276,11 +1430,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -1296,11 +1452,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             }
           },
           'typeAnnotation': {
@@ -1310,11 +1468,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             }
           }
@@ -1326,11 +1486,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 24
+              'column': 24,
+              'index': 24
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 50
             }
           },
           'body': [
@@ -1341,11 +1503,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 28
                 },
                 'end': {
                   'line': 2,
-                  'column': 22
+                  'column': 22,
+                  'index': 48
                 }
               },
               'argument': {
@@ -1355,11 +1519,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 35
                   },
                   'end': {
                     'line': 2,
-                    'column': 22
+                    'column': 22,
+                    'index': 48
                   }
                 },
                 'callee': {
@@ -1369,11 +1535,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 9
+                      'column': 9,
+                      'index': 35
                     },
                     'end': {
                       'line': 2,
-                      'column': 15
+                      'column': 15,
+                      'index': 41
                     }
                   },
                   'name': 'Symbol'
@@ -1386,11 +1554,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 16
+                        'column': 16,
+                        'index': 42
                       },
                       'end': {
                         'line': 2,
-                        'column': 21
+                        'column': 21,
+                        'index': 47
                       }
                     },
                     'value': '123',
@@ -1413,11 +1583,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 41
       }
     },
     'body': [
@@ -1428,11 +1600,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 41
           }
         },
         'id': {
@@ -1442,11 +1616,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -1462,11 +1638,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 26
+              'column': 26,
+              'index': 26
             }
           },
           'typeAnnotation': {
@@ -1476,11 +1654,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 26
+                'column': 26,
+                'index': 26
               }
             }
           }
@@ -1492,11 +1672,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 25
+              'column': 25,
+              'index': 25
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 41
             }
           },
           'body': [
@@ -1507,11 +1689,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 29
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 39
                 }
               },
               'argument': {
@@ -1521,11 +1705,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 36
                   },
                   'end': {
                     'line': 2,
-                    'column': 12
+                    'column': 12,
+                    'index': 39
                   }
                 },
                 'value': 123,
@@ -1545,11 +1731,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 37
       }
     },
     'body': [
@@ -1560,11 +1748,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 37
           }
         },
         'id': {
@@ -1574,11 +1764,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -1594,11 +1786,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 22
+              'column': 22,
+              'index': 22
             }
           },
           'typeAnnotation': {
@@ -1608,11 +1802,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 22
+                'column': 22,
+                'index': 22
               }
             }
           }
@@ -1624,11 +1820,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 21
+              'column': 21,
+              'index': 21
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 37
             }
           },
           'body': [
@@ -1639,11 +1837,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 25
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 35
                 }
               },
               'argument': {
@@ -1653,11 +1853,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 32
                   },
                   'end': {
                     'line': 2,
-                    'column': 12
+                    'column': 12,
+                    'index': 35
                   }
                 },
                 'value': 123,
@@ -1677,11 +1879,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 4,
-        'column': 1
+        'column': 1,
+        'index': 83
       }
     },
     'body': [
@@ -1692,11 +1896,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 40
+            'column': 40,
+            'index': 40
           }
         },
         'id': {
@@ -1706,11 +1912,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 5
+              'column': 5,
+              'index': 5
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'TestType'
@@ -1722,11 +1930,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 16
+              'column': 16,
+              'index': 16
             },
             'end': {
               'line': 1,
-              'column': 40
+              'column': 40,
+              'index': 40
             }
           },
           'types': [
@@ -1737,11 +1947,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 16
+                  'column': 16,
+                  'index': 16
                 },
                 'end': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 }
               }
             },
@@ -1752,11 +1964,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 25
+                  'column': 25,
+                  'index': 25
                 },
                 'end': {
                   'line': 1,
-                  'column': 31
+                  'column': 31,
+                  'index': 31
                 }
               }
             },
@@ -1767,11 +1981,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 34
+                  'column': 34,
+                  'index': 34
                 },
                 'end': {
                   'line': 1,
-                  'column': 40
+                  'column': 40,
+                  'index': 40
                 }
               }
             }
@@ -1785,11 +2001,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 2,
-            'column': 0
+            'column': 0,
+            'index': 41
           },
           'end': {
             'line': 4,
-            'column': 1
+            'column': 1,
+            'index': 83
           }
         },
         'id': {
@@ -1799,11 +2017,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 2,
-              'column': 9
+              'column': 9,
+              'index': 50
             },
             'end': {
               'line': 2,
-              'column': 13
+              'column': 13,
+              'index': 54
             }
           },
           'name': 'test'
@@ -1819,11 +2039,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 2,
-              'column': 15
+              'column': 15,
+              'index': 56
             },
             'end': {
               'line': 2,
-              'column': 27
+              'column': 27,
+              'index': 68
             }
           },
           'typeAnnotation': {
@@ -1833,11 +2055,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 17
+                'column': 17,
+                'index': 58
               },
               'end': {
                 'line': 2,
-                'column': 27
+                'column': 27,
+                'index': 68
               }
             },
             'typeName': {
@@ -1847,11 +2071,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 17
+                  'column': 17,
+                  'index': 58
                 },
                 'end': {
                   'line': 2,
-                  'column': 27
+                  'column': 27,
+                  'index': 68
                 }
               },
               'name': 'TestType'
@@ -1865,11 +2091,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 2,
-              'column': 26
+              'column': 26,
+              'index': 67
             },
             'end': {
               'line': 4,
-              'column': 1
+              'column': 1,
+              'index': 83
             }
           },
           'body': [
@@ -1880,11 +2108,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 2
+                  'column': 2,
+                  'index': 71
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 81
                 }
               },
               'argument': {
@@ -1894,11 +2124,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 9
+                    'column': 9,
+                    'index': 78
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 81
                   }
                 },
                 'value': 123,
@@ -1918,11 +2150,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 12,
-        'column': 1
+        'column': 1,
+        'index': 161
       }
     },
     'body': [
@@ -1933,11 +2167,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 5,
-            'column': 1
+            'column': 1,
+            'index': 64
           }
         },
         'id': {
@@ -1947,11 +2183,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             }
           },
           'name': 'Student'
@@ -1963,11 +2201,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 18
+              'column': 18,
+              'index': 18
             },
             'end': {
               'line': 5,
-              'column': 1
+              'column': 1,
+              'index': 64
             }
           },
           'body': [
@@ -1978,11 +2218,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 21
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 33
                 }
               },
               'computed': false,
@@ -1993,11 +2235,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   }
                 },
                 'name': 'name'
@@ -2009,11 +2253,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 33
                   }
                 },
                 'typeAnnotation': {
@@ -2023,11 +2269,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 27
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 33
                     }
                   }
                 }
@@ -2040,11 +2288,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 35
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 46
                 }
               },
               'computed': false,
@@ -2055,11 +2305,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 35
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   }
                 },
                 'name': 'age'
@@ -2071,11 +2323,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 46
                   }
                 },
                 'typeAnnotation': {
@@ -2085,11 +2339,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 40
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 46
                     }
                   }
                 }
@@ -2102,11 +2358,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 48
                 },
                 'end': {
                   'line': 4,
-                  'column': 15
+                  'column': 15,
+                  'index': 62
                 }
               },
               'computed': false,
@@ -2117,11 +2375,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 1
+                    'column': 1,
+                    'index': 48
                   },
                   'end': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   }
                 },
                 'name': 'school'
@@ -2133,11 +2393,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   },
                   'end': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 62
                   }
                 },
                 'typeAnnotation': {
@@ -2147,11 +2409,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 9
+                      'column': 9,
+                      'index': 56
                     },
                     'end': {
                       'line': 4,
-                      'column': 15
+                      'column': 15,
+                      'index': 62
                     }
                   }
                 }
@@ -2167,11 +2431,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 6,
-            'column': 0
+            'column': 0,
+            'index': 65
           },
           'end': {
             'line': 12,
-            'column': 1
+            'column': 1,
+            'index': 161
           }
         },
         'id': {
@@ -2181,11 +2447,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 6,
-              'column': 9
+              'column': 9,
+              'index': 74
             },
             'end': {
               'line': 6,
-              'column': 13
+              'column': 13,
+              'index': 78
             }
           },
           'name': 'test'
@@ -2201,11 +2469,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 6,
-              'column': 15
+              'column': 15,
+              'index': 80
             },
             'end': {
               'line': 6,
-              'column': 26
+              'column': 26,
+              'index': 91
             }
           },
           'typeAnnotation': {
@@ -2215,11 +2485,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 6,
-                'column': 17
+                'column': 17,
+                'index': 82
               },
               'end': {
                 'line': 6,
-                'column': 26
+                'column': 26,
+                'index': 91
               }
             },
             'typeName': {
@@ -2229,11 +2501,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 6,
-                  'column': 17
+                  'column': 17,
+                  'index': 82
                 },
                 'end': {
                   'line': 6,
-                  'column': 26
+                  'column': 26,
+                  'index': 91
                 }
               },
               'name': 'Student'
@@ -2247,11 +2521,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 6,
-              'column': 25
+              'column': 25,
+              'index': 90
             },
             'end': {
               'line': 12,
-              'column': 1
+              'column': 1,
+              'index': 161
             }
           },
           'body': [
@@ -2262,11 +2538,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 7,
-                  'column': 2
+                  'column': 2,
+                  'index': 94
                 },
                 'end': {
                   'line': 11,
-                  'column': 3
+                  'column': 3,
+                  'index': 159
                 }
               },
               'argument': {
@@ -2276,11 +2554,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 7,
-                    'column': 9
+                    'column': 9,
+                    'index': 101
                   },
                   'end': {
                     'line': 11,
-                    'column': 3
+                    'column': 3,
+                    'index': 159
                   }
                 },
                 'properties': [
@@ -2291,11 +2571,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 8,
-                        'column': 4
+                        'column': 4,
+                        'index': 107
                       },
                       'end': {
                         'line': 8,
-                        'column': 18
+                        'column': 18,
+                        'index': 121
                       }
                     },
                     'method': false,
@@ -2308,11 +2590,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 4
+                          'column': 4,
+                          'index': 107
                         },
                         'end': {
                           'line': 8,
-                          'column': 8
+                          'column': 8,
+                          'index': 111
                         }
                       },
                       'name': 'name'
@@ -2324,11 +2608,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 10
+                          'column': 10,
+                          'index': 113
                         },
                         'end': {
                           'line': 8,
-                          'column': 18
+                          'column': 18,
+                          'index': 121
                         }
                       },
                       'value': 'tyreal',
@@ -2343,11 +2629,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 9,
-                        'column': 4
+                        'column': 4,
+                        'index': 127
                       },
                       'end': {
                         'line': 9,
-                        'column': 11
+                        'column': 11,
+                        'index': 134
                       }
                     },
                     'method': false,
@@ -2360,11 +2648,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 9,
-                          'column': 4
+                          'column': 4,
+                          'index': 127
                         },
                         'end': {
                           'line': 9,
-                          'column': 7
+                          'column': 7,
+                          'index': 130
                         }
                       },
                       'name': 'age'
@@ -2376,11 +2666,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 9,
-                          'column': 9
+                          'column': 9,
+                          'index': 132
                         },
                         'end': {
                           'line': 9,
-                          'column': 11
+                          'column': 11,
+                          'index': 134
                         }
                       },
                       'value': 22,
@@ -2395,11 +2687,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 10,
-                        'column': 4
+                        'column': 4,
+                        'index': 140
                       },
                       'end': {
                         'line': 10,
-                        'column': 18
+                        'column': 18,
+                        'index': 154
                       }
                     },
                     'method': false,
@@ -2412,11 +2706,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 10,
-                          'column': 4
+                          'column': 4,
+                          'index': 140
                         },
                         'end': {
                           'line': 10,
-                          'column': 10
+                          'column': 10,
+                          'index': 146
                         }
                       },
                       'name': 'school'
@@ -2428,11 +2724,13 @@ const FunctionTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 10,
-                          'column': 12
+                          'column': 12,
+                          'index': 148
                         },
                         'end': {
                           'line': 10,
-                          'column': 18
+                          'column': 18,
+                          'index': 154
                         }
                       },
                       'value': 'gdut',
@@ -2456,11 +2754,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 49
       }
     },
     'body': [
@@ -2471,11 +2771,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 49
           }
         },
         'id': {
@@ -2485,11 +2787,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -2505,11 +2809,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 15
+              'column': 15,
+              'index': 15
             },
             'end': {
               'line': 1,
-              'column': 32
+              'column': 32,
+              'index': 32
             }
           },
           'typeAnnotation': {
@@ -2519,11 +2825,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 17
+                'column': 17,
+                'index': 17
               },
               'end': {
                 'line': 1,
-                'column': 32
+                'column': 32,
+                'index': 32
               }
             },
             'types': [
@@ -2534,11 +2842,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 17
+                    'column': 17,
+                    'index': 17
                   },
                   'end': {
                     'line': 1,
-                    'column': 25
+                    'column': 25,
+                    'index': 25
                   }
                 }
               },
@@ -2549,11 +2859,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 26
+                    'column': 26,
+                    'index': 26
                   },
                   'end': {
                     'line': 1,
-                    'column': 32
+                    'column': 32,
+                    'index': 32
                   }
                 }
               }
@@ -2567,11 +2879,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 33
+              'column': 33,
+              'index': 33
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 49
             }
           },
           'body': [
@@ -2582,11 +2896,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 37
                 },
                 'end': {
                   'line': 2,
-                  'column': 12
+                  'column': 12,
+                  'index': 47
                 }
               },
               'argument': {
@@ -2596,11 +2912,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 44
                   },
                   'end': {
                     'line': 2,
-                    'column': 12
+                    'column': 12,
+                    'index': 47
                   }
                 },
                 'value': 123,
@@ -2620,11 +2938,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 57
       }
     },
     'body': [
@@ -2635,11 +2955,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 57
           }
         },
         'id': {
@@ -2649,11 +2971,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -2669,11 +2993,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 14
+                'column': 14,
+                'index': 14
               },
               'end': {
                 'line': 1,
-                'column': 26
+                'column': 26,
+                'index': 26
               }
             },
             'name': 'name',
@@ -2684,11 +3010,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 },
                 'end': {
                   'line': 1,
-                  'column': 26
+                  'column': 26,
+                  'index': 26
                 }
               },
               'typeAnnotation': {
@@ -2698,11 +3026,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 20
+                    'column': 20,
+                    'index': 20
                   },
                   'end': {
                     'line': 1,
-                    'column': 26
+                    'column': 26,
+                    'index': 26
                   }
                 }
               }
@@ -2716,11 +3046,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 27
+              'column': 27,
+              'index': 27
             },
             'end': {
               'line': 1,
-              'column': 33
+              'column': 33,
+              'index': 33
             }
           },
           'typeAnnotation': {
@@ -2730,11 +3062,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 29
+                'column': 29,
+                'index': 29
               },
               'end': {
                 'line': 1,
-                'column': 33
+                'column': 33,
+                'index': 33
               }
             }
           }
@@ -2746,11 +3080,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 34
+              'column': 34,
+              'index': 34
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 57
             }
           },
           'body': [
@@ -2761,11 +3097,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 38
                 },
                 'end': {
                   'line': 2,
-                  'column': 19
+                  'column': 19,
+                  'index': 55
                 }
               },
               'expression': {
@@ -2775,11 +3113,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 38
                   },
                   'end': {
                     'line': 2,
-                    'column': 19
+                    'column': 19,
+                    'index': 55
                   }
                 },
                 'callee': {
@@ -2789,11 +3129,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 38
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 49
                     }
                   },
                   'object': {
@@ -2803,11 +3145,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 38
                       },
                       'end': {
                         'line': 2,
-                        'column': 9
+                        'column': 9,
+                        'index': 45
                       }
                     },
                     'name': 'console'
@@ -2819,11 +3163,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 10
+                        'column': 10,
+                        'index': 46
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 49
                       }
                     },
                     'name': 'log'
@@ -2839,11 +3185,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 14
+                        'column': 14,
+                        'index': 50
                       },
                       'end': {
                         'line': 2,
-                        'column': 18
+                        'column': 18,
+                        'index': 54
                       }
                     },
                     'name': 'name'
@@ -2865,11 +3213,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 3,
-        'column': 1
+        'column': 1,
+        'index': 58
       }
     },
     'body': [
@@ -2880,11 +3230,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 3,
-            'column': 1
+            'column': 1,
+            'index': 58
           }
         },
         'id': {
@@ -2894,11 +3246,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 9
+              'column': 9,
+              'index': 9
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'test'
@@ -2914,11 +3268,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 14
+                'column': 14,
+                'index': 14
               },
               'end': {
                 'line': 1,
-                'column': 27
+                'column': 27,
+                'index': 27
               }
             },
             'name': 'name',
@@ -2930,11 +3286,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 19
+                  'column': 19,
+                  'index': 19
                 },
                 'end': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 }
               },
               'typeAnnotation': {
@@ -2944,11 +3302,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 21
+                    'column': 21,
+                    'index': 21
                   },
                   'end': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   }
                 }
               }
@@ -2962,11 +3322,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 28
+              'column': 28,
+              'index': 28
             },
             'end': {
               'line': 1,
-              'column': 34
+              'column': 34,
+              'index': 34
             }
           },
           'typeAnnotation': {
@@ -2976,11 +3338,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 30
+                'column': 30,
+                'index': 30
               },
               'end': {
                 'line': 1,
-                'column': 34
+                'column': 34,
+                'index': 34
               }
             }
           }
@@ -2992,11 +3356,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 35
+              'column': 35,
+              'index': 35
             },
             'end': {
               'line': 3,
-              'column': 1
+              'column': 1,
+              'index': 58
             }
           },
           'body': [
@@ -3007,11 +3373,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 39
                 },
                 'end': {
                   'line': 2,
-                  'column': 19
+                  'column': 19,
+                  'index': 56
                 }
               },
               'expression': {
@@ -3021,11 +3389,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 39
                   },
                   'end': {
                     'line': 2,
-                    'column': 19
+                    'column': 19,
+                    'index': 56
                   }
                 },
                 'callee': {
@@ -3035,11 +3405,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 39
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 50
                     }
                   },
                   'object': {
@@ -3049,11 +3421,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 39
                       },
                       'end': {
                         'line': 2,
-                        'column': 9
+                        'column': 9,
+                        'index': 46
                       }
                     },
                     'name': 'console'
@@ -3065,11 +3439,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 10
+                        'column': 10,
+                        'index': 47
                       },
                       'end': {
                         'line': 2,
-                        'column': 13
+                        'column': 13,
+                        'index': 50
                       }
                     },
                     'name': 'log'
@@ -3085,11 +3461,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 14
+                        'column': 14,
+                        'index': 51
                       },
                       'end': {
                         'line': 2,
-                        'column': 18
+                        'column': 18,
+                        'index': 55
                       }
                     },
                     'name': 'name'
@@ -3111,11 +3489,13 @@ const FunctionTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 8,
-        'column': 1
+        'column': 1,
+        'index': 165
       }
     },
     'body': [
@@ -3126,11 +3506,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 4,
-            'column': 1
+            'column': 1,
+            'index': 54
           }
         },
         'id': {
@@ -3140,11 +3522,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 16
+              'column': 16,
+              'index': 16
             }
           },
           'name': 'Family'
@@ -3156,11 +3540,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             },
             'end': {
               'line': 4,
-              'column': 1
+              'column': 1,
+              'index': 54
             }
           },
           'body': [
@@ -3171,11 +3557,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 2
+                  'column': 2,
+                  'index': 21
                 },
                 'end': {
                   'line': 2,
-                  'column': 16
+                  'column': 16,
+                  'index': 35
                 }
               },
               'computed': false,
@@ -3186,11 +3574,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 2
+                    'column': 2,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 8
+                    'column': 8,
+                    'index': 27
                   }
                 },
                 'name': 'father'
@@ -3202,11 +3592,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 8
+                    'column': 8,
+                    'index': 27
                   },
                   'end': {
                     'line': 2,
-                    'column': 16
+                    'column': 16,
+                    'index': 35
                   }
                 },
                 'typeAnnotation': {
@@ -3216,11 +3608,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 10
+                      'column': 10,
+                      'index': 29
                     },
                     'end': {
                       'line': 2,
-                      'column': 16
+                      'column': 16,
+                      'index': 35
                     }
                   }
                 }
@@ -3233,11 +3627,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 2
+                  'column': 2,
+                  'index': 38
                 },
                 'end': {
                   'line': 3,
-                  'column': 16
+                  'column': 16,
+                  'index': 52
                 }
               },
               'computed': false,
@@ -3248,11 +3644,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 2
+                    'column': 2,
+                    'index': 38
                   },
                   'end': {
                     'line': 3,
-                    'column': 8
+                    'column': 8,
+                    'index': 44
                   }
                 },
                 'name': 'mother'
@@ -3264,11 +3662,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 8
+                    'column': 8,
+                    'index': 44
                   },
                   'end': {
                     'line': 3,
-                    'column': 16
+                    'column': 16,
+                    'index': 52
                   }
                 },
                 'typeAnnotation': {
@@ -3278,11 +3678,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 10
+                      'column': 10,
+                      'index': 46
                     },
                     'end': {
                       'line': 3,
-                      'column': 16
+                      'column': 16,
+                      'index': 52
                     }
                   }
                 }
@@ -3298,11 +3700,13 @@ const FunctionTypeSnapshot = {
         'loc': {
           'start': {
             'line': 5,
-            'column': 0
+            'column': 0,
+            'index': 55
           },
           'end': {
             'line': 8,
-            'column': 1
+            'column': 1,
+            'index': 165
           }
         },
         'id': {
@@ -3312,11 +3716,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 5,
-              'column': 9
+              'column': 9,
+              'index': 64
             },
             'end': {
               'line': 5,
-              'column': 13
+              'column': 13,
+              'index': 68
             }
           },
           'name': 'test'
@@ -3332,11 +3738,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 5,
-                'column': 14
+                'column': 14,
+                'index': 69
               },
               'end': {
                 'line': 5,
-                'column': 26
+                'column': 26,
+                'index': 81
               }
             },
             'name': 'name',
@@ -3347,11 +3755,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 18
+                  'column': 18,
+                  'index': 73
                 },
                 'end': {
                   'line': 5,
-                  'column': 26
+                  'column': 26,
+                  'index': 81
                 }
               },
               'typeAnnotation': {
@@ -3361,11 +3771,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 20
+                    'column': 20,
+                    'index': 75
                   },
                   'end': {
                     'line': 5,
-                    'column': 26
+                    'column': 26,
+                    'index': 81
                   }
                 }
               }
@@ -3378,11 +3790,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 5,
-                'column': 28
+                'column': 28,
+                'index': 83
               },
               'end': {
                 'line': 5,
-                'column': 42
+                'column': 42,
+                'index': 97
               }
             },
             'name': 'family',
@@ -3393,11 +3807,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 34
+                  'column': 34,
+                  'index': 89
                 },
                 'end': {
                   'line': 5,
-                  'column': 42
+                  'column': 42,
+                  'index': 97
                 }
               },
               'typeAnnotation': {
@@ -3407,11 +3823,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 36
+                    'column': 36,
+                    'index': 91
                   },
                   'end': {
                     'line': 5,
-                    'column': 42
+                    'column': 42,
+                    'index': 97
                   }
                 },
                 'typeName': {
@@ -3421,11 +3839,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 36
+                      'column': 36,
+                      'index': 91
                     },
                     'end': {
                       'line': 5,
-                      'column': 42
+                      'column': 42,
+                      'index': 97
                     }
                   },
                   'name': 'Family'
@@ -3440,11 +3860,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 5,
-                'column': 44
+                'column': 44,
+                'index': 99
               },
               'end': {
                 'line': 5,
-                'column': 56
+                'column': 56,
+                'index': 111
               }
             },
             'name': 'age',
@@ -3456,11 +3878,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 48
+                  'column': 48,
+                  'index': 103
                 },
                 'end': {
                   'line': 5,
-                  'column': 56
+                  'column': 56,
+                  'index': 111
                 }
               },
               'typeAnnotation': {
@@ -3470,11 +3894,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 50
+                    'column': 50,
+                    'index': 105
                   },
                   'end': {
                     'line': 5,
-                    'column': 56
+                    'column': 56,
+                    'index': 111
                   }
                 }
               }
@@ -3488,11 +3914,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 5,
-              'column': 57
+              'column': 57,
+              'index': 112
             },
             'end': {
               'line': 5,
-              'column': 67
+              'column': 67,
+              'index': 122
             }
           },
           'typeAnnotation': {
@@ -3502,11 +3930,13 @@ const FunctionTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 5,
-                'column': 59
+                'column': 59,
+                'index': 114
               },
               'end': {
                 'line': 5,
-                'column': 67
+                'column': 67,
+                'index': 122
               }
             },
             'typeName': {
@@ -3516,11 +3946,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 59
+                  'column': 59,
+                  'index': 114
                 },
                 'end': {
                   'line': 5,
-                  'column': 67
+                  'column': 67,
+                  'index': 122
                 }
               },
               'name': 'Family'
@@ -3534,11 +3966,13 @@ const FunctionTypeSnapshot = {
           'loc': {
             'start': {
               'line': 5,
-              'column': 66
+              'column': 66,
+              'index': 121
             },
             'end': {
               'line': 8,
-              'column': 1
+              'column': 1,
+              'index': 165
             }
           },
           'body': [
@@ -3549,11 +3983,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 6,
-                  'column': 2
+                  'column': 2,
+                  'index': 125
                 },
                 'end': {
                   'line': 6,
-                  'column': 24
+                  'column': 24,
+                  'index': 147
                 }
               },
               'expression': {
@@ -3563,11 +3999,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 6,
-                    'column': 2
+                    'column': 2,
+                    'index': 125
                   },
                   'end': {
                     'line': 6,
-                    'column': 24
+                    'column': 24,
+                    'index': 147
                   }
                 },
                 'callee': {
@@ -3577,11 +4015,13 @@ const FunctionTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 6,
-                      'column': 2
+                      'column': 2,
+                      'index': 125
                     },
                     'end': {
                       'line': 6,
-                      'column': 13
+                      'column': 13,
+                      'index': 136
                     }
                   },
                   'object': {
@@ -3591,11 +4031,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 6,
-                        'column': 2
+                        'column': 2,
+                        'index': 125
                       },
                       'end': {
                         'line': 6,
-                        'column': 9
+                        'column': 9,
+                        'index': 132
                       }
                     },
                     'name': 'console'
@@ -3607,11 +4049,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 6,
-                        'column': 10
+                        'column': 10,
+                        'index': 133
                       },
                       'end': {
                         'line': 6,
-                        'column': 13
+                        'column': 13,
+                        'index': 136
                       }
                     },
                     'name': 'log'
@@ -3627,11 +4071,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 6,
-                        'column': 14
+                        'column': 14,
+                        'index': 137
                       },
                       'end': {
                         'line': 6,
-                        'column': 18
+                        'column': 18,
+                        'index': 141
                       }
                     },
                     'name': 'name'
@@ -3643,11 +4089,13 @@ const FunctionTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 6,
-                        'column': 20
+                        'column': 20,
+                        'index': 143
                       },
                       'end': {
                         'line': 6,
-                        'column': 23
+                        'column': 23,
+                        'index': 146
                       }
                     },
                     'name': 'age'
@@ -3663,11 +4111,13 @@ const FunctionTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 7,
-                  'column': 2
+                  'column': 2,
+                  'index': 150
                 },
                 'end': {
                   'line': 7,
-                  'column': 15
+                  'column': 15,
+                  'index': 163
                 }
               },
               'argument': {
@@ -3677,11 +4127,13 @@ const FunctionTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 7,
-                    'column': 9
+                    'column': 9,
+                    'index': 157
                   },
                   'end': {
                     'line': 7,
-                    'column': 15
+                    'column': 15,
+                    'index': 163
                   }
                 },
                 'name': 'family'

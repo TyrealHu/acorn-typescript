@@ -6,6 +6,7 @@ describe('normal syntax', () => {
     const node = parseSource(generateSource([
       `import './index.js'`
     ]))
+
     expect(node).toEqual(NormalImportSnapshot.ImportWithoutSpecifiers)
   })
 
@@ -13,6 +14,7 @@ describe('normal syntax', () => {
     const node = parseSource(generateSource([
       `import test from './index.js'`
     ]))
+
     expect(node).toEqual(NormalImportSnapshot.ImportDefaultSpecifier)
   })
 
@@ -20,6 +22,7 @@ describe('normal syntax', () => {
     const node = parseSource(generateSource([
       `import { test, name } from './index.js'`
     ]))
+
     expect(node).toEqual(NormalImportSnapshot.ImportNameSpecifiers)
   })
 
@@ -27,6 +30,7 @@ describe('normal syntax', () => {
     const node = parseSource(generateSource([
       `import * as test from './index.js'`
     ]))
+
     expect(node).toEqual(NormalImportSnapshot.ImportNamespaceSpecifier)
   })
 
@@ -44,6 +48,7 @@ describe('normal syntax', () => {
       `import test, { name, age, school as school1 } from './index.js'`,
       `import * as test1 from './index1.js'`
     ]))
+
     expect(node).toEqual(NormalImportSnapshot.ImportComplexSpecifiers)
   })
 })

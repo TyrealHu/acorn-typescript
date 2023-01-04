@@ -6,11 +6,13 @@ const ClassTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 13,
-        'column': 1
+        'column': 1,
+        'index': 227
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const ClassTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 13,
-            'column': 1
+            'column': 1,
+            'index': 227
           }
         },
         'id': {
@@ -35,11 +39,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 6
+              'column': 6,
+              'index': 6
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'Student'
@@ -52,11 +58,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 14
+              'column': 14,
+              'index': 14
             },
             'end': {
               'line': 13,
-              'column': 1
+              'column': 1,
+              'index': 227
             }
           },
           'body': [
@@ -67,11 +75,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 17
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 29
                 }
               },
               'static': false,
@@ -83,11 +93,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 17
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 21
                   }
                 },
                 'name': 'name'
@@ -99,11 +111,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 29
                   }
                 },
                 'typeAnnotation': {
@@ -113,11 +127,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 23
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 29
                     }
                   }
                 }
@@ -131,11 +147,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 31
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 42
                 }
               },
               'static': false,
@@ -147,11 +165,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 31
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 34
                   }
                 },
                 'name': 'age'
@@ -163,11 +183,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 34
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 42
                   }
                 },
                 'typeAnnotation': {
@@ -177,11 +199,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 36
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 42
                     }
                   }
                 }
@@ -195,11 +219,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 44
                 },
                 'end': {
                   'line': 4,
-                  'column': 15
+                  'column': 15,
+                  'index': 58
                 }
               },
               'static': false,
@@ -211,11 +237,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 1
+                    'column': 1,
+                    'index': 44
                   },
                   'end': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 50
                   }
                 },
                 'name': 'school'
@@ -227,11 +255,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 50
                   },
                   'end': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 58
                   }
                 },
                 'typeAnnotation': {
@@ -241,11 +271,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 9
+                      'column': 9,
+                      'index': 52
                     },
                     'end': {
                       'line': 4,
-                      'column': 15
+                      'column': 15,
+                      'index': 58
                     }
                   }
                 }
@@ -259,11 +291,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 1
+                  'column': 1,
+                  'index': 60
                 },
                 'end': {
                   'line': 9,
-                  'column': 2
+                  'column': 2,
+                  'index': 181
                 }
               },
               'static': false,
@@ -275,11 +309,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 1
+                    'column': 1,
+                    'index': 60
                   },
                   'end': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 71
                   }
                 },
                 'name': 'constructor'
@@ -292,11 +328,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 71
                   },
                   'end': {
                     'line': 9,
-                    'column': 2
+                    'column': 2,
+                    'index': 181
                   }
                 },
                 'id': null,
@@ -311,11 +349,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 13
+                        'column': 13,
+                        'index': 72
                       },
                       'end': {
                         'line': 5,
-                        'column': 25
+                        'column': 25,
+                        'index': 84
                       }
                     },
                     'name': 'name',
@@ -326,11 +366,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 17
+                          'column': 17,
+                          'index': 76
                         },
                         'end': {
                           'line': 5,
-                          'column': 25
+                          'column': 25,
+                          'index': 84
                         }
                       },
                       'typeAnnotation': {
@@ -340,11 +382,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 19
+                            'column': 19,
+                            'index': 78
                           },
                           'end': {
                             'line': 5,
-                            'column': 25
+                            'column': 25,
+                            'index': 84
                           }
                         }
                       }
@@ -357,11 +401,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 27
+                        'column': 27,
+                        'index': 86
                       },
                       'end': {
                         'line': 5,
-                        'column': 38
+                        'column': 38,
+                        'index': 97
                       }
                     },
                     'name': 'age',
@@ -372,11 +418,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 30
+                          'column': 30,
+                          'index': 89
                         },
                         'end': {
                           'line': 5,
-                          'column': 38
+                          'column': 38,
+                          'index': 97
                         }
                       },
                       'typeAnnotation': {
@@ -386,11 +434,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 32
+                            'column': 32,
+                            'index': 91
                           },
                           'end': {
                             'line': 5,
-                            'column': 38
+                            'column': 38,
+                            'index': 97
                           }
                         }
                       }
@@ -403,11 +453,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 40
+                        'column': 40,
+                        'index': 99
                       },
                       'end': {
                         'line': 5,
-                        'column': 54
+                        'column': 54,
+                        'index': 113
                       }
                     },
                     'name': 'school',
@@ -418,11 +470,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 46
+                          'column': 46,
+                          'index': 105
                         },
                         'end': {
                           'line': 5,
-                          'column': 54
+                          'column': 54,
+                          'index': 113
                         }
                       },
                       'typeAnnotation': {
@@ -432,11 +486,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 48
+                            'column': 48,
+                            'index': 107
                           },
                           'end': {
                             'line': 5,
-                            'column': 54
+                            'column': 54,
+                            'index': 113
                           }
                         }
                       }
@@ -450,11 +506,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 56
+                      'column': 56,
+                      'index': 115
                     },
                     'end': {
                       'line': 9,
-                      'column': 2
+                      'column': 2,
+                      'index': 181
                     }
                   },
                   'body': [
@@ -465,11 +523,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 6,
-                          'column': 3
+                          'column': 3,
+                          'index': 120
                         },
                         'end': {
                           'line': 6,
-                          'column': 19
+                          'column': 19,
+                          'index': 136
                         }
                       },
                       'expression': {
@@ -479,11 +539,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 3
+                            'column': 3,
+                            'index': 120
                           },
                           'end': {
                             'line': 6,
-                            'column': 19
+                            'column': 19,
+                            'index': 136
                           }
                         },
                         'operator': '=',
@@ -494,11 +556,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 3
+                              'column': 3,
+                              'index': 120
                             },
                             'end': {
                               'line': 6,
-                              'column': 12
+                              'column': 12,
+                              'index': 129
                             }
                           },
                           'object': {
@@ -508,11 +572,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 3
+                                'column': 3,
+                                'index': 120
                               },
                               'end': {
                                 'line': 6,
-                                'column': 7
+                                'column': 7,
+                                'index': 124
                               }
                             }
                           },
@@ -523,11 +589,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 8
+                                'column': 8,
+                                'index': 125
                               },
                               'end': {
                                 'line': 6,
-                                'column': 12
+                                'column': 12,
+                                'index': 129
                               }
                             },
                             'name': 'name'
@@ -542,11 +610,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 15
+                              'column': 15,
+                              'index': 132
                             },
                             'end': {
                               'line': 6,
-                              'column': 19
+                              'column': 19,
+                              'index': 136
                             }
                           },
                           'name': 'name'
@@ -560,11 +630,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 7,
-                          'column': 3
+                          'column': 3,
+                          'index': 140
                         },
                         'end': {
                           'line': 7,
-                          'column': 17
+                          'column': 17,
+                          'index': 154
                         }
                       },
                       'expression': {
@@ -574,11 +646,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 3
+                            'column': 3,
+                            'index': 140
                           },
                           'end': {
                             'line': 7,
-                            'column': 17
+                            'column': 17,
+                            'index': 154
                           }
                         },
                         'operator': '=',
@@ -589,11 +663,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 3
+                              'column': 3,
+                              'index': 140
                             },
                             'end': {
                               'line': 7,
-                              'column': 11
+                              'column': 11,
+                              'index': 148
                             }
                           },
                           'object': {
@@ -603,11 +679,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 3
+                                'column': 3,
+                                'index': 140
                               },
                               'end': {
                                 'line': 7,
-                                'column': 7
+                                'column': 7,
+                                'index': 144
                               }
                             }
                           },
@@ -618,11 +696,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 8
+                                'column': 8,
+                                'index': 145
                               },
                               'end': {
                                 'line': 7,
-                                'column': 11
+                                'column': 11,
+                                'index': 148
                               }
                             },
                             'name': 'age'
@@ -637,11 +717,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 14
+                              'column': 14,
+                              'index': 151
                             },
                             'end': {
                               'line': 7,
-                              'column': 17
+                              'column': 17,
+                              'index': 154
                             }
                           },
                           'name': 'age'
@@ -655,11 +737,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 3
+                          'column': 3,
+                          'index': 158
                         },
                         'end': {
                           'line': 8,
-                          'column': 23
+                          'column': 23,
+                          'index': 178
                         }
                       },
                       'expression': {
@@ -669,11 +753,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 8,
-                            'column': 3
+                            'column': 3,
+                            'index': 158
                           },
                           'end': {
                             'line': 8,
-                            'column': 23
+                            'column': 23,
+                            'index': 178
                           }
                         },
                         'operator': '=',
@@ -684,11 +770,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 3
+                              'column': 3,
+                              'index': 158
                             },
                             'end': {
                               'line': 8,
-                              'column': 14
+                              'column': 14,
+                              'index': 169
                             }
                           },
                           'object': {
@@ -698,11 +786,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 3
+                                'column': 3,
+                                'index': 158
                               },
                               'end': {
                                 'line': 8,
-                                'column': 7
+                                'column': 7,
+                                'index': 162
                               }
                             }
                           },
@@ -713,11 +803,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 8
+                                'column': 8,
+                                'index': 163
                               },
                               'end': {
                                 'line': 8,
-                                'column': 14
+                                'column': 14,
+                                'index': 169
                               }
                             },
                             'name': 'school'
@@ -732,11 +824,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 17
+                              'column': 17,
+                              'index': 172
                             },
                             'end': {
                               'line': 8,
-                              'column': 23
+                              'column': 23,
+                              'index': 178
                             }
                           },
                           'name': 'school'
@@ -754,11 +848,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 10,
-                  'column': 1
+                  'column': 1,
+                  'index': 183
                 },
                 'end': {
                   'line': 12,
-                  'column': 2
+                  'column': 2,
+                  'index': 225
                 }
               },
               'static': false,
@@ -770,11 +866,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 1
+                    'column': 1,
+                    'index': 183
                   },
                   'end': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 188
                   }
                 },
                 'name': 'study'
@@ -787,11 +885,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 188
                   },
                   'end': {
                     'line': 12,
-                    'column': 2
+                    'column': 2,
+                    'index': 225
                   }
                 },
                 'id': null,
@@ -806,11 +906,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 10,
-                      'column': 9
+                      'column': 9,
+                      'index': 191
                     },
                     'end': {
                       'line': 12,
-                      'column': 2
+                      'column': 2,
+                      'index': 225
                     }
                   },
                   'body': [
@@ -821,11 +923,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 11,
-                          'column': 3
+                          'column': 3,
+                          'index': 196
                         },
                         'end': {
                           'line': 11,
-                          'column': 29
+                          'column': 29,
+                          'index': 222
                         }
                       },
                       'expression': {
@@ -835,11 +939,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 11,
-                            'column': 3
+                            'column': 3,
+                            'index': 196
                           },
                           'end': {
                             'line': 11,
-                            'column': 29
+                            'column': 29,
+                            'index': 222
                           }
                         },
                         'callee': {
@@ -849,11 +955,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 11,
-                              'column': 3
+                              'column': 3,
+                              'index': 196
                             },
                             'end': {
                               'line': 11,
-                              'column': 14
+                              'column': 14,
+                              'index': 207
                             }
                           },
                           'object': {
@@ -863,11 +971,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 3
+                                'column': 3,
+                                'index': 196
                               },
                               'end': {
                                 'line': 11,
-                                'column': 10
+                                'column': 10,
+                                'index': 203
                               }
                             },
                             'name': 'console'
@@ -879,11 +989,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 11
+                                'column': 11,
+                                'index': 204
                               },
                               'end': {
                                 'line': 11,
-                                'column': 14
+                                'column': 14,
+                                'index': 207
                               }
                             },
                             'name': 'log'
@@ -899,11 +1011,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 15
+                                'column': 15,
+                                'index': 208
                               },
                               'end': {
                                 'line': 11,
-                                'column': 28
+                                'column': 28,
+                                'index': 221
                               }
                             },
                             'value': 'Im studying',
@@ -930,11 +1044,13 @@ const ClassTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 13,
-        'column': 1
+        'column': 1,
+        'index': 251
       }
     },
     'body': [
@@ -945,11 +1061,13 @@ const ClassTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 13,
-            'column': 1
+            'column': 1,
+            'index': 251
           }
         },
         'id': {
@@ -959,11 +1077,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 6
+              'column': 6,
+              'index': 6
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'Student'
@@ -976,11 +1096,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 14
+              'column': 14,
+              'index': 14
             },
             'end': {
               'line': 13,
-              'column': 1
+              'column': 1,
+              'index': 251
             }
           },
           'body': [
@@ -991,11 +1113,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 17
                 },
                 'end': {
                   'line': 2,
-                  'column': 21
+                  'column': 21,
+                  'index': 37
                 }
               },
               'accessibility': 'private',
@@ -1008,11 +1132,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 9
+                    'column': 9,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 29
                   }
                 },
                 'name': 'name'
@@ -1024,11 +1150,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 29
                   },
                   'end': {
                     'line': 2,
-                    'column': 21
+                    'column': 21,
+                    'index': 37
                   }
                 },
                 'typeAnnotation': {
@@ -1038,11 +1166,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 15
+                      'column': 15,
+                      'index': 31
                     },
                     'end': {
                       'line': 2,
-                      'column': 21
+                      'column': 21,
+                      'index': 37
                     }
                   }
                 }
@@ -1056,11 +1186,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 39
                 },
                 'end': {
                   'line': 3,
-                  'column': 20
+                  'column': 20,
+                  'index': 58
                 }
               },
               'accessibility': 'private',
@@ -1073,11 +1205,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 9
+                    'column': 9,
+                    'index': 47
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 50
                   }
                 },
                 'name': 'age'
@@ -1089,11 +1223,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 50
                   },
                   'end': {
                     'line': 3,
-                    'column': 20
+                    'column': 20,
+                    'index': 58
                   }
                 },
                 'typeAnnotation': {
@@ -1103,11 +1239,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 14
+                      'column': 14,
+                      'index': 52
                     },
                     'end': {
                       'line': 3,
-                      'column': 20
+                      'column': 20,
+                      'index': 58
                     }
                   }
                 }
@@ -1121,11 +1259,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 60
                 },
                 'end': {
                   'line': 4,
-                  'column': 23
+                  'column': 23,
+                  'index': 82
                 }
               },
               'accessibility': 'private',
@@ -1138,11 +1278,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 9
+                    'column': 9,
+                    'index': 68
                   },
                   'end': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 74
                   }
                 },
                 'name': 'school'
@@ -1154,11 +1296,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 74
                   },
                   'end': {
                     'line': 4,
-                    'column': 23
+                    'column': 23,
+                    'index': 82
                   }
                 },
                 'typeAnnotation': {
@@ -1168,11 +1312,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 17
+                      'column': 17,
+                      'index': 76
                     },
                     'end': {
                       'line': 4,
-                      'column': 23
+                      'column': 23,
+                      'index': 82
                     }
                   }
                 }
@@ -1186,11 +1332,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 1
+                  'column': 1,
+                  'index': 84
                 },
                 'end': {
                   'line': 9,
-                  'column': 2
+                  'column': 2,
+                  'index': 205
                 }
               },
               'static': false,
@@ -1202,11 +1350,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 1
+                    'column': 1,
+                    'index': 84
                   },
                   'end': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 95
                   }
                 },
                 'name': 'constructor'
@@ -1219,11 +1369,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 95
                   },
                   'end': {
                     'line': 9,
-                    'column': 2
+                    'column': 2,
+                    'index': 205
                   }
                 },
                 'id': null,
@@ -1238,11 +1390,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 13
+                        'column': 13,
+                        'index': 96
                       },
                       'end': {
                         'line': 5,
-                        'column': 25
+                        'column': 25,
+                        'index': 108
                       }
                     },
                     'name': 'name',
@@ -1253,11 +1407,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 17
+                          'column': 17,
+                          'index': 100
                         },
                         'end': {
                           'line': 5,
-                          'column': 25
+                          'column': 25,
+                          'index': 108
                         }
                       },
                       'typeAnnotation': {
@@ -1267,11 +1423,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 19
+                            'column': 19,
+                            'index': 102
                           },
                           'end': {
                             'line': 5,
-                            'column': 25
+                            'column': 25,
+                            'index': 108
                           }
                         }
                       }
@@ -1284,11 +1442,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 27
+                        'column': 27,
+                        'index': 110
                       },
                       'end': {
                         'line': 5,
-                        'column': 38
+                        'column': 38,
+                        'index': 121
                       }
                     },
                     'name': 'age',
@@ -1299,11 +1459,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 30
+                          'column': 30,
+                          'index': 113
                         },
                         'end': {
                           'line': 5,
-                          'column': 38
+                          'column': 38,
+                          'index': 121
                         }
                       },
                       'typeAnnotation': {
@@ -1313,11 +1475,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 32
+                            'column': 32,
+                            'index': 115
                           },
                           'end': {
                             'line': 5,
-                            'column': 38
+                            'column': 38,
+                            'index': 121
                           }
                         }
                       }
@@ -1330,11 +1494,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 40
+                        'column': 40,
+                        'index': 123
                       },
                       'end': {
                         'line': 5,
-                        'column': 54
+                        'column': 54,
+                        'index': 137
                       }
                     },
                     'name': 'school',
@@ -1345,11 +1511,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 46
+                          'column': 46,
+                          'index': 129
                         },
                         'end': {
                           'line': 5,
-                          'column': 54
+                          'column': 54,
+                          'index': 137
                         }
                       },
                       'typeAnnotation': {
@@ -1359,11 +1527,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 48
+                            'column': 48,
+                            'index': 131
                           },
                           'end': {
                             'line': 5,
-                            'column': 54
+                            'column': 54,
+                            'index': 137
                           }
                         }
                       }
@@ -1377,11 +1547,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 56
+                      'column': 56,
+                      'index': 139
                     },
                     'end': {
                       'line': 9,
-                      'column': 2
+                      'column': 2,
+                      'index': 205
                     }
                   },
                   'body': [
@@ -1392,11 +1564,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 6,
-                          'column': 3
+                          'column': 3,
+                          'index': 144
                         },
                         'end': {
                           'line': 6,
-                          'column': 19
+                          'column': 19,
+                          'index': 160
                         }
                       },
                       'expression': {
@@ -1406,11 +1580,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 3
+                            'column': 3,
+                            'index': 144
                           },
                           'end': {
                             'line': 6,
-                            'column': 19
+                            'column': 19,
+                            'index': 160
                           }
                         },
                         'operator': '=',
@@ -1421,11 +1597,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 3
+                              'column': 3,
+                              'index': 144
                             },
                             'end': {
                               'line': 6,
-                              'column': 12
+                              'column': 12,
+                              'index': 153
                             }
                           },
                           'object': {
@@ -1435,11 +1613,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 3
+                                'column': 3,
+                                'index': 144
                               },
                               'end': {
                                 'line': 6,
-                                'column': 7
+                                'column': 7,
+                                'index': 148
                               }
                             }
                           },
@@ -1450,11 +1630,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 8
+                                'column': 8,
+                                'index': 149
                               },
                               'end': {
                                 'line': 6,
-                                'column': 12
+                                'column': 12,
+                                'index': 153
                               }
                             },
                             'name': 'name'
@@ -1469,11 +1651,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 15
+                              'column': 15,
+                              'index': 156
                             },
                             'end': {
                               'line': 6,
-                              'column': 19
+                              'column': 19,
+                              'index': 160
                             }
                           },
                           'name': 'name'
@@ -1487,11 +1671,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 7,
-                          'column': 3
+                          'column': 3,
+                          'index': 164
                         },
                         'end': {
                           'line': 7,
-                          'column': 17
+                          'column': 17,
+                          'index': 178
                         }
                       },
                       'expression': {
@@ -1501,11 +1687,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 3
+                            'column': 3,
+                            'index': 164
                           },
                           'end': {
                             'line': 7,
-                            'column': 17
+                            'column': 17,
+                            'index': 178
                           }
                         },
                         'operator': '=',
@@ -1516,11 +1704,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 3
+                              'column': 3,
+                              'index': 164
                             },
                             'end': {
                               'line': 7,
-                              'column': 11
+                              'column': 11,
+                              'index': 172
                             }
                           },
                           'object': {
@@ -1530,11 +1720,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 3
+                                'column': 3,
+                                'index': 164
                               },
                               'end': {
                                 'line': 7,
-                                'column': 7
+                                'column': 7,
+                                'index': 168
                               }
                             }
                           },
@@ -1545,11 +1737,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 8
+                                'column': 8,
+                                'index': 169
                               },
                               'end': {
                                 'line': 7,
-                                'column': 11
+                                'column': 11,
+                                'index': 172
                               }
                             },
                             'name': 'age'
@@ -1564,11 +1758,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 14
+                              'column': 14,
+                              'index': 175
                             },
                             'end': {
                               'line': 7,
-                              'column': 17
+                              'column': 17,
+                              'index': 178
                             }
                           },
                           'name': 'age'
@@ -1582,11 +1778,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 3
+                          'column': 3,
+                          'index': 182
                         },
                         'end': {
                           'line': 8,
-                          'column': 23
+                          'column': 23,
+                          'index': 202
                         }
                       },
                       'expression': {
@@ -1596,11 +1794,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 8,
-                            'column': 3
+                            'column': 3,
+                            'index': 182
                           },
                           'end': {
                             'line': 8,
-                            'column': 23
+                            'column': 23,
+                            'index': 202
                           }
                         },
                         'operator': '=',
@@ -1611,11 +1811,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 3
+                              'column': 3,
+                              'index': 182
                             },
                             'end': {
                               'line': 8,
-                              'column': 14
+                              'column': 14,
+                              'index': 193
                             }
                           },
                           'object': {
@@ -1625,11 +1827,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 3
+                                'column': 3,
+                                'index': 182
                               },
                               'end': {
                                 'line': 8,
-                                'column': 7
+                                'column': 7,
+                                'index': 186
                               }
                             }
                           },
@@ -1640,11 +1844,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 8
+                                'column': 8,
+                                'index': 187
                               },
                               'end': {
                                 'line': 8,
-                                'column': 14
+                                'column': 14,
+                                'index': 193
                               }
                             },
                             'name': 'school'
@@ -1659,11 +1865,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 17
+                              'column': 17,
+                              'index': 196
                             },
                             'end': {
                               'line': 8,
-                              'column': 23
+                              'column': 23,
+                              'index': 202
                             }
                           },
                           'name': 'school'
@@ -1681,11 +1889,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 10,
-                  'column': 1
+                  'column': 1,
+                  'index': 207
                 },
                 'end': {
                   'line': 12,
-                  'column': 2
+                  'column': 2,
+                  'index': 249
                 }
               },
               'static': false,
@@ -1697,11 +1907,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 1
+                    'column': 1,
+                    'index': 207
                   },
                   'end': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 212
                   }
                 },
                 'name': 'study'
@@ -1714,11 +1926,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 212
                   },
                   'end': {
                     'line': 12,
-                    'column': 2
+                    'column': 2,
+                    'index': 249
                   }
                 },
                 'id': null,
@@ -1733,11 +1947,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 10,
-                      'column': 9
+                      'column': 9,
+                      'index': 215
                     },
                     'end': {
                       'line': 12,
-                      'column': 2
+                      'column': 2,
+                      'index': 249
                     }
                   },
                   'body': [
@@ -1748,11 +1964,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 11,
-                          'column': 3
+                          'column': 3,
+                          'index': 220
                         },
                         'end': {
                           'line': 11,
-                          'column': 29
+                          'column': 29,
+                          'index': 246
                         }
                       },
                       'expression': {
@@ -1762,11 +1980,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 11,
-                            'column': 3
+                            'column': 3,
+                            'index': 220
                           },
                           'end': {
                             'line': 11,
-                            'column': 29
+                            'column': 29,
+                            'index': 246
                           }
                         },
                         'callee': {
@@ -1776,11 +1996,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 11,
-                              'column': 3
+                              'column': 3,
+                              'index': 220
                             },
                             'end': {
                               'line': 11,
-                              'column': 14
+                              'column': 14,
+                              'index': 231
                             }
                           },
                           'object': {
@@ -1790,11 +2012,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 3
+                                'column': 3,
+                                'index': 220
                               },
                               'end': {
                                 'line': 11,
-                                'column': 10
+                                'column': 10,
+                                'index': 227
                               }
                             },
                             'name': 'console'
@@ -1806,11 +2030,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 11
+                                'column': 11,
+                                'index': 228
                               },
                               'end': {
                                 'line': 11,
-                                'column': 14
+                                'column': 14,
+                                'index': 231
                               }
                             },
                             'name': 'log'
@@ -1826,11 +2052,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 15
+                                'column': 15,
+                                'index': 232
                               },
                               'end': {
                                 'line': 11,
-                                'column': 28
+                                'column': 28,
+                                'index': 245
                               }
                             },
                             'value': 'Im studying',
@@ -1857,11 +2085,13 @@ const ClassTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 13,
-        'column': 1
+        'column': 1,
+        'index': 257
       }
     },
     'body': [
@@ -1872,11 +2102,13 @@ const ClassTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 13,
-            'column': 1
+            'column': 1,
+            'index': 257
           }
         },
         'id': {
@@ -1886,11 +2118,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 6
+              'column': 6,
+              'index': 6
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'Student'
@@ -1903,11 +2137,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 14
+              'column': 14,
+              'index': 14
             },
             'end': {
               'line': 13,
-              'column': 1
+              'column': 1,
+              'index': 257
             }
           },
           'body': [
@@ -1918,11 +2154,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 17
                 },
                 'end': {
                   'line': 2,
-                  'column': 23
+                  'column': 23,
+                  'index': 39
                 }
               },
               'accessibility': 'protected',
@@ -1935,11 +2173,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 11
+                    'column': 11,
+                    'index': 27
                   },
                   'end': {
                     'line': 2,
-                    'column': 15
+                    'column': 15,
+                    'index': 31
                   }
                 },
                 'name': 'name'
@@ -1951,11 +2191,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 15
+                    'column': 15,
+                    'index': 31
                   },
                   'end': {
                     'line': 2,
-                    'column': 23
+                    'column': 23,
+                    'index': 39
                   }
                 },
                 'typeAnnotation': {
@@ -1965,11 +2207,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 17
+                      'column': 17,
+                      'index': 33
                     },
                     'end': {
                       'line': 2,
-                      'column': 23
+                      'column': 23,
+                      'index': 39
                     }
                   }
                 }
@@ -1983,11 +2227,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 41
                 },
                 'end': {
                   'line': 3,
-                  'column': 22
+                  'column': 22,
+                  'index': 62
                 }
               },
               'accessibility': 'protected',
@@ -2000,11 +2246,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 11
+                    'column': 11,
+                    'index': 51
                   },
                   'end': {
                     'line': 3,
-                    'column': 14
+                    'column': 14,
+                    'index': 54
                   }
                 },
                 'name': 'age'
@@ -2016,11 +2264,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 14
+                    'column': 14,
+                    'index': 54
                   },
                   'end': {
                     'line': 3,
-                    'column': 22
+                    'column': 22,
+                    'index': 62
                   }
                 },
                 'typeAnnotation': {
@@ -2030,11 +2280,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 16
+                      'column': 16,
+                      'index': 56
                     },
                     'end': {
                       'line': 3,
-                      'column': 22
+                      'column': 22,
+                      'index': 62
                     }
                   }
                 }
@@ -2048,11 +2300,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 64
                 },
                 'end': {
                   'line': 4,
-                  'column': 25
+                  'column': 25,
+                  'index': 88
                 }
               },
               'accessibility': 'protected',
@@ -2065,11 +2319,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 11
+                    'column': 11,
+                    'index': 74
                   },
                   'end': {
                     'line': 4,
-                    'column': 17
+                    'column': 17,
+                    'index': 80
                   }
                 },
                 'name': 'school'
@@ -2081,11 +2337,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 17
+                    'column': 17,
+                    'index': 80
                   },
                   'end': {
                     'line': 4,
-                    'column': 25
+                    'column': 25,
+                    'index': 88
                   }
                 },
                 'typeAnnotation': {
@@ -2095,11 +2353,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 19
+                      'column': 19,
+                      'index': 82
                     },
                     'end': {
                       'line': 4,
-                      'column': 25
+                      'column': 25,
+                      'index': 88
                     }
                   }
                 }
@@ -2113,11 +2373,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 1
+                  'column': 1,
+                  'index': 90
                 },
                 'end': {
                   'line': 9,
-                  'column': 2
+                  'column': 2,
+                  'index': 211
                 }
               },
               'static': false,
@@ -2129,11 +2391,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 1
+                    'column': 1,
+                    'index': 90
                   },
                   'end': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 101
                   }
                 },
                 'name': 'constructor'
@@ -2146,11 +2410,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 101
                   },
                   'end': {
                     'line': 9,
-                    'column': 2
+                    'column': 2,
+                    'index': 211
                   }
                 },
                 'id': null,
@@ -2165,11 +2431,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 13
+                        'column': 13,
+                        'index': 102
                       },
                       'end': {
                         'line': 5,
-                        'column': 25
+                        'column': 25,
+                        'index': 114
                       }
                     },
                     'name': 'name',
@@ -2180,11 +2448,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 17
+                          'column': 17,
+                          'index': 106
                         },
                         'end': {
                           'line': 5,
-                          'column': 25
+                          'column': 25,
+                          'index': 114
                         }
                       },
                       'typeAnnotation': {
@@ -2194,11 +2464,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 19
+                            'column': 19,
+                            'index': 108
                           },
                           'end': {
                             'line': 5,
-                            'column': 25
+                            'column': 25,
+                            'index': 114
                           }
                         }
                       }
@@ -2211,11 +2483,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 27
+                        'column': 27,
+                        'index': 116
                       },
                       'end': {
                         'line': 5,
-                        'column': 38
+                        'column': 38,
+                        'index': 127
                       }
                     },
                     'name': 'age',
@@ -2226,11 +2500,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 30
+                          'column': 30,
+                          'index': 119
                         },
                         'end': {
                           'line': 5,
-                          'column': 38
+                          'column': 38,
+                          'index': 127
                         }
                       },
                       'typeAnnotation': {
@@ -2240,11 +2516,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 32
+                            'column': 32,
+                            'index': 121
                           },
                           'end': {
                             'line': 5,
-                            'column': 38
+                            'column': 38,
+                            'index': 127
                           }
                         }
                       }
@@ -2257,11 +2535,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 40
+                        'column': 40,
+                        'index': 129
                       },
                       'end': {
                         'line': 5,
-                        'column': 54
+                        'column': 54,
+                        'index': 143
                       }
                     },
                     'name': 'school',
@@ -2272,11 +2552,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 46
+                          'column': 46,
+                          'index': 135
                         },
                         'end': {
                           'line': 5,
-                          'column': 54
+                          'column': 54,
+                          'index': 143
                         }
                       },
                       'typeAnnotation': {
@@ -2286,11 +2568,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 48
+                            'column': 48,
+                            'index': 137
                           },
                           'end': {
                             'line': 5,
-                            'column': 54
+                            'column': 54,
+                            'index': 143
                           }
                         }
                       }
@@ -2304,11 +2588,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 56
+                      'column': 56,
+                      'index': 145
                     },
                     'end': {
                       'line': 9,
-                      'column': 2
+                      'column': 2,
+                      'index': 211
                     }
                   },
                   'body': [
@@ -2319,11 +2605,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 6,
-                          'column': 3
+                          'column': 3,
+                          'index': 150
                         },
                         'end': {
                           'line': 6,
-                          'column': 19
+                          'column': 19,
+                          'index': 166
                         }
                       },
                       'expression': {
@@ -2333,11 +2621,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 3
+                            'column': 3,
+                            'index': 150
                           },
                           'end': {
                             'line': 6,
-                            'column': 19
+                            'column': 19,
+                            'index': 166
                           }
                         },
                         'operator': '=',
@@ -2348,11 +2638,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 3
+                              'column': 3,
+                              'index': 150
                             },
                             'end': {
                               'line': 6,
-                              'column': 12
+                              'column': 12,
+                              'index': 159
                             }
                           },
                           'object': {
@@ -2362,11 +2654,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 3
+                                'column': 3,
+                                'index': 150
                               },
                               'end': {
                                 'line': 6,
-                                'column': 7
+                                'column': 7,
+                                'index': 154
                               }
                             }
                           },
@@ -2377,11 +2671,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 8
+                                'column': 8,
+                                'index': 155
                               },
                               'end': {
                                 'line': 6,
-                                'column': 12
+                                'column': 12,
+                                'index': 159
                               }
                             },
                             'name': 'name'
@@ -2396,11 +2692,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 15
+                              'column': 15,
+                              'index': 162
                             },
                             'end': {
                               'line': 6,
-                              'column': 19
+                              'column': 19,
+                              'index': 166
                             }
                           },
                           'name': 'name'
@@ -2414,11 +2712,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 7,
-                          'column': 3
+                          'column': 3,
+                          'index': 170
                         },
                         'end': {
                           'line': 7,
-                          'column': 17
+                          'column': 17,
+                          'index': 184
                         }
                       },
                       'expression': {
@@ -2428,11 +2728,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 3
+                            'column': 3,
+                            'index': 170
                           },
                           'end': {
                             'line': 7,
-                            'column': 17
+                            'column': 17,
+                            'index': 184
                           }
                         },
                         'operator': '=',
@@ -2443,11 +2745,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 3
+                              'column': 3,
+                              'index': 170
                             },
                             'end': {
                               'line': 7,
-                              'column': 11
+                              'column': 11,
+                              'index': 178
                             }
                           },
                           'object': {
@@ -2457,11 +2761,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 3
+                                'column': 3,
+                                'index': 170
                               },
                               'end': {
                                 'line': 7,
-                                'column': 7
+                                'column': 7,
+                                'index': 174
                               }
                             }
                           },
@@ -2472,11 +2778,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 8
+                                'column': 8,
+                                'index': 175
                               },
                               'end': {
                                 'line': 7,
-                                'column': 11
+                                'column': 11,
+                                'index': 178
                               }
                             },
                             'name': 'age'
@@ -2491,11 +2799,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 14
+                              'column': 14,
+                              'index': 181
                             },
                             'end': {
                               'line': 7,
-                              'column': 17
+                              'column': 17,
+                              'index': 184
                             }
                           },
                           'name': 'age'
@@ -2509,11 +2819,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 3
+                          'column': 3,
+                          'index': 188
                         },
                         'end': {
                           'line': 8,
-                          'column': 23
+                          'column': 23,
+                          'index': 208
                         }
                       },
                       'expression': {
@@ -2523,11 +2835,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 8,
-                            'column': 3
+                            'column': 3,
+                            'index': 188
                           },
                           'end': {
                             'line': 8,
-                            'column': 23
+                            'column': 23,
+                            'index': 208
                           }
                         },
                         'operator': '=',
@@ -2538,11 +2852,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 3
+                              'column': 3,
+                              'index': 188
                             },
                             'end': {
                               'line': 8,
-                              'column': 14
+                              'column': 14,
+                              'index': 199
                             }
                           },
                           'object': {
@@ -2552,11 +2868,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 3
+                                'column': 3,
+                                'index': 188
                               },
                               'end': {
                                 'line': 8,
-                                'column': 7
+                                'column': 7,
+                                'index': 192
                               }
                             }
                           },
@@ -2567,11 +2885,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 8
+                                'column': 8,
+                                'index': 193
                               },
                               'end': {
                                 'line': 8,
-                                'column': 14
+                                'column': 14,
+                                'index': 199
                               }
                             },
                             'name': 'school'
@@ -2586,11 +2906,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 17
+                              'column': 17,
+                              'index': 202
                             },
                             'end': {
                               'line': 8,
-                              'column': 23
+                              'column': 23,
+                              'index': 208
                             }
                           },
                           'name': 'school'
@@ -2608,11 +2930,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 10,
-                  'column': 1
+                  'column': 1,
+                  'index': 213
                 },
                 'end': {
                   'line': 12,
-                  'column': 2
+                  'column': 2,
+                  'index': 255
                 }
               },
               'static': false,
@@ -2624,11 +2948,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 1
+                    'column': 1,
+                    'index': 213
                   },
                   'end': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 218
                   }
                 },
                 'name': 'study'
@@ -2641,11 +2967,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 218
                   },
                   'end': {
                     'line': 12,
-                    'column': 2
+                    'column': 2,
+                    'index': 255
                   }
                 },
                 'id': null,
@@ -2660,11 +2988,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 10,
-                      'column': 9
+                      'column': 9,
+                      'index': 221
                     },
                     'end': {
                       'line': 12,
-                      'column': 2
+                      'column': 2,
+                      'index': 255
                     }
                   },
                   'body': [
@@ -2675,11 +3005,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 11,
-                          'column': 3
+                          'column': 3,
+                          'index': 226
                         },
                         'end': {
                           'line': 11,
-                          'column': 29
+                          'column': 29,
+                          'index': 252
                         }
                       },
                       'expression': {
@@ -2689,11 +3021,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 11,
-                            'column': 3
+                            'column': 3,
+                            'index': 226
                           },
                           'end': {
                             'line': 11,
-                            'column': 29
+                            'column': 29,
+                            'index': 252
                           }
                         },
                         'callee': {
@@ -2703,11 +3037,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 11,
-                              'column': 3
+                              'column': 3,
+                              'index': 226
                             },
                             'end': {
                               'line': 11,
-                              'column': 14
+                              'column': 14,
+                              'index': 237
                             }
                           },
                           'object': {
@@ -2717,11 +3053,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 3
+                                'column': 3,
+                                'index': 226
                               },
                               'end': {
                                 'line': 11,
-                                'column': 10
+                                'column': 10,
+                                'index': 233
                               }
                             },
                             'name': 'console'
@@ -2733,11 +3071,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 11
+                                'column': 11,
+                                'index': 234
                               },
                               'end': {
                                 'line': 11,
-                                'column': 14
+                                'column': 14,
+                                'index': 237
                               }
                             },
                             'name': 'log'
@@ -2753,11 +3093,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 15
+                                'column': 15,
+                                'index': 238
                               },
                               'end': {
                                 'line': 11,
-                                'column': 28
+                                'column': 28,
+                                'index': 251
                               }
                             },
                             'value': 'Im studying',
@@ -3711,11 +4053,13 @@ const ClassTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 13,
-        'column': 1
+        'column': 1,
+        'index': 254
       }
     },
     'body': [
@@ -3726,11 +4070,13 @@ const ClassTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 13,
-            'column': 1
+            'column': 1,
+            'index': 254
           }
         },
         'id': {
@@ -3740,11 +4086,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 6
+              'column': 6,
+              'index': 6
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'Student'
@@ -3757,11 +4105,13 @@ const ClassTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 14
+              'column': 14,
+              'index': 14
             },
             'end': {
               'line': 13,
-              'column': 1
+              'column': 1,
+              'index': 254
             }
           },
           'body': [
@@ -3772,11 +4122,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 17
                 },
                 'end': {
                   'line': 2,
-                  'column': 22
+                  'column': 22,
+                  'index': 38
                 }
               },
               'readonly': true,
@@ -3789,11 +4141,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 10
+                    'column': 10,
+                    'index': 26
                   },
                   'end': {
                     'line': 2,
-                    'column': 14
+                    'column': 14,
+                    'index': 30
                   }
                 },
                 'name': 'name'
@@ -3805,11 +4159,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 14
+                    'column': 14,
+                    'index': 30
                   },
                   'end': {
                     'line': 2,
-                    'column': 22
+                    'column': 22,
+                    'index': 38
                   }
                 },
                 'typeAnnotation': {
@@ -3819,11 +4175,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 16
+                      'column': 16,
+                      'index': 32
                     },
                     'end': {
                       'line': 2,
-                      'column': 22
+                      'column': 22,
+                      'index': 38
                     }
                   }
                 }
@@ -3837,11 +4195,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 40
                 },
                 'end': {
                   'line': 3,
-                  'column': 21
+                  'column': 21,
+                  'index': 60
                 }
               },
               'readonly': true,
@@ -3854,11 +4214,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 10
+                    'column': 10,
+                    'index': 49
                   },
                   'end': {
                     'line': 3,
-                    'column': 13
+                    'column': 13,
+                    'index': 52
                   }
                 },
                 'name': 'age'
@@ -3870,11 +4232,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 13
+                    'column': 13,
+                    'index': 52
                   },
                   'end': {
                     'line': 3,
-                    'column': 21
+                    'column': 21,
+                    'index': 60
                   }
                 },
                 'typeAnnotation': {
@@ -3884,11 +4248,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 15
+                      'column': 15,
+                      'index': 54
                     },
                     'end': {
                       'line': 3,
-                      'column': 21
+                      'column': 21,
+                      'index': 60
                     }
                   }
                 }
@@ -3902,11 +4268,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 62
                 },
                 'end': {
                   'line': 4,
-                  'column': 24
+                  'column': 24,
+                  'index': 85
                 }
               },
               'readonly': true,
@@ -3919,11 +4287,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 10
+                    'column': 10,
+                    'index': 71
                   },
                   'end': {
                     'line': 4,
-                    'column': 16
+                    'column': 16,
+                    'index': 77
                   }
                 },
                 'name': 'school'
@@ -3935,11 +4305,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 16
+                    'column': 16,
+                    'index': 77
                   },
                   'end': {
                     'line': 4,
-                    'column': 24
+                    'column': 24,
+                    'index': 85
                   }
                 },
                 'typeAnnotation': {
@@ -3949,11 +4321,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 18
+                      'column': 18,
+                      'index': 79
                     },
                     'end': {
                       'line': 4,
-                      'column': 24
+                      'column': 24,
+                      'index': 85
                     }
                   }
                 }
@@ -3967,11 +4341,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 5,
-                  'column': 1
+                  'column': 1,
+                  'index': 87
                 },
                 'end': {
                   'line': 9,
-                  'column': 2
+                  'column': 2,
+                  'index': 208
                 }
               },
               'static': false,
@@ -3983,11 +4359,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 1
+                    'column': 1,
+                    'index': 87
                   },
                   'end': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 98
                   }
                 },
                 'name': 'constructor'
@@ -4000,11 +4378,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 5,
-                    'column': 12
+                    'column': 12,
+                    'index': 98
                   },
                   'end': {
                     'line': 9,
-                    'column': 2
+                    'column': 2,
+                    'index': 208
                   }
                 },
                 'id': null,
@@ -4019,11 +4399,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 13
+                        'column': 13,
+                        'index': 99
                       },
                       'end': {
                         'line': 5,
-                        'column': 25
+                        'column': 25,
+                        'index': 111
                       }
                     },
                     'name': 'name',
@@ -4034,11 +4416,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 17
+                          'column': 17,
+                          'index': 103
                         },
                         'end': {
                           'line': 5,
-                          'column': 25
+                          'column': 25,
+                          'index': 111
                         }
                       },
                       'typeAnnotation': {
@@ -4048,11 +4432,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 19
+                            'column': 19,
+                            'index': 105
                           },
                           'end': {
                             'line': 5,
-                            'column': 25
+                            'column': 25,
+                            'index': 111
                           }
                         }
                       }
@@ -4065,11 +4451,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 27
+                        'column': 27,
+                        'index': 113
                       },
                       'end': {
                         'line': 5,
-                        'column': 38
+                        'column': 38,
+                        'index': 124
                       }
                     },
                     'name': 'age',
@@ -4080,11 +4468,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 30
+                          'column': 30,
+                          'index': 116
                         },
                         'end': {
                           'line': 5,
-                          'column': 38
+                          'column': 38,
+                          'index': 124
                         }
                       },
                       'typeAnnotation': {
@@ -4094,11 +4484,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 32
+                            'column': 32,
+                            'index': 118
                           },
                           'end': {
                             'line': 5,
-                            'column': 38
+                            'column': 38,
+                            'index': 124
                           }
                         }
                       }
@@ -4111,11 +4503,13 @@ const ClassTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 5,
-                        'column': 40
+                        'column': 40,
+                        'index': 126
                       },
                       'end': {
                         'line': 5,
-                        'column': 54
+                        'column': 54,
+                        'index': 140
                       }
                     },
                     'name': 'school',
@@ -4126,11 +4520,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 5,
-                          'column': 46
+                          'column': 46,
+                          'index': 132
                         },
                         'end': {
                           'line': 5,
-                          'column': 54
+                          'column': 54,
+                          'index': 140
                         }
                       },
                       'typeAnnotation': {
@@ -4140,11 +4536,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 5,
-                            'column': 48
+                            'column': 48,
+                            'index': 134
                           },
                           'end': {
                             'line': 5,
-                            'column': 54
+                            'column': 54,
+                            'index': 140
                           }
                         }
                       }
@@ -4158,11 +4556,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 5,
-                      'column': 56
+                      'column': 56,
+                      'index': 142
                     },
                     'end': {
                       'line': 9,
-                      'column': 2
+                      'column': 2,
+                      'index': 208
                     }
                   },
                   'body': [
@@ -4173,11 +4573,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 6,
-                          'column': 3
+                          'column': 3,
+                          'index': 147
                         },
                         'end': {
                           'line': 6,
-                          'column': 19
+                          'column': 19,
+                          'index': 163
                         }
                       },
                       'expression': {
@@ -4187,11 +4589,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 6,
-                            'column': 3
+                            'column': 3,
+                            'index': 147
                           },
                           'end': {
                             'line': 6,
-                            'column': 19
+                            'column': 19,
+                            'index': 163
                           }
                         },
                         'operator': '=',
@@ -4202,11 +4606,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 3
+                              'column': 3,
+                              'index': 147
                             },
                             'end': {
                               'line': 6,
-                              'column': 12
+                              'column': 12,
+                              'index': 156
                             }
                           },
                           'object': {
@@ -4216,11 +4622,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 3
+                                'column': 3,
+                                'index': 147
                               },
                               'end': {
                                 'line': 6,
-                                'column': 7
+                                'column': 7,
+                                'index': 151
                               }
                             }
                           },
@@ -4231,11 +4639,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 6,
-                                'column': 8
+                                'column': 8,
+                                'index': 152
                               },
                               'end': {
                                 'line': 6,
-                                'column': 12
+                                'column': 12,
+                                'index': 156
                               }
                             },
                             'name': 'name'
@@ -4250,11 +4660,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 6,
-                              'column': 15
+                              'column': 15,
+                              'index': 159
                             },
                             'end': {
                               'line': 6,
-                              'column': 19
+                              'column': 19,
+                              'index': 163
                             }
                           },
                           'name': 'name'
@@ -4268,11 +4680,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 7,
-                          'column': 3
+                          'column': 3,
+                          'index': 167
                         },
                         'end': {
                           'line': 7,
-                          'column': 17
+                          'column': 17,
+                          'index': 181
                         }
                       },
                       'expression': {
@@ -4282,11 +4696,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 7,
-                            'column': 3
+                            'column': 3,
+                            'index': 167
                           },
                           'end': {
                             'line': 7,
-                            'column': 17
+                            'column': 17,
+                            'index': 181
                           }
                         },
                         'operator': '=',
@@ -4297,11 +4713,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 3
+                              'column': 3,
+                              'index': 167
                             },
                             'end': {
                               'line': 7,
-                              'column': 11
+                              'column': 11,
+                              'index': 175
                             }
                           },
                           'object': {
@@ -4311,11 +4729,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 3
+                                'column': 3,
+                                'index': 167
                               },
                               'end': {
                                 'line': 7,
-                                'column': 7
+                                'column': 7,
+                                'index': 171
                               }
                             }
                           },
@@ -4326,11 +4746,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 7,
-                                'column': 8
+                                'column': 8,
+                                'index': 172
                               },
                               'end': {
                                 'line': 7,
-                                'column': 11
+                                'column': 11,
+                                'index': 175
                               }
                             },
                             'name': 'age'
@@ -4345,11 +4767,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 7,
-                              'column': 14
+                              'column': 14,
+                              'index': 178
                             },
                             'end': {
                               'line': 7,
-                              'column': 17
+                              'column': 17,
+                              'index': 181
                             }
                           },
                           'name': 'age'
@@ -4363,11 +4787,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 8,
-                          'column': 3
+                          'column': 3,
+                          'index': 185
                         },
                         'end': {
                           'line': 8,
-                          'column': 23
+                          'column': 23,
+                          'index': 205
                         }
                       },
                       'expression': {
@@ -4377,11 +4803,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 8,
-                            'column': 3
+                            'column': 3,
+                            'index': 185
                           },
                           'end': {
                             'line': 8,
-                            'column': 23
+                            'column': 23,
+                            'index': 205
                           }
                         },
                         'operator': '=',
@@ -4392,11 +4820,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 3
+                              'column': 3,
+                              'index': 185
                             },
                             'end': {
                               'line': 8,
-                              'column': 14
+                              'column': 14,
+                              'index': 196
                             }
                           },
                           'object': {
@@ -4406,11 +4836,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 3
+                                'column': 3,
+                                'index': 185
                               },
                               'end': {
                                 'line': 8,
-                                'column': 7
+                                'column': 7,
+                                'index': 189
                               }
                             }
                           },
@@ -4421,11 +4853,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 8,
-                                'column': 8
+                                'column': 8,
+                                'index': 190
                               },
                               'end': {
                                 'line': 8,
-                                'column': 14
+                                'column': 14,
+                                'index': 196
                               }
                             },
                             'name': 'school'
@@ -4440,11 +4874,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 8,
-                              'column': 17
+                              'column': 17,
+                              'index': 199
                             },
                             'end': {
                               'line': 8,
-                              'column': 23
+                              'column': 23,
+                              'index': 205
                             }
                           },
                           'name': 'school'
@@ -4462,11 +4898,13 @@ const ClassTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 10,
-                  'column': 1
+                  'column': 1,
+                  'index': 210
                 },
                 'end': {
                   'line': 12,
-                  'column': 2
+                  'column': 2,
+                  'index': 252
                 }
               },
               'static': false,
@@ -4478,11 +4916,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 1
+                    'column': 1,
+                    'index': 210
                   },
                   'end': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 215
                   }
                 },
                 'name': 'study'
@@ -4495,11 +4935,13 @@ const ClassTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 10,
-                    'column': 6
+                    'column': 6,
+                    'index': 215
                   },
                   'end': {
                     'line': 12,
-                    'column': 2
+                    'column': 2,
+                    'index': 252
                   }
                 },
                 'id': null,
@@ -4514,11 +4956,13 @@ const ClassTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 10,
-                      'column': 9
+                      'column': 9,
+                      'index': 218
                     },
                     'end': {
                       'line': 12,
-                      'column': 2
+                      'column': 2,
+                      'index': 252
                     }
                   },
                   'body': [
@@ -4529,11 +4973,13 @@ const ClassTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 11,
-                          'column': 3
+                          'column': 3,
+                          'index': 223
                         },
                         'end': {
                           'line': 11,
-                          'column': 29
+                          'column': 29,
+                          'index': 249
                         }
                       },
                       'expression': {
@@ -4543,11 +4989,13 @@ const ClassTypeSnapshot = {
                         'loc': {
                           'start': {
                             'line': 11,
-                            'column': 3
+                            'column': 3,
+                            'index': 223
                           },
                           'end': {
                             'line': 11,
-                            'column': 29
+                            'column': 29,
+                            'index': 249
                           }
                         },
                         'callee': {
@@ -4557,11 +5005,13 @@ const ClassTypeSnapshot = {
                           'loc': {
                             'start': {
                               'line': 11,
-                              'column': 3
+                              'column': 3,
+                              'index': 223
                             },
                             'end': {
                               'line': 11,
-                              'column': 14
+                              'column': 14,
+                              'index': 234
                             }
                           },
                           'object': {
@@ -4571,11 +5021,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 3
+                                'column': 3,
+                                'index': 223
                               },
                               'end': {
                                 'line': 11,
-                                'column': 10
+                                'column': 10,
+                                'index': 230
                               }
                             },
                             'name': 'console'
@@ -4587,11 +5039,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 11
+                                'column': 11,
+                                'index': 231
                               },
                               'end': {
                                 'line': 11,
-                                'column': 14
+                                'column': 14,
+                                'index': 234
                               }
                             },
                             'name': 'log'
@@ -4607,11 +5061,13 @@ const ClassTypeSnapshot = {
                             'loc': {
                               'start': {
                                 'line': 11,
-                                'column': 15
+                                'column': 15,
+                                'index': 235
                               },
                               'end': {
                                 'line': 11,
-                                'column': 28
+                                'column': 28,
+                                'index': 248
                               }
                             },
                             'value': 'Im studying',
@@ -4974,6 +5430,543 @@ const ClassTypeSnapshot = {
                           }
                         ],
                         'optional': false
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    'sourceType': 'module'
+  },
+  ComputedProperty: {
+    'type': 'Program',
+    'start': 0,
+    'end': 140,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 9,
+        'column': 1,
+        'index': 140
+      }
+    },
+    'body': [
+      {
+        'type': 'ClassDeclaration',
+        'start': 0,
+        'end': 140,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 9,
+            'column': 1,
+            'index': 140
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 6,
+          'end': 13,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 6,
+              'index': 6
+            },
+            'end': {
+              'line': 1,
+              'column': 13,
+              'index': 13
+            }
+          },
+          'name': 'Student'
+        },
+        'superClass': null,
+        'body': {
+          'type': 'ClassBody',
+          'start': 14,
+          'end': 140,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 14,
+              'index': 14
+            },
+            'end': {
+              'line': 9,
+              'column': 1,
+              'index': 140
+            }
+          },
+          'body': [
+            {
+              'type': 'PropertyDefinition',
+              'start': 17,
+              'end': 40,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 1,
+                  'index': 17
+                },
+                'end': {
+                  'line': 2,
+                  'column': 24,
+                  'index': 40
+                }
+              },
+              'accessibility': 'private',
+              'static': false,
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 25,
+                'end': 32,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 9,
+                    'index': 25
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 16,
+                    'index': 32
+                  }
+                },
+                'name': '_school'
+              },
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 32,
+                'end': 40,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 16,
+                    'index': 32
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 24,
+                    'index': 40
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSStringKeyword',
+                  'start': 34,
+                  'end': 40,
+                  'loc': {
+                    'start': {
+                      'line': 2,
+                      'column': 18,
+                      'index': 34
+                    },
+                    'end': {
+                      'line': 2,
+                      'column': 24,
+                      'index': 40
+                    }
+                  }
+                }
+              },
+              'value': null
+            },
+            {
+              'type': 'MethodDefinition',
+              'start': 42,
+              'end': 82,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 1,
+                  'index': 42
+                },
+                'end': {
+                  'line': 5,
+                  'column': 2,
+                  'index': 82
+                }
+              },
+              'static': false,
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 46,
+                'end': 52,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 5,
+                    'index': 46
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 11,
+                    'index': 52
+                  }
+                },
+                'name': 'school'
+              },
+              'kind': 'get',
+              'value': {
+                'type': 'FunctionExpression',
+                'start': 52,
+                'end': 82,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 11,
+                    'index': 52
+                  },
+                  'end': {
+                    'line': 5,
+                    'column': 2,
+                    'index': 82
+                  }
+                },
+                'id': null,
+                'expression': false,
+                'generator': false,
+                'async': false,
+                'params': [],
+                'body': {
+                  'type': 'BlockStatement',
+                  'start': 55,
+                  'end': 82,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 14,
+                      'index': 55
+                    },
+                    'end': {
+                      'line': 5,
+                      'column': 2,
+                      'index': 82
+                    }
+                  },
+                  'body': [
+                    {
+                      'type': 'ReturnStatement',
+                      'start': 60,
+                      'end': 79,
+                      'loc': {
+                        'start': {
+                          'line': 4,
+                          'column': 3,
+                          'index': 60
+                        },
+                        'end': {
+                          'line': 4,
+                          'column': 22,
+                          'index': 79
+                        }
+                      },
+                      'argument': {
+                        'type': 'MemberExpression',
+                        'start': 67,
+                        'end': 79,
+                        'loc': {
+                          'start': {
+                            'line': 4,
+                            'column': 10,
+                            'index': 67
+                          },
+                          'end': {
+                            'line': 4,
+                            'column': 22,
+                            'index': 79
+                          }
+                        },
+                        'object': {
+                          'type': 'ThisExpression',
+                          'start': 67,
+                          'end': 71,
+                          'loc': {
+                            'start': {
+                              'line': 4,
+                              'column': 10,
+                              'index': 67
+                            },
+                            'end': {
+                              'line': 4,
+                              'column': 14,
+                              'index': 71
+                            }
+                          }
+                        },
+                        'property': {
+                          'type': 'Identifier',
+                          'start': 72,
+                          'end': 79,
+                          'loc': {
+                            'start': {
+                              'line': 4,
+                              'column': 15,
+                              'index': 72
+                            },
+                            'end': {
+                              'line': 4,
+                              'column': 22,
+                              'index': 79
+                            }
+                          },
+                          'name': '_school'
+                        },
+                        'computed': false,
+                        'optional': false
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              'type': 'MethodDefinition',
+              'start': 84,
+              'end': 138,
+              'loc': {
+                'start': {
+                  'line': 6,
+                  'column': 1,
+                  'index': 84
+                },
+                'end': {
+                  'line': 8,
+                  'column': 2,
+                  'index': 138
+                }
+              },
+              'static': false,
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 88,
+                'end': 94,
+                'loc': {
+                  'start': {
+                    'line': 6,
+                    'column': 5,
+                    'index': 88
+                  },
+                  'end': {
+                    'line': 6,
+                    'column': 11,
+                    'index': 94
+                  }
+                },
+                'name': 'school'
+              },
+              'kind': 'set',
+              'value': {
+                'type': 'FunctionExpression',
+                'start': 94,
+                'end': 138,
+                'loc': {
+                  'start': {
+                    'line': 6,
+                    'column': 11,
+                    'index': 94
+                  },
+                  'end': {
+                    'line': 8,
+                    'column': 2,
+                    'index': 138
+                  }
+                },
+                'id': null,
+                'expression': false,
+                'generator': false,
+                'async': false,
+                'params': [
+                  {
+                    'type': 'Identifier',
+                    'start': 95,
+                    'end': 25,
+                    'loc': {
+                      'start': {
+                        'line': 6,
+                        'column': 12,
+                        'index': 95
+                      },
+                      'end': {
+                        'line': 6,
+                        'column': 25,
+                        'index': 108
+                      }
+                    },
+                    'name': 'value',
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 100,
+                      'end': 108,
+                      'loc': {
+                        'start': {
+                          'line': 6,
+                          'column': 17,
+                          'index': 100
+                        },
+                        'end': {
+                          'line': 6,
+                          'column': 25,
+                          'index': 108
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSStringKeyword',
+                        'start': 102,
+                        'end': 108,
+                        'loc': {
+                          'start': {
+                            'line': 6,
+                            'column': 19,
+                            'index': 102
+                          },
+                          'end': {
+                            'line': 6,
+                            'column': 25,
+                            'index': 108
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                'body': {
+                  'type': 'BlockStatement',
+                  'start': 110,
+                  'end': 138,
+                  'loc': {
+                    'start': {
+                      'line': 6,
+                      'column': 27,
+                      'index': 110
+                    },
+                    'end': {
+                      'line': 8,
+                      'column': 2,
+                      'index': 138
+                    }
+                  },
+                  'body': [
+                    {
+                      'type': 'ExpressionStatement',
+                      'start': 115,
+                      'end': 135,
+                      'loc': {
+                        'start': {
+                          'line': 7,
+                          'column': 3,
+                          'index': 115
+                        },
+                        'end': {
+                          'line': 7,
+                          'column': 23,
+                          'index': 135
+                        }
+                      },
+                      'expression': {
+                        'type': 'AssignmentExpression',
+                        'start': 115,
+                        'end': 135,
+                        'loc': {
+                          'start': {
+                            'line': 7,
+                            'column': 3,
+                            'index': 115
+                          },
+                          'end': {
+                            'line': 7,
+                            'column': 23,
+                            'index': 135
+                          }
+                        },
+                        'operator': '=',
+                        'left': {
+                          'type': 'MemberExpression',
+                          'start': 115,
+                          'end': 127,
+                          'loc': {
+                            'start': {
+                              'line': 7,
+                              'column': 3,
+                              'index': 115
+                            },
+                            'end': {
+                              'line': 7,
+                              'column': 15,
+                              'index': 127
+                            }
+                          },
+                          'object': {
+                            'type': 'ThisExpression',
+                            'start': 115,
+                            'end': 119,
+                            'loc': {
+                              'start': {
+                                'line': 7,
+                                'column': 3,
+                                'index': 115
+                              },
+                              'end': {
+                                'line': 7,
+                                'column': 7,
+                                'index': 119
+                              }
+                            }
+                          },
+                          'property': {
+                            'type': 'Identifier',
+                            'start': 120,
+                            'end': 127,
+                            'loc': {
+                              'start': {
+                                'line': 7,
+                                'column': 8,
+                                'index': 120
+                              },
+                              'end': {
+                                'line': 7,
+                                'column': 15,
+                                'index': 127
+                              }
+                            },
+                            'name': '_school'
+                          },
+                          'computed': false,
+                          'optional': false
+                        },
+                        'right': {
+                          'type': 'Identifier',
+                          'start': 130,
+                          'end': 135,
+                          'loc': {
+                            'start': {
+                              'line': 7,
+                              'column': 18,
+                              'index': 130
+                            },
+                            'end': {
+                              'line': 7,
+                              'column': 23,
+                              'index': 135
+                            }
+                          },
+                          'name': 'value'
+                        }
                       }
                     }
                   ]

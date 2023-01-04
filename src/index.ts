@@ -4766,12 +4766,16 @@ export default function tsPlugin(options?: {
         if (this.options.locations) {
           // @ts-ignore
           const position = super.curPosition()
-          position.offset = function(n: number) {
-            // @ts-ignore
-            const np = new AcornParser.acorn.Position(this.line, this.column + n)
-            np['index'] = this['index'] + n
-            return np
-          }
+          Object.defineProperty(position, 'offset', {
+            get() {
+              return function(n: number) {
+                // @ts-ignore
+                const np = new AcornParser.acorn.Position(this.line, this.column + n)
+                np['index'] = this['index'] + n
+                return np
+              }
+            }
+          })
           position['index'] = this['pos']
           return position
         }

@@ -6,11 +6,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 24
+        'column': 24,
+        'index': 24
       }
     },
     'body': [
@@ -21,11 +23,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 24
+            'column': 24,
+            'index': 24
           }
         },
         'declarations': [
@@ -36,11 +40,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 24
+                'column': 24,
+                'index': 24
               }
             },
             'id': {
@@ -50,11 +56,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'test',
@@ -65,11 +73,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 18
+                    'column': 18,
+                    'index': 18
                   }
                 },
                 'typeAnnotation': {
@@ -79,11 +89,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 18
+                      'column': 18,
+                      'index': 18
                     }
                   }
                 }
@@ -96,11 +108,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 },
                 'end': {
                   'line': 1,
-                  'column': 24
+                  'column': 24,
+                  'index': 24
                 }
               },
               'value': 123,
@@ -120,11 +134,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 28
+        'column': 28,
+        'index': 28
       }
     },
     'body': [
@@ -135,11 +151,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 28
+            'column': 28,
+            'index': 28
           }
         },
         'declarations': [
@@ -150,11 +168,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 28
+                'column': 28,
+                'index': 28
               }
             },
             'id': {
@@ -164,11 +184,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'test',
@@ -179,11 +201,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 18
+                    'column': 18,
+                    'index': 18
                   }
                 },
                 'typeAnnotation': {
@@ -193,11 +217,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 18
+                      'column': 18,
+                      'index': 18
                     }
                   }
                 }
@@ -210,11 +236,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 },
                 'end': {
                   'line': 1,
-                  'column': 28
+                  'column': 28,
+                  'index': 28
                 }
               },
               'value': '12355',
@@ -234,11 +262,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 33
+        'column': 33,
+        'index': 33
       }
     },
     'body': [
@@ -249,11 +279,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 33
+            'column': 33,
+            'index': 33
           }
         },
         'declarations': [
@@ -264,11 +296,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 33
+                'column': 33,
+                'index': 33
               }
             },
             'id': {
@@ -278,11 +312,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 }
               },
               'name': 'test',
@@ -293,11 +329,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 21
+                    'column': 21,
+                    'index': 21
                   }
                 },
                 'typeAnnotation': {
@@ -307,11 +345,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 21
+                      'column': 21,
+                      'index': 21
                     }
                   }
                 }
@@ -324,11 +364,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 24
+                  'column': 24,
+                  'index': 24
                 },
                 'end': {
                   'line': 1,
-                  'column': 33
+                  'column': 33,
+                  'index': 33
                 }
               },
               'name': 'undefined'
@@ -347,11 +389,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 27
+        'column': 27,
+        'index': 27
       }
     },
     'body': [
@@ -362,11 +406,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 27
+            'column': 27,
+            'index': 27
           }
         },
         'declarations': [
@@ -377,11 +423,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 27
+                'column': 27,
+                'index': 27
               }
             },
             'id': {
@@ -391,11 +439,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 19
+                  'column': 19,
+                  'index': 19
                 }
               },
               'name': 'test',
@@ -406,11 +456,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 19
+                    'column': 19,
+                    'index': 19
                   }
                 },
                 'typeAnnotation': {
@@ -420,11 +472,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 19
+                      'column': 19,
+                      'index': 19
                     }
                   }
                 }
@@ -437,11 +491,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 },
                 'end': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 }
               },
               'value': false,
@@ -461,11 +517,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 37
+        'column': 37,
+        'index': 37
       }
     },
     'body': [
@@ -476,11 +534,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 37
+            'column': 37,
+            'index': 37
           }
         },
         'declarations': [
@@ -491,11 +551,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 37
+                'column': 37,
+                'index': 37
               }
             },
             'id': {
@@ -505,11 +567,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'test',
@@ -520,11 +584,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 18
+                    'column': 18,
+                    'index': 18
                   }
                 },
                 'typeAnnotation': {
@@ -534,11 +600,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 18
+                      'column': 18,
+                      'index': 18
                     }
                   }
                 }
@@ -551,11 +619,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 },
                 'end': {
                   'line': 1,
-                  'column': 37
+                  'column': 37,
+                  'index': 37
                 }
               },
               'callee': {
@@ -565,11 +635,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 21
+                    'column': 21,
+                    'index': 21
                   },
                   'end': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   }
                 },
                 'name': 'BigInt'
@@ -582,11 +654,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 28
+                      'column': 28,
+                      'index': 28
                     },
                     'end': {
                       'line': 1,
-                      'column': 36
+                      'column': 36,
+                      'index': 36
                     }
                   },
                   'value': '123123',
@@ -609,11 +683,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 4,
-        'column': 1
+        'column': 1,
+        'index': 39
       }
     },
     'body': [
@@ -624,11 +700,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 4,
-            'column': 1
+            'column': 1,
+            'index': 39
           }
         },
         'declarations': [
@@ -639,11 +717,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 4,
-                'column': 1
+                'column': 1,
+                'index': 39
               }
             },
             'id': {
@@ -653,11 +733,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'test',
@@ -668,11 +750,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 18
+                    'column': 18,
+                    'index': 18
                   }
                 },
                 'typeAnnotation': {
@@ -682,11 +766,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 18
+                      'column': 18,
+                      'index': 18
                     }
                   }
                 }
@@ -699,11 +785,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 },
                 'end': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 39
                 }
               },
               'properties': [
@@ -714,11 +802,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 2
+                      'column': 2,
+                      'index': 25
                     },
                     'end': {
                       'line': 2,
-                      'column': 6
+                      'column': 6,
+                      'index': 29
                     }
                   },
                   'method': false,
@@ -731,11 +821,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 2
+                        'column': 2,
+                        'index': 25
                       },
                       'end': {
                         'line': 2,
-                        'column': 3
+                        'column': 3,
+                        'index': 26
                       }
                     },
                     'name': 'a'
@@ -747,11 +839,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 5
+                        'column': 5,
+                        'index': 28
                       },
                       'end': {
                         'line': 2,
-                        'column': 6
+                        'column': 6,
+                        'index': 29
                       }
                     },
                     'value': 1,
@@ -766,11 +860,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 2
+                      'column': 2,
+                      'index': 33
                     },
                     'end': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 37
                     }
                   },
                   'method': false,
@@ -783,11 +879,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 3,
-                        'column': 2
+                        'column': 2,
+                        'index': 33
                       },
                       'end': {
                         'line': 3,
-                        'column': 3
+                        'column': 3,
+                        'index': 34
                       }
                     },
                     'name': 'b'
@@ -799,11 +897,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 3,
-                        'column': 5
+                        'column': 5,
+                        'index': 36
                       },
                       'end': {
                         'line': 3,
-                        'column': 6
+                        'column': 6,
+                        'index': 37
                       }
                     },
                     'value': 2,
@@ -827,11 +927,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 34
+        'column': 34,
+        'index': 34
       }
     },
     'body': [
@@ -842,11 +944,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 34
+            'column': 34,
+            'index': 34
           }
         },
         'declarations': [
@@ -857,11 +961,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 34
+                'column': 34,
+                'index': 34
               }
             },
             'id': {
@@ -871,11 +977,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 }
               },
               'name': 'test',
@@ -886,11 +994,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 18
+                    'column': 18,
+                    'index': 18
                   }
                 },
                 'typeAnnotation': {
@@ -900,11 +1010,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 18
+                      'column': 18,
+                      'index': 18
                     }
                   }
                 }
@@ -917,11 +1029,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 },
                 'end': {
                   'line': 1,
-                  'column': 34
+                  'column': 34,
+                  'index': 34
                 }
               },
               'callee': {
@@ -931,11 +1045,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 21
+                    'column': 21,
+                    'index': 21
                   },
                   'end': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   }
                 },
                 'name': 'Symbol'
@@ -948,11 +1064,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 28
+                      'column': 28,
+                      'index': 28
                     },
                     'end': {
                       'line': 1,
-                      'column': 33
+                      'column': 33,
+                      'index': 33
                     }
                   },
                   'value': '123',
@@ -975,11 +1093,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 25
+        'column': 25,
+        'index': 25
       }
     },
     'body': [
@@ -990,11 +1110,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 25
+            'column': 25,
+            'index': 25
           }
         },
         'declarations': [
@@ -1005,11 +1127,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 25
+                'column': 25,
+                'index': 25
               }
             },
             'id': {
@@ -1019,11 +1143,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 19
+                  'column': 19,
+                  'index': 19
                 }
               },
               'name': 'test',
@@ -1034,11 +1160,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 19
+                    'column': 19,
+                    'index': 19
                   }
                 },
                 'typeAnnotation': {
@@ -1048,11 +1176,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 19
+                      'column': 19,
+                      'index': 19
                     }
                   }
                 }
@@ -1065,11 +1195,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 },
                 'end': {
                   'line': 1,
-                  'column': 25
+                  'column': 25,
+                  'index': 25
                 }
               },
               'value': 123,
@@ -1089,11 +1221,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 21
+        'column': 21,
+        'index': 21
       }
     },
     'body': [
@@ -1104,11 +1238,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 21
+            'column': 21,
+            'index': 21
           }
         },
         'declarations': [
@@ -1119,11 +1255,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 21
+                'column': 21,
+                'index': 21
               }
             },
             'id': {
@@ -1133,11 +1271,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 15
+                  'column': 15,
+                  'index': 15
                 }
               },
               'name': 'test',
@@ -1148,11 +1288,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 15
+                    'column': 15,
+                    'index': 15
                   }
                 },
                 'typeAnnotation': {
@@ -1162,11 +1304,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 15
+                      'column': 15,
+                      'index': 15
                     }
                   }
                 }
@@ -1179,11 +1323,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 18
+                  'column': 18,
+                  'index': 18
                 },
                 'end': {
                   'line': 1,
-                  'column': 21
+                  'column': 21,
+                  'index': 21
                 }
               },
               'value': 123,
@@ -1203,11 +1349,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 2,
-        'column': 26
+        'column': 26,
+        'index': 67
       }
     },
     'body': [
@@ -1218,11 +1366,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 40
+            'column': 40,
+            'index': 40
           }
         },
         'id': {
@@ -1232,11 +1382,13 @@ const VariablesTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 5
+              'column': 5,
+              'index': 5
             },
             'end': {
               'line': 1,
-              'column': 13
+              'column': 13,
+              'index': 13
             }
           },
           'name': 'TestType'
@@ -1248,11 +1400,13 @@ const VariablesTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 16
+              'column': 16,
+              'index': 16
             },
             'end': {
               'line': 1,
-              'column': 40
+              'column': 40,
+              'index': 40
             }
           },
           'types': [
@@ -1263,11 +1417,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 16
+                  'column': 16,
+                  'index': 16
                 },
                 'end': {
                   'line': 1,
-                  'column': 22
+                  'column': 22,
+                  'index': 22
                 }
               }
             },
@@ -1278,11 +1434,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 25
+                  'column': 25,
+                  'index': 25
                 },
                 'end': {
                   'line': 1,
-                  'column': 31
+                  'column': 31,
+                  'index': 31
                 }
               }
             },
@@ -1293,11 +1451,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 34
+                  'column': 34,
+                  'index': 34
                 },
                 'end': {
                   'line': 1,
-                  'column': 40
+                  'column': 40,
+                  'index': 40
                 }
               }
             }
@@ -1311,11 +1471,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 2,
-            'column': 0
+            'column': 0,
+            'index': 41
           },
           'end': {
             'line': 2,
-            'column': 26
+            'column': 26,
+            'index': 67
           }
         },
         'declarations': [
@@ -1326,11 +1488,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 2,
-                'column': 6
+                'column': 6,
+                'index': 47
               },
               'end': {
                 'line': 2,
-                'column': 26
+                'column': 26,
+                'index': 67
               }
             },
             'id': {
@@ -1340,11 +1504,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 6
+                  'column': 6,
+                  'index': 47
                 },
                 'end': {
                   'line': 2,
-                  'column': 20
+                  'column': 20,
+                  'index': 61
                 }
               },
               'name': 'test',
@@ -1355,11 +1521,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 10
+                    'column': 10,
+                    'index': 51
                   },
                   'end': {
                     'line': 2,
-                    'column': 20
+                    'column': 20,
+                    'index': 61
                   }
                 },
                 'typeAnnotation': {
@@ -1369,11 +1537,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 12
+                      'column': 12,
+                      'index': 53
                     },
                     'end': {
                       'line': 2,
-                      'column': 20
+                      'column': 20,
+                      'index': 61
                     }
                   },
                   'typeName': {
@@ -1383,11 +1553,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 2,
-                        'column': 12
+                        'column': 12,
+                        'index': 53
                       },
                       'end': {
                         'line': 2,
-                        'column': 20
+                        'column': 20,
+                        'index': 61
                       }
                     },
                     'name': 'TestType'
@@ -1402,11 +1574,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 23
+                  'column': 23,
+                  'index': 64
                 },
                 'end': {
                   'line': 2,
-                  'column': 26
+                  'column': 26,
+                  'index': 67
                 }
               },
               'value': 123,
@@ -1426,11 +1600,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 10,
-        'column': 1
+        'column': 1,
+        'index': 137
       }
     },
     'body': [
@@ -1441,11 +1617,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 5,
-            'column': 1
+            'column': 1,
+            'index': 64
           }
         },
         'id': {
@@ -1455,11 +1633,13 @@ const VariablesTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 10
+              'column': 10,
+              'index': 10
             },
             'end': {
               'line': 1,
-              'column': 17
+              'column': 17,
+              'index': 17
             }
           },
           'name': 'Student'
@@ -1471,11 +1651,13 @@ const VariablesTypeSnapshot = {
           'loc': {
             'start': {
               'line': 1,
-              'column': 18
+              'column': 18,
+              'index': 18
             },
             'end': {
               'line': 5,
-              'column': 1
+              'column': 1,
+              'index': 64
             }
           },
           'body': [
@@ -1486,11 +1668,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 2,
-                  'column': 1
+                  'column': 1,
+                  'index': 21
                 },
                 'end': {
                   'line': 2,
-                  'column': 13
+                  'column': 13,
+                  'index': 33
                 }
               },
               'computed': false,
@@ -1501,11 +1685,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 1
+                    'column': 1,
+                    'index': 21
                   },
                   'end': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   }
                 },
                 'name': 'name'
@@ -1517,11 +1703,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 2,
-                    'column': 5
+                    'column': 5,
+                    'index': 25
                   },
                   'end': {
                     'line': 2,
-                    'column': 13
+                    'column': 13,
+                    'index': 33
                   }
                 },
                 'typeAnnotation': {
@@ -1531,11 +1719,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 2,
-                      'column': 7
+                      'column': 7,
+                      'index': 27
                     },
                     'end': {
                       'line': 2,
-                      'column': 13
+                      'column': 13,
+                      'index': 33
                     }
                   }
                 }
@@ -1548,11 +1738,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 3,
-                  'column': 1
+                  'column': 1,
+                  'index': 35
                 },
                 'end': {
                   'line': 3,
-                  'column': 12
+                  'column': 12,
+                  'index': 46
                 }
               },
               'computed': false,
@@ -1563,11 +1755,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 1
+                    'column': 1,
+                    'index': 35
                   },
                   'end': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   }
                 },
                 'name': 'age'
@@ -1579,11 +1773,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 3,
-                    'column': 4
+                    'column': 4,
+                    'index': 38
                   },
                   'end': {
                     'line': 3,
-                    'column': 12
+                    'column': 12,
+                    'index': 46
                   }
                 },
                 'typeAnnotation': {
@@ -1593,11 +1789,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 3,
-                      'column': 6
+                      'column': 6,
+                      'index': 40
                     },
                     'end': {
                       'line': 3,
-                      'column': 12
+                      'column': 12,
+                      'index': 46
                     }
                   }
                 }
@@ -1610,11 +1808,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 4,
-                  'column': 1
+                  'column': 1,
+                  'index': 48
                 },
                 'end': {
                   'line': 4,
-                  'column': 15
+                  'column': 15,
+                  'index': 62
                 }
               },
               'computed': false,
@@ -1625,11 +1825,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 1
+                    'column': 1,
+                    'index': 48
                   },
                   'end': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   }
                 },
                 'name': 'school'
@@ -1641,11 +1843,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 4,
-                    'column': 7
+                    'column': 7,
+                    'index': 54
                   },
                   'end': {
                     'line': 4,
-                    'column': 15
+                    'column': 15,
+                    'index': 62
                   }
                 },
                 'typeAnnotation': {
@@ -1655,11 +1859,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 4,
-                      'column': 9
+                      'column': 9,
+                      'index': 56
                     },
                     'end': {
                       'line': 4,
-                      'column': 15
+                      'column': 15,
+                      'index': 62
                     }
                   }
                 }
@@ -1675,11 +1881,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 6,
-            'column': 0
+            'column': 0,
+            'index': 65
           },
           'end': {
             'line': 10,
-            'column': 1
+            'column': 1,
+            'index': 137
           }
         },
         'declarations': [
@@ -1690,11 +1898,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 6,
-                'column': 6
+                'column': 6,
+                'index': 71
               },
               'end': {
                 'line': 10,
-                'column': 1
+                'column': 1,
+                'index': 137
               }
             },
             'id': {
@@ -1704,11 +1914,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 6,
-                  'column': 6
+                  'column': 6,
+                  'index': 71
                 },
                 'end': {
                   'line': 6,
-                  'column': 19
+                  'column': 19,
+                  'index': 84
                 }
               },
               'name': 'test',
@@ -1719,11 +1931,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 6,
-                    'column': 10
+                    'column': 10,
+                    'index': 75
                   },
                   'end': {
                     'line': 6,
-                    'column': 19
+                    'column': 19,
+                    'index': 84
                   }
                 },
                 'typeAnnotation': {
@@ -1733,11 +1947,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 6,
-                      'column': 12
+                      'column': 12,
+                      'index': 77
                     },
                     'end': {
                       'line': 6,
-                      'column': 19
+                      'column': 19,
+                      'index': 84
                     }
                   },
                   'typeName': {
@@ -1747,11 +1963,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 6,
-                        'column': 12
+                        'column': 12,
+                        'index': 77
                       },
                       'end': {
                         'line': 6,
-                        'column': 19
+                        'column': 19,
+                        'index': 84
                       }
                     },
                     'name': 'Student'
@@ -1766,11 +1984,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 6,
-                  'column': 22
+                  'column': 22,
+                  'index': 87
                 },
                 'end': {
                   'line': 10,
-                  'column': 1
+                  'column': 1,
+                  'index': 137
                 }
               },
               'properties': [
@@ -1781,11 +2001,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 7,
-                      'column': 2
+                      'column': 2,
+                      'index': 91
                     },
                     'end': {
                       'line': 7,
-                      'column': 16
+                      'column': 16,
+                      'index': 105
                     }
                   },
                   'method': false,
@@ -1798,11 +2020,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 7,
-                        'column': 2
+                        'column': 2,
+                        'index': 91
                       },
                       'end': {
                         'line': 7,
-                        'column': 6
+                        'column': 6,
+                        'index': 95
                       }
                     },
                     'name': 'name'
@@ -1814,11 +2038,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 7,
-                        'column': 8
+                        'column': 8,
+                        'index': 97
                       },
                       'end': {
                         'line': 7,
-                        'column': 16
+                        'column': 16,
+                        'index': 105
                       }
                     },
                     'value': 'tyreal',
@@ -1833,11 +2059,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 8,
-                      'column': 2
+                      'column': 2,
+                      'index': 109
                     },
                     'end': {
                       'line': 8,
-                      'column': 9
+                      'column': 9,
+                      'index': 116
                     }
                   },
                   'method': false,
@@ -1850,11 +2078,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 8,
-                        'column': 2
+                        'column': 2,
+                        'index': 109
                       },
                       'end': {
                         'line': 8,
-                        'column': 5
+                        'column': 5,
+                        'index': 112
                       }
                     },
                     'name': 'age'
@@ -1866,11 +2096,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 8,
-                        'column': 7
+                        'column': 7,
+                        'index': 114
                       },
                       'end': {
                         'line': 8,
-                        'column': 9
+                        'column': 9,
+                        'index': 116
                       }
                     },
                     'value': 22,
@@ -1885,11 +2117,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 9,
-                      'column': 2
+                      'column': 2,
+                      'index': 120
                     },
                     'end': {
                       'line': 9,
-                      'column': 16
+                      'column': 16,
+                      'index': 134
                     }
                   },
                   'method': false,
@@ -1902,11 +2136,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 9,
-                        'column': 2
+                        'column': 2,
+                        'index': 120
                       },
                       'end': {
                         'line': 9,
-                        'column': 8
+                        'column': 8,
+                        'index': 126
                       }
                     },
                     'name': 'school'
@@ -1918,11 +2154,13 @@ const VariablesTypeSnapshot = {
                     'loc': {
                       'start': {
                         'line': 9,
-                        'column': 10
+                        'column': 10,
+                        'index': 128
                       },
                       'end': {
                         'line': 9,
-                        'column': 16
+                        'column': 16,
+                        'index': 134
                       }
                     },
                     'value': 'gdut',
@@ -1946,11 +2184,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 33
+        'column': 33,
+        'index': 33
       }
     },
     'body': [
@@ -1961,11 +2201,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 33
+            'column': 33,
+            'index': 33
           }
         },
         'declarations': [
@@ -1976,11 +2218,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 6
+                'column': 6,
+                'index': 6
               },
               'end': {
                 'line': 1,
-                'column': 33
+                'column': 33,
+                'index': 33
               }
             },
             'id': {
@@ -1990,11 +2234,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 6
+                  'column': 6,
+                  'index': 6
                 },
                 'end': {
                   'line': 1,
-                  'column': 27
+                  'column': 27,
+                  'index': 27
                 }
               },
               'name': 'test',
@@ -2005,11 +2251,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 10
+                    'column': 10,
+                    'index': 10
                   },
                   'end': {
                     'line': 1,
-                    'column': 27
+                    'column': 27,
+                    'index': 27
                   }
                 },
                 'typeAnnotation': {
@@ -2019,11 +2267,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 12
+                      'column': 12,
+                      'index': 12
                     },
                     'end': {
                       'line': 1,
-                      'column': 27
+                      'column': 27,
+                      'index': 27
                     }
                   },
                   'types': [
@@ -2034,11 +2284,13 @@ const VariablesTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 1,
-                          'column': 12
+                          'column': 12,
+                          'index': 12
                         },
                         'end': {
                           'line': 1,
-                          'column': 18
+                          'column': 18,
+                          'index': 18
                         }
                       }
                     },
@@ -2049,11 +2301,13 @@ const VariablesTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 1,
-                          'column': 21
+                          'column': 21,
+                          'index': 21
                         },
                         'end': {
                           'line': 1,
-                          'column': 27
+                          'column': 27,
+                          'index': 27
                         }
                       }
                     }
@@ -2068,11 +2322,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 30
+                  'column': 30,
+                  'index': 30
                 },
                 'end': {
                   'line': 1,
-                  'column': 33
+                  'column': 33,
+                  'index': 33
                 }
               },
               'value': 123,
@@ -2092,11 +2348,13 @@ const VariablesTypeSnapshot = {
     'loc': {
       'start': {
         'line': 1,
-        'column': 0
+        'column': 0,
+        'index': 0
       },
       'end': {
         'line': 1,
-        'column': 31
+        'column': 31,
+        'index': 31
       }
     },
     'body': [
@@ -2107,11 +2365,13 @@ const VariablesTypeSnapshot = {
         'loc': {
           'start': {
             'line': 1,
-            'column': 0
+            'column': 0,
+            'index': 0
           },
           'end': {
             'line': 1,
-            'column': 31
+            'column': 31,
+            'index': 31
           }
         },
         'declarations': [
@@ -2122,11 +2382,13 @@ const VariablesTypeSnapshot = {
             'loc': {
               'start': {
                 'line': 1,
-                'column': 4
+                'column': 4,
+                'index': 4
               },
               'end': {
                 'line': 1,
-                'column': 31
+                'column': 31,
+                'index': 31
               }
             },
             'id': {
@@ -2136,11 +2398,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 4
+                  'column': 4,
+                  'index': 4
                 },
                 'end': {
                   'line': 1,
-                  'column': 25
+                  'column': 25,
+                  'index': 25
                 }
               },
               'name': 'test',
@@ -2151,11 +2415,13 @@ const VariablesTypeSnapshot = {
                 'loc': {
                   'start': {
                     'line': 1,
-                    'column': 8
+                    'column': 8,
+                    'index': 8
                   },
                   'end': {
                     'line': 1,
-                    'column': 25
+                    'column': 25,
+                    'index': 25
                   }
                 },
                 'typeAnnotation': {
@@ -2165,11 +2431,13 @@ const VariablesTypeSnapshot = {
                   'loc': {
                     'start': {
                       'line': 1,
-                      'column': 10
+                      'column': 10,
+                      'index': 10
                     },
                     'end': {
                       'line': 1,
-                      'column': 25
+                      'column': 25,
+                      'index': 25
                     }
                   },
                   'types': [
@@ -2180,11 +2448,13 @@ const VariablesTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 1,
-                          'column': 10
+                          'column': 10,
+                          'index': 10
                         },
                         'end': {
                           'line': 1,
-                          'column': 16
+                          'column': 16,
+                          'index': 16
                         }
                       }
                     },
@@ -2195,11 +2465,13 @@ const VariablesTypeSnapshot = {
                       'loc': {
                         'start': {
                           'line': 1,
-                          'column': 19
+                          'column': 19,
+                          'index': 19
                         },
                         'end': {
                           'line': 1,
-                          'column': 25
+                          'column': 25,
+                          'index': 25
                         }
                       }
                     }
@@ -2214,11 +2486,13 @@ const VariablesTypeSnapshot = {
               'loc': {
                 'start': {
                   'line': 1,
-                  'column': 28
+                  'column': 28,
+                  'index': 28
                 },
                 'end': {
                   'line': 1,
-                  'column': 31
+                  'column': 31,
+                  'index': 31
                 }
               },
               'value': 123,
