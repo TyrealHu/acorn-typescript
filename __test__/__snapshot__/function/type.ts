@@ -4144,6 +4144,530 @@ const FunctionTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  DeclareFunctionTypes: {
+    'type': 'Program',
+    'start': 0,
+    'end': 131,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 5,
+        'column': 1,
+        'index': 131
+      }
+    },
+    'body': [
+      {
+        'type': 'TSDeclareFunction',
+        'start': 0,
+        'end': 32,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 2,
+            'column': 8,
+            'index': 41
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 9,
+          'end': 13,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 9,
+              'index': 9
+            },
+            'end': {
+              'line': 1,
+              'column': 13,
+              'index': 13
+            }
+          },
+          'name': 'test'
+        },
+        'expression': false,
+        'generator': false,
+        'async': false,
+        'params': [
+          {
+            'type': 'Identifier',
+            'start': 14,
+            'end': 23,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 14,
+                'index': 14
+              },
+              'end': {
+                'line': 1,
+                'column': 23,
+                'index': 23
+              }
+            },
+            'name': 'a',
+            'typeAnnotation': {
+              'type': 'TSTypeAnnotation',
+              'start': 15,
+              'end': 23,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 15,
+                  'index': 15
+                },
+                'end': {
+                  'line': 1,
+                  'column': 23,
+                  'index': 23
+                }
+              },
+              'typeAnnotation': {
+                'type': 'TSStringKeyword',
+                'start': 17,
+                'end': 23,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 17,
+                    'index': 17
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 23,
+                    'index': 23
+                  }
+                }
+              }
+            }
+          }
+        ],
+        'returnType': {
+          'type': 'TSTypeAnnotation',
+          'start': 24,
+          'end': 32,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 24,
+              'index': 24
+            },
+            'end': {
+              'line': 2,
+              'column': 8,
+              'index': 41
+            }
+          },
+          'typeAnnotation': {
+            'type': 'TSStringKeyword',
+            'start': 26,
+            'end': 32,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 26,
+                'index': 26
+              },
+              'end': {
+                'line': 2,
+                'column': 8,
+                'index': 41
+              }
+            }
+          }
+        }
+      },
+      {
+        'type': 'TSDeclareFunction',
+        'start': 33,
+        'end': 65,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 33
+          },
+          'end': {
+            'line': 3,
+            'column': 8,
+            'index': 74
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 42,
+          'end': 46,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 9,
+              'index': 42
+            },
+            'end': {
+              'line': 2,
+              'column': 13,
+              'index': 46
+            }
+          },
+          'name': 'test'
+        },
+        'expression': false,
+        'generator': false,
+        'async': false,
+        'params': [
+          {
+            'type': 'Identifier',
+            'start': 47,
+            'end': 23,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 14,
+                'index': 47
+              },
+              'end': {
+                'line': 2,
+                'column': 23,
+                'index': 56
+              }
+            },
+            'name': 'a',
+            'typeAnnotation': {
+              'type': 'TSTypeAnnotation',
+              'start': 48,
+              'end': 56,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 15,
+                  'index': 48
+                },
+                'end': {
+                  'line': 2,
+                  'column': 23,
+                  'index': 56
+                }
+              },
+              'typeAnnotation': {
+                'type': 'TSNumberKeyword',
+                'start': 50,
+                'end': 56,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 17,
+                    'index': 50
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 23,
+                    'index': 56
+                  }
+                }
+              }
+            }
+          }
+        ],
+        'returnType': {
+          'type': 'TSTypeAnnotation',
+          'start': 57,
+          'end': 65,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 24,
+              'index': 57
+            },
+            'end': {
+              'line': 3,
+              'column': 8,
+              'index': 74
+            }
+          },
+          'typeAnnotation': {
+            'type': 'TSNumberKeyword',
+            'start': 59,
+            'end': 65,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 26,
+                'index': 59
+              },
+              'end': {
+                'line': 3,
+                'column': 8,
+                'index': 74
+              }
+            }
+          }
+        }
+      },
+      {
+        'type': 'FunctionDeclaration',
+        'start': 66,
+        'end': 131,
+        'loc': {
+          'start': {
+            'line': 3,
+            'column': 0,
+            'index': 66
+          },
+          'end': {
+            'line': 5,
+            'column': 1,
+            'index': 131
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 75,
+          'end': 79,
+          'loc': {
+            'start': {
+              'line': 3,
+              'column': 9,
+              'index': 75
+            },
+            'end': {
+              'line': 3,
+              'column': 13,
+              'index': 79
+            }
+          },
+          'name': 'test'
+        },
+        'expression': false,
+        'generator': false,
+        'async': false,
+        'params': [
+          {
+            'type': 'Identifier',
+            'start': 80,
+            'end': 32,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 14,
+                'index': 80
+              },
+              'end': {
+                'line': 3,
+                'column': 32,
+                'index': 98
+              }
+            },
+            'name': 'a',
+            'typeAnnotation': {
+              'type': 'TSTypeAnnotation',
+              'start': 81,
+              'end': 98,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 15,
+                  'index': 81
+                },
+                'end': {
+                  'line': 3,
+                  'column': 32,
+                  'index': 98
+                }
+              },
+              'typeAnnotation': {
+                'type': 'TSUnionType',
+                'start': 83,
+                'end': 98,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 17,
+                    'index': 83
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 32,
+                    'index': 98
+                  }
+                },
+                'types': [
+                  {
+                    'type': 'TSNumberKeyword',
+                    'start': 83,
+                    'end': 89,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 17,
+                        'index': 83
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 23,
+                        'index': 89
+                      }
+                    }
+                  },
+                  {
+                    'type': 'TSStringKeyword',
+                    'start': 92,
+                    'end': 98,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 26,
+                        'index': 92
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 32,
+                        'index': 98
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        'returnType': {
+          'type': 'TSTypeAnnotation',
+          'start': 99,
+          'end': 116,
+          'loc': {
+            'start': {
+              'line': 3,
+              'column': 33,
+              'index': 99
+            },
+            'end': {
+              'line': 3,
+              'column': 50,
+              'index': 116
+            }
+          },
+          'typeAnnotation': {
+            'type': 'TSUnionType',
+            'start': 101,
+            'end': 116,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 35,
+                'index': 101
+              },
+              'end': {
+                'line': 3,
+                'column': 50,
+                'index': 116
+              }
+            },
+            'types': [
+              {
+                'type': 'TSNumberKeyword',
+                'start': 101,
+                'end': 107,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 35,
+                    'index': 101
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 43,
+                    'index': 109
+                  }
+                }
+              },
+              {
+                'type': 'TSStringKeyword',
+                'start': 110,
+                'end': 116,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 44,
+                    'index': 110
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 50,
+                    'index': 116
+                  }
+                }
+              }
+            ]
+          }
+        },
+        'body': {
+          'type': 'BlockStatement',
+          'start': 117,
+          'end': 131,
+          'loc': {
+            'start': {
+              'line': 3,
+              'column': 51,
+              'index': 117
+            },
+            'end': {
+              'line': 5,
+              'column': 1,
+              'index': 131
+            }
+          },
+          'body': [
+            {
+              'type': 'ReturnStatement',
+              'start': 121,
+              'end': 129,
+              'loc': {
+                'start': {
+                  'line': 4,
+                  'column': 2,
+                  'index': 121
+                },
+                'end': {
+                  'line': 4,
+                  'column': 10,
+                  'index': 129
+                }
+              },
+              'argument': {
+                'type': 'Identifier',
+                'start': 128,
+                'end': 129,
+                'loc': {
+                  'start': {
+                    'line': 4,
+                    'column': 9,
+                    'index': 128
+                  },
+                  'end': {
+                    'line': 4,
+                    'column': 10,
+                    'index': 129
+                  }
+                },
+                'name': 'a'
+              }
+            }
+          ]
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 

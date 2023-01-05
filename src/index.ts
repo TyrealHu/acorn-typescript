@@ -740,7 +740,7 @@ export default function tsPlugin(options?: {
 
       hasPrecedingLineBreak(): boolean {
         return lineBreak.test(
-          this.input.slice(this['lastTokEndLoc']["index"], this.start)
+          this.input.slice(this['lastTokEndLoc']['index'], this.start)
         )
       }
 
@@ -4059,10 +4059,10 @@ export default function tsPlugin(options?: {
         const typeParameters = this.tsTryParseTypeParameters()
         if (typeParameters) method.typeParameters = typeParameters
         // @ts-ignore
-        super.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper)
+        this.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper, true)
       }
 
-      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
+      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper, isPrivate?: boolean) {
         // start typescript parse class method
         const isConstructor = method.kind === 'constructor'
         // todo pushClassPrivateMethod
@@ -4079,7 +4079,28 @@ export default function tsPlugin(options?: {
         if (typeParameters) method.typeParameters = typeParameters
         // end
         // @ts-ignore
-        super.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper)
+
+        // Check key and flags
+        const key = method.key
+        if (method.kind === 'constructor') {
+          if (isGenerator) this.raise(key.start, 'Constructor can\'t be a generator')
+          if (isAsync) this.raise(key.start, 'Constructor can\'t be an async method')
+        } else if (method.static && checkKeyName(method, 'prototype')) {
+          this.raise(key.start, 'Classes may not have a static property named prototype')
+        }
+
+        // Parse value
+        const value = method.value = this.parseMethodForClass(isGenerator, isAsync, allowsDirectSuper, isPrivate)
+
+        // Check value
+        if (method.kind === 'get' && value['params'].length !== 0)
+          this.raiseRecoverable(value.start, 'getter should have no params')
+        if (method.kind === 'set' && value['params'].length !== 1)
+          this.raiseRecoverable(value.start, 'setter should have exactly one param')
+        if (method.kind === 'set' && value['params'][0].type === 'RestElement')
+          this.raiseRecoverable(value['params'][0].start, 'Setter cannot use rest params')
+
+        return this.finishNode(method, 'MethodDefinition')
       }
 
       parseClassElementName(element) {
@@ -4228,14 +4249,13 @@ export default function tsPlugin(options?: {
             if (ecmaVersion < 13 || isClassMethod || kind !== 'method' || isGenerator || isAsync) {
               const isConstructor = !node.static && checkKeyName(node, 'constructor')
               const allowsDirectSuper = isConstructor && constructorAllowsSuper
-              // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
               if (isConstructor && kind !== 'method') this.raise(node.key.start, 'Constructor can\'t have get/set modifier')
               node.kind = isConstructor ? 'constructor' : kind
               // ts Overridden
               this.parsePostMemberNameModifiers(node)
               // todo private or not
               if (!isPrivate) {
-                this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
+                this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper, false)
               } else {
                 this.parsePrivateClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
               }
@@ -4261,30 +4281,6 @@ export default function tsPlugin(options?: {
         // --- end
         return node
       }
-
-      // todo parseClassMethod
-      // pushClassPrivateMethod(
-      //   classBody: N.ClassBody,
-      //   method: N.ClassPrivateMethod,
-      //   isGenerator: boolean,
-      //   isAsync: boolean,
-      // ): void {
-      //   const typeParameters = this.tsTryParseTypeParameters();
-      //   if (typeParameters) method.typeParameters = typeParameters;
-      //   super.pushClassPrivateMethod(classBody, method, isGenerator, isAsync);
-      // }
-
-      // todo parseClassMethod
-      // declareClassPrivateMethodInScope(
-      //   node: N.ClassPrivateMethod | N.EstreeMethodDefinition | N.TSDeclareMethod,
-      //   kind: number,
-      // ) {
-      //   if (node.type === "TSDeclareMethod") return;
-      //   // This happens when using the "estree" plugin.
-      //   if (node.type === "MethodDefinition" && !node.value.body) return;
-      //
-      //   super.declareClassPrivateMethodInScope(node, kind);
-      // }
 
       parseClassSuper(node: Class): void {
         // @ts-ignore
@@ -5518,6 +5514,65 @@ export default function tsPlugin(options?: {
         this.checkYieldAwaitInDefaultParams()
         // @ts-ignore
         const finishNode = this.parseFunctionBodyAndFinish(node, 'FunctionExpression', true)
+        this['yieldPos'] = oldYieldPos
+        this['awaitPos'] = oldAwaitPos
+        this['awaitIdentPos'] = oldAwaitIdentPos
+        const method = finishNode
+
+        // @ts-expect-error todo(flow->ts) property not defined for all types in union
+        if (method.abstract) {
+          // @ts-ignore
+          const hasBody = !!method.body
+          if (hasBody) {
+            // @ts-ignore
+            const { key } = method
+            this.raise(method.start,
+              TypeScriptError.AbstractMethodHasImplementation(
+                // @ts-ignore
+                key.type === 'Identifier' && !method.computed
+                  ? key.name
+                  : `[${this.input.slice(key.start, key.end)}]`
+              )
+            )
+          }
+        }
+        return method
+      }
+
+      parseMethodForClass(
+        isGenerator: boolean,
+        isAsync?: boolean,
+        allowDirectSuper?: boolean,
+        isPrivate?: boolean
+      ) {
+        // @ts-ignore
+        let node = this.startNode(), oldYieldPos = this['yieldPos'],
+          oldAwaitPos = this['awaitPos'],
+          oldAwaitIdentPos = this['awaitIdentPos']
+        // @ts-ignore
+        this.initFunction(node)
+        if (this.options.ecmaVersion >= 6)
+          node.generator = isGenerator
+        if (this.options.ecmaVersion >= 8)
+          node.async = !!isAsync
+
+        this['yieldPos'] = 0
+        this['awaitPos'] = 0
+        this['awaitIdentPos'] = 0
+        // @ts-ignore
+        this.enterScope(
+          functionFlags(isAsync, node.generator) |
+          acornScope.SCOPE_SUPER |
+          (allowDirectSuper ? acornScope.SCOPE_DIRECT_SUPER : 0)
+        )
+        // @ts-ignore
+        this.expect(tokTypes.parenL)
+        // @ts-ignore
+        node.params = this.parseBindingList(tokTypes.parenR, false, this.options.ecmaVersion >= 8)
+        // @ts-ignore
+        this.checkYieldAwaitInDefaultParams()
+        // @ts-ignore
+        const finishNode = this.parseFunctionBodyAndFinish(node, isPrivate ? 'ClassPrivateMethod' : 'ClassMethod', true)
         this['yieldPos'] = oldYieldPos
         this['awaitPos'] = oldAwaitPos
         this['awaitIdentPos'] = oldAwaitIdentPos

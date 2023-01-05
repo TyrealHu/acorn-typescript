@@ -82,6 +82,26 @@ describe('class', () => {
     expect(node).toEqual(ClassTypeSnapshot.ReadonlyProperty)
   })
 
+  it('public property', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` public name: string`,
+      ` public age: number`,
+      ` public school: string`,
+      ` constructor(name: string, age: number, school: string) {`,
+      `   this.name = name`,
+      `   this.age = age`,
+      `   this.school = school`,
+      ` }`,
+      ` study() {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ClassTypeSnapshot.PublicProperty)
+  })
+
   it('static property', () => {
     const node = parseSource(generateSource([
       `class Student {`,
@@ -109,6 +129,33 @@ describe('class', () => {
     ]))
 
     expect(node).toEqual(ClassTypeSnapshot.ComputedProperty)
+  })
+
+  it('abstract class', () => {
+    const node = parseSource(generateSource([
+      `abstract class Person {`,
+      `  name: string;`,
+      `  constructor(name: string) {`,
+      `    this.name = name;`,
+      `  }`,
+      `  display(): void{`,
+      `    console.log(this.name);`,
+      `  }`,
+      `  abstract find(string): Person;`,
+      `}`,
+      `class Employee extends Person {`,
+      `  empCode: number;`,
+      `  constructor(name: string, code: number) {`,
+      `    super(name);`,
+      `    this.empCode = code;`,
+      `  }`,
+      `  find(name:string): Person {`,
+      `    return new Employee(name, 1);`,
+      `  }`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ClassTypeSnapshot.AbstractClass)
   })
 })
 

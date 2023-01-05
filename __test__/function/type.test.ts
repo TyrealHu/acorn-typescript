@@ -186,4 +186,16 @@ describe('function type test', () => {
 
     expect(node).toEqual(FunctionTypeSnapshot.ComplexFunction)
   })
+
+  it('declare function types', () => {
+    const node = parseSource(generateSource([
+      `function test(a: string): string`,
+      `function test(a: number): number`,
+      `function test(a: number | string): number | string {`,
+      `  return a`,
+      `}`
+    ]))
+
+    expect(node).toEqual(FunctionTypeSnapshot.DeclareFunctionTypes)
+  })
 })
