@@ -51,9 +51,54 @@ describe('expression type test', () => {
 
   it('normal type', () => {
     const node = parseSource(generateSource([
-      `type School = 'Tsinghua' | 'Peking' | 'GDUT'`,
+      `type School = 'Tsinghua' | 'Peking' | 'GDUT'`
     ]))
 
     expect(node).toEqual(ExpressionTypeSnapshot.NormalType)
+  })
+
+  it('enum', () => {
+    const node = parseSource(generateSource([
+      `enum Test {`,
+      `  Start = 'start',`,
+      `  End = 'end'`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ExpressionTypeSnapshot.Enum)
+  })
+
+  it('declare', () => {
+    const node = parseSource(generateSource([
+      `declare module '*.png' {`,
+      `  const value: string;`,
+      `  export default value;`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ExpressionTypeSnapshot.Declare)
+  })
+
+  it('declare namespace', () => {
+    const node = parseSource(generateSource([
+      `declare namespace myLib {`,
+      `  let timeout: number;`,
+      `  const version: string;`,
+      `  class Cat {`,
+      `    constructor(n: number);`,
+      `    readonly age: number;`,
+      `    purr(): void;`,
+      `  }`,
+      `  interface CatSettings {`,
+      `    weight: number;`,
+      `    name: string;`,
+      `    tailLength?: number;`,
+      `  }`,
+      `  type VetID = string | number;`,
+      `  function checkCat(c: Cat, s?: VetID);`,
+      `}`
+    ]))
+
+    console.log(JSON.stringify(node, null, 2))
   })
 })

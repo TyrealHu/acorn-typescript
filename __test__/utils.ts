@@ -1,5 +1,5 @@
 import * as acorn from 'acorn'
-import tsPlugin from '../lib'
+import tsPlugin from '../src'
 
 const Parser = acorn.Parser.extend(tsPlugin())
 

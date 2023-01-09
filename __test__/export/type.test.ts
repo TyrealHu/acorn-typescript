@@ -22,4 +22,18 @@ describe('export type', () => {
 
     expect(node).toEqual(ExportTypeSnapshot.SeriousType)
   })
+
+  it('export type and const', () => {
+    const node = parseSource(generateSource([
+      `const a = 1`,
+      `type A = number`,
+      `export {`,
+      `  a,`,
+      `  type A`,
+      `}`
+    ]))
+
+    console.log(JSON.stringify(node, null, 2))
+    // expect(node).toEqual(ExportTypeSnapshot.SeriousType)
+  })
 })

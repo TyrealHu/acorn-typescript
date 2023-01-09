@@ -380,6 +380,282 @@ const ExportTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  ExportTypeAndConst: {
+    'type': 'Program',
+    'start': 0,
+    'end': 52,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 6,
+        'column': 1,
+        'index': 52
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 11,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 11,
+            'index': 11
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 6,
+            'end': 11,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 6,
+                'index': 6
+              },
+              'end': {
+                'line': 1,
+                'column': 11,
+                'index': 11
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 6,
+              'end': 7,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 6,
+                  'index': 6
+                },
+                'end': {
+                  'line': 1,
+                  'column': 7,
+                  'index': 7
+                }
+              },
+              'name': 'a'
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 10,
+              'end': 11,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 10,
+                  'index': 10
+                },
+                'end': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                }
+              },
+              'value': 1,
+              'raw': '1'
+            }
+          }
+        ],
+        'kind': 'const'
+      },
+      {
+        'type': 'TSTypeAliasDeclaration',
+        'start': 12,
+        'end': 27,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 12
+          },
+          'end': {
+            'line': 2,
+            'column': 15,
+            'index': 27
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 17,
+          'end': 18,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 5,
+              'index': 17
+            },
+            'end': {
+              'line': 2,
+              'column': 6,
+              'index': 18
+            }
+          },
+          'name': 'A'
+        },
+        'typeAnnotation': {
+          'type': 'TSNumberKeyword',
+          'start': 21,
+          'end': 27,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 9,
+              'index': 21
+            },
+            'end': {
+              'line': 2,
+              'column': 15,
+              'index': 27
+            }
+          }
+        }
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 28,
+        'end': 52,
+        'loc': {
+          'start': {
+            'line': 3,
+            'column': 0,
+            'index': 28
+          },
+          'end': {
+            'line': 6,
+            'column': 1,
+            'index': 52
+          }
+        },
+        'exportKind': 'value',
+        'declaration': null,
+        'specifiers': [
+          {
+            'type': 'ExportSpecifier',
+            'start': 39,
+            'end': 40,
+            'loc': {
+              'start': {
+                'line': 4,
+                'column': 2,
+                'index': 39
+              },
+              'end': {
+                'line': 4,
+                'column': 3,
+                'index': 40
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 39,
+              'end': 40,
+              'loc': {
+                'start': {
+                  'line': 4,
+                  'column': 2,
+                  'index': 39
+                },
+                'end': {
+                  'line': 4,
+                  'column': 3,
+                  'index': 40
+                }
+              },
+              'name': 'a'
+            },
+            'exportKind': 'value',
+            'exported': {
+              'type': 'Identifier',
+              'start': 39,
+              'end': 40,
+              'loc': {
+                'start': {
+                  'line': 4,
+                  'column': 2,
+                  'index': 39
+                },
+                'end': {
+                  'line': 4,
+                  'column': 3,
+                  'index': 40
+                }
+              },
+              'name': 'a'
+            }
+          },
+          {
+            'type': 'ExportSpecifier',
+            'start': 44,
+            'end': 50,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 2,
+                'index': 44
+              },
+              'end': {
+                'line': 5,
+                'column': 8,
+                'index': 50
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 49,
+              'end': 50,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 7,
+                  'index': 49
+                },
+                'end': {
+                  'line': 5,
+                  'column': 8,
+                  'index': 50
+                }
+              },
+              'name': 'A'
+            },
+            'exported': {
+              'type': 'Identifier',
+              'start': 49,
+              'end': 50,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 7,
+                  'index': 49
+                },
+                'end': {
+                  'line': 5,
+                  'column': 8,
+                  'index': 50
+                }
+              },
+              'name': 'A'
+            },
+            'exportKind': 'type'
+          }
+        ],
+        'source': null
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 

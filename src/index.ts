@@ -963,6 +963,7 @@ export default function tsPlugin(options?: {
           let stmt = this.parseStatement(null, true)
           node.body.push(stmt)
         }
+        this.next()
         // @ts-ignore
         super.exitScope()
         return this.finishNode(node, 'TSModuleBlock')
@@ -3773,11 +3774,11 @@ export default function tsPlugin(options?: {
             (init.type !== 'TemplateLiteral' || init.expressions.length > 0) &&
             !isPossiblyLiteralEnum(init)
           ) {
+            this.raise(
+              init.start,
+              TypeScriptError.ConstInitiailizerMustBeStringOrNumericLiteralOrLiteralEnumReference
+            )
           }
-          this.raise(
-            init.start,
-            TypeScriptError.ConstInitiailizerMustBeStringOrNumericLiteralOrLiteralEnumReference
-          )
         }
 
         return declaration
@@ -5710,7 +5711,8 @@ export default function tsPlugin(options?: {
           // const isDefaultSpecifier = this.isExportDefaultSpecifier()
           // @ts-ignore
           let node = this.startNode()
-
+          // @ts-ignore
+          node.local = this.parseModuleExportName()
           if (!isString && isMaybeTypeOnly) {
             this.parseTypeOnlyImportExportSpecifier(
               node,
@@ -5719,8 +5721,6 @@ export default function tsPlugin(options?: {
             )
             this.finishNode(node, 'ExportSpecifier')
           } else {
-            // @ts-ignore
-            node.local = this.parseModuleExportName()
             node.exportKind = 'value'
             // @ts-ignore
             if (this.eatContextual(tsTokenType.as)) {

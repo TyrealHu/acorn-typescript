@@ -5,31 +5,11 @@ import tsPlugin from './src/index'
 *
 * */
 const node = acorn.Parser.extend(tsPlugin()).parse(`
-abstract class Person {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-
-    display(): void{
-        console.log(this.name);
-    }
-
-    abstract find(string): Person;
-}
-
-class Employee extends Person {
-    empCode: number;
-
-    constructor(name: string, code: number) {
-        super(name);
-        this.empCode = code;
-    }
-
-    find(name:string): Person {
-        return new Employee(name, 1);
-    }
+const a = 1
+type A = number
+export {
+  a,
+  type A
 }
 `, {
   sourceType: 'module',

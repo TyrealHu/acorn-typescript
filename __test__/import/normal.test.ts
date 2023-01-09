@@ -51,4 +51,12 @@ describe('normal syntax', () => {
 
     expect(node).toEqual(NormalImportSnapshot.ImportComplexSpecifiers)
   })
+
+  it('import namespace type specifiers', function() {
+    const node = parseSource(generateSource([
+      `import test, { name, type age, school as school1 } from './index.js'`,
+    ]))
+
+    expect(node).toEqual(NormalImportSnapshot.ImportNamespaceType)
+  })
 })

@@ -892,6 +892,262 @@ const NormalImportSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  ImportNamespaceType: {
+    'type': 'Program',
+    'start': 0,
+    'end': 68,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 68,
+        'index': 68
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 0,
+        'end': 68,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 68,
+            'index': 68
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportDefaultSpecifier',
+            'start': 7,
+            'end': 11,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 7,
+                'index': 7
+              },
+              'end': {
+                'line': 1,
+                'column': 12,
+                'index': 12
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 7,
+              'end': 11,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 7,
+                  'index': 7
+                },
+                'end': {
+                  'line': 1,
+                  'column': 12,
+                  'index': 12
+                }
+              },
+              'name': 'test'
+            }
+          },
+          {
+            'type': 'ImportSpecifier',
+            'start': 15,
+            'end': 19,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 15,
+                'index': 15
+              },
+              'end': {
+                'line': 1,
+                'column': 19,
+                'index': 19
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 15,
+              'end': 19,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 15,
+                  'index': 15
+                },
+                'end': {
+                  'line': 1,
+                  'column': 19,
+                  'index': 19
+                }
+              },
+              'name': 'name'
+            },
+            'importKind': 'value',
+            'local': {
+              'type': 'Identifier',
+              'start': 15,
+              'end': 19,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 15,
+                  'index': 15
+                },
+                'end': {
+                  'line': 1,
+                  'column': 19,
+                  'index': 19
+                }
+              },
+              'name': 'name'
+            }
+          },
+          {
+            'type': 'ImportSpecifier',
+            'start': 21,
+            'end': 29,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 21,
+                'index': 21
+              },
+              'end': {
+                'line': 1,
+                'column': 29,
+                'index': 29
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 26,
+              'end': 29,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 26,
+                  'index': 26
+                },
+                'end': {
+                  'line': 1,
+                  'column': 29,
+                  'index': 29
+                }
+              },
+              'name': 'age'
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 26,
+              'end': 29,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 26,
+                  'index': 26
+                },
+                'end': {
+                  'line': 1,
+                  'column': 29,
+                  'index': 29
+                }
+              },
+              'name': 'age'
+            },
+            'importKind': 'type'
+          },
+          {
+            'type': 'ImportSpecifier',
+            'start': 31,
+            'end': 48,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 31,
+                'index': 31
+              },
+              'end': {
+                'line': 1,
+                'column': 48,
+                'index': 48
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 31,
+              'end': 37,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 31,
+                  'index': 31
+                },
+                'end': {
+                  'line': 1,
+                  'column': 37,
+                  'index': 37
+                }
+              },
+              'name': 'school'
+            },
+            'importKind': 'value',
+            'local': {
+              'type': 'Identifier',
+              'start': 41,
+              'end': 48,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 41,
+                  'index': 41
+                },
+                'end': {
+                  'line': 1,
+                  'column': 48,
+                  'index': 48
+                }
+              },
+              'name': 'school1'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 56,
+          'end': 68,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 56,
+              'index': 56
+            },
+            'end': {
+              'line': 1,
+              'column': 68,
+              'index': 68
+            }
+          },
+          'value': './index.js',
+          'raw': '\'./index.js\''
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
