@@ -59,4 +59,28 @@ describe('normal syntax', () => {
 
     expect(node).toEqual(NormalImportSnapshot.ImportNamespaceType)
   })
+
+  it('import namespace type specifiers with as', function() {
+    const node = parseSource(generateSource([
+      `import test, { name, type age as age1, school as school1 } from './index.js'`,
+    ]))
+
+    expect(node).toEqual(NormalImportSnapshot.ImportNamespaceTypeWithAs)
+  })
+
+  it('import type specifier with as', function() {
+    const node = parseSource(generateSource([
+      `import test, { type as age } from './index.js'`,
+    ]))
+
+    expect(node).toEqual(NormalImportSnapshot.ImportTypeSpecifierWithAs)
+  })
+
+  it('import type specifier with as as', function() {
+    const node = parseSource(generateSource([
+      `import test, { type as as } from './index.js'`,
+    ]))
+
+    expect(node).toEqual(NormalImportSnapshot.ImportTypeSpecifierWithAsAs)
+  })
 })

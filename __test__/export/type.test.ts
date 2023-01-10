@@ -33,7 +33,46 @@ describe('export type', () => {
       `}`
     ]))
 
+    expect(node).toEqual(ExportTypeSnapshot.ExportTypeAndConst)
+  })
+
+  it('export type with as and const', () => {
+    const node = parseSource(generateSource([
+      `const a = 1`,
+      `type A = number`,
+      `export {`,
+      `  a,`,
+      `  type A as B`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ExportTypeSnapshot.ExportTypeWithAsAndConst)
+  })
+
+  it('export type type with as', () => {
+    const node = parseSource(generateSource([
+      `const a = 1`,
+      `type type = number`,
+      `export {`,
+      `  a,`,
+      `  type type as A`,
+      `}`
+    ]))
     console.log(JSON.stringify(node, null, 2))
-    // expect(node).toEqual(ExportTypeSnapshot.SeriousType)
+
+    expect(node).toEqual(ExportTypeSnapshot.ExportTypeTypeWithAs)
+  })
+
+  it('export type type with as as', () => {
+    const node = parseSource(generateSource([
+      `const a = 1`,
+      `type type = number`,
+      `export {`,
+      `  a,`,
+      `  type type as as`,
+      `}`
+    ]))
+
+    expect(node).toEqual(ExportTypeSnapshot.ExportTypeTypeWithAsAs)
   })
 })

@@ -5723,7 +5723,7 @@ export default function tsPlugin(options?: {
           } else {
             node.exportKind = 'value'
             // @ts-ignore
-            if (this.eatContextual(tsTokenType.as)) {
+            if (this.eatContextual('as')) {
               // @ts-ignore
               node.exported = this.parseModuleExportName()
             } else {
@@ -5827,7 +5827,7 @@ export default function tsPlugin(options?: {
         const kindKey = isImport ? 'importKind' : 'exportKind'
         node[kindKey] = hasTypeSpecifier ? 'type' : 'value'
         // @ts-ignore
-        if (canParseAsKeyword && this.eatContextual(tsTokenType.as)) {
+        if (canParseAsKeyword && this.eatContextual('as')) {
           node[rightOfAsKey] = isImport
             // @ts-ignore
             ? this.parseIdent()
