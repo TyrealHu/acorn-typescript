@@ -17,7 +17,7 @@ module.exports = {
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
   collectCoverageFrom: [
-    'lib/index.{js,ts}',
+    'src/index.{js,ts}',
   ],
 
   // Indicates whether the coverage information should be collected while executing the test
