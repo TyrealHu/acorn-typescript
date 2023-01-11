@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.0...v1.0.1) (2023-01-11)
+
+
+### ✨ Features
+
+* minimum package ([7eaa353](https://github.com/TyrealHu/acorn-typescript/commit/7eaa3535295ff446bab3d351cd98b64041926519))
+
 ## 1.0.0 (2023-01-11)
 
 
