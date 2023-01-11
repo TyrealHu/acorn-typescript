@@ -222,9 +222,11 @@ export default function tsPlugin(options?: {
   // default false
   dts?: boolean
   // default false
-  disallowAmbiguousJSXLike?: boolean
+  // todo arrow in the next version
+  // disallowAmbiguousJSXLike?: boolean
 }) {
-  const { dts = false, disallowAmbiguousJSXLike = false } = options || {}
+  const { dts = false } = options || {}
+  const disallowAmbiguousJSXLike = false
   return function(Parser: typeof AcornParser) {
     return class TypeScriptParser extends Parser {
       isLookahead: boolean = false
