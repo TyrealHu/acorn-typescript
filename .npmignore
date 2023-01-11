@@ -1,3 +1,7 @@
 __test__
 src
 coverage
+.github
+.idea
+.versionrc.js
+jest.config.js
