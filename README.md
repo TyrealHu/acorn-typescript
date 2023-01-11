@@ -54,6 +54,10 @@ export {
 })
 ```
 
+## CHANGELOG
+
+[click](./CHANGELOG.md)
+
 ## RoadMap
 
 - Support to parse JSX & TSX in the future.
