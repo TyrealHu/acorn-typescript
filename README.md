@@ -1,5 +1,5 @@
 # acorn-typescript
-
+[![npm version](https://img.shields.io/npm/v/acorn-typescript.svg?style=flat)](https://www.npmjs.com/package/acorn-typescript)[![Coverage Status](https://codecov.io/gh/TyrealHu/acorn-typescript/branch/master/graph/badge.svg)](https://codecov.io/gh/TyrealHu/acorn-typescript)
 ---
 
 This is plugin for [Acorn](http://marijnhaverbeke.nl/acorn/) - a tiny, fast JavaScript parser, written completely in JavaScript.
