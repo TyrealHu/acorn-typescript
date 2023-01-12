@@ -6,9 +6,8 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
-  "unpkg": "lib/index.umd.js",
   "scripts": {
-    "build": "microbundle --define process.env.NODE_ENV=production --sourcemap --tsconfig ./tsconfig.json",
+    "build": "microbundle --define process.env.NODE_ENV=production --no-sourcemap --tsconfig ./tsconfig.json --format esm,cjs",
     "test": "jest --collect-coverage --silent",
     "release-major": "standard-version --release-as major",
     "release-minor": "standard-version --release-as minor",
