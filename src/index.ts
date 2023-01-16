@@ -3596,6 +3596,7 @@ export default function tsPlugin(options?: {
 
           default:
             if (tokenIsIdentifier(this.type)) {
+              // NOTE: we don't need to check module
               // if (
               //   this.ts_isContextual(tsTokenType.module) &&
               //   this.lookaheadCharCode() === charCodes.leftCurlyBrace &&
