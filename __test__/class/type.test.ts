@@ -115,6 +115,18 @@ describe('class', () => {
     expect(node).toEqual(ClassTypeSnapshot.StaticFunction)
   })
 
+  it('private class method', () => {
+    parseSource(generateSource([
+      `class Student {`,
+      ` private study() {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    // expect(node).toEqual(ClassTypeSnapshot.StaticFunction)
+  })
+
   it('computed property', () => {
     const node = parseSource(generateSource([
       `class Student {`,

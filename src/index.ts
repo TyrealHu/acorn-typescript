@@ -229,6 +229,8 @@ export default function tsPlugin(options?: {
   const disallowAmbiguousJSXLike = false
   return function(Parser: typeof AcornParser) {
     return class TypeScriptParser extends Parser {
+      preValue: any = null
+      preToken: any = null
       isLookahead: boolean = false
       isAmbientContext: boolean = false
       inAbstractClass: boolean = false
@@ -682,6 +684,9 @@ export default function tsPlugin(options?: {
       }
 
       finishToken(type: TokenType, val?: string) {
+        this.preValue = this['value']
+        this.preToken = this.type
+
         this.end = this['pos']
         // @ts-ignore
         if (this.options.locations) this.endLoc = this.curPosition()
@@ -2209,6 +2214,18 @@ export default function tsPlugin(options?: {
         return undefined
       }
 
+      tsParseModifiersByMap({
+        modified,
+        map
+      }: {
+        modified: ModifierBase,
+        map: Record<string, any>
+      }) {
+        for (const key of Object.keys(map)) {
+          modified[key] = map[key]
+        }
+      }
+
       /** Parses a list of modifiers, in any order.
        *  If you need a specific order, you must call this function multiple times:
        *    this.tsParseModifiers({ modified: node, allowedModifiers: ['public'] });
@@ -2227,7 +2244,8 @@ export default function tsPlugin(options?: {
         stopOnStartOfClassStaticBlock?: boolean;
         // FIXME: make sure errorTemplate can receive `modifier`
         errorTemplate?: any;
-      }): void {
+      }): Record<string, any> {
+        const modifiedMap: Record<string, any> = {}
         const enforceOrder = (
           loc: Position,
           modifier: TsModifier,
@@ -2269,12 +2287,14 @@ export default function tsPlugin(options?: {
               enforceOrder(startLoc, modifier, modifier, 'static')
               enforceOrder(startLoc, modifier, modifier, 'readonly')
 
-              modified.accessibility = modifier
+              modifiedMap.accessibility = modifier
+              modified['accessibility'] = modifier
             }
           } else if (tsIsVarianceAnnotations(modifier)) {
             if (modified[modifier]) {
               this.raise(this.start, TypeScriptError.DuplicateModifier({ modifier }))
             }
+            modifiedMap[modifier] = modifier
             modified[modifier] = true
 
             enforceOrder(startLoc, modifier, 'in', 'out')
@@ -2290,6 +2310,7 @@ export default function tsPlugin(options?: {
               incompatible(startLoc, modifier, 'declare', 'override')
               incompatible(startLoc, modifier, 'static', 'abstract')
             }
+            modifiedMap[modifier] = modifier
             modified[modifier] = true
           }
 
@@ -2297,6 +2318,8 @@ export default function tsPlugin(options?: {
             this.raise(this.start, errorTemplate)
           }
         }
+
+        return modifiedMap
       }
 
       tsParseInOutModifiers(node: any) {
@@ -4066,6 +4089,7 @@ export default function tsPlugin(options?: {
       }
 
       parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper, isPrivate?: boolean) {
+        debugger
         // start typescript parse class method
         const isConstructor = method.kind === 'constructor'
         // todo pushClassPrivateMethod
@@ -4126,12 +4150,12 @@ export default function tsPlugin(options?: {
 
         const ecmaVersion = this.options.ecmaVersion
         // @ts-ignore
-        const node = this.startNode()
+        let node = this.startNode()
         let keyName = ''
         let isGenerator = false
         let isAsync = false
         let kind = 'method'
-
+        let isStatic = false
         // todo parseClassMember
         // --- start parseClassMember extension
         const modifiers = [
@@ -4144,31 +4168,28 @@ export default function tsPlugin(options?: {
           'readonly',
           'static'
         ] as const
-        this.tsParseModifiers({
+        const modifierMap = this.tsParseModifiers({
           modified: node,
           allowedModifiers: modifiers,
           disallowedModifiers: ['in', 'out'],
           stopOnStartOfClassStaticBlock: true,
           errorTemplate: TypeScriptError.InvalidModifierOnTypeParameterPositions
         })
-
-        let isStatic = !!node.static
+        isStatic = Boolean(modifierMap.static)
 
         const callParseClassMemberWithIsStatic = () => {
-          if (this.tsIsStartOfStaticBlocks()) {
+          if (this.tsIsStartOfStaticBlocks() && ecmaVersion >= 13) {
             this.next() // eat "static"
             this.next() // eat "{"
             if (this.tsHasSomeModifiers(node, modifiers)) {
               this.raise(this.start, TypeScriptError.StaticBlockCannotHaveModifier)
             }
 
-            if (ecmaVersion >= 13) {
-              // @ts-ignore
-              super.parseClassStaticBlock(
-                node
-              )
-              return node
-            }
+            // @ts-ignore
+            super.parseClassStaticBlock(
+              node
+            )
+            return node
           } else {
             // todo parseClassMemberWithIsStatic
             // --- start ts extension
@@ -4201,13 +4222,15 @@ export default function tsPlugin(options?: {
                 this.raise(node.start, TypeScriptError.OverrideNotInSubClass)
               }
             }
-            // --- end
-
+            // --- start
 
             node.static = isStatic
-            // todo we don't need parsePropertyNamePrefixOperator here, this
-            //  plugin don't support flow
-            //  this.parsePropertyNamePrefixOperator(member);
+            if (isStatic) {
+              // @ts-ignore
+              if (!(this.isClassElementNameStart() || this.type === tokTypes.star)) {
+                keyName = 'static'
+              }
+            }
             if (!keyName && ecmaVersion >= 8 && this.eatContextual('async')) {
               // @ts-ignore
               if ((this.isClassElementNameStart() || this.type === tokTypes.star) && !this.canInsertSemicolon()) {
@@ -4232,45 +4255,29 @@ export default function tsPlugin(options?: {
               }
             }
 
-            let isPrivate = this.type === tokTypes.privateId
             // Parse element name
             if (keyName) {
               // 'async', 'get', 'set', or 'static' were not a keyword contextually.
               // The last token is any of those. Make it the element name.
               node.computed = false
               // @ts-ignore
-              node.key = this.startNodeAt(this['lastTokStart'], this['lastTokStartLoc'])
+              node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
               node.key.name = keyName
               this.finishNode(node.key, 'Identifier')
             } else {
               this.parseClassElementName(node)
             }
 
-            // todo isClassMethod
-            const isClassMethod = this.match(tokTypes.relational) || this.match(tokTypes.parenL)
             // Parse element value
-            if (ecmaVersion < 13 || isClassMethod || kind !== 'method' || isGenerator || isAsync) {
+            if (ecmaVersion < 13 || this.type === tokTypes.parenL || kind !== 'method' || isGenerator || isAsync) {
               const isConstructor = !node.static && checkKeyName(node, 'constructor')
               const allowsDirectSuper = isConstructor && constructorAllowsSuper
+              // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
               if (isConstructor && kind !== 'method') this.raise(node.key.start, 'Constructor can\'t have get/set modifier')
               node.kind = isConstructor ? 'constructor' : kind
-              // ts Overridden
-              this.parsePostMemberNameModifiers(node)
-              // todo private or not
-              if (!isPrivate) {
-                this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper, false)
-              } else {
-                this.parsePrivateClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
-              }
+              this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
             } else {
-              // ts Overridden
-              this.parsePostMemberNameModifiers(node)
-              // todo private or not
-              if (!isPrivate) {
-                this.parseClassField(node)
-              } else {
-                this.parsePrivateClassField(node)
-              }
+              this.parseClassField(node)
             }
 
             return node
@@ -5843,6 +5850,16 @@ export default function tsPlugin(options?: {
         if (isImport) {
           // @ts-ignore
           this.checkLValSimple(node[rightOfAsKey], BIND_LEXICAL)
+        }
+      }
+
+      raiseRecoverable(pos: number, message: string) {
+        switch (message) {
+          case 'Duplicate constructor in the same class':
+            return
+          default: {
+            return super.raiseRecoverable(pos, message)
+          }
         }
       }
 
