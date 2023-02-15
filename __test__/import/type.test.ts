@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import ImportTypeSnapshot from '../__snapshot__/import/type'
 
 describe('type syntax', () => {
@@ -7,7 +7,7 @@ describe('type syntax', () => {
       `import type Test from './index.ts'`
     ]))
 
-    expect(node).toEqual(ImportTypeSnapshot.ImportDefaultType)
+    equalNode(node, ImportTypeSnapshot.ImportDefaultType)
   })
 
   it('import name as specifiers with type token', function() {
@@ -15,7 +15,7 @@ describe('type syntax', () => {
       `import type { Test as Test1 } from './index.ts'`
     ]))
 
-    expect(node).toEqual(ImportTypeSnapshot.ImportNameAsType)
+    equalNode(node, ImportTypeSnapshot.ImportNameAsType)
   })
 
   it('import namespace specifiers with type token', function() {
@@ -23,7 +23,7 @@ describe('type syntax', () => {
       `import type * as Test from './index.ts'`
     ]))
 
-    expect(node).toEqual(ImportTypeSnapshot.ImportNamespaceType)
+    equalNode(node, ImportTypeSnapshot.ImportNamespaceType)
   })
 
   it('import complex type', function() {
@@ -34,6 +34,6 @@ describe('type syntax', () => {
       `import type * as Test3 from './index3.ts'`
     ]))
 
-    expect(node).toEqual(ImportTypeSnapshot.ImportComplexType)
+    equalNode(node, ImportTypeSnapshot.ImportComplexType)
   })
 })

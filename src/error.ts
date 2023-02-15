@@ -93,6 +93,10 @@ export const TypeScriptError = {
     modifier
   }) =>
     `Private elements cannot have an accessibility modifier ('${modifier}').`,
+  PrivateMethodsHasAccessibility: ({
+    modifier
+  }) =>
+    `Private methods cannot have an accessibility modifier ('${modifier}').`,
   ReadonlyForMethodSignature:
     '\'readonly\' modifier can only appear on a property declaration or index signature.',
   ReservedArrowTypeParam:

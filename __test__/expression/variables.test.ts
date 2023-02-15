@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import VariablesTypeSnapshot from '../__snapshot__/expression/variables'
 
 describe('variables declaration', () => {
@@ -7,7 +7,7 @@ describe('variables declaration', () => {
       `const test: number = 123`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Number)
+    equalNode(node, VariablesTypeSnapshot.Number)
   })
 
   it('string', () => {
@@ -15,7 +15,7 @@ describe('variables declaration', () => {
       `const test: string = '12355'`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.String)
+    equalNode(node, VariablesTypeSnapshot.String)
   })
 
   it('undefined', () => {
@@ -23,7 +23,7 @@ describe('variables declaration', () => {
       `const test: undefined = undefined`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Undefined)
+    equalNode(node, VariablesTypeSnapshot.Undefined)
   })
 
   it('boolean', () => {
@@ -31,7 +31,7 @@ describe('variables declaration', () => {
       `const test: boolean = false`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Boolean)
+    equalNode(node, VariablesTypeSnapshot.Boolean)
   })
 
   it('bigint', () => {
@@ -39,7 +39,7 @@ describe('variables declaration', () => {
       `const test: bigint = BigInt('123123')`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.BigInt)
+    equalNode(node, VariablesTypeSnapshot.BigInt)
   })
 
   it('object', () => {
@@ -50,7 +50,7 @@ describe('variables declaration', () => {
       '}'
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Object)
+    equalNode(node, VariablesTypeSnapshot.Object)
   })
 
   it('symbol', () => {
@@ -58,7 +58,7 @@ describe('variables declaration', () => {
       `const test: symbol = Symbol('123')`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Symbol)
+    equalNode(node, VariablesTypeSnapshot.Symbol)
   })
 
   it('unknown', () => {
@@ -66,7 +66,7 @@ describe('variables declaration', () => {
       `const test: unknown = 123`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Unknown)
+    equalNode(node, VariablesTypeSnapshot.Unknown)
   })
 
   it('any', () => {
@@ -74,7 +74,7 @@ describe('variables declaration', () => {
       `const test: any = 123`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Any)
+    equalNode(node, VariablesTypeSnapshot.Any)
   })
 
   it('type', () => {
@@ -83,7 +83,7 @@ describe('variables declaration', () => {
       `const test: TestType = 123`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Type)
+    equalNode(node, VariablesTypeSnapshot.Type)
   })
 
   it('interface', () => {
@@ -100,7 +100,7 @@ describe('variables declaration', () => {
       `}`
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Interface)
+    equalNode(node, VariablesTypeSnapshot.Interface)
   })
 
   it('union', () => {
@@ -108,7 +108,7 @@ describe('variables declaration', () => {
       `const test: string | number = 123`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.Union)
+    equalNode(node, VariablesTypeSnapshot.Union)
   })
 
   it('let union', () => {
@@ -116,6 +116,6 @@ describe('variables declaration', () => {
       `let test: string | number = 123`,
     ]))
 
-    expect(node).toEqual(VariablesTypeSnapshot.LetUnion)
+    equalNode(node, VariablesTypeSnapshot.LetUnion)
   })
 })
