@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.5...v1.0.6) (2023-02-15)
+
+
+### ✨ Features
+
+* parser of ClassMethods ([2218d77](https://github.com/TyrealHu/acorn-typescript/commit/2218d775703da57100620073b60bef01822b6040))
+
 ### [1.0.5](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.4...v1.0.5) (2023-01-12)
 
 
