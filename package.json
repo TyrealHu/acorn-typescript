@@ -9,9 +9,9 @@
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production --no-sourcemap --tsconfig ./tsconfig.json --format esm,cjs",
     "test": "jest --collect-coverage --silent",
-    "release-major": "standard-version --release-as major",
-    "release-minor": "standard-version --release-as minor",
-    "release-patch": "standard-version --release-as patch"
+    "release-major": "yarn build && yarn test && standard-version --release-as major",
+    "release-minor": "yarn build && yarn test && standard-version --release-as minor",
+    "release-patch": "yarn build && yarn test && standard-version --release-as patch"
   },
   "repository": {
     "type": "git",
