@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import ClassTypeSnapshot from '../__snapshot__/class/type'
 
 describe('class', () => {
@@ -19,7 +19,7 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.NormalProperty)
+    equalNode(node, ClassTypeSnapshot.NormalProperty)
   })
 
   it('private property', () => {
@@ -39,7 +39,7 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.PrivateProperty)
+    equalNode(node, ClassTypeSnapshot.PrivateProperty)
   })
 
   it('protected property', () => {
@@ -59,7 +59,8 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.ProtectedProperty)
+
+    equalNode(node, ClassTypeSnapshot.ProtectedProperty)
   })
 
   it('readonly property', () => {
@@ -79,7 +80,7 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.ReadonlyProperty)
+    equalNode(node, ClassTypeSnapshot.ReadonlyProperty)
   })
 
   it('public property', () => {
@@ -99,7 +100,7 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.PublicProperty)
+    equalNode(node, ClassTypeSnapshot.PublicProperty)
   })
 
   it('static property', () => {
@@ -112,7 +113,19 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.StaticFunction)
+    equalNode(node, ClassTypeSnapshot.StaticFunction)
+  })
+
+  it('private class method', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` private study() {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.PrivateClassMethod)
   })
 
   it('computed property', () => {
@@ -128,7 +141,7 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.ComputedProperty)
+    equalNode(node, ClassTypeSnapshot.ComputedProperty)
   })
 
   it('abstract class', () => {
@@ -155,7 +168,33 @@ describe('class', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ClassTypeSnapshot.AbstractClass)
+    equalNode(node, ClassTypeSnapshot.AbstractClass)
+  })
+
+  it('private id class method', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` #study() {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.PrivateIdClassMethod)
+  })
+
+  it('class duplicate method', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` study(book: 'math'): void`,
+      ` study(book: 'english'): void`,
+      ` study(book: 'math' | 'english'): void {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.ClassDuplicateMethod)
   })
 })
 

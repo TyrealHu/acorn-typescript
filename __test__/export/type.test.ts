@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import ExportTypeSnapshot from '../__snapshot__/export/type'
 
 describe('export type', () => {
@@ -7,7 +7,7 @@ describe('export type', () => {
       `export type Test = string | number`
     ]))
 
-    expect(node).toEqual(ExportTypeSnapshot.Type)
+    equalNode(node, ExportTypeSnapshot.Type)
   })
 
   it('export serious type', () => {
@@ -20,7 +20,7 @@ describe('export type', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExportTypeSnapshot.SeriousType)
+    equalNode(node, ExportTypeSnapshot.SeriousType)
   })
 
   it('export type and const', () => {
@@ -33,7 +33,7 @@ describe('export type', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExportTypeSnapshot.ExportTypeAndConst)
+    equalNode(node, ExportTypeSnapshot.ExportTypeAndConst)
   })
 
   it('export type with as and const', () => {
@@ -46,7 +46,7 @@ describe('export type', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExportTypeSnapshot.ExportTypeWithAsAndConst)
+    equalNode(node, ExportTypeSnapshot.ExportTypeWithAsAndConst)
   })
 
   it('export type type with as', () => {
@@ -60,7 +60,7 @@ describe('export type', () => {
     ]))
     console.log(JSON.stringify(node, null, 2))
 
-    expect(node).toEqual(ExportTypeSnapshot.ExportTypeTypeWithAs)
+    equalNode(node, ExportTypeSnapshot.ExportTypeTypeWithAs)
   })
 
   it('export type type with as as', () => {
@@ -73,6 +73,6 @@ describe('export type', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExportTypeSnapshot.ExportTypeTypeWithAsAs)
+    equalNode(node, ExportTypeSnapshot.ExportTypeTypeWithAsAs)
   })
 })

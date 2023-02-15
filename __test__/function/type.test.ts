@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import FunctionTypeSnapshot from '../__snapshot__/function/type'
 
 describe('function type test', () => {
@@ -9,7 +9,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithVoid)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithVoid)
   })
 
   it('no parameter with never', () => {
@@ -19,7 +19,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithNever)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithNever)
   })
 
   it('no parameter with string', () => {
@@ -29,7 +29,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithString)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithString)
   })
 
   it('no parameter with number', () => {
@@ -39,7 +39,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithNumber)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithNumber)
   })
 
   it('no parameter with undefined', () => {
@@ -49,7 +49,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithUndefined)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithUndefined)
   })
 
   it('no parameter with boolean', () => {
@@ -59,7 +59,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithBoolean)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithBoolean)
   })
 
   it('no parameter with bigint', () => {
@@ -69,7 +69,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithBigInt)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithBigInt)
   })
 
   it('no parameter with object', () => {
@@ -79,7 +79,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithObject)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithObject)
   })
 
   it('no parameter with symbol', () => {
@@ -89,7 +89,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithSymbol)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithSymbol)
   })
 
   it('no parameter with unknown', () => {
@@ -99,7 +99,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithUnknown)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithUnknown)
   })
 
   it('no parameter with any', () => {
@@ -109,7 +109,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithAny)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithAny)
   })
 
   it('no parameter with type', () => {
@@ -120,7 +120,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithType)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithType)
   })
 
   it('no parameter with interface', () => {
@@ -139,7 +139,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithInterface)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithInterface)
   })
 
   it('no parameter with union', () => {
@@ -149,7 +149,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.NoParameterWithUnion)
+    equalNode(node, FunctionTypeSnapshot.NoParameterWithUnion)
   })
 
   it('one parameter with void', () => {
@@ -159,7 +159,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.OneParameterWithVoid)
+    equalNode(node, FunctionTypeSnapshot.OneParameterWithVoid)
   })
 
   it('one optional parameter with void', () => {
@@ -169,7 +169,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.OneOptionalParameterWithVoid)
+    equalNode(node, FunctionTypeSnapshot.OneOptionalParameterWithVoid)
   })
 
   it('complex function', () => {
@@ -184,7 +184,7 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.ComplexFunction)
+    equalNode(node, FunctionTypeSnapshot.ComplexFunction)
   })
 
   it('declare function types', () => {
@@ -196,6 +196,6 @@ describe('function type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(FunctionTypeSnapshot.DeclareFunctionTypes)
+    equalNode(node, FunctionTypeSnapshot.DeclareFunctionTypes)
   })
 })
