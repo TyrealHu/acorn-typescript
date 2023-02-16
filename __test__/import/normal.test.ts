@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import NormalImportSnapshot  from '../__snapshot__/import/normal'
 
 describe('normal syntax', () => {
@@ -7,7 +7,7 @@ describe('normal syntax', () => {
       `import './index.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportWithoutSpecifiers)
+    equalNode(node, NormalImportSnapshot.ImportWithoutSpecifiers)
   })
 
   it('import default specifiers', () => {
@@ -15,7 +15,7 @@ describe('normal syntax', () => {
       `import test from './index.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportDefaultSpecifier)
+    equalNode(node, NormalImportSnapshot.ImportDefaultSpecifier)
   })
 
   it('import name specifiers', function() {
@@ -23,7 +23,7 @@ describe('normal syntax', () => {
       `import { test, name } from './index.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportNameSpecifiers)
+    equalNode(node, NormalImportSnapshot.ImportNameSpecifiers)
   })
 
   it('import namespace specifiers', function() {
@@ -31,7 +31,7 @@ describe('normal syntax', () => {
       `import * as test from './index.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportNamespaceSpecifier)
+    equalNode(node, NormalImportSnapshot.ImportNamespaceSpecifier)
   })
 
   it('import name as specifiers', function() {
@@ -39,7 +39,7 @@ describe('normal syntax', () => {
       `import { test as test1 } from './index.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportNameAsSpecifiers)
+    equalNode(node, NormalImportSnapshot.ImportNameAsSpecifiers)
   })
 
   it('import complex specifiers', function() {
@@ -49,7 +49,7 @@ describe('normal syntax', () => {
       `import * as test1 from './index1.js'`
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportComplexSpecifiers)
+    equalNode(node, NormalImportSnapshot.ImportComplexSpecifiers)
   })
 
   it('import namespace type specifiers', function() {
@@ -57,7 +57,7 @@ describe('normal syntax', () => {
       `import test, { name, type age, school as school1 } from './index.js'`,
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportNamespaceType)
+    equalNode(node, NormalImportSnapshot.ImportNamespaceType)
   })
 
   it('import namespace type specifiers with as', function() {
@@ -65,7 +65,7 @@ describe('normal syntax', () => {
       `import test, { name, type age as age1, school as school1 } from './index.js'`,
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportNamespaceTypeWithAs)
+    equalNode(node, NormalImportSnapshot.ImportNamespaceTypeWithAs)
   })
 
   it('import type specifier with as', function() {
@@ -73,7 +73,7 @@ describe('normal syntax', () => {
       `import test, { type as age } from './index.js'`,
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportTypeSpecifierWithAs)
+    equalNode(node, NormalImportSnapshot.ImportTypeSpecifierWithAs)
   })
 
   it('import type specifier with as as', function() {
@@ -81,6 +81,6 @@ describe('normal syntax', () => {
       `import test, { type as as } from './index.js'`,
     ]))
 
-    expect(node).toEqual(NormalImportSnapshot.ImportTypeSpecifierWithAsAs)
+    equalNode(node, NormalImportSnapshot.ImportTypeSpecifierWithAsAs)
   })
 })

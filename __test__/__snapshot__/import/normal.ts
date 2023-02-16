@@ -104,8 +104,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 16,
-                'index': 16
+                'column': 11,
+                'index': 11
               }
             },
             'local': {
@@ -120,8 +120,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 16,
-                  'index': 16
+                  'column': 11,
+                  'index': 11
                 }
               },
               'name': 'test'
@@ -610,8 +610,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 2,
-                'column': 12,
-                'index': 33
+                'column': 11,
+                'index': 32
               }
             },
             'local': {
@@ -626,8 +626,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 2,
-                  'column': 12,
-                  'index': 33
+                  'column': 11,
+                  'index': 32
                 }
               },
               'name': 'test'
@@ -940,8 +940,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 12,
-                'index': 12
+                'column': 11,
+                'index': 11
               }
             },
             'local': {
@@ -956,8 +956,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 12,
-                  'index': 12
+                  'column': 11,
+                  'index': 11
                 }
               },
               'name': 'test'
@@ -1196,8 +1196,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 12,
-                'index': 12
+                'column': 11,
+                'index': 11
               }
             },
             'local': {
@@ -1212,8 +1212,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 12,
-                  'index': 12
+                  'column': 11,
+                  'index': 11
                 }
               },
               'name': 'test'
@@ -1452,8 +1452,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 12,
-                'index': 12
+                'column': 11,
+                'index': 11
               }
             },
             'local': {
@@ -1468,8 +1468,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 12,
-                  'index': 12
+                  'column': 11,
+                  'index': 11
                 }
               },
               'name': 'test'
@@ -1600,8 +1600,8 @@ const NormalImportSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 12,
-                'index': 12
+                'column': 11,
+                'index': 11
               }
             },
             'local': {
@@ -1616,8 +1616,8 @@ const NormalImportSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 12,
-                  'index': 12
+                  'column': 11,
+                  'index': 11
                 }
               },
               'name': 'test'

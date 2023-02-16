@@ -46,8 +46,8 @@ const ImportTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 21,
-                'index': 21
+                'column': 16,
+                'index': 16
               }
             },
             'local': {
@@ -62,8 +62,8 @@ const ImportTypeSnapshot = {
                 },
                 'end': {
                   'line': 1,
-                  'column': 21,
-                  'index': 21
+                  'column': 16,
+                  'index': 16
                 }
               },
               'name': 'Test'
@@ -385,8 +385,8 @@ const ImportTypeSnapshot = {
               },
               'end': {
                 'line': 2,
-                'column': 22,
-                'index': 42
+                'column': 17,
+                'index': 37
               }
             },
             'local': {
@@ -401,8 +401,8 @@ const ImportTypeSnapshot = {
                 },
                 'end': {
                   'line': 2,
-                  'column': 22,
-                  'index': 42
+                  'column': 17,
+                  'index': 37
                 }
               },
               'name': 'Test1'

@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import NormalExportSnapshot from '../__snapshot__/export/normal'
 
 describe('normal export', () => {
@@ -9,7 +9,7 @@ describe('normal export', () => {
       '}'
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.ExportDefaultObject)
+    equalNode(node, NormalExportSnapshot.ExportDefaultObject)
   })
 
   it('export default function', () => {
@@ -19,7 +19,7 @@ describe('normal export', () => {
       '}'
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.ExportDefaultFunction)
+    equalNode(node, NormalExportSnapshot.ExportDefaultFunction)
   })
 
   it('export default function with name', () => {
@@ -29,7 +29,7 @@ describe('normal export', () => {
       '}'
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.ExportDefaultFunctionWithName)
+    equalNode(node, NormalExportSnapshot.ExportDefaultFunctionWithName)
   })
 
   it('export default arrow function', () => {
@@ -39,7 +39,7 @@ describe('normal export', () => {
       '}'
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.ExportDefaultArrowFunction)
+    equalNode(node, NormalExportSnapshot.ExportDefaultArrowFunction)
   })
 
   it('export const', () => {
@@ -47,7 +47,7 @@ describe('normal export', () => {
       `export const test = '12345'`
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.ExportConst)
+    equalNode(node, NormalExportSnapshot.ExportConst)
   })
 
   it('export', () => {
@@ -60,6 +60,6 @@ describe('normal export', () => {
       `}`
     ]))
 
-    expect(node).toEqual(NormalExportSnapshot.Export)
+    equalNode(node, NormalExportSnapshot.Export)
   })
 })

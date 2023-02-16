@@ -229,6 +229,8 @@ export default function tsPlugin(options?: {
   const disallowAmbiguousJSXLike = false
   return function(Parser: typeof AcornParser) {
     return class TypeScriptParser extends Parser {
+      preValue: any = null
+      preToken: any = null
       isLookahead: boolean = false
       isAmbientContext: boolean = false
       inAbstractClass: boolean = false
@@ -260,6 +262,14 @@ export default function tsPlugin(options?: {
         return (
           this.ts_isContextual(tsTokenType.abstract) && this.lookahead().type === tokTypes._class
         )
+      }
+
+      finishNode(node, type: string) {
+        if (node.type !== '' && node.end !== 0) {
+          return node
+        }
+
+        return super.finishNode(node, type)
       }
 
       // tryParse will clone parser state.
@@ -609,13 +619,19 @@ export default function tsPlugin(options?: {
         return res
       }
 
-      lookahead(): LookaheadState {
+      lookahead(number?: number): LookaheadState {
         const oldState = this.getCurLookaheadState()
 
         this.createLookaheadState()
         this.isLookahead = true
 
-        this.nextToken()
+        if (number !== undefined) {
+          for (let i = 0; i < number; i++) {
+            this.nextToken()
+          }
+        } else {
+          this.nextToken()
+        }
 
         this.isLookahead = false
 
@@ -682,6 +698,9 @@ export default function tsPlugin(options?: {
       }
 
       finishToken(type: TokenType, val?: string) {
+        this.preValue = this['value']
+        this.preToken = this.type
+
         this.end = this['pos']
         // @ts-ignore
         if (this.options.locations) this.endLoc = this.curPosition()
@@ -2209,6 +2228,18 @@ export default function tsPlugin(options?: {
         return undefined
       }
 
+      tsParseModifiersByMap({
+        modified,
+        map
+      }: {
+        modified: ModifierBase,
+        map: Record<string, any>
+      }) {
+        for (const key of Object.keys(map)) {
+          modified[key] = map[key]
+        }
+      }
+
       /** Parses a list of modifiers, in any order.
        *  If you need a specific order, you must call this function multiple times:
        *    this.tsParseModifiers({ modified: node, allowedModifiers: ['public'] });
@@ -2227,7 +2258,8 @@ export default function tsPlugin(options?: {
         stopOnStartOfClassStaticBlock?: boolean;
         // FIXME: make sure errorTemplate can receive `modifier`
         errorTemplate?: any;
-      }): void {
+      }): Record<string, any> {
+        const modifiedMap: Record<string, any> = {}
         const enforceOrder = (
           loc: Position,
           modifier: TsModifier,
@@ -2269,12 +2301,14 @@ export default function tsPlugin(options?: {
               enforceOrder(startLoc, modifier, modifier, 'static')
               enforceOrder(startLoc, modifier, modifier, 'readonly')
 
-              modified.accessibility = modifier
+              modifiedMap.accessibility = modifier
+              modified['accessibility'] = modifier
             }
           } else if (tsIsVarianceAnnotations(modifier)) {
             if (modified[modifier]) {
               this.raise(this.start, TypeScriptError.DuplicateModifier({ modifier }))
             }
+            modifiedMap[modifier] = modifier
             modified[modifier] = true
 
             enforceOrder(startLoc, modifier, 'in', 'out')
@@ -2290,6 +2324,7 @@ export default function tsPlugin(options?: {
               incompatible(startLoc, modifier, 'declare', 'override')
               incompatible(startLoc, modifier, 'static', 'abstract')
             }
+            modifiedMap[modifier] = modifier
             modified[modifier] = true
           }
 
@@ -2297,6 +2332,8 @@ export default function tsPlugin(options?: {
             this.raise(this.start, errorTemplate)
           }
         }
+
+        return modifiedMap
       }
 
       tsParseInOutModifiers(node: any) {
@@ -2996,24 +3033,32 @@ export default function tsPlugin(options?: {
           node.id = this.type === tokTypes.name ? this.parseIdent() : null
 
         this.parseFunctionParams(node)
-        const finishNode = this.parseFunctionBodyAndFinish(
+        const isDeclaration: boolean = (statement & FUNC_STATEMENT) as any
+        this.parseFunctionBody(
           node,
-          (statement && FUNC_STATEMENT) ? 'FunctionDeclaration' : 'FunctionExpression',
+          allowExpressionBody,
           false,
-          forInit
+          forInit,
+          {
+            isFunctionDeclaration: isDeclaration
+          }
         )
 
         this['yieldPos'] = oldYieldPos
         this['awaitPos'] = oldAwaitPos
         this['awaitIdentPos'] = oldAwaitIdentPos
-        return finishNode
+        return this.finishNode(node, isDeclaration ? 'FunctionDeclaration' : 'FunctionExpression')
       }
 
-      parseFunctionBodyAndFinish(
+      parseFunctionBody(
         node: Node,
-        type: string,
+        isArrowFunction: boolean = false,
         isMethod: boolean = false,
-        forInit: boolean = false
+        forInit: boolean = false,
+        tsConfig?: {
+          isFunctionDeclaration?: boolean
+          isClassMethod?: boolean
+        }
       ) {
         if (this.match(tokTypes.colon)) {
           // @ts-ignore
@@ -3021,11 +3066,12 @@ export default function tsPlugin(options?: {
         }
 
         const bodilessType =
-          type === 'FunctionDeclaration'
+          tsConfig?.isFunctionDeclaration
             ? 'TSDeclareFunction'
-            : type === 'ClassMethod' || type === 'ClassPrivateMethod'
+            : tsConfig?.isClassMethod
               ? 'TSDeclareMethod'
               : undefined
+        debugger
         if (bodilessType && !this.match(tokTypes.braceL) && this.isLineTerminator()) {
           return this.finishNode(node, bodilessType)
         }
@@ -3034,13 +3080,13 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           if ((node as FunctionDeclaration).declare) {
             // @ts-ignore
-            this.parseFunctionBody(node, false, isMethod, false)
+            super.parseFunctionBody(node, isArrowFunction, isMethod, false)
             return this.finishNode(node, bodilessType)
           }
         }
         // @ts-ignore
-        this.parseFunctionBody(node, false, isMethod, forInit)
-        return this.finishNode(node, type)
+        super.parseFunctionBody(node, isArrowFunction, isMethod, forInit)
+        return node
       }
 
       parseNew() {
@@ -3133,16 +3179,16 @@ export default function tsPlugin(options?: {
       parseImport(
         node: any
       ) {
-        this.next()
+        let enterHead = this.lookahead()
         node.importKind = 'value'
         if (
-          tokenIsIdentifier(this.type) ||
+          tokenIsIdentifier(enterHead.type) ||
           this.match(tokTypes.star) ||
           this.match(tokTypes.braceL)
         ) {
-          let ahead = this.lookahead()
+          let ahead = this.lookahead(2)
           if (
-            this.ts_type_isContextual(this.type, tsTokenType.type) &&
+            this.ts_type_isContextual(enterHead.type, tsTokenType.type) &&
             // import type, { a } from "b";
             ahead.type !== tokTypes.comma &&
             // import type from "a";
@@ -3152,29 +3198,18 @@ export default function tsPlugin(options?: {
           ) {
             node.importKind = 'type'
             this.next()
-            ahead = this.lookahead()
+            enterHead = this.lookahead()
+            ahead = this.lookahead(2)
           }
 
-          if (tokenIsIdentifier(this.type) && ahead.type === tokTypes.eq) {
+          if (tokenIsIdentifier(enterHead.type) && ahead.type === tokTypes.eq) {
+            this.next()
             return this.tsParseImportEqualsDeclaration(node)
           }
         }
 
-        // ---start origin parseImport
-        if (this.type === tokTypes.string) {
-          node.specifiers = []
-          node.source = this.parseExprAtom()
-        } else {
-          node.specifiers = this.parseImportSpecifiers()
-          // @ts-ignore
-          this.expectContextual('from')
-          // @ts-ignore
-          node.source = this.type === tokTypes.string ? this.parseExprAtom() : this.unexpected()
-        }
         // @ts-ignore
-        super.semicolon()
-        const importNode = this.finishNode(node, 'ImportDeclaration')
-        // ---end
+        const importNode = super.parseImport(node)
 
         /*:: invariant(importNode.type !== "TSImportEqualsDeclaration") */
 
@@ -3317,7 +3352,6 @@ export default function tsPlugin(options?: {
           // export var|const|let|function|class ...
           if (this.shouldParseExportStatement()) {
             // @ts-ignore
-            // CHECK-EXTENSIONS: parseExport here
             node.declaration = this.parseExportDeclaration(node)
             // @ts-ignore
             if (node.declaration.type === 'VariableDeclaration')
@@ -3596,9 +3630,7 @@ export default function tsPlugin(options?: {
             }
 
           default:
-            // CHECK-EXTENSIONS: parseExprAtom here
             if (tokenIsIdentifier(this.type)) {
-              // NOTE: we don't need to check module
               // if (
               //   this.ts_isContextual(tsTokenType.module) &&
               //   this.lookaheadCharCode() === charCodes.leftCurlyBrace &&
@@ -3687,7 +3719,6 @@ export default function tsPlugin(options?: {
         var node = this.startNode()
         if (this.type === tokTypes.name) {
           node.name = this['value']
-          // CHECK-EXTENSIONS: parseIdent here
         } else if (tokenIsKeywordOrIdentifier(this.type)) {
           node.name = this['value']
         } else if (this.type.keyword) {
@@ -3718,7 +3749,6 @@ export default function tsPlugin(options?: {
         return node
       };
 
-      // CHECK-EXTENSIONS: allowMissingInitializer
       parseVar(node, isFor, kind, allowMissingInitializer: boolean = false) {
         node.declarations = []
         node.kind = kind
@@ -3746,7 +3776,6 @@ export default function tsPlugin(options?: {
         return node
       }
 
-      // CHECK-EXTENSIONS: allowMissingInitializer
       parseVarStatement(node, kind, allowMissingInitializer: boolean = false) {
         const { isAmbientContext } = this
 
@@ -3889,7 +3918,7 @@ export default function tsPlugin(options?: {
         let expr = this.parseExprOps(forInit, refDestructuringErrors)
         // @ts-ignore
         if (this.checkExpressionErrors(refDestructuringErrors)) return expr
-        // CHECK-EXTENSIONS: parseConditional here
+        // todo parseConditional ts support
         if (!this.maybeInArrowParameters || !this.match(tokTypes.question)) {
           return this.parseConditional(
             expr,
@@ -3946,7 +3975,6 @@ export default function tsPlugin(options?: {
         return node
       }
 
-      // CHECK-EXTENSIONS: parseExportDeclaration here
       parseExportDeclaration(
         node: any
       ): any | undefined | null {
@@ -4022,63 +4050,63 @@ export default function tsPlugin(options?: {
         if (type) node.typeAnnotation = type
       }
 
-      parsePrivateClassField(field) {
-        // --- start ts parseClassPrivateProperty
-        if (field.abstract) {
-          this.raise(field.start, TypeScriptError.PrivateElementHasAbstract)
-        }
-
-        if (field.accessibility) {
-          this.raise(field.start, TypeScriptError.PrivateElementHasAccessibility({
-            modifier: field.accessibility
-          }))
-        }
-
-        this.parseClassPropertyAnnotation(field)
-        // --- end
-        // @ts-ignore
-        return super.parseClassField(field)
-      }
-
       parseClassField(field) {
-        // --- start ts parseClassProperty
-        this.parseClassPropertyAnnotation(field)
+        const isPrivate: boolean = field.key.type === 'PrivateIdentifier'
+        if (isPrivate) {
+          if (field.abstract) {
+            this.raise(field.start, TypeScriptError.PrivateElementHasAbstract)
+          }
 
-        if (
-          this.isAmbientContext &&
-          !(field.readonly && !field.typeAnnotation) &&
-          this.match(tokTypes.eq)
-        ) {
-          this.raise(this['startLoc'], TypeScriptError.DeclareClassFieldHasInitializer)
+          if (field.accessibility) {
+            this.raise(field.start, TypeScriptError.PrivateElementHasAccessibility({
+              modifier: field.accessibility
+            }))
+          }
+
+          this.parseClassPropertyAnnotation(field)
+        } else {
+          this.parseClassPropertyAnnotation(field)
+
+          if (
+            this.isAmbientContext &&
+            !(field.readonly && !field.typeAnnotation) &&
+            this.match(tokTypes.eq)
+          ) {
+            this.raise(this['startLoc'], TypeScriptError.DeclareClassFieldHasInitializer)
+          }
+          if (field.abstract && this.match(tokTypes.eq)) {
+            const { key } = field
+            this.raise(this['startLoc'], TypeScriptError.AbstractPropertyHasInitializer({
+              propertyName:
+                key.type === 'Identifier' && !field.computed
+                  ? key.name
+                  : `[${this.input.slice(key.start, key.end)}]`
+            }))
+          }
         }
-        if (field.abstract && this.match(tokTypes.eq)) {
-          const { key } = field
-          this.raise(this['startLoc'], TypeScriptError.AbstractPropertyHasInitializer({
-            propertyName:
-              key.type === 'Identifier' && !field.computed
-                ? key.name
-                : `[${this.input.slice(key.start, key.end)}]`
-          }))
-        }
-        // --- end
         // @ts-ignore
         return super.parseClassField(field)
       }
 
-      parsePrivateClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
-        const typeParameters = this.tsTryParseTypeParameters()
-        if (typeParameters) method.typeParameters = typeParameters
-        // @ts-ignore
-        this.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper, true)
-      }
-
-      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper, isPrivate?: boolean) {
-        // start typescript parse class method
+      parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper) {
         const isConstructor = method.kind === 'constructor'
-        // todo pushClassPrivateMethod
+        const isPrivate: boolean = method.key.type === 'PrivateIdentifier'
+
         const typeParameters = this.tsTryParseTypeParameters()
-        if (typeParameters && isConstructor) {
-          this.raise(typeParameters.start, TypeScriptError.ConstructorHasTypeParameters)
+        // start typescript parse class method
+        if (isPrivate) {
+          if (typeParameters) method.typeParameters = typeParameters
+
+          if (method.accessibility) {
+            this.raise(method.start, TypeScriptError.PrivateMethodsHasAccessibility({
+              modifier: method.accessibility
+            }))
+          }
+
+        } else {
+          if (typeParameters && isConstructor) {
+            this.raise(typeParameters.start, TypeScriptError.ConstructorHasTypeParameters)
+          }
         }
 
         const { declare = false, kind } = method
@@ -4100,7 +4128,7 @@ export default function tsPlugin(options?: {
         }
 
         // Parse value
-        const value = method.value = this.parseMethodForClass(isGenerator, isAsync, allowsDirectSuper, isPrivate)
+        const value = method.value = this.parseMethod(isGenerator, isAsync, allowsDirectSuper, true)
 
         // Check value
         if (method.kind === 'get' && value['params'].length !== 0)
@@ -4113,32 +4141,18 @@ export default function tsPlugin(options?: {
         return this.finishNode(method, 'MethodDefinition')
       }
 
-      parseClassElementName(element) {
-        if (this.type === tokTypes.privateId) {
-          if (this['value'] === 'constructor') {
-            this.raise(this.start, 'Classes can\'t have an element named \'#constructor\'')
-          }
-          element.computed = false
-          // @ts-ignore
-          element.key = this.parsePrivateIdent()
-        } else {
-          // @ts-ignore
-          this.parsePropertyName(element)
-        }
-      }
-
       parseClassElement(constructorAllowsSuper) {
         // @ts-ignore
         if (this.eat(tokTypes.semi)) return null
 
         const ecmaVersion = this.options.ecmaVersion
         // @ts-ignore
-        const node = this.startNode()
+        let node = this.startNode()
         let keyName = ''
         let isGenerator = false
         let isAsync = false
         let kind = 'method'
-
+        let isStatic = false
         // todo parseClassMember
         // --- start parseClassMember extension
         const modifiers = [
@@ -4151,16 +4165,14 @@ export default function tsPlugin(options?: {
           'readonly',
           'static'
         ] as const
-        this.tsParseModifiers({
+        const modifierMap = this.tsParseModifiers({
           modified: node,
           allowedModifiers: modifiers,
           disallowedModifiers: ['in', 'out'],
           stopOnStartOfClassStaticBlock: true,
           errorTemplate: TypeScriptError.InvalidModifierOnTypeParameterPositions
         })
-
-        let isStatic = !!node.static
-
+        isStatic = Boolean(modifierMap.static)
         const callParseClassMemberWithIsStatic = () => {
           if (this.tsIsStartOfStaticBlocks()) {
             this.next() // eat "static"
@@ -4177,6 +4189,7 @@ export default function tsPlugin(options?: {
               return node
             }
           } else {
+            // todo parseClassMemberWithIsStatic
             // --- start ts extension
             const idx = this.tsTryParseIndexSignature(node)
             if (idx) {
@@ -4207,13 +4220,15 @@ export default function tsPlugin(options?: {
                 this.raise(node.start, TypeScriptError.OverrideNotInSubClass)
               }
             }
-            // --- end
-
+            // --- start
 
             node.static = isStatic
-            // todo we don't need parsePropertyNamePrefixOperator here, this
-            //  plugin don't support flow
-            //  this.parsePropertyNamePrefixOperator(member);
+            if (isStatic) {
+              // @ts-ignore
+              if (!(this.isClassElementNameStart() || this.type === tokTypes.star)) {
+                keyName = 'static'
+              }
+            }
             if (!keyName && ecmaVersion >= 8 && this.eatContextual('async')) {
               // @ts-ignore
               if ((this.isClassElementNameStart() || this.type === tokTypes.star) && !this.canInsertSemicolon()) {
@@ -4238,44 +4253,30 @@ export default function tsPlugin(options?: {
               }
             }
 
-            let isPrivate = this.type === tokTypes.privateId
             // Parse element name
             if (keyName) {
               // 'async', 'get', 'set', or 'static' were not a keyword contextually.
               // The last token is any of those. Make it the element name.
               node.computed = false
               // @ts-ignore
-              node.key = this.startNodeAt(this['lastTokStart'], this['lastTokStartLoc'])
+              node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
               node.key.name = keyName
               this.finishNode(node.key, 'Identifier')
             } else {
+              // @ts-ignore
               this.parseClassElementName(node)
             }
 
-            const isClassMethod = this.match(tokTypes.relational) || this.match(tokTypes.parenL)
             // Parse element value
-            if (ecmaVersion < 13 || isClassMethod || kind !== 'method' || isGenerator || isAsync) {
+            if (ecmaVersion < 13 || this.type === tokTypes.parenL || kind !== 'method' || isGenerator || isAsync) {
               const isConstructor = !node.static && checkKeyName(node, 'constructor')
               const allowsDirectSuper = isConstructor && constructorAllowsSuper
+              // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
               if (isConstructor && kind !== 'method') this.raise(node.key.start, 'Constructor can\'t have get/set modifier')
               node.kind = isConstructor ? 'constructor' : kind
-              // ts Overridden
-              this.parsePostMemberNameModifiers(node)
-              // todo private or not
-              if (!isPrivate) {
-                this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper, false)
-              } else {
-                this.parsePrivateClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
-              }
+              this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper)
             } else {
-              // ts Overridden
-              this.parsePostMemberNameModifiers(node)
-              // todo private or not
-              if (!isPrivate) {
-                this.parseClassField(node)
-              } else {
-                this.parsePrivateClassField(node)
-              }
+              this.parseClassField(node)
             }
 
             return node
@@ -4303,32 +4304,6 @@ export default function tsPlugin(options?: {
           node.implements = this.tsParseHeritageClause('implements')
         }
       }
-
-      // todo parsePropertyValue
-      // parseObjPropValue(
-      //   prop: Undone<N.ObjectMethod | N.ObjectProperty>,
-      //   startPos: number | undefined | null,
-      //   startLoc: Position | undefined | null,
-      //   isGenerator: boolean,
-      //   isAsync: boolean,
-      //   isPattern: boolean,
-      //   isAccessor: boolean,
-      //   refExpressionErrors?: ExpressionErrors | null
-      // ) {
-      //   const typeParameters = this.tsTryParseTypeParameters()
-      //   if (typeParameters) prop.typeParameters = typeParameters
-      //
-      //   return super.parseObjPropValue(
-      //     prop,
-      //     startPos,
-      //     startLoc,
-      //     isGenerator,
-      //     isAsync,
-      //     isPattern,
-      //     isAccessor,
-      //     refExpressionErrors
-      //   )
-      // }
 
       parseFunctionParams(node: Function): void {
         const typeParameters = this.tsTryParseTypeParameters()
@@ -4785,6 +4760,7 @@ export default function tsPlugin(options?: {
         }
       }
 
+      // todo we don't need to check checkToRestConversion
       // checkToRestConversion(node: Node, allowPattern: boolean): void {
       //   switch (node.type) {
       //     case 'TSAsExpression':
@@ -4797,6 +4773,7 @@ export default function tsPlugin(options?: {
       //   }
       // }
 
+      // todo we don't need this function here
       // isValidLVal(
       //   type:
       //     | "TSTypeCastExpression"
@@ -4838,6 +4815,8 @@ export default function tsPlugin(options?: {
         }
       }
 
+      // todo we don't need checkCommaAfterRest and shouldParseArrow, achieve this feature in
+      //  parseParenAndDistinguishExpression
       // shouldParseArrow(params: Array<N.Node>) {
       //   if (this.match(tt.colon)) {
       //     return params.every(expr => this.isAssignable(expr, true));
@@ -4860,6 +4839,7 @@ export default function tsPlugin(options?: {
       //   }
       // }
 
+      // todo we don't support Decorator as this version
       // parseMaybeDecoratorArguments(expr: N.Expression): N.Expression {
       //   // handles `@f<<T>`
       //   if (this.match(tt.lt) || this.match(tt.bitShiftL)) {
@@ -4906,7 +4886,7 @@ export default function tsPlugin(options?: {
               // @ts-ignore
               exprList.push(this.parseParenItem(this.parseRestBinding()))
 
-              // CHECK-EXTENSIONS: checkCommaAfterRest here
+              // todo checkCommaAfterRest
               const checkCommaAfterRest = (() => {
                 if (
                   this.isAmbientContext &&
@@ -4941,11 +4921,15 @@ export default function tsPlugin(options?: {
             return !this.canInsertSemicolon()
           })()
 
+          // @ts-ignore
+          let arrowNode = this.startNodeAt(
+            startPos,
+            startLoc
+          )
           if (
             canBeArrow &&
             shouldParseArrow &&
-            // @ts-ignore
-            this.eat(tokTypes.arrow)
+            (arrowNode = this.parseArrow(arrowNode))
           ) {
             // @ts-ignore
             this.checkPatternErrors(refDestructuringErrors, false)
@@ -4955,8 +4939,7 @@ export default function tsPlugin(options?: {
             this['yieldPos'] = oldYieldPos
             // @ts-ignore
             this['awaitPos'] = oldAwaitPos
-            // @ts-ignore
-            return this.parseParenArrowList(startPos, startLoc, exprList, forInit)
+            return this.parseArrowExpression(arrowNode, exprList, false, forInit)
           }
 
           if (!exprList.length || lastIsComma) this.unexpected(this['lastTokStart'])
@@ -4991,6 +4974,8 @@ export default function tsPlugin(options?: {
         }
       }
 
+      // todo we don't need this function, achieve this feature in
+      //  parseSubscript
       // shouldParseAsyncArrow(): boolean {
       //   return this.match(tt.colon) || super.shouldParseAsyncArrow()
       // }
@@ -5172,7 +5157,6 @@ export default function tsPlugin(options?: {
           }
         }
         // --- end
-
         let optionalSupported = this.options.ecmaVersion >= 11
         // @ts-ignore
         let optional = optionalSupported && this.eat(tokTypes.questionDot)
@@ -5217,7 +5201,7 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           let exprList = this.parseExprList(tokTypes.parenR, this.options.ecmaVersion >= 8, false, refDestructuringErrors)
 
-          // CHECK-EXTENSIONS: shouldParseAsyncArrow here
+          // todo typescript shouldParseAsyncArrow
           const shouldParseAsyncArrow = ((): boolean => {
             return this.match(tokTypes.colon) || (// @ts-ignore
               !this.canInsertSemicolon() && this.eat(tokTypes.arrow)
@@ -5273,6 +5257,8 @@ export default function tsPlugin(options?: {
         return base
       }
 
+      // todo we don't need this function. achieve this feature in
+      //  parsePropertyValue
       // canHaveLeadingDecorator() {
       //   // Avoid unnecessary lookahead in checking for abstract class unless needed!
       //   return super.canHaveLeadingDecorator() || this.isAbstractClass()
@@ -5307,7 +5293,7 @@ export default function tsPlugin(options?: {
           this.parsePropertyName(prop)
           prop.value = this.parseMethod(false)
 
-          // CHECK-EXTENSIONS: getGetterSetterExpectedParamCount here
+          // here is getGetterSetterExpectedParamCount
           let paramCount = prop.kind === 'get' ? 0 : 1
           const firstParam = prop.value.params[0]
           const hasContextParam = firstParam && this.isThisParam(firstParam)
@@ -5360,7 +5346,6 @@ export default function tsPlugin(options?: {
           this.next()
           // @ts-ignore
           if (this.eat(tokTypes.parenL)) {
-            // CHECK-EXTENSIONS: parseCatchClauseParam here
             const param = this.parseBindingAtom()
             let simple = param.type === 'Identifier'
             // @ts-ignore
@@ -5431,7 +5416,7 @@ export default function tsPlugin(options?: {
               classBody.body.push(element)
               if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
                 if (hadConstructor) this.raise(element.start, 'Duplicate constructor in the same class')
-                // CHECK-EXTENSIONS: shouldCheckClassConstructor here
+                // todo typescript support duplicate constructor
                 // hadConstructor = true
               } else if (element.key && element.key.type === 'PrivateIdentifier' && isPrivateNameConflicted(privateNameMap, element)) {
                 this.raiseRecoverable(element.key.start, `Identifier '#${element.key.name}' has already been declared`)
@@ -5473,7 +5458,6 @@ export default function tsPlugin(options?: {
             this.expect(close)
             break
           } else {
-            // CHECK-EXTENSIONS: parseAssignableListItem
             elts.push(this.parseAssignableListItem(false))
           }
         }
@@ -5483,67 +5467,8 @@ export default function tsPlugin(options?: {
       parseMethod(
         isGenerator: boolean,
         isAsync?: boolean,
-        allowDirectSuper?: boolean
-      ) {
-        // @ts-ignore
-        let node = this.startNode(), oldYieldPos = this['yieldPos'],
-          oldAwaitPos = this['awaitPos'],
-          oldAwaitIdentPos = this['awaitIdentPos']
-        // @ts-ignore
-        this.initFunction(node)
-        if (this.options.ecmaVersion >= 6)
-          node.generator = isGenerator
-        if (this.options.ecmaVersion >= 8)
-          node.async = !!isAsync
-
-        this['yieldPos'] = 0
-        this['awaitPos'] = 0
-        this['awaitIdentPos'] = 0
-        // @ts-ignore
-        this.enterScope(
-          functionFlags(isAsync, node.generator) |
-          acornScope.SCOPE_SUPER |
-          (allowDirectSuper ? acornScope.SCOPE_DIRECT_SUPER : 0)
-        )
-        // @ts-ignore
-        this.expect(tokTypes.parenL)
-        // @ts-ignore
-        node.params = this.parseBindingList(tokTypes.parenR, false, this.options.ecmaVersion >= 8)
-        // @ts-ignore
-        this.checkYieldAwaitInDefaultParams()
-        // @ts-ignore
-        // CHECK-EXTENSIONS: parseFunctionBodyAndFinish here
-        const finishNode = this.parseFunctionBodyAndFinish(node, 'FunctionExpression', true)
-        this['yieldPos'] = oldYieldPos
-        this['awaitPos'] = oldAwaitPos
-        this['awaitIdentPos'] = oldAwaitIdentPos
-        const method = finishNode
-
-        // @ts-expect-error todo(flow->ts) property not defined for all types in union
-        if (method.abstract) {
-          // @ts-ignore
-          const hasBody = !!method.body
-          if (hasBody) {
-            // @ts-ignore
-            const { key } = method
-            this.raise(method.start,
-              TypeScriptError.AbstractMethodHasImplementation(
-                // @ts-ignore
-                key.type === 'Identifier' && !method.computed
-                  ? key.name
-                  : `[${this.input.slice(key.start, key.end)}]`
-              )
-            )
-          }
-        }
-        return method
-      }
-
-      parseMethodForClass(
-        isGenerator: boolean,
-        isAsync?: boolean,
         allowDirectSuper?: boolean,
-        isPrivate?: boolean
+        inClassScope?: boolean
       ) {
         // @ts-ignore
         let node = this.startNode(), oldYieldPos = this['yieldPos'],
@@ -5571,31 +5496,28 @@ export default function tsPlugin(options?: {
         node.params = this.parseBindingList(tokTypes.parenR, false, this.options.ecmaVersion >= 8)
         // @ts-ignore
         this.checkYieldAwaitInDefaultParams()
-        // @ts-ignore
-        const finishNode = this.parseFunctionBodyAndFinish(node, isPrivate ? 'ClassPrivateMethod' : 'ClassMethod', true)
+        this.parseFunctionBody(node, false, true, false, {
+          isClassMethod: inClassScope
+        })
         this['yieldPos'] = oldYieldPos
         this['awaitPos'] = oldAwaitPos
         this['awaitIdentPos'] = oldAwaitIdentPos
-        const method = finishNode
 
-        // @ts-expect-error todo(flow->ts) property not defined for all types in union
-        if (method.abstract) {
-          // @ts-ignore
-          const hasBody = !!method.body
+        if (node.abstract) {
+          const hasBody = !!node.body
           if (hasBody) {
             // @ts-ignore
             const { key } = method
-            this.raise(method.start,
+            this.raise(node.start,
               TypeScriptError.AbstractMethodHasImplementation(
-                // @ts-ignore
-                key.type === 'Identifier' && !method.computed
+                key.type === 'Identifier' && !node.computed
                   ? key.name
                   : `[${this.input.slice(key.start, key.end)}]`
               )
             )
           }
         }
-        return method
+        return this.finishNode(node, 'FunctionExpression')
       }
 
       static parse(input: string, options: Options) {
@@ -5659,7 +5581,6 @@ export default function tsPlugin(options?: {
           }
           // @ts-ignore
           let node = this.startNode()
-          // CHECK-EXTENSIONS: parseImportSpecifier here
           const isMaybeTypeOnly = this.ts_isContextual(tsTokenType.type)
           // @ts-ignore
           node.imported = this.parseModuleExportName()
@@ -5712,7 +5633,6 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           let node = this.startNode()
           // @ts-ignore
-          // CHECK-EXTENSIONS: getImportOrExportSpecifierParams here
           node.local = this.parseModuleExportName()
           if (!isString && isMaybeTypeOnly) {
             this.parseTypeOnlyImportExportSpecifier(
@@ -5842,6 +5762,16 @@ export default function tsPlugin(options?: {
         if (isImport) {
           // @ts-ignore
           this.checkLValSimple(node[rightOfAsKey], BIND_LEXICAL)
+        }
+      }
+
+      raiseRecoverable(pos: number, message: string) {
+        switch (message) {
+          case 'Duplicate constructor in the same class':
+            return
+          default: {
+            return super.raiseRecoverable(pos, message)
+          }
         }
       }
 

@@ -1,4 +1,4 @@
-import { generateSource, parseSource } from '../utils'
+import { equalNode, generateSource, parseSource } from '../utils'
 import ExpressionTypeSnapshot from '../__snapshot__/expression/type'
 
 describe('expression type test', () => {
@@ -11,7 +11,7 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.NormalInterface)
+    equalNode(node, ExpressionTypeSnapshot.NormalInterface)
   })
 
   it('nested interface', () => {
@@ -27,7 +27,7 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.NestedInterface)
+    equalNode(node, ExpressionTypeSnapshot.NestedInterface)
   })
 
   it('extend interface', () => {
@@ -46,7 +46,7 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.ExtendsInterface)
+    equalNode(node, ExpressionTypeSnapshot.ExtendsInterface)
   })
 
   it('normal type', () => {
@@ -54,7 +54,7 @@ describe('expression type test', () => {
       `type School = 'Tsinghua' | 'Peking' | 'GDUT'`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.NormalType)
+    equalNode(node, ExpressionTypeSnapshot.NormalType)
   })
 
   it('enum', () => {
@@ -65,7 +65,7 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.Enum)
+    equalNode(node, ExpressionTypeSnapshot.Enum)
   })
 
   it('declare', () => {
@@ -76,7 +76,7 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    expect(node).toEqual(ExpressionTypeSnapshot.Declare)
+    equalNode(node, ExpressionTypeSnapshot.Declare)
   })
 
   it('declare namespace', () => {
