@@ -25,6 +25,7 @@ export type LookaheadState = {
   curLine: number;
   lineStart: number;
   curPosition: () => Position;
+  containsEsc: boolean;
 };
 
 export type ParsingContext =

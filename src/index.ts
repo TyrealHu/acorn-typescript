@@ -563,7 +563,8 @@ export default function tsPlugin(options?: {
           curLine: this.curLine,
           lineStart: this.lineStart,
           // @ts-ignore
-          curPosition: this.curPosition
+          curPosition: this.curPosition,
+          containsEsc: this['containsEsc']
         }
       }
 
@@ -589,9 +590,8 @@ export default function tsPlugin(options?: {
           curLine: this.curLine,
           // number
           lineStart: this.lineStart,
-          // Position
-          // @ts-ignore
-          curPosition: this.curPosition
+          curPosition: this.curPosition,
+          containsEsc: this['containsEsc']
         }
       }
 
@@ -606,8 +606,8 @@ export default function tsPlugin(options?: {
         this['lastTokEndLoc'] = state.lastTokEndLoc
         this.curLine = state.curLine
         this.lineStart = state.lineStart
-        // @ts-ignore
-        this.curPosition = state.curPosition
+        this['curPosition'] = state.curPosition
+        this['containsEsc'] = state.containsEsc
       }
 
       // Utilities
@@ -795,12 +795,26 @@ export default function tsPlugin(options?: {
       }
 
       /**
+       * ts type isContextual
+       * @param {TokenType} type
+       * @param {TokenType} token
+       * @returns {boolean}
+       * */
+      ts_type_isContextual(type: TokenType, token: TokenType): boolean {
+        return type === token && !this['containsEsc']
+      }
+
+      /**
        * ts isContextual
        * @param {TokenType} token
        * @returns {boolean}
        * */
       ts_isContextual(token: TokenType): boolean {
         return this.type === token && !this['containsEsc']
+      }
+
+      ts_isContextualWithState(state: LookaheadState, token: TokenType): boolean {
+        return state.type === token && !state.containsEsc
       }
 
       isContextual(keyword: string): boolean {
@@ -811,6 +825,17 @@ export default function tsPlugin(options?: {
           default: {
             // @ts-ignore
             return super.isContextual(keyword)
+          }
+        }
+      }
+
+      isContextualWithState(keyword: string, state: LookaheadState): boolean {
+        switch (keyword) {
+          case 'let': {
+            return this.ts_isContextualWithState(state, tsTokenType.let)
+          }
+          default: {
+            return state.type === tokTypes.name && state.value === keyword && !state.containsEsc
           }
         }
       }
@@ -847,16 +872,6 @@ export default function tsPlugin(options?: {
         }
       }
 
-      /**
-       * ts type isContextual
-       * @param {TokenType} type
-       * @param {TokenType} token
-       * @returns {boolean}
-       * */
-      ts_type_isContextual(type: TokenType, token: TokenType): boolean {
-        return type === token && !this['containsEsc']
-      }
-
       tsTryParseType(): Node | undefined | null {
         return this.tsEatThenParseType(tokTypes.colon)
       }
@@ -870,6 +885,40 @@ export default function tsPlugin(options?: {
        */
       match(type: TokenType): boolean {
         return this.type === type
+      }
+
+      ts_eatWithState(type: TokenType, nextCount: number, state: LookaheadState) {
+        const targetType = state.type
+
+        if (type === targetType) {
+          for (let i = 0; i < nextCount; i++) {
+            this.next()
+          }
+
+          return true
+        } else {
+          return false
+        }
+      }
+
+      ts_eatContextualWithState(name: string, nextCount: number, state: LookaheadState) {
+        if (tsKeywordsRegExp.test(name)) {
+          if (this.ts_isContextualWithState(state, tsTokenType[name])) {
+            for (let i = 0; i < nextCount; i++) {
+              this.next()
+            }
+            return true
+          }
+
+          return false
+        } else {
+          if (!this.isContextualWithState(name, state)) return false
+
+          for (let i = 0; i < nextCount; i++) {
+            this.next()
+          }
+          return true
+        }
       }
 
       eatContextual(name: string) {
@@ -3188,16 +3237,15 @@ export default function tsPlugin(options?: {
         ) {
           let ahead = this.lookahead(2)
           if (
-            this.ts_type_isContextual(enterHead.type, tsTokenType.type) &&
             // import type, { a } from "b";
             ahead.type !== tokTypes.comma &&
             // import type from "a";
             ahead.type !== tsTokenType.from &&
             // import type = require("a");
-            ahead.type !== tokTypes.eq
+            ahead.type !== tokTypes.eq &&
+            this.ts_eatContextualWithState('type', 1, enterHead)
           ) {
             node.importKind = 'type'
-            this.next()
             enterHead = this.lookahead()
             ahead = this.lookahead(2)
           }
@@ -3230,9 +3278,8 @@ export default function tsPlugin(options?: {
       }
 
       parseExport(node: Node, exports: any): any {
-        this.next()
-        if (this.match(tokTypes._import)) {
-          this.next() // eat `tokTypes._import`
+        let enterHead = this.lookahead()
+        if (this.ts_eatWithState(tokTypes._import, 2, enterHead)) {
           if (
             this.ts_isContextual(tsTokenType.type) &&
             this.lookaheadCharCode() !== charCodes.equalsTo
@@ -3248,8 +3295,7 @@ export default function tsPlugin(options?: {
             node,
             /* isExport */ true
           )
-          // @ts-ignore
-        } else if (this.eat(tokTypes.eq)) {
+        } else if (this.ts_eatWithState(tokTypes.eq, 2, enterHead)) {
           // `export = x;`
           const assign = node
           // @ts-ignore
@@ -3257,7 +3303,7 @@ export default function tsPlugin(options?: {
           // @ts-ignore
           this.semicolon()
           return this.finishNode(assign, 'TSExportAssignment')
-        } else if (this.eatContextual('as')) {
+        } else if (this.ts_eatContextualWithState('as', 2, enterHead)) {
           // `export as namespace A;`
           const decl = node
           // See `parseNamespaceExportDeclaration` in TypeScript's own parser
@@ -3270,8 +3316,8 @@ export default function tsPlugin(options?: {
           return this.finishNode(decl, 'TSNamespaceExportDeclaration')
         } else {
           if (
-            this.ts_isContextual(tsTokenType.type) &&
-            this.lookahead().type === tokTypes.braceL
+            this.ts_isContextualWithState(enterHead, tsTokenType.type) &&
+            this.lookahead(2).type === tokTypes.braceL
           ) {
             this.next()
             // @ts-ignore
@@ -3283,6 +3329,7 @@ export default function tsPlugin(options?: {
 
           // ---start origin parseExport
           // export * from '...'
+          this.next()
           // @ts-ignore
           if (this.eat(tokTypes.star)) {
             if (this.options.ecmaVersion >= 11) {
@@ -3400,23 +3447,6 @@ export default function tsPlugin(options?: {
           // ---end
         }
       }
-
-      // todo we don't need these functions, we have to rewrite the
-      //  parseClassElement function in acorn
-      // === === === === === === === === === === === === === === === ===
-      // Note: All below methods are duplicates of something in flow.js.
-      // Not sure what the best way to combine these is.
-      // === === === === === === === === === === === === === === === ===
-
-      // isClassMethod(): boolean {
-      //   return this.match(tt.lt) || super.isClassMethod();
-      // }
-      //
-      // isClassProperty(): boolean {
-      //   return (
-      //     this.match(tt.bang) || this.match(tt.colon) || super.isClassProperty()
-      //   );
-      // }
 
       parseMaybeDefault(
         startPos?: number | null,

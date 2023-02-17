@@ -58,7 +58,6 @@ describe('export type', () => {
       `  type type as A`,
       `}`
     ]))
-    console.log(JSON.stringify(node, null, 2))
 
     equalNode(node, ExportTypeSnapshot.ExportTypeTypeWithAs)
   })

@@ -99,6 +99,6 @@ describe('expression type test', () => {
       `}`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
+    equalNode(node, ExpressionTypeSnapshot.DeclareNamespace)
   })
 })
