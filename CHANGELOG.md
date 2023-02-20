@@ -8,10 +8,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### ✨ Features
 
 * 🚀acorn middleware class and delete ts-ignore ([7d05f36](https://github.com/TyrealHu/acorn-typescript/commit/7d05f36b355da00e309c39c61c62b9b206d7d7da))
-* add note ([540cc94](https://github.com/TyrealHu/acorn-typescript/commit/540cc949c18a552d55ce4d62ae305a9a1611fb48))
-* init ([f1a689c](https://github.com/TyrealHu/acorn-typescript/commit/f1a689c2e830bd78f30387d3e4b19521608fa1f7))
-* prepare to split the parseExport functions ([e014381](https://github.com/TyrealHu/acorn-typescript/commit/e0143812422e639758ebfed736b4f890ee87407a))
-* use super parse import instead of duplicate code ([acd6a0a](https://github.com/TyrealHu/acorn-typescript/commit/acd6a0a20770e14026ae0b800f0afce24d9ca11d))
 
 ### [1.0.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.5...v1.0.6) (2023-02-15)
 
