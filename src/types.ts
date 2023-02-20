@@ -20,8 +20,8 @@ export type LookaheadState = {
   start: number;
   end: number;
   context: TokContext[];
-  startLoc: Position;
-  lastTokEndLoc: Position;
+  startLoc: any;
+  lastTokEndLoc: any;
   curLine: number;
   lineStart: number;
   curPosition: () => Position;
