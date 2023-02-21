@@ -233,6 +233,11 @@ export default function tsPlugin(options?: {
       inDisallowConditionalTypesContext: boolean = false
       maybeInArrowParameters: boolean = false
       canStartJSXElement: boolean = false
+      /**
+       * we will only parse one import node or export node at same time.
+       * default kind is undefined
+       * */
+      importOrExportOuterKind: string | undefined = undefined
 
       constructor(options: Options, input: string, startPos?: number) {
         super(options, input, startPos)
@@ -2717,7 +2722,7 @@ export default function tsPlugin(options?: {
       }
 
       tsParseImportEqualsDeclaration(
-        node,
+        node: any,
         isExport?: boolean
       ): Node {
         node.isExport = isExport || false
@@ -2985,6 +2990,7 @@ export default function tsPlugin(options?: {
       ) {
         let enterHead = this.lookahead()
         node.importKind = 'value'
+        this.importOrExportOuterKind = 'value'
         if (
           tokenIsIdentifier(enterHead.type) ||
           this.match(tokTypes.star) ||
@@ -3000,6 +3006,7 @@ export default function tsPlugin(options?: {
             ahead.type !== tokTypes.eq &&
             this.ts_eatContextualWithState('type', 1, enterHead)
           ) {
+            this.importOrExportOuterKind = 'type'
             node.importKind = 'type'
             enterHead = this.lookahead()
             ahead = this.lookahead(2)
@@ -3007,12 +3014,15 @@ export default function tsPlugin(options?: {
 
           if (tokenIsIdentifier(enterHead.type) && ahead.type === tokTypes.eq) {
             this.next()
-            return this.tsParseImportEqualsDeclaration(node)
+            const importNode = this.tsParseImportEqualsDeclaration(node)
+            this.importOrExportOuterKind = 'value'
+            return importNode
           }
         }
 
         const importNode = super.parseImport(node)
 
+        this.importOrExportOuterKind = 'value'
         /*:: invariant(importNode.type !== "TSImportEqualsDeclaration") */
 
         // `import type` can only be used on imports with named imports or with a
@@ -3036,21 +3046,24 @@ export default function tsPlugin(options?: {
             this.lookaheadCharCode() !== charCodes.equalsTo
           ) {
             node.importKind = 'type'
+            this.importOrExportOuterKind = 'type'
             this.next() // eat "type"
           } else {
             node.importKind = 'value'
+            this.importOrExportOuterKind = 'value'
           }
-          return this.tsParseImportEqualsDeclaration(
+          const exportEqualsNode = this.tsParseImportEqualsDeclaration(
             node,
             /* isExport */ true
           )
+          this.importOrExportOuterKind = undefined
+          return exportEqualsNode
         } else if (this.ts_eatWithState(tokTypes.eq, 2, enterHead)) {
           // `export = x;`
           const assign = node
-
           assign.expression = this.parseExpression()
-
           this.semicolon()
+          this.importOrExportOuterKind = undefined
           return this.finishNode(assign, 'TSExportAssignment')
         } else if (this.ts_eatContextualWithState('as', 2, enterHead)) {
           // `export as namespace A;`
@@ -3059,6 +3072,7 @@ export default function tsPlugin(options?: {
           this.expectContextual('namespace')
           decl.id = this.parseIdent()
           this.semicolon()
+          this.importOrExportOuterKind = undefined
           return this.finishNode(decl, 'TSNamespaceExportDeclaration')
         } else {
           if (
@@ -3066,8 +3080,10 @@ export default function tsPlugin(options?: {
             this.lookahead(2).type === tokTypes.braceL
           ) {
             this.next()
+            this.importOrExportOuterKind = 'type'
             node.exportKind = 'type'
           } else {
+            this.importOrExportOuterKind = 'value'
             node.exportKind = 'value'
           }
 
@@ -3132,8 +3148,7 @@ export default function tsPlugin(options?: {
             node.source = null
           } else { // export { x, y as z } [from '...']
             node.declaration = null
-            const isTypeExport = node.exportKind === 'type'
-            node.specifiers = this.parseExportSpecifiers(exports, isTypeExport)
+            node.specifiers = this.parseExportSpecifiers(exports)
             if (this.eatContextual('from')) {
               if (this.type !== tokTypes.string) this.unexpected()
               node.source = this.parseExprAtom()
@@ -5154,9 +5169,7 @@ export default function tsPlugin(options?: {
         super.expect(tokTypes.braceL)
         while (!this.eat(tokTypes.braceR)) {
           if (!first) {
-
             this.expect(tokTypes.comma)
-
             if (this.afterTrailingComma(tokTypes.braceR)) {
               break
             }
@@ -5172,7 +5185,7 @@ export default function tsPlugin(options?: {
             this.parseTypeOnlyImportExportSpecifier(
               node,
               /* isImport */ true,
-              node.importKind === 'type'
+              this.importOrExportOuterKind === 'type'
             )
 
             nodes.push(this.finishNode(node, 'ImportSpecifier'))
@@ -5194,7 +5207,7 @@ export default function tsPlugin(options?: {
         return nodes
       }
 
-      parseExportSpecifiers(exports, isInTypeExport = false) {
+      parseExportSpecifiers(exports) {
         let nodes = [], first = true
         // export { x, y as z } [from '...']
         this.expect(tokTypes.braceL)
@@ -5220,7 +5233,7 @@ export default function tsPlugin(options?: {
             this.parseTypeOnlyImportExportSpecifier(
               node,
               /* isImport */ false,
-              isInTypeExport
+            this.importOrExportOuterKind === 'type'
             )
             this.finishNode(node, 'ExportSpecifier')
           } else {
@@ -5304,14 +5317,12 @@ export default function tsPlugin(options?: {
           // { type something ...? }
           hasTypeSpecifier = true
           if (isImport) {
-
             leftOfAs = super.parseIdent(true)
             if (!this.ts_isContextual(tsTokenType.as)) {
 
               this.checkUnreserved(leftOfAs)
             }
           } else {
-
             leftOfAs = this.parseModuleExportName()
           }
         }

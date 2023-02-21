@@ -1484,6 +1484,176 @@ const ExportTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  ExportTypeAsAsWithName: {
+    'type': 'Program',
+    'start': 0,
+    'end': 50,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 4,
+        'column': 1,
+        'index': 50
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 17,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 17,
+            'index': 17
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 6,
+            'end': 17,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 6,
+                'index': 6
+              },
+              'end': {
+                'line': 1,
+                'column': 17,
+                'index': 17
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 6,
+              'end': 8,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 6,
+                  'index': 6
+                },
+                'end': {
+                  'line': 1,
+                  'column': 8,
+                  'index': 8
+                }
+              },
+              'name': 'as'
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 11,
+              'end': 17,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                },
+                'end': {
+                  'line': 1,
+                  'column': 17,
+                  'index': 17
+                }
+              },
+              'value': 'test',
+              'raw': '\'test\''
+            }
+          }
+        ],
+        'kind': 'const'
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 18,
+        'end': 50,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 18
+          },
+          'end': {
+            'line': 4,
+            'column': 1,
+            'index': 50
+          }
+        },
+        'exportKind': 'value',
+        'declaration': null,
+        'specifiers': [
+          {
+            'type': 'ExportSpecifier',
+            'start': 29,
+            'end': 48,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 2,
+                'index': 29
+              },
+              'end': {
+                'line': 3,
+                'column': 21,
+                'index': 48
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 34,
+              'end': 36,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 7,
+                  'index': 34
+                },
+                'end': {
+                  'line': 3,
+                  'column': 9,
+                  'index': 36
+                }
+              },
+              'name': 'as'
+            },
+            'exported': {
+              'type': 'Identifier',
+              'start': 40,
+              'end': 48,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 13,
+                  'index': 40
+                },
+                'end': {
+                  'line': 3,
+                  'column': 21,
+                  'index': 48
+                }
+              },
+              'name': 'someName'
+            },
+            'exportKind': 'type'
+          }
+        ],
+        'source': null
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
