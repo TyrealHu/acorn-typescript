@@ -83,4 +83,12 @@ describe('normal syntax', () => {
 
     equalNode(node, NormalImportSnapshot.ImportTypeSpecifierWithAsAs)
   })
+
+  it('import type specifier with as as', function() {
+    const node = parseSource(generateSource([
+      `import { type as as somethings } from './index.js'`,
+    ]))
+
+    equalNode(node, NormalImportSnapshot.ImportTypeSpecifierWithAsAsSomethings)
+  })
 })

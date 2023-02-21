@@ -74,4 +74,15 @@ describe('export type', () => {
 
     equalNode(node, ExportTypeSnapshot.ExportTypeTypeWithAsAs)
   })
+
+  it('export type as as with name', () => {
+    const node = parseSource(generateSource([
+      `const as = 'test'`,
+      `export {`,
+      `  type as as someName`,
+      `}`
+    ]))
+
+    equalNode(node, ExportTypeSnapshot.ExportTypeAsAsWithName)
+  })
 })

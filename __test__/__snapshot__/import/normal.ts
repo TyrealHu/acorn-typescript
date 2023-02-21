@@ -1700,6 +1700,119 @@ const NormalImportSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  ImportTypeSpecifierWithAsAsSomethings: {
+    'type': 'Program',
+    'start': 0,
+    'end': 50,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 50,
+        'index': 50
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 0,
+        'end': 50,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 50,
+            'index': 50
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportSpecifier',
+            'start': 9,
+            'end': 30,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 9,
+                'index': 9
+              },
+              'end': {
+                'line': 1,
+                'column': 30,
+                'index': 30
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 14,
+              'end': 16,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 14,
+                  'index': 14
+                },
+                'end': {
+                  'line': 1,
+                  'column': 16,
+                  'index': 16
+                }
+              },
+              'name': 'as'
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 20,
+              'end': 30,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 20,
+                  'index': 20
+                },
+                'end': {
+                  'line': 1,
+                  'column': 30,
+                  'index': 30
+                }
+              },
+              'name': 'somethings'
+            },
+            'importKind': 'type'
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 38,
+          'end': 50,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 38,
+              'index': 38
+            },
+            'end': {
+              'line': 1,
+              'column': 50,
+              'index': 50
+            }
+          },
+          'value': './index.js',
+          'raw': '\'./index.js\''
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
