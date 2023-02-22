@@ -15,6 +15,21 @@ export function parseSource(input: string) {
   })
 }
 
+export function parseSourceShouldThrowError(input: string, message: string): boolean {
+  try {
+    Parser.parse(input, {
+      sourceType: 'module',
+      ecmaVersion: 'latest',
+      locations: true
+    })
+
+    return false
+  } catch (e) {
+    console.log(e)
+    return e.message === message
+  }
+}
+
 export function generateSource(input: string[]): string {
   return input.join('\n')
 }

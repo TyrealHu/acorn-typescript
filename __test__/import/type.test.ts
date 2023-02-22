@@ -1,5 +1,11 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseSource,
+  parseSourceShouldThrowError
+} from '../utils'
 import ImportTypeSnapshot from '../__snapshot__/import/type'
+import { TypeScriptError } from '../../src/error'
 
 describe('type syntax', () => {
   it('import default specifiers with type token', () => {
@@ -35,5 +41,13 @@ describe('type syntax', () => {
     ]))
 
     equalNode(node, ImportTypeSnapshot.ImportComplexType)
+  })
+
+  it('import type specifiers with outer type', function() {
+    const res = parseSourceShouldThrowError(generateSource([
+      `import type { type Test1 } from './index1.ts'`,
+    ]), `${TypeScriptError.TypeModifierIsUsedInTypeImports} (1:14)`)
+
+    expect(res).toBe(true)
   })
 })

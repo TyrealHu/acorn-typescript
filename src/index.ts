@@ -1301,7 +1301,7 @@ export default function tsPlugin(options?: {
               pattern.type !== 'ObjectPattern' &&
               pattern.type !== 'ArrayPattern'
             ) {
-              this.raise(pattern.loc.start, TypeScriptError.UnsupportedSignatureParameterKind(pattern.type))
+              this.raise(pattern.start, TypeScriptError.UnsupportedSignatureParameterKind(pattern.type))
             }
             return pattern as any
           })
@@ -2890,7 +2890,7 @@ export default function tsPlugin(options?: {
             : tsConfig?.isClassMethod
               ? 'TSDeclareMethod'
               : undefined
-        debugger
+
         if (bodilessType && !this.match(tokTypes.braceL) && this.isLineTerminator()) {
           return this.finishNode(node, bodilessType)
         }
@@ -3184,7 +3184,7 @@ export default function tsPlugin(options?: {
           node.typeAnnotation &&
           node.right.start < node.typeAnnotation.start
         ) {
-          this.raise(node.typeAnnotation.loc.start, TypeScriptError.TypeAnnotationAfterAssign)
+          this.raise(node.typeAnnotation.start, TypeScriptError.TypeAnnotationAfterAssign)
         }
 
         return node
@@ -3761,11 +3761,11 @@ export default function tsPlugin(options?: {
             !(field.readonly && !field.typeAnnotation) &&
             this.match(tokTypes.eq)
           ) {
-            this.raise(this.startLoc, TypeScriptError.DeclareClassFieldHasInitializer)
+            this.raise(this.start, TypeScriptError.DeclareClassFieldHasInitializer)
           }
           if (field.abstract && this.match(tokTypes.eq)) {
             const { key } = field
-            this.raise(this.startLoc, TypeScriptError.AbstractPropertyHasInitializer({
+            this.raise(this.start, TypeScriptError.AbstractPropertyHasInitializer({
               propertyName:
                 key.type === 'Identifier' && !field.computed
                   ? key.name
@@ -4116,7 +4116,6 @@ export default function tsPlugin(options?: {
           }
 
           // Correct TypeScript code should have at least 1 type parameter, but don't crash on bad code.
-
           if (typeParameters?.params.length !== 0) {
             this.resetStartLocationFromNode(expr, typeParameters)
           }
@@ -4764,7 +4763,7 @@ export default function tsPlugin(options?: {
                   this.lookaheadCharCode() !== charCodes.leftParenthesis))
             ) {
               this.raise(
-                this.startLoc.start,
+                this.start,
                 TypeScriptError.InvalidPropertyAccessAfterInstantiationExpression
               )
             }
@@ -5274,25 +5273,20 @@ export default function tsPlugin(options?: {
         let hasTypeSpecifier = false
         let canParseAsKeyword = true
 
-        const loc = leftOfAs.loc.start
+        const loc = leftOfAs.start
 
         if (this.ts_isContextual(tsTokenType.as)) {
           // { type as ...? }
-
           const firstAs = this.parseIdent()
-
           if (this.ts_isContextual(tsTokenType.as)) {
             // { type as as ...? }
-
             const secondAs = this.parseIdent()
             if (tokenIsKeywordOrIdentifier(this.type)) {
               // { type as as something }
               hasTypeSpecifier = true
               leftOfAs = firstAs
               rightOfAs = isImport
-
                 ? this.parseIdent()
-
                 : this.parseModuleExportName()
               canParseAsKeyword = false
             } else {
@@ -5304,9 +5298,7 @@ export default function tsPlugin(options?: {
             // { type as something }
             canParseAsKeyword = false
             rightOfAs = isImport
-
               ? this.parseIdent()
-
               : this.parseModuleExportName()
           } else {
             // { type as }
