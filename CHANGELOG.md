@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.7...v1.0.8) (2023-02-23)
+
+
+### ✨ Features
+
+* 🚀add outer kind variable to help parse import or export ([65bd2ad](https://github.com/TyrealHu/acorn-typescript/commit/65bd2ad8190ef11f5454158c10ad101728323fe6))
+
+
+### 🐛 Bug Fixes
+
+* 🐛 check comma while parse binding list & methods abstract ([ccc7866](https://github.com/TyrealHu/acorn-typescript/commit/ccc7866163a718749e577c6c1e4edf6135fd64a9))
+* 🐛 check the position number while raise error ([55dd763](https://github.com/TyrealHu/acorn-typescript/commit/55dd763a9e9e7a81ede7956d97a84347a30dd605))
+
 ### [1.0.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.6...v1.0.7) (2023-02-20)
 
 
