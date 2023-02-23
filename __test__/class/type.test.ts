@@ -1,5 +1,11 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseSource,
+  parseSourceShouldThrowError
+} from '../utils'
 import ClassTypeSnapshot from '../__snapshot__/class/type'
+import { TypeScriptError } from '../../src/error'
 
 describe('class', () => {
   it('normal property', () => {
@@ -195,6 +201,32 @@ describe('class', () => {
     ]))
 
     equalNode(node, ClassTypeSnapshot.ClassDuplicateMethod)
+  })
+
+  it('class duplicate constructor', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` constructor(book: 'math'): void`,
+      ` constructor(book: 'english'): void`,
+      ` constructor(book: 'math' | 'english'): void {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.ClassDuplicateConstructor)
+  })
+
+  it('class abstract method with body', function() {
+    const res = parseSourceShouldThrowError(generateSource([
+      `abstract class Person {`,
+      `  abstract find(string): Person {}`,
+      `}`
+    ]), TypeScriptError.AbstractMethodHasImplementation({
+      methodName: 'find'
+    }), '(2:2)')
+
+    expect(res).toBe(true)
   })
 })
 

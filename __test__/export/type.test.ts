@@ -1,5 +1,11 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseSource,
+  parseSourceShouldThrowError
+} from '../utils'
 import ExportTypeSnapshot from '../__snapshot__/export/type'
+import { TypeScriptError } from '../../src/error'
 
 describe('export type', () => {
   it('export type', () => {
@@ -84,5 +90,16 @@ describe('export type', () => {
     ]))
 
     equalNode(node, ExportTypeSnapshot.ExportTypeAsAsWithName)
+  })
+
+  it('export outer type type with name', () => {
+    const res = parseSourceShouldThrowError(generateSource([
+      `const A = 'test'`,
+      `export type {`,
+      `  type A`,
+      `}`
+    ]), TypeScriptError.TypeModifierIsUsedInTypeExports, '(3:2)')
+
+    expect(res).toBe(true)
   })
 })

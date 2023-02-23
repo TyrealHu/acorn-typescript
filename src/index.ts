@@ -39,7 +39,7 @@ import {
   Identifier,
   ObjectPattern,
   Pattern,
-  RestElement,
+  RestElement
 } from 'estree'
 import { skipWhiteSpaceToLineBreak } from './whitespace'
 import {
@@ -2714,7 +2714,6 @@ export default function tsPlugin(options?: {
       // `shouldParseExportDeclaration`.
       tsTryParseExportDeclaration(): Declaration | undefined | null {
         return this.tsParseDeclaration(
-
           this.startNode(),
           this.value,
           /* next */ true
@@ -3534,7 +3533,6 @@ export default function tsPlugin(options?: {
 
         if (this.ts_isContextual(tsTokenType.enum)) {
           return this.tsParseEnumDeclaration(
-
             this.startNode()
           )
         }
@@ -3815,7 +3813,7 @@ export default function tsPlugin(options?: {
         }
 
         // Parse value
-        const value = method.value = this.parseMethod(isGenerator, isAsync, allowsDirectSuper, true)
+        const value = method.value = this.parseMethod(isGenerator, isAsync, allowsDirectSuper, true, method)
 
         // Check value
         if (method.kind === 'get' && value['params'].length !== 0)
@@ -4061,7 +4059,6 @@ export default function tsPlugin(options?: {
           state = this.cloneCurLookaheadState()
 
           jsx = this.tryParse(
-
             () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
             state
           )
@@ -4166,7 +4163,6 @@ export default function tsPlugin(options?: {
           // This will start with a type assertion (via parseMaybeUnary).
           // But don't directly call `this.tsParseTypeAssertion` because we want to handle any binary after it.
           typeCast = this.tryParse(
-
             () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
             state
           )
@@ -4268,7 +4264,6 @@ export default function tsPlugin(options?: {
         this.parseBindingListItem(left)
         const elt = this.parseMaybeDefault(left['start'], left['loc'], left)
         if (accessibility || readonly || override) {
-
           const pp = this.startNodeAt(startPos, startLoc)
           if (accessibility) pp.accessibility = accessibility
           if (readonly) pp.readonly = readonly
@@ -4291,7 +4286,6 @@ export default function tsPlugin(options?: {
             !this.isAmbientContext &&
             !this.inType
           ) {
-
             this.raise(param.start, TypeScriptError.PatternIsOptional)
           }
 
@@ -4515,20 +4509,7 @@ export default function tsPlugin(options?: {
 
               exprList.push(this.parseParenItem(this.parseRestBinding()))
 
-              // todo checkCommaAfterRest
-              const checkCommaAfterRest = (() => {
-                if (
-                  this.isAmbientContext &&
-                  this.match(tokTypes.comma) &&
-                  this.lookaheadCharCode() === charCodes.rightParenthesis
-                ) {
-                  this.next()
-                  return false
-                } else {
-                  return this.match(tokTypes.comma)
-                }
-              })()
-              if (checkCommaAfterRest) {
+              if (this.checkCommaAfterRest()) {
                 this.raise(this.start, 'Comma is not permitted after the rest element')
               }
               break
@@ -4609,7 +4590,7 @@ export default function tsPlugin(options?: {
           startLoc
         )
         node.tag = base
-        node.quasi = this.parseTemplate({isTagged: true})
+        node.quasi = this.parseTemplate({ isTagged: true })
         if (optionalChainMember) {
 
           this.raise(startPos, 'Tagged Template Literals are not allowed'
@@ -5049,20 +5030,18 @@ export default function tsPlugin(options?: {
         let elts = [], first = true
         while (!this.eat(close)) {
           if (first) first = false
-
           else this.expect(tokTypes.comma)
           if (allowEmpty && this.match(tokTypes.comma)) {
             elts.push(null)
-
           } else if (allowTrailingComma && this.afterTrailingComma(close)) {
             break
           } else if (this.match(tokTypes.ellipsis)) {
-
             let rest = this.parseRestBinding()
             this.parseBindingListItem(rest)
             elts.push(rest)
-            if (this.type === tokTypes.comma) this.raise(this.start, 'Comma is not permitted after the rest element')
-
+            if (this.checkCommaAfterRest()){
+              this.raise(this.start, 'Comma is not permitted after the rest element')
+            }
             this.expect(close)
             break
           } else {
@@ -5076,7 +5055,8 @@ export default function tsPlugin(options?: {
         isGenerator: boolean,
         isAsync?: boolean,
         allowDirectSuper?: boolean,
-        inClassScope?: boolean
+        inClassScope?: boolean,
+        method?: any
       ) {
         let node = this.startNode(), oldYieldPos = this.yieldPos,
           oldAwaitPos = this.awaitPos,
@@ -5105,15 +5085,17 @@ export default function tsPlugin(options?: {
         this.awaitPos = oldAwaitPos
         this.awaitIdentPos = oldAwaitIdentPos
 
-        if (node.abstract) {
+        if (method.abstract) {
           const hasBody = !!node.body
           if (hasBody) {
-            const { key } = node
-            this.raise(node.start,
+            const { key } = method
+            this.raise(method.start,
               TypeScriptError.AbstractMethodHasImplementation(
-                key.type === 'Identifier' && !node.computed
-                  ? key.name
-                  : `[${this.input.slice(key.start, key.end)}]`
+                {
+                  methodName: key.type === 'Identifier' && !method.computed
+                    ? key.name
+                    : `[${this.input.slice(key.start, key.end)}]`
+                }
               )
             )
           }
@@ -5142,25 +5124,18 @@ export default function tsPlugin(options?: {
         let nodes = [], first = true
         if (this.type === tokTypes.name) {
           // import defaultObj, { x, y as z } from '...'
-
           let node = this.startNode()
-
           node.local = this.parseIdent()
-
           this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
           nodes.push(this.finishNode(node, 'ImportDefaultSpecifier'))
 
           if (!super.eat(tokTypes.comma)) return nodes
         }
         if (this.type === tokTypes.star) {
-
           let node = this.startNode()
           this.next()
-
           this.expectContextual('as')
-
           node.local = this.parseIdent()
-
           this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
           nodes.push(this.finishNode(node, 'ImportNamespaceSpecifier'))
           return nodes
@@ -5186,15 +5161,12 @@ export default function tsPlugin(options?: {
               /* isImport */ true,
               this.importOrExportOuterKind === 'type'
             )
-
             nodes.push(this.finishNode(node, 'ImportSpecifier'))
           } else {
             node.importKind = 'value'
             if (this.eatContextual('as')) {
-
               node.local = super.parseIdent()
             } else {
-
               this.checkUnreserved(node.imported)
               node.local = node.imported
             }
@@ -5212,9 +5184,7 @@ export default function tsPlugin(options?: {
         this.expect(tokTypes.braceL)
         while (!this.eat(tokTypes.braceR)) {
           if (!first) {
-
             this.expect(tokTypes.comma)
-
             if (this.afterTrailingComma(tokTypes.braceR)) break
           } else {
             first = false
@@ -5232,17 +5202,14 @@ export default function tsPlugin(options?: {
             this.parseTypeOnlyImportExportSpecifier(
               node,
               /* isImport */ false,
-            this.importOrExportOuterKind === 'type'
+              this.importOrExportOuterKind === 'type'
             )
             this.finishNode(node, 'ExportSpecifier')
           } else {
             node.exportKind = 'value'
-
             if (this.eatContextual('as')) {
-
               node.exported = this.parseModuleExportName()
             } else {
-
               node.exported = this.copyNode(node.local)
             }
             this.finishNode(node, 'ExportSpecifier')
@@ -5329,22 +5296,17 @@ export default function tsPlugin(options?: {
 
         node[leftOfAsKey] = leftOfAs
         node[rightOfAsKey] = rightOfAs
-
         const kindKey = isImport ? 'importKind' : 'exportKind'
         node[kindKey] = hasTypeSpecifier ? 'type' : 'value'
         if (canParseAsKeyword && this.eatContextual('as')) {
           node[rightOfAsKey] = isImport
-
             ? this.parseIdent()
-
             : this.parseModuleExportName()
         }
         if (!node[rightOfAsKey]) {
-
           node[rightOfAsKey] = this.copyNode(node[leftOfAsKey])
         }
         if (isImport) {
-
           this.checkLValSimple(node[rightOfAsKey], BIND_LEXICAL)
         }
       }
@@ -5356,6 +5318,19 @@ export default function tsPlugin(options?: {
           default: {
             return super.raiseRecoverable(pos, message)
           }
+        }
+      }
+
+      checkCommaAfterRest() {
+        if (
+          this.isAmbientContext &&
+          this.match(tokTypes.comma) &&
+          this.lookaheadCharCode() === charCodes.rightParenthesis
+        ) {
+          this.next()
+          return false
+        } else {
+          return this.match(tokTypes.comma)
         }
       }
     }

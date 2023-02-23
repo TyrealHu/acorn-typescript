@@ -15,7 +15,7 @@ export function parseSource(input: string) {
   })
 }
 
-export function parseSourceShouldThrowError(input: string, message: string): boolean {
+export function parseSourceShouldThrowError(input: string, message: string, loc: string): boolean {
   try {
     Parser.parse(input, {
       sourceType: 'module',
@@ -25,8 +25,8 @@ export function parseSourceShouldThrowError(input: string, message: string): boo
 
     return false
   } catch (e) {
-    console.log(e)
-    return e.message === message
+    // console.log(e)
+    return e.message === `${message} ${loc}`
   }
 }
 

@@ -198,4 +198,12 @@ describe('function type test', () => {
 
     equalNode(node, FunctionTypeSnapshot.DeclareFunctionTypes)
   })
+
+  it('declare function comma after rest element', () => {
+    const node = parseSource(generateSource([
+      `declare function test(a: number | string, ...b,): number | string;`,
+    ]))
+
+    equalNode(node, FunctionTypeSnapshot.DeclareFunctionCommaAfterRestElement)
+  })
 })

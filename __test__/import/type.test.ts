@@ -46,7 +46,7 @@ describe('type syntax', () => {
   it('import type specifiers with outer type', function() {
     const res = parseSourceShouldThrowError(generateSource([
       `import type { type Test1 } from './index1.ts'`,
-    ]), `${TypeScriptError.TypeModifierIsUsedInTypeImports} (1:14)`)
+    ]), TypeScriptError.TypeModifierIsUsedInTypeImports, '(1:14)')
 
     expect(res).toBe(true)
   })
