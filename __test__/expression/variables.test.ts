@@ -118,4 +118,15 @@ describe('variables declaration', () => {
 
     equalNode(node, VariablesTypeSnapshot.LetUnion)
   })
+
+  it('expression list arrow function and var', () => {
+    const node = parseSource(generateSource([
+      `let test1 = 2,`,
+      `  test = (name: string, age: number): void => {`,
+      `    console.log(name, age)`,
+      `  }`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionListArrowFunctionAndVar)
+  })
 })

@@ -233,6 +233,7 @@ export default function tsPlugin(options?: {
       inDisallowConditionalTypesContext: boolean = false
       maybeInArrowParameters: boolean = false
       canStartJSXElement: boolean = false
+      shouldParseArrowReturnType: any | undefined = undefined
       /**
        * we will only parse one import node or export node at same time.
        * default kind is undefined
@@ -521,6 +522,10 @@ export default function tsPlugin(options?: {
 
       getCurLookaheadState(): LookaheadState {
         return {
+          endLoc: this.endLoc,
+          lastTokEnd: this.lastTokEnd,
+          lastTokStart: this.lastTokStart,
+          lastTokStartLoc: this.lastTokStartLoc,
           pos: this.pos,
           value: this.value,
           type: this.type,
@@ -546,6 +551,10 @@ export default function tsPlugin(options?: {
           context: this.context && this.context.slice(),
           startLoc: this.startLoc,
           lastTokEndLoc: this.lastTokEndLoc,
+          endLoc: this.endLoc,
+          lastTokEnd: this.lastTokEnd,
+          lastTokStart: this.lastTokStart,
+          lastTokStartLoc: this.lastTokStartLoc,
           curLine: this.curLine,
           lineStart: this.lineStart,
           curPosition: this.curPosition,
@@ -556,6 +565,10 @@ export default function tsPlugin(options?: {
       setLookaheadState(state: LookaheadState) {
         this.pos = state.pos
         this.value = state.value
+        this.endLoc = state.endLoc
+        this.lastTokEnd = state.lastTokEnd
+        this.lastTokStart = state.lastTokStart
+        this.lastTokStartLoc = state.lastTokStartLoc
         this.type = state.type
         this.start = state.start
         this.end = state.end
@@ -2833,7 +2846,7 @@ export default function tsPlugin(options?: {
             // treatFunctionsAsVar).
             this.checkLValSimple(
               node.id,
-              (this['strict'] || node.generator || node.async) ?
+              (this.strict || node.generator || node.async) ?
                 this['treatFunctionsAsVar'] ?
                   acornScope.BIND_VAR : acornScope.BIND_LEXICAL : acornScope.BIND_FUNCTION
             )
@@ -4026,7 +4039,6 @@ export default function tsPlugin(options?: {
         forInit: boolean
       ): ArrowFunctionExpression {
         if (this.match(tokTypes.colon)) {
-
           node.returnType = this.tsParseTypeAnnotation()
         }
         return super.parseArrowExpression(
@@ -4198,35 +4210,6 @@ export default function tsPlugin(options?: {
         throw jsx?.error || arrow.error || typeCast?.error
       }
 
-      parseArrow(
-        node: ArrowFunctionExpression
-      ): ArrowFunctionExpression | undefined | null {
-        if (this.match(tokTypes.colon)) {
-          // This is different from how the TS parser does it.
-          // TS uses lookahead. The Babel Parser parses it as a parenthesized expression and converts.
-
-          const result = this.tryParse(abort => {
-            const returnType = this.tsParseTypeOrTypePredicateAnnotation(
-              tokTypes.colon
-            )
-
-            if (this.canInsertSemicolon() || !this.match(tokTypes.arrow)) abort()
-            return returnType
-          })
-
-          if (result.aborted) return
-
-          if (!result.thrown) {
-            if (result.error) this.setLookaheadState(result.failState)
-            // @ts-expect-error refine typings
-            node.returnType = result.node
-          }
-        }
-        if (this.eat(tokTypes.arrow)) {
-          return node
-        }
-      }
-
       parseAssignableListItem(
         allowModifiers: boolean | undefined | null
       ) {
@@ -4301,7 +4284,6 @@ export default function tsPlugin(options?: {
       isAssignable(node: any, isBinding?: boolean): boolean {
         switch (node.type) {
           case 'TSTypeCastExpression':
-
             return this.isAssignable(node.expression, isBinding)
           case 'TSParameterProperty':
             return true
@@ -4311,11 +4293,8 @@ export default function tsPlugin(options?: {
           case 'AssignmentPattern':
           case 'RestElement':
             return true
-
           case 'ObjectExpression': {
-
             const last = node.properties.length - 1
-
             return node.properties.every(
               (prop, i) => {
                 return (
@@ -4329,25 +4308,19 @@ export default function tsPlugin(options?: {
 
           case 'ObjectProperty':
             return this.isAssignable(node.value)
-
           case 'SpreadElement':
             return this.isAssignable(node.argument)
-
           case 'ArrayExpression':
             return (node as ArrayExpression).elements.every(
               element => element === null || this.isAssignable(element)
             )
-
           case 'AssignmentExpression':
             return node.operator === '='
-
           case 'ParenthesizedExpression':
             return this.isAssignable(node.expression)
-
           case 'MemberExpression':
           case 'OptionalMemberExpression':
             return !isBinding
-
           default:
             return false
         }
@@ -4480,36 +4453,77 @@ export default function tsPlugin(options?: {
         }
       }
 
+      shouldParseArrow(exprList?: any) {
+        let shouldParseArrowRes: boolean
+
+        if (this.match(tokTypes.colon)) {
+          shouldParseArrowRes = exprList.every(expr => this.isAssignable(expr, true))
+        } else {
+          shouldParseArrowRes = !this.canInsertSemicolon()
+        }
+
+        if (shouldParseArrowRes) {
+          if (this.match(tokTypes.colon)) {
+            const result = this.tryParse(abort => {
+              const returnType = this.tsParseTypeOrTypePredicateAnnotation(
+                tokTypes.colon
+              )
+              if (this.canInsertSemicolon() || !this.match(tokTypes.arrow)) abort()
+              return returnType
+            })
+
+            if (result.aborted) {
+              this.shouldParseArrowReturnType = undefined
+              return false
+            }
+
+            if (!result.thrown) {
+              if (result.error) this.setLookaheadState(result.failState)
+              this.shouldParseArrowReturnType = result.node
+            }
+          }
+          if (!this.match(tokTypes.arrow)) {
+            // this will be useless if it's not arrow token here
+            this.shouldParseArrowReturnType = undefined
+            return false
+          }
+
+          return true
+        }
+
+        this.shouldParseArrowReturnType = undefined
+        return shouldParseArrowRes
+      }
+
+      parseParenArrowList(startPos, startLoc, exprList, forInit) {
+        const node = this.startNodeAt(startPos, startLoc)
+        node.returnType = this.shouldParseArrowReturnType
+        this.shouldParseArrowReturnType = undefined
+        return this.parseArrowExpression(node, exprList, false, forInit)
+      }
+
       parseParenAndDistinguishExpression(canBeArrow, forInit) {
         let startPos = this.start, startLoc = this.startLoc, val,
           allowTrailingComma = this.options.ecmaVersion >= 8
         if (this.options.ecmaVersion >= 6) {
           this.next()
-
           let innerStartPos = this.start, innerStartLoc = this.startLoc
           let exprList = [], first = true, lastIsComma = false
           let refDestructuringErrors = new DestructuringErrors,
-
             oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
             spreadStart
-
           this.yieldPos = 0
-
           this.awaitPos = 0
           // Do not save awaitIdentPos to allow checking awaits nested in parameters
           while (this.type !== tokTypes.parenR) {
-
             first ? first = false : this.expect(tokTypes.comma)
-
             if (allowTrailingComma && this.afterTrailingComma(tokTypes.parenR, true)) {
               lastIsComma = true
               break
             } else if (this.type === tokTypes.ellipsis) {
               spreadStart = this.start
-
               exprList.push(this.parseParenItem(this.parseRestBinding()))
-
-              if (this.checkCommaAfterRest()) {
+              if (this.type === tokTypes.comma) {
                 this.raise(this.start, 'Comma is not permitted after the rest element')
               }
               break
@@ -4519,33 +4533,18 @@ export default function tsPlugin(options?: {
           }
           let innerEndPos = this.lastTokEnd,
             innerEndLoc = this.lastTokEndLoc
-
           this.expect(tokTypes.parenR)
 
-          // todo typescript shouldParseArrow parseArrow
-          const shouldParseArrow = ((): boolean => {
-            if (this.match(tokTypes.colon)) {
-              return exprList.every(expr => this.isAssignable(expr, true))
-            }
-
-            return !this.canInsertSemicolon()
-          })()
-
-
-          let arrowNode = this.startNodeAt(
-            startPos,
-            startLoc
-          )
           if (
             canBeArrow &&
-            shouldParseArrow &&
-            (arrowNode = this.parseArrow(arrowNode))
+            this.shouldParseArrow(exprList) &&
+            this.eat(tokTypes.arrow)
           ) {
             this.checkPatternErrors(refDestructuringErrors, false)
             this.checkYieldAwaitInDefaultParams()
             this.yieldPos = oldYieldPos
             this.awaitPos = oldAwaitPos
-            return this.parseArrowExpression(arrowNode, exprList, false, forInit)
+            return this.parseParenArrowList(startPos, startLoc, exprList, forInit)
           }
           if (!exprList.length || lastIsComma) this.unexpected(this.lastTokStart)
           if (spreadStart) this.unexpected(spreadStart)
@@ -4564,7 +4563,6 @@ export default function tsPlugin(options?: {
         }
 
         if (this.options.preserveParens) {
-
           let par = this.startNodeAt(startPos, startLoc)
           par.expression = val
           return this.finishNode(par, 'ParenthesizedExpression')
@@ -4850,12 +4848,27 @@ export default function tsPlugin(options?: {
         return base
       }
 
-      // todo we don't need this function. achieve this feature in
-      //  parsePropertyValue
-      // canHaveLeadingDecorator() {
-      //   // Avoid unnecessary lookahead in checking for abstract class unless needed!
-      //   return super.canHaveLeadingDecorator() || this.isAbstractClass()
-      // }
+      parseGetterSetter(prop) {
+        prop.kind = prop.key.name
+        this.parsePropertyName(prop)
+        prop.value = this.parseMethod(false)
+        // here is getGetterSetterExpectedParamCount
+        let paramCount = prop.kind === 'get' ? 0 : 1
+        const firstParam = prop.value.params[0]
+        const hasContextParam = firstParam && this.isThisParam(firstParam)
+        paramCount = hasContextParam ? paramCount + 1 : paramCount
+        // end
+        if (prop.value.params.length !== paramCount) {
+          let start = prop.value.start
+          if (prop.kind === 'get')
+            this.raiseRecoverable(start, 'getter should have no params')
+          else
+            this.raiseRecoverable(start, 'setter should have exactly one param')
+        } else {
+          if (prop.kind === 'set' && prop.value.params[0].type === 'RestElement')
+            this.raiseRecoverable(prop.value.params[0].start, 'Setter cannot use rest params')
+        }
+      }
 
       parsePropertyValue(prop, isPattern, isGenerator, isAsync, startPos, startLoc, refDestructuringErrors, containsEsc) {
         // todo parseObjPropValue
@@ -4863,13 +4876,11 @@ export default function tsPlugin(options?: {
         if (typeParameters) prop.typeParameters = typeParameters
 
         if ((isGenerator || isAsync) && this.type === tokTypes.colon)
-
           this.unexpected()
         if (this.eat(tokTypes.colon)) {
           prop.value = isPattern ? this.parseMaybeDefault(this.start, this.startLoc) : this.parseMaybeAssign(false, refDestructuringErrors)
           prop.kind = 'init'
         } else if (this.options.ecmaVersion >= 6 && this.type === tokTypes.parenL) {
-
           if (isPattern) this.unexpected()
           prop.kind = 'init'
           prop.method = true
@@ -4878,53 +4889,42 @@ export default function tsPlugin(options?: {
           this.options.ecmaVersion >= 5 && !prop.computed && prop.key.type === 'Identifier' &&
           (prop.key.name === 'get' || prop.key.name === 'set') &&
           (this.type !== tokTypes.comma && this.type !== tokTypes.braceR && this.type !== tokTypes.eq)) {
-
           if (isGenerator || isAsync) this.unexpected()
-          prop.kind = prop.key.name
-
-          this.parsePropertyName(prop)
-          prop.value = this.parseMethod(false)
-
-          // here is getGetterSetterExpectedParamCount
-          let paramCount = prop.kind === 'get' ? 0 : 1
-          const firstParam = prop.value.params[0]
-          const hasContextParam = firstParam && this.isThisParam(firstParam)
-          paramCount = hasContextParam ? paramCount + 1 : paramCount
-          // end
-
-          if (prop.value.params.length !== paramCount) {
-            let start = prop.value.start
-            if (prop.kind === 'get')
-              this.raiseRecoverable(start, 'getter should have no params')
-            else
-              this.raiseRecoverable(start, 'setter should have exactly one param')
-          } else {
-            if (prop.kind === 'set' && prop.value.params[0].type === 'RestElement')
-              this.raiseRecoverable(prop.value.params[0].start, 'Setter cannot use rest params')
-          }
+          this.parseGetterSetter(prop)
         } else if (this.options.ecmaVersion >= 6 && !prop.computed && prop.key.type === 'Identifier') {
-
           if (isGenerator || isAsync) this.unexpected()
-
           this.checkUnreserved(prop.key)
           if (prop.key.name === 'await' && !this.awaitIdentPos)
             this.awaitIdentPos = startPos
           prop.kind = 'init'
           if (isPattern) {
-
             prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key))
           } else if (this.type === tokTypes.eq && refDestructuringErrors) {
             if (refDestructuringErrors.shorthandAssign < 0)
               refDestructuringErrors.shorthandAssign = this.start
-
             prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key))
           } else {
-
             prop.value = this.copyNode(prop.key)
           }
           prop.shorthand = true
-
         } else this.unexpected()
+      }
+
+      parseCatchClauseParam() {
+        const param = this.parseBindingAtom()
+        let simple = param.type === 'Identifier'
+        this.enterScope(simple ? SCOPE_SIMPLE_CATCH : 0)
+        this.checkLValPattern(param, simple ? acornScope.BIND_SIMPLE_CATCH : acornScope.BIND_LEXICAL)
+        // start add ts support
+        const type = this.tsTryParseTypeAnnotation()
+        if (type) {
+          param.typeAnnotation = type
+          this.resetEndLocation(param)
+        }
+
+        this.expect(tokTypes.parenR)
+
+        return param
       }
 
       parseTryStatement(node) {
@@ -4932,40 +4932,17 @@ export default function tsPlugin(options?: {
         node.block = this.parseBlock()
         node.handler = null
         if (this.type === tokTypes._catch) {
-
           let clause = this.startNode()
           this.next()
-
           if (this.eat(tokTypes.parenL)) {
-            const param = this.parseBindingAtom()
-            let simple = param.type === 'Identifier'
-
-            this.enterScope(simple ? SCOPE_SIMPLE_CATCH : 0)
-
-            this.checkLValPattern(param, simple ? acornScope.BIND_SIMPLE_CATCH : acornScope.BIND_LEXICAL)
-
-            // start add ts support
-            const type = this.tsTryParseTypeAnnotation()
-            if (type) {
-
-              param.typeAnnotation = type
-              this.resetEndLocation(param)
-            }
             // end
-
-            clause.param = param
-
-            this.expect(tokTypes.parenR)
+            clause.param = this.parseCatchClauseParam()
           } else {
-
             if (this.options.ecmaVersion < 10) this.unexpected()
             clause.param = null
-
             this.enterScope(0)
           }
-
           clause.body = this.parseBlock(false)
-
           this.exitScope()
           node.handler = this.finishNode(clause, 'CatchClause')
         }
@@ -4987,8 +4964,8 @@ export default function tsPlugin(options?: {
           // ---start origin parseClass
           // ecma-262 14.6 Class Definitions
           // A class definition is always strict mode code.
-          const oldStrict = this['strict']
-          this['strict'] = true
+          const oldStrict = this.strict
+          this.strict = true
 
           this.parseClassId(node, Boolean(isStatement))
           this.parseClassSuper(node)
@@ -5005,15 +4982,15 @@ export default function tsPlugin(options?: {
             if (element) {
               classBody.body.push(element)
               if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
-                if (hadConstructor) this.raise(element.start, 'Duplicate constructor in the same class')
-                // todo typescript support duplicate constructor
-                // hadConstructor = true
+                if (hadConstructor) this.raiseRecoverable(element.start, 'Duplicate'
+                  + ' constructor in the same class')
+                hadConstructor = true
               } else if (element.key && element.key.type === 'PrivateIdentifier' && isPrivateNameConflicted(privateNameMap, element)) {
                 this.raiseRecoverable(element.key.start, `Identifier '#${element.key.name}' has already been declared`)
               }
             }
           }
-          this['strict'] = oldStrict
+          this.strict = oldStrict
           this.next()
 
           node.body = this.finishNode(classBody, 'ClassBody')
@@ -5039,7 +5016,7 @@ export default function tsPlugin(options?: {
             let rest = this.parseRestBinding()
             this.parseBindingListItem(rest)
             elts.push(rest)
-            if (this.checkCommaAfterRest()){
+            if (this.type === tokTypes.comma) {
               this.raise(this.start, 'Comma is not permitted after the rest element')
             }
             this.expect(close)
@@ -5311,27 +5288,33 @@ export default function tsPlugin(options?: {
         }
       }
 
-      raiseRecoverable(pos: number, message: string) {
+      raiseCommonCheck(pos: number, message: string, recoverable: boolean) {
         switch (message) {
           case 'Duplicate constructor in the same class':
             return
-          default: {
-            return super.raiseRecoverable(pos, message)
+          case 'Comma is not permitted after the rest element': {
+            if (
+              this.isAmbientContext &&
+              this.match(tokTypes.comma) &&
+              this.lookaheadCharCode() === charCodes.rightParenthesis
+            ) {
+              this.next()
+              return
+            } else {
+              return super.raise(pos, message)
+            }
           }
         }
+
+        return recoverable ? super.raiseRecoverable(pos, message) : super.raise(pos, message)
       }
 
-      checkCommaAfterRest() {
-        if (
-          this.isAmbientContext &&
-          this.match(tokTypes.comma) &&
-          this.lookaheadCharCode() === charCodes.rightParenthesis
-        ) {
-          this.next()
-          return false
-        } else {
-          return this.match(tokTypes.comma)
-        }
+      raiseRecoverable(pos: number, message: string) {
+        return this.raiseCommonCheck(pos, message, true)
+      }
+
+      raise(pos: number, message: string) {
+        return this.raiseCommonCheck(pos, message, true)
       }
     }
   }

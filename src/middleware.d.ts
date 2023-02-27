@@ -13,6 +13,7 @@ export class AcornParseClass extends Parser {
   awaitPos: number
   keywords: any
   awaitIdentPos: number
+  strict: boolean
   lastTokStart: number
   lastTokEnd: number
   exprAllowed: boolean
@@ -197,4 +198,8 @@ export class AcornParseClass extends Parser {
   copyNode(node: any): any
 
   checkLValPattern(expr: any, bindingType?: number, checkClashes?: any)
+
+  isAsyncProp(prop: any): boolean
+
+  shouldParseArrow(): boolean
 }
