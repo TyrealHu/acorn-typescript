@@ -6823,8 +6823,8 @@ const ClassTypeSnapshot = {
                     },
                     'end': {
                       'line': 9,
-                      'column': 32,
-                      'index': 179
+                      'column': 31,
+                      'index': 178
                     }
                   },
                   'typeAnnotation': {
@@ -6839,8 +6839,8 @@ const ClassTypeSnapshot = {
                       },
                       'end': {
                         'line': 9,
-                        'column': 32,
-                        'index': 179
+                        'column': 31,
+                        'index': 178
                       }
                     },
                     'typeName': {
@@ -6855,8 +6855,8 @@ const ClassTypeSnapshot = {
                         },
                         'end': {
                           'line': 9,
-                          'column': 32,
-                          'index': 179
+                          'column': 31,
+                          'index': 178
                         }
                       },
                       'name': 'Person'
@@ -7495,8 +7495,8 @@ const ClassTypeSnapshot = {
                     },
                     'end': {
                       'line': 17,
-                      'column': 29,
-                      'index': 352
+                      'column': 27,
+                      'index': 350
                     }
                   },
                   'typeAnnotation': {
@@ -7511,8 +7511,8 @@ const ClassTypeSnapshot = {
                       },
                       'end': {
                         'line': 17,
-                        'column': 29,
-                        'index': 352
+                        'column': 27,
+                        'index': 350
                       }
                     },
                     'typeName': {
@@ -7527,8 +7527,8 @@ const ClassTypeSnapshot = {
                         },
                         'end': {
                           'line': 17,
-                          'column': 29,
-                          'index': 352
+                          'column': 27,
+                          'index': 350
                         }
                       },
                       'name': 'Person'

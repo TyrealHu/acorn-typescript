@@ -129,4 +129,22 @@ describe('variables declaration', () => {
 
     equalNode(node, VariablesTypeSnapshot.ExpressionListArrowFunctionAndVar)
   })
+
+  it('expression list arrow function and param is function', () => {
+    const node = parseSource(generateSource([
+      `let test = (name: string, speak: (() => void)): void => {`,
+      `  console.log(name, age)`,
+      `}`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionListArrowFunctionAndParamIsFunction)
+  })
+
+  it('expression with paren', () => {
+    const node = parseSource(generateSource([
+      `let test = (1 === 2)`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionWithParen)
+  })
 })

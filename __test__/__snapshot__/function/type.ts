@@ -289,8 +289,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 24,
-              'index': 24
+              'column': 22,
+              'index': 22
             }
           },
           'typeAnnotation': {
@@ -305,8 +305,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 24,
-                'index': 24
+                'column': 22,
+                'index': 22
               }
             }
           }
@@ -474,8 +474,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 25,
-              'index': 25
+              'column': 23,
+              'index': 23
             }
           },
           'typeAnnotation': {
@@ -490,8 +490,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 25,
-                'index': 25
+                'column': 23,
+                'index': 23
               }
             }
           }
@@ -622,8 +622,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 25,
-              'index': 25
+              'column': 23,
+              'index': 23
             }
           },
           'typeAnnotation': {
@@ -638,8 +638,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 25,
-                'index': 25
+                'column': 23,
+                'index': 23
               }
             }
           }
@@ -770,8 +770,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 28,
-              'index': 28
+              'column': 26,
+              'index': 26
             }
           },
           'typeAnnotation': {
@@ -786,8 +786,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 28,
-                'index': 28
+                'column': 26,
+                'index': 26
               }
             }
           }
@@ -917,8 +917,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 26,
-              'index': 26
+              'column': 24,
+              'index': 24
             }
           },
           'typeAnnotation': {
@@ -933,8 +933,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 26,
-                'index': 26
+                'column': 24,
+                'index': 24
               }
             }
           }
@@ -1065,8 +1065,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 25,
-              'index': 25
+              'column': 23,
+              'index': 23
             }
           },
           'typeAnnotation': {
@@ -1081,8 +1081,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 25,
-                'index': 25
+                'column': 23,
+                'index': 23
               }
             }
           }
@@ -1251,8 +1251,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 25,
-              'index': 25
+              'column': 23,
+              'index': 23
             }
           },
           'typeAnnotation': {
@@ -1267,8 +1267,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 25,
-                'index': 25
+                'column': 23,
+                'index': 23
               }
             }
           }
@@ -1457,8 +1457,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 25,
-              'index': 25
+              'column': 23,
+              'index': 23
             }
           },
           'typeAnnotation': {
@@ -1473,8 +1473,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 25,
-                'index': 25
+                'column': 23,
+                'index': 23
               }
             }
           }
@@ -1643,8 +1643,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 26,
-              'index': 26
+              'column': 24,
+              'index': 24
             }
           },
           'typeAnnotation': {
@@ -1659,8 +1659,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 26,
-                'index': 26
+                'column': 24,
+                'index': 24
               }
             }
           }
@@ -1791,8 +1791,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 1,
-              'column': 22,
-              'index': 22
+              'column': 20,
+              'index': 20
             }
           },
           'typeAnnotation': {
@@ -1807,8 +1807,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 1,
-                'column': 22,
-                'index': 22
+                'column': 20,
+                'index': 20
               }
             }
           }
@@ -2044,8 +2044,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 2,
-              'column': 27,
-              'index': 68
+              'column': 25,
+              'index': 66
             }
           },
           'typeAnnotation': {
@@ -2060,8 +2060,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 2,
-                'column': 27,
-                'index': 68
+                'column': 25,
+                'index': 66
               }
             },
             'typeName': {
@@ -2076,8 +2076,8 @@ const FunctionTypeSnapshot = {
                 },
                 'end': {
                   'line': 2,
-                  'column': 27,
-                  'index': 68
+                  'column': 25,
+                  'index': 66
                 }
               },
               'name': 'TestType'
@@ -2474,8 +2474,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 6,
-              'column': 26,
-              'index': 91
+              'column': 24,
+              'index': 89
             }
           },
           'typeAnnotation': {
@@ -2490,8 +2490,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 6,
-                'column': 26,
-                'index': 91
+                'column': 24,
+                'index': 89
               }
             },
             'typeName': {
@@ -2506,8 +2506,8 @@ const FunctionTypeSnapshot = {
                 },
                 'end': {
                   'line': 6,
-                  'column': 26,
-                  'index': 91
+                  'column': 24,
+                  'index': 89
                 }
               },
               'name': 'Student'
@@ -2847,8 +2847,8 @@ const FunctionTypeSnapshot = {
                   },
                   'end': {
                     'line': 1,
-                    'column': 25,
-                    'index': 25
+                    'column': 23,
+                    'index': 23
                   }
                 }
               },
@@ -3919,8 +3919,8 @@ const FunctionTypeSnapshot = {
             },
             'end': {
               'line': 5,
-              'column': 67,
-              'index': 122
+              'column': 65,
+              'index': 120
             }
           },
           'typeAnnotation': {
@@ -3935,8 +3935,8 @@ const FunctionTypeSnapshot = {
               },
               'end': {
                 'line': 5,
-                'column': 67,
-                'index': 122
+                'column': 65,
+                'index': 120
               }
             },
             'typeName': {
@@ -3951,8 +3951,8 @@ const FunctionTypeSnapshot = {
                 },
                 'end': {
                   'line': 5,
-                  'column': 67,
-                  'index': 122
+                  'column': 65,
+                  'index': 120
                 }
               },
               'name': 'Family'
@@ -4173,9 +4173,9 @@ const FunctionTypeSnapshot = {
             'index': 0
           },
           'end': {
-            'line': 2,
-            'column': 8,
-            'index': 41
+            'line': 1,
+            'column': 32,
+            'index': 32
           }
         },
         'id': {
@@ -4264,9 +4264,9 @@ const FunctionTypeSnapshot = {
               'index': 24
             },
             'end': {
-              'line': 2,
-              'column': 8,
-              'index': 41
+              'line': 1,
+              'column': 32,
+              'index': 32
             }
           },
           'typeAnnotation': {
@@ -4280,9 +4280,9 @@ const FunctionTypeSnapshot = {
                 'index': 26
               },
               'end': {
-                'line': 2,
-                'column': 8,
-                'index': 41
+                'line': 1,
+                'column': 32,
+                'index': 32
               }
             }
           }
@@ -4299,9 +4299,9 @@ const FunctionTypeSnapshot = {
             'index': 33
           },
           'end': {
-            'line': 3,
-            'column': 8,
-            'index': 74
+            'line': 2,
+            'column': 32,
+            'index': 65
           }
         },
         'id': {
@@ -4390,9 +4390,9 @@ const FunctionTypeSnapshot = {
               'index': 57
             },
             'end': {
-              'line': 3,
-              'column': 8,
-              'index': 74
+              'line': 2,
+              'column': 32,
+              'index': 65
             }
           },
           'typeAnnotation': {
@@ -4406,9 +4406,9 @@ const FunctionTypeSnapshot = {
                 'index': 59
               },
               'end': {
-                'line': 3,
-                'column': 8,
-                'index': 74
+                'line': 2,
+                'column': 32,
+                'index': 65
               }
             }
           }
@@ -4586,8 +4586,8 @@ const FunctionTypeSnapshot = {
                   },
                   'end': {
                     'line': 3,
-                    'column': 43,
-                    'index': 109
+                    'column': 41,
+                    'index': 107
                   }
                 }
               },
@@ -4894,8 +4894,8 @@ const FunctionTypeSnapshot = {
                   },
                   'end': {
                     'line': 1,
-                    'column': 58,
-                    'index': 58
+                    'column': 56,
+                    'index': 56
                   }
                 }
               },
