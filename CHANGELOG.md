@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.8...v1.0.9) (2023-02-28)
+
+
+### 🐛 Bug Fixes
+
+* 🐛 return type location and expr and distinguish arrow function parse ([ffbc4ee](https://github.com/TyrealHu/acorn-typescript/commit/ffbc4ee4415b384fc22209c5e406f1d2816a95e6))
+
+
+### ✨ Features
+
+* 🚀 unit test of express arrow function and expression with paren ([e77b2e9](https://github.com/TyrealHu/acorn-typescript/commit/e77b2e960839c8177e3b5d73a23229527e0822b1))
+
 ### [1.0.8](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.7...v1.0.8) (2023-02-23)
 
 
