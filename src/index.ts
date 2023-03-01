@@ -234,6 +234,7 @@ export default function tsPlugin(options?: {
       maybeInArrowParameters: boolean = false
       canStartJSXElement: boolean = false
       shouldParseArrowReturnType: any | undefined = undefined
+      shouldParseAsyncArrowReturnType: any | undefined = undefined
       /**
        * we will only parse one import node or export node at same time.
        * default kind is undefined
@@ -3236,14 +3237,16 @@ export default function tsPlugin(options?: {
       // Handle type assertions
       parseMaybeUnary(
         refExpressionErrors?: any,
-        sawUnary?: boolean
+        sawUnary?: boolean,
+        incDec?: boolean,
+        forInit?: boolean
       ): Expression {
         // todo support jsx
         // if (!this.hasPlugin("jsx") && this.match(tt.lt)) {
         //   return this.tsParseTypeAssertion();
         // } else {
         // }
-        return super.parseMaybeUnary(refExpressionErrors, sawUnary)
+        return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
       }
 
       parseExprAtom(refDestructuringErrors?: DestructuringErrors, forInit?: boolean, forNew?: boolean) {
@@ -3537,9 +3540,7 @@ export default function tsPlugin(options?: {
 
       parseStatement(context: any, topLevel?: any, exports?: any) {
         if (this.match(tokTypes._const) && this.isLookaheadContextual('enum')) {
-
           const node = this.startNode()
-
           this.expect(tokTypes._const) // eat 'const'
           return this.tsParseEnumDeclaration(node, { const: true })
         }
@@ -3551,7 +3552,6 @@ export default function tsPlugin(options?: {
         }
 
         if (this.ts_isContextual(tsTokenType.interface)) {
-
           const result = this.tsParseInterfaceDeclaration(this.startNode())
           if (result) return result
         }
@@ -3608,11 +3608,9 @@ export default function tsPlugin(options?: {
         refDestructuringErrors?: any
       ): any {
         if (this.eat(tokTypes.question)) {
-
           let node = this.startNodeAt(startPos, startLoc)
           node.test = expr
           node.consequent = this.parseMaybeAssign()
-
           this.expect(tokTypes.colon)
           node.alternate = this.parseMaybeAssign(forInit)
           return this.finishNode(node, 'ConditionalExpression')
@@ -4049,6 +4047,63 @@ export default function tsPlugin(options?: {
         )
       }
 
+      parseMaybeAssignOrigin(
+        forInit?: any,
+        refDestructuringErrors?: any | null,
+        afterLeftParse?: any
+      ): any {
+        if (this.isContextual("yield")) {
+          if (this.inGenerator) return this.parseYield(forInit)
+            // The tokenizer will assume an expression is allowed after
+          // `yield`, but this isn't that kind of yield
+          else this.exprAllowed = false
+        }
+
+        let ownDestructuringErrors = false, oldParenAssign = -1, oldTrailingComma = -1, oldDoubleProto = -1
+        if (refDestructuringErrors) {
+          oldParenAssign = refDestructuringErrors.parenthesizedAssign
+          oldTrailingComma = refDestructuringErrors.trailingComma
+          oldDoubleProto = refDestructuringErrors.doubleProto
+          refDestructuringErrors.parenthesizedAssign = refDestructuringErrors.trailingComma = -1
+        } else {
+          refDestructuringErrors = new DestructuringErrors
+          ownDestructuringErrors = true
+        }
+
+        let startPos = this.start, startLoc = this.startLoc
+        if (this.type === tokTypes.parenL || tokenIsIdentifier(this.type)) {
+          this.potentialArrowAt = this.start
+          this.potentialArrowInForAwait = forInit === "await"
+        }
+        let left = this.parseMaybeConditional(forInit, refDestructuringErrors)
+        if (afterLeftParse) left = afterLeftParse.call(this, left, startPos, startLoc)
+        if (this.type.isAssign) {
+          let node = this.startNodeAt(startPos, startLoc)
+          node.operator = this.value
+          if (this.type === tokTypes.eq)
+            left = this.toAssignable(left, false, refDestructuringErrors)
+          if (!ownDestructuringErrors) {
+            refDestructuringErrors.parenthesizedAssign = refDestructuringErrors.trailingComma = refDestructuringErrors.doubleProto = -1
+          }
+          if (refDestructuringErrors.shorthandAssign >= left.start)
+            refDestructuringErrors.shorthandAssign = -1 // reset because shorthand default was used correctly
+          if (this.type === tokTypes.eq)
+            this.checkLValPattern(left)
+          else
+            this.checkLValSimple(left)
+          node.left = left
+          this.next()
+          node.right = this.parseMaybeAssign(forInit)
+          if (oldDoubleProto > -1) refDestructuringErrors.doubleProto = oldDoubleProto
+          return this.finishNode(node, "AssignmentExpression")
+        } else {
+          if (ownDestructuringErrors) this.checkExpressionErrors(refDestructuringErrors, true)
+        }
+        if (oldParenAssign > -1) refDestructuringErrors.parenthesizedAssign = oldParenAssign
+        if (oldTrailingComma > -1) refDestructuringErrors.trailingComma = oldTrailingComma
+        return left
+      }
+
       parseMaybeAssign(
         forInit?: boolean,
         refExpressionErrors?: any | null,
@@ -4071,7 +4126,7 @@ export default function tsPlugin(options?: {
           state = this.cloneCurLookaheadState()
 
           jsx = this.tryParse(
-            () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
+            () => this.parseMaybeAssignOrigin(forInit, refExpressionErrors, afterLeftParse),
             state
           )
 
@@ -4093,8 +4148,7 @@ export default function tsPlugin(options?: {
         }
 
         if (!jsx?.error && !this.match(tokTypes.relational)) {
-
-          return super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse)
+          return this.parseMaybeAssignOrigin(forInit, refExpressionErrors, afterLeftParse)
         }
 
         // Either way, we're looking at a '<': tt.jsxTagStart or relational.
@@ -4111,7 +4165,7 @@ export default function tsPlugin(options?: {
           // This is similar to TypeScript's `tryParseParenthesizedArrowFunctionExpression`.
           typeParameters = this.tsParseTypeParameters()
 
-          const expr = super.parseMaybeAssign(
+          const expr = this.parseMaybeAssignOrigin(
             forInit,
             refExpressionErrors,
             afterLeftParse
@@ -4175,7 +4229,7 @@ export default function tsPlugin(options?: {
           // This will start with a type assertion (via parseMaybeUnary).
           // But don't directly call `this.tsParseTypeAssertion` because we want to handle any binary after it.
           typeCast = this.tryParse(
-            () => super.parseMaybeAssign(forInit, refExpressionErrors, afterLeftParse),
+            () => this.parseMaybeAssignOrigin(forInit, refExpressionErrors, afterLeftParse),
             state
           )
           /*:: invariant(!typeCast.aborted) */
@@ -4598,6 +4652,30 @@ export default function tsPlugin(options?: {
         return this.finishNode(node, 'TaggedTemplateExpression')
       }
 
+      shouldParseAsyncArrow(): boolean {
+        if (this.match(tokTypes.colon)) {
+          const result = this.tryParse(abort => {
+            const returnType = this.tsParseTypeOrTypePredicateAnnotation(
+              tokTypes.colon
+            )
+            if (this.canInsertSemicolon() || !this.match(tokTypes.arrow)) abort()
+            return returnType
+          })
+
+          if (result.aborted) {
+            this.shouldParseAsyncArrowReturnType = undefined
+            return false
+          }
+          if (!result.thrown) {
+            if (result.error) this.setLookaheadState(result.failState)
+            this.shouldParseAsyncArrowReturnType = result.node
+            return !this.canInsertSemicolon() && this.eat(tokTypes.arrow)
+          }
+        } else {
+          return !this.canInsertSemicolon() && this.eat(tokTypes.arrow)
+        }
+      }
+
       parseSubscript(base, startPos, startLoc, noCalls, maybeAsyncArrow, optionalChained, forInit) {
         let _optionalChained = optionalChained
         // --- start extend parseSubscript
@@ -4657,16 +4735,12 @@ export default function tsPlugin(options?: {
                 return base
               }
             }
-
             const typeArguments = this.tsParseTypeArgumentsInExpression()
             if (!typeArguments) return base
-
             if (isOptionalCall && !this.match(tokTypes.parenL)) {
-
               missingParenErrorLoc = this.curPosition()
               return base
             }
-
             if (tokenIsTemplate(this.type)) {
               const result = this.parseTaggedTemplateExpression(
                 base,
@@ -4691,20 +4765,16 @@ export default function tsPlugin(options?: {
                 false,
                 refDestructuringErrors
               )
-
               // Handles invalid case: `f<T>(a:b)`
               this.tsCheckForInvalidTypeCasts(node.arguments)
-
               node.typeParameters = typeArguments
               if (_optionalChained) {
                 node.optional = isOptionalCall
               }
-
               this.checkExpressionErrors(refDestructuringErrors, true)
               base = this.finishNode(node, 'CallExpression')
               return base
             }
-
             const tokenType = this.type
             if (
               // a<b>>c is not (a<b>)>c, but a<(b>>c)
@@ -4719,7 +4789,6 @@ export default function tsPlugin(options?: {
               // Bail out.
               return base
             }
-
             const node = this.startNodeAt(
               startPos,
               startLoc
@@ -4729,11 +4798,9 @@ export default function tsPlugin(options?: {
             base = this.finishNode(node, 'TSInstantiationExpression')
             return base
           })
-
           if (missingParenErrorLoc) {
             this.unexpected(missingParenErrorLoc)
           }
-
           if (result) {
             if (
               result.type === 'TSInstantiationExpression' &&
@@ -4756,19 +4823,14 @@ export default function tsPlugin(options?: {
         if (noCalls && optional) this.raise(this.lastTokStart, 'Optional chaining cannot appear in the callee of new expressions')
         let computed = this.eat(tokTypes.bracketL)
         if (computed || (optional && this.type !== tokTypes.parenL && this.type !== tokTypes.backQuote) || this.eat(tokTypes.dot)) {
-
           let node = this.startNodeAt(startPos, startLoc)
           node.object = base
           if (computed) {
-
             node.property = this.parseExpression()
-
             this.expect(tokTypes.bracketR)
           } else if (this.type === tokTypes.privateId && base.type !== 'Super') {
-
             node.property = this.parsePrivateIdent()
           } else {
-
             node.property = this.parseIdent(this.options.allowReserved !== 'never')
           }
           node.computed = !!computed
@@ -4776,55 +4838,32 @@ export default function tsPlugin(options?: {
             node.optional = optional
           }
           base = this.finishNode(node, 'MemberExpression')
-
         } else if (!noCalls && this.eat(tokTypes.parenL)) {
           let refDestructuringErrors = new DestructuringErrors,
-
             oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
-
             oldAwaitIdentPos = this.awaitIdentPos
-
           this.yieldPos = 0
-
           this.awaitPos = 0
-
           this.awaitIdentPos = 0
-
           let exprList = this.parseExprList(tokTypes.parenR, this.options.ecmaVersion >= 8, false, refDestructuringErrors)
-
-          // todo typescript shouldParseAsyncArrow
-          const shouldParseAsyncArrow = ((): boolean => {
-            return this.match(tokTypes.colon) || (// @ts-ignore
-              !this.canInsertSemicolon() && this.eat(tokTypes.arrow)
-            )
-          })()
           if (
-            maybeAsyncArrow && !optional && shouldParseAsyncArrow
+            maybeAsyncArrow && !optional && this.shouldParseAsyncArrow()
           ) {
-
             this.checkPatternErrors(refDestructuringErrors, false)
-
             this.checkYieldAwaitInDefaultParams()
-
             if (this.awaitIdentPos > 0)
-
               this.raise(this.awaitIdentPos, 'Cannot use \'await\' as identifier inside an async function')
-
             this.yieldPos = oldYieldPos
-
             this.awaitPos = oldAwaitPos
-
             this.awaitIdentPos = oldAwaitIdentPos
-
-            return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), exprList, true, forInit)
+            const arrN = this.startNodeAt(startPos, startLoc)
+            arrN.returnType = this.shouldParseAsyncArrowReturnType
+            this.shouldParseAsyncArrowReturnType = undefined
+            return this.parseArrowExpression(arrN, exprList, true, forInit)
           }
-
           this.checkExpressionErrors(refDestructuringErrors, true)
-
           this.yieldPos = oldYieldPos || this.yieldPos
-
           this.awaitPos = oldAwaitPos || this.awaitPos
-
           this.awaitIdentPos = oldAwaitIdentPos || this.awaitIdentPos
 
           let node = this.startNodeAt(startPos, startLoc)
@@ -4871,7 +4910,6 @@ export default function tsPlugin(options?: {
       }
 
       parsePropertyValue(prop, isPattern, isGenerator, isAsync, startPos, startLoc, refDestructuringErrors, containsEsc) {
-        // todo parseObjPropValue
         const typeParameters = this.tsTryParseTypeParameters()
         if (typeParameters) prop.typeParameters = typeParameters
 
@@ -5062,7 +5100,7 @@ export default function tsPlugin(options?: {
         this.awaitPos = oldAwaitPos
         this.awaitIdentPos = oldAwaitIdentPos
 
-        if (method.abstract) {
+        if (method && method.abstract) {
           const hasBody = !!node.body
           if (hasBody) {
             const { key } = method

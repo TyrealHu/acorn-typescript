@@ -16,6 +16,7 @@ export class AcornParseClass extends Parser {
   strict: boolean
   lastTokStart: number
   lastTokEnd: number
+  inGenerator: any
   exprAllowed: boolean
   labels: any[]
   scopeStack: any[]
@@ -129,7 +130,7 @@ export class AcornParseClass extends Parser {
 
   toAssignableList(exprList: any[], isBinding?: boolean)
 
-  parseMaybeUnary(refExpressionErrors?: any, sawUnary?: boolean): any
+  parseMaybeUnary(refExpressionErrors?: any, sawUnary?: boolean, incDec?: boolean, forInit?: boolean): any
 
   readRegexp(): any
 
@@ -202,4 +203,6 @@ export class AcornParseClass extends Parser {
   isAsyncProp(prop: any): boolean
 
   shouldParseArrow(): boolean
+
+  parseYield(forInit?: any): any
 }
