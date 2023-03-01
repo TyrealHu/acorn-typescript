@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.9...v1.0.10) (2023-03-01)
+
+
+### 🐛 Bug Fixes
+
+* parse async arrow in subscript ([f9beb65](https://github.com/TyrealHu/acorn-typescript/commit/f9beb650d8ffc6ee6def8b9f76fda0b68ecd213b))
+
 ### [1.0.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.8...v1.0.9) (2023-02-28)
 
 
