@@ -127,6 +127,117 @@ const VariablesTypeSnapshot = {
     ],
     'sourceType': 'module'
   },
+  NumberWithDefinite: {
+    'type': 'Program',
+    'start': 0,
+    'end': 17,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 17,
+        'index': 17
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 17,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 17,
+            'index': 17
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 17,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4,
+                'index': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 17,
+                'index': 17
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 17,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4,
+                  'index': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 17,
+                  'index': 17
+                }
+              },
+              'name': 'test',
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 9,
+                'end': 17,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 9,
+                    'index': 9
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 17,
+                    'index': 17
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSNumberKeyword',
+                  'start': 11,
+                  'end': 17,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 11,
+                      'index': 11
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 17,
+                      'index': 17
+                    }
+                  }
+                }
+              }
+            },
+            'definite': true,
+            'init': null
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
+  },
   String: {
     'type': 'Program',
     'start': 0,

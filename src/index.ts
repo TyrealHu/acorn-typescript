@@ -722,7 +722,7 @@ export default function tsPlugin(options?: {
 
       hasPrecedingLineBreak(): boolean {
         return lineBreak.test(
-          this.input.slice(this.lastTokEndLoc['index'], this.start)
+          this.input.slice(this.lastTokEndLoc.index, this.start)
         )
       }
 
@@ -3191,7 +3191,6 @@ export default function tsPlugin(options?: {
         left?: any | null
       ): any {
         const node = super.parseMaybeDefault(startPos, startLoc, left)
-
         if (
           node.type === 'AssignmentPattern' &&
           node.typeAnnotation &&
@@ -3742,7 +3741,7 @@ export default function tsPlugin(options?: {
       parseClassPropertyAnnotation(
         node: any
       ): void {
-        if (!node.optional && (this.eat(tokTypes.prefix) && this.value === '!')) node.definite = true
+        if (!node.optional && this.value === '!' && this.eat(tokTypes.prefix)) node.definite = true
 
         const type = this.tsTryParseTypeAnnotation()
         if (type) node.typeAnnotation = type
@@ -3924,7 +3923,6 @@ export default function tsPlugin(options?: {
               }
             }
             if (!keyName && ecmaVersion >= 8 && this.eatContextual('async')) {
-
               if ((this.isClassElementNameStart() || this.type === tokTypes.star) && !this.canInsertSemicolon()) {
                 isAsync = true
               } else {
@@ -4009,21 +4007,17 @@ export default function tsPlugin(options?: {
         kind: 'var' | 'let' | 'const'
       ): void {
         super.parseVarId(decl, kind)
-
         if (
           decl.id.type === 'Identifier' &&
           !this.hasPrecedingLineBreak() &&
-          // todo bang : type === prefix && value === '!'
-
-          (this.eat(tokTypes.prefix) && this.value === '!')
+          this.value === '!' &&
+          this.eat(tokTypes.prefix)
         ) {
-
           decl.definite = true
         }
 
         const type = this.tsTryParseTypeAnnotation()
         if (type) {
-
           decl.id.typeAnnotation = type
           this.resetEndLocation(decl.id) // set end position to end of type
         }
@@ -4270,7 +4264,6 @@ export default function tsPlugin(options?: {
         // Store original location/position to include modifiers in range
         const startPos = this.start
         const startLoc = this.startLoc
-
         let accessibility: any
         let readonly = false
         let override = false
@@ -4311,7 +4304,6 @@ export default function tsPlugin(options?: {
           pp.parameter = elt as any
           return this.finishNode(pp, 'TSParameterProperty')
         }
-
         return elt
       }
 
@@ -4325,13 +4317,11 @@ export default function tsPlugin(options?: {
           ) {
             this.raise(param.start, TypeScriptError.PatternIsOptional)
           }
-
           (param as any).optional = true
         }
         const type = this.tsTryParseTypeAnnotation()
         if (type) param.typeAnnotation = type
         this.resetEndLocation(param)
-
         return param
       }
 
@@ -4359,7 +4349,6 @@ export default function tsPlugin(options?: {
               }
             )
           }
-
           case 'ObjectProperty':
             return this.isAssignable(node.value)
           case 'SpreadElement':
@@ -4400,18 +4389,14 @@ export default function tsPlugin(options?: {
             } else {
               this.raise(node.start, TypeScriptError.UnexpectedTypeCastInParameter)
             }
-
             return this.toAssignable(node.expression, isBinding, refDestructuringErrors)
           case 'AssignmentExpression':
-
             if (!isBinding && node.left.type === 'TSTypeCastExpression') {
-
               node.left = this.typeCastToParameter(node.left)
             }
             return node
           /* fall through */
           default:
-
             return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
       }
@@ -4426,17 +4411,14 @@ export default function tsPlugin(options?: {
           case 'TSNonNullExpression':
           case 'TSTypeAssertion':
           case 'ParenthesizedExpression':
-
             return this.toAssignable(node.expression, isBinding, refDestructuringErrors)
           default:
-
             return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
       }
 
       curPosition() {
         if (this.options.locations) {
-
           const position = super.curPosition()
           Object.defineProperty(position, 'offset', {
             get() {
@@ -4452,57 +4434,12 @@ export default function tsPlugin(options?: {
         }
       }
 
-      // todo we don't need to check checkToRestConversion
-      // checkToRestConversion(node: Node, allowPattern: boolean): void {
-      //   switch (node.type) {
-      //     case 'TSAsExpression':
-      //     case 'TSTypeAssertion':
-      //     case 'TSNonNullExpression':
-      //       this.checkToRestConversion(node.expression, false)
-      //       break
-      //     default:
-      //       super.checkToRestConversion(node, allowPattern)
-      //   }
-      // }
-
-      // todo we don't need this function here
-      // isValidLVal(
-      //   type:
-      //     | "TSTypeCastExpression"
-      //     | "TSParameterProperty"
-      //     | "TSNonNullExpression"
-      //     | "TSAsExpression"
-      //     | "TSTypeAssertion",
-      //   isUnparenthesizedInAssign: boolean,
-      //   binding: BindingTypes,
-      // ) {
-      //   return (
-      //     getOwn(
-      //       {
-      //         // Allow "typecasts" to appear on the left of assignment expressions,
-      //         // because it may be in an arrow function.
-      //         // e.g. `const f = (foo: number = 0) => foo;`
-      //         TSTypeCastExpression: true,
-      //         TSParameterProperty: "parameter",
-      //         TSNonNullExpression: "expression",
-      //         TSAsExpression: (binding !== BIND_NONE ||
-      //           !isUnparenthesizedInAssign) && ["expression", true],
-      //         TSTypeAssertion: (binding !== BIND_NONE ||
-      //           !isUnparenthesizedInAssign) && ["expression", true],
-      //       },
-      //       type,
-      //     ) || super.isValidLVal(type, isUnparenthesizedInAssign, binding)
-      //   );
-      // }
-
       parseBindingAtom(): any {
         switch (this.type) {
           case tokTypes._this:
             // "this" may be the name of a parameter, so allow it.
-
             return this.parseIdent(/* liberal */ true)
           default:
-
             return super.parseBindingAtom()
         }
       }
@@ -4682,8 +4619,8 @@ export default function tsPlugin(options?: {
         if (
           !this.hasPrecedingLineBreak() &&
           // NODE: replace bang
-          this.match(tokTypes.prefix) &&
-          this.value === '!'
+          this.value === '!' &&
+          this.match(tokTypes.prefix)
         ) {
           // When ! is consumed as a postfix operator (non-null assertion),
           // disallow JSX tag forming after. e.g. When parsing `p! < n.p!`

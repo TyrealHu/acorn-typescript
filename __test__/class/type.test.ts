@@ -228,5 +228,15 @@ describe('class', () => {
 
     expect(res).toBe(true)
   })
+
+  it('definite property', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` name!: string`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.DefiniteProperty)
+  })
 })
 

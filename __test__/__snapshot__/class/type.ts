@@ -9699,6 +9699,154 @@ const ClassTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  DefiniteProperty: {
+    'type': 'Program',
+    'start': 0,
+    'end': 32,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 3,
+        'column': 1,
+        'index': 32
+      }
+    },
+    'body': [
+      {
+        'type': 'ClassDeclaration',
+        'start': 0,
+        'end': 32,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 3,
+            'column': 1,
+            'index': 32
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 6,
+          'end': 13,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 6,
+              'index': 6
+            },
+            'end': {
+              'line': 1,
+              'column': 13,
+              'index': 13
+            }
+          },
+          'name': 'Student'
+        },
+        'superClass': null,
+        'body': {
+          'type': 'ClassBody',
+          'start': 14,
+          'end': 32,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 14,
+              'index': 14
+            },
+            'end': {
+              'line': 3,
+              'column': 1,
+              'index': 32
+            }
+          },
+          'body': [
+            {
+              'type': 'PropertyDefinition',
+              'start': 17,
+              'end': 30,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 1,
+                  'index': 17
+                },
+                'end': {
+                  'line': 2,
+                  'column': 14,
+                  'index': 30
+                }
+              },
+              'static': false,
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 17,
+                'end': 21,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 1,
+                    'index': 17
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 5,
+                    'index': 21
+                  }
+                },
+                'name': 'name'
+              },
+              'definite': true,
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 22,
+                'end': 30,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 6,
+                    'index': 22
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 14,
+                    'index': 30
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSStringKeyword',
+                  'start': 24,
+                  'end': 30,
+                  'loc': {
+                    'start': {
+                      'line': 2,
+                      'column': 8,
+                      'index': 24
+                    },
+                    'end': {
+                      'line': 2,
+                      'column': 14,
+                      'index': 30
+                    }
+                  }
+                }
+              },
+              'value': null
+            }
+          ]
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 

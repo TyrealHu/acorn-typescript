@@ -10,6 +10,14 @@ describe('variables declaration', () => {
     equalNode(node, VariablesTypeSnapshot.Number)
   })
 
+  it('number with definite', () => {
+    const node = parseSource(generateSource([
+      `let test!: number`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.NumberWithDefinite)
+  })
+
   it('string', () => {
     const node = parseSource(generateSource([
       `const test: string = '12355'`
