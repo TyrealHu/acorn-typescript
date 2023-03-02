@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.11](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.10...v1.0.11) (2023-03-02)
+
+
+### 🐛 Bug Fixes
+
+* 🐛parse definite assignment ([710773b](https://github.com/TyrealHu/acorn-typescript/commit/710773b4368151329166ce2775a139ddcfbf1aa0))
+
 ### [1.0.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.9...v1.0.10) (2023-03-01)
 
 
