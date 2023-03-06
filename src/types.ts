@@ -52,3 +52,14 @@ export type TryParse<Node, Error, Thrown, Aborted, FailState> = {
   aborted: Aborted;
   failState: FailState;
 };
+
+export type AcornTypeScript = {
+  tokTypes: Record<string, TokenType>
+  keywordsRegExp: RegExp
+  tokenIsLiteralPropertyName(token: TokenType): boolean
+  tokenIsKeywordOrIdentifier(token: TokenType): boolean
+  tokenIsIdentifier(token: TokenType): boolean
+  tokenIsTSDeclarationStart(token: TokenType): boolean
+  tokenIsTSTypeOperator(token: TokenType): boolean
+  tokenIsTemplate(token: TokenType): boolean
+}

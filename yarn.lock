@@ -1474,6 +1474,11 @@ acorn-globals@^4.1.0:
     acorn "^6.0.1"
     acorn-walk "^6.0.1"
 
+acorn-jsx@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
+  integrity sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==
+
 acorn-walk@^6.0.1:
   version "6.2.0"
   resolved "https://registry.npmjs.org/acorn-walk/-/acorn-walk-6.2.0.tgz#123cb8f3b84c2171f1f7fb252615b1c78a6b1a8c"

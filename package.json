@@ -27,6 +27,7 @@
     "@types/estree": "^1.0.0",
     "@types/jest": "^24.1.0",
     "acorn": "^8.8.0",
+    "acorn-jsx": "^5.3.2",
     "jest": "^24.1.0",
     "microbundle": "^0.15.1",
     "standard-version": "^9.5.0",
