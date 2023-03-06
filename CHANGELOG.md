@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.12](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.11...v1.0.12) (2023-03-06)
+
+
+### ✨ Features
+
+* 🚀add acornTypeScript to export some methods and tokenTypes ([a113a0e](https://github.com/TyrealHu/acorn-typescript/commit/a113a0e0573c8e30cf76b259e0f9c6aaf5d0fd41))
+
 ### [1.0.11](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.10...v1.0.11) (2023-03-02)
 
 
