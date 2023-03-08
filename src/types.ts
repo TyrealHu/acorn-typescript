@@ -63,3 +63,17 @@ export type AcornTypeScript = {
   tokenIsTSTypeOperator(token: TokenType): boolean
   tokenIsTemplate(token: TokenType): boolean
 }
+
+export type AcornJsx = {
+  tokTypes: {
+    jsxName: TokenType,
+    jsxText: TokenType,
+    jsxTagEnd: TokenType,
+    jsxTagStart: TokenType
+  }
+  tokContexts: {
+    tc_oTag: TokContext,
+    tc_cTag: TokContext,
+    tc_expr: TokContext
+  }
+}

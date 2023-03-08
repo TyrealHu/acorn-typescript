@@ -1,11 +1,11 @@
 import * as acornNamespace from 'acorn'
 import * as charCodes from 'charcodes'
 import {
-  jsxTokenType,
   generateAcornTypeScript
 } from './tokenType'
 import {
   Accessibility,
+  AcornJsx,
   LookaheadState,
   ModifierBase,
   ParsingContext,
@@ -45,7 +45,7 @@ import type {
   Node,
   TokenType,
   Position,
-  Options,
+  Options
 } from 'acorn'
 
 export const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
@@ -198,6 +198,9 @@ export default function tsPlugin(options?: {
       }
       return -1
     }
+
+    // @ts-ignore
+    let acornJsx: AcornJsx | undefined
 
     return class TypeScriptParser extends Parser {
       preValue: any = null
@@ -830,6 +833,10 @@ export default function tsPlugin(options?: {
        */
       match(type: TokenType): boolean {
         return this.type === type
+      }
+
+      matchJsx(type: keyof AcornJsx['tokTypes']): boolean {
+        return Boolean(acornJsx) && this.type === acornJsx.tokTypes[type]
       }
 
       ts_eatWithState(type: TokenType, nextCount: number, state: LookaheadState) {
@@ -2026,8 +2033,7 @@ export default function tsPlugin(options?: {
       ) {
         const node = this.startNode()
 
-        // todo support jsx
-        if (this.match(tt.relational) || this.match(jsxTokenType.jsxTagStart)) {
+        if (this.match(tt.relational) || this.matchJsx('jsxTagStart')) {
           this.next()
         } else {
           this.unexpected()
@@ -2234,6 +2240,19 @@ export default function tsPlugin(options?: {
           ],
           errorTemplate: TypeScriptError.InvalidModifierOnTypeParameter
         })
+      }
+
+      tsParseTypeAssertion(): any {
+        if (disallowAmbiguousJSXLike) {
+          this.raise(this.start, TypeScriptError.ReservedTypeAssertion)
+        }
+
+        const node = this.startNode()
+        const _const = this.tsTryNextParseConstantContext()
+        node.typeAnnotation = _const || this.tsNextThenParseType()
+        this.expect(tt.relational)
+        node.expression = this.parseMaybeUnary()
+        return this.finishNode(node, 'TSTypeAssertion')
       }
 
       tsParseTypeArguments(): any {
@@ -3226,12 +3245,11 @@ export default function tsPlugin(options?: {
         incDec?: boolean,
         forInit?: boolean
       ): Expression {
-        // todo support jsx
-        // if (!this.hasPlugin("jsx") && this.match(tt.lt)) {
-        //   return this.tsParseTypeAssertion();
-        // } else {
-        // }
-        return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
+        if (!Boolean(acornJsx) && this.match(tt.relational)) {
+          return this.tsParseTypeAssertion()
+        } else {
+          return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
+        }
       }
 
       parseExprAtom(refDestructuringErrors?: DestructuringErrors, forInit?: boolean, forNew?: boolean) {
@@ -4097,11 +4115,8 @@ export default function tsPlugin(options?: {
         let typeCast
 
         if (
-          // todo we don't support jsx now
-          // this.hasPlugin("jsx") &&
-          false &&
-          // @ts-ignore
-          (this.match(tokTypes.jsxTagStart) || this.match(tt.relational))
+          Boolean(acornJsx) &&
+          (this.matchJsx('jsxTagStart') || this.match(tt.relational))
         ) {
           // Prefer to parse JSX if possible. But may be an arrow fn.
           state = this.cloneCurLookaheadState()
@@ -4119,13 +4134,11 @@ export default function tsPlugin(options?: {
           // by parsing `jsxTagStart` to stop the JSX plugin from
           // messing with the tokens
           const context = this.context
-          // @ts-ignore
           const currentContext = context[context.length - 1]
 
-          // todo delete the follow lines
-          // if (currentContext === tc.j_oTag || currentContext === tc.j_expr) {
-          //   context.pop()
-          // }
+          if (currentContext === acornJsx.tokContexts.tc_oTag || currentContext === acornJsx.tokContexts.tc_expr) {
+            context.pop()
+          }
         }
 
         if (!jsx?.error && !this.match(tt.relational)) {
@@ -4165,26 +4178,6 @@ export default function tsPlugin(options?: {
           }
           expr.typeParameters = typeParameters
 
-          // todo we don't support BABEL_8_BREAKING
-          // if (process.env.BABEL_8_BREAKING) {
-          //   if (
-          //     this.hasPlugin('jsx') &&
-          //     expr.typeParameters.params.length === 1 &&
-          //     !expr.typeParameters.extra?.trailingComma
-          //   ) {
-          //     // report error if single type parameter used without trailing comma.
-          //     const parameter = expr.typeParameters.params[0]
-          //     if (!parameter.constraint) {
-          //       // A single type parameter must either have constraints
-          //       // or a trailing comma, otherwise it's ambiguous with JSX.
-          //       this.raise(TypeScriptError.SingleTypeParameterWithoutTrailingComma, {
-          //         at: createPositionWithColumnOffset(parameter.loc.end, 1),
-          //         typeParameterName: parameter.name.name
-          //       })
-          //     }
-          //   }
-          // }
-
           return expr
         }, state)
 
@@ -4194,8 +4187,7 @@ export default function tsPlugin(options?: {
           // in case of <T>(x) => 2, we don't consider <T>(x) as a type assertion
           // because of this error.
           if (typeParameters) this.reportReservedArrowTypeParam(typeParameters)
-          // @ts-expect-error refine typings
-          return arrow.node
+          return (arrow as any).node
         }
 
         if (!jsx) {
@@ -5042,6 +5034,8 @@ export default function tsPlugin(options?: {
       }
 
       static parse(input: string, options: Options) {
+        acornJsx = this['acornJsx']
+
         const parser = new this(options, input)
         if (dts) {
           parser.isAmbientContext = true
