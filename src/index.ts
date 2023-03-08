@@ -221,7 +221,13 @@ export default function tsPlugin(options?: {
         super(options, input, startPos)
       }
 
+      // support in Class static
       static get acornTypeScript() {
+        return acornTypeScript
+      }
+
+      // support in runtime, get acornTypeScript be this
+      get acornTypeScript() {
         return acornTypeScript
       }
 
