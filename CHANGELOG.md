@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.13](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.12...v1.0.13) (2023-03-08)
+
+
+### ✨ Features
+
+* 🚀 add acornTypeScript in runtime ([26414f5](https://github.com/TyrealHu/acorn-typescript/commit/26414f5779df124b92e9330b239acc915d970296))
+* 🚀 get acornJsx from Parser ([bd3dd82](https://github.com/TyrealHu/acorn-typescript/commit/bd3dd822a95721e7e2eae9d9842c5a14b4ad2242))
+
 ### [1.0.12](https://github.com/TyrealHu/acorn-typescript/compare/v1.0.11...v1.0.12) (2023-03-06)
 
 
