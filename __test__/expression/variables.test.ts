@@ -155,4 +155,36 @@ describe('variables declaration', () => {
 
     equalNode(node, VariablesTypeSnapshot.ExpressionWithParen)
   })
+
+  it('expression equal function', () => {
+    const node = parseSource(generateSource([
+      `let test = function(): void {}`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionEqualFunction)
+  })
+
+  it('expression equal arrow function', () => {
+    const node = parseSource(generateSource([
+      `let test = (): void => {}`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionEqualArrowFunction)
+  })
+
+  it('expression equal async function', () => {
+    const node = parseSource(generateSource([
+      `let test = async function(): Promise<void> {}`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionEqualAsyncFunction)
+  })
+
+  it('expression equal async arrow function', () => {
+    const node = parseSource(generateSource([
+      `let test = async (): Promise<void> => {}`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ExpressionEqualAsyncArrowFunction)
+  })
 })

@@ -3598,6 +3598,710 @@ const VariablesTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  ExpressionEqualFunction: {
+    'type': 'Program',
+    'start': 0,
+    'end': 30,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 30,
+        'index': 30
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 30,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 30,
+            'index': 30
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 30,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4,
+                'index': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 30,
+                'index': 30
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 8,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4,
+                  'index': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 8,
+                  'index': 8
+                }
+              },
+              'name': 'test'
+            },
+            'init': {
+              'type': 'FunctionExpression',
+              'start': 11,
+              'end': 30,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                },
+                'end': {
+                  'line': 1,
+                  'column': 30,
+                  'index': 30
+                }
+              },
+              'id': null,
+              'expression': false,
+              'generator': false,
+              'async': false,
+              'params': [],
+              'returnType': {
+                'type': 'TSTypeAnnotation',
+                'start': 21,
+                'end': 27,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 21,
+                    'index': 21
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 27,
+                    'index': 27
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSVoidKeyword',
+                  'start': 23,
+                  'end': 27,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 23,
+                      'index': 23
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 27,
+                      'index': 27
+                    }
+                  }
+                }
+              },
+              'body': {
+                'type': 'BlockStatement',
+                'start': 28,
+                'end': 30,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 28,
+                    'index': 28
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 30,
+                    'index': 30
+                  }
+                },
+                'body': []
+              }
+            }
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
+  },
+  ExpressionEqualArrowFunction: {
+    'type': 'Program',
+    'start': 0,
+    'end': 25,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 25,
+        'index': 25
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 25,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 25,
+            'index': 25
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 25,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4,
+                'index': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 25,
+                'index': 25
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 8,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4,
+                  'index': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 8,
+                  'index': 8
+                }
+              },
+              'name': 'test'
+            },
+            'init': {
+              'type': 'ArrowFunctionExpression',
+              'start': 11,
+              'end': 25,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                },
+                'end': {
+                  'line': 1,
+                  'column': 25,
+                  'index': 25
+                }
+              },
+              'returnType': {
+                'type': 'TSTypeAnnotation',
+                'start': 13,
+                'end': 19,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 13,
+                    'index': 13
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 19,
+                    'index': 19
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSVoidKeyword',
+                  'start': 15,
+                  'end': 19,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 15,
+                      'index': 15
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 19,
+                      'index': 19
+                    }
+                  }
+                }
+              },
+              'id': null,
+              'expression': false,
+              'generator': false,
+              'async': false,
+              'params': [],
+              'body': {
+                'type': 'BlockStatement',
+                'start': 23,
+                'end': 25,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 23,
+                    'index': 23
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 25,
+                    'index': 25
+                  }
+                },
+                'body': []
+              }
+            }
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
+  },
+  ExpressionEqualAsyncFunction: {
+    'type': 'Program',
+    'start': 0,
+    'end': 45,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 45,
+        'index': 45
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 45,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 45,
+            'index': 45
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 45,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4,
+                'index': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 45,
+                'index': 45
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 8,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4,
+                  'index': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 8,
+                  'index': 8
+                }
+              },
+              'name': 'test'
+            },
+            'init': {
+              'type': 'FunctionExpression',
+              'start': 11,
+              'end': 45,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                },
+                'end': {
+                  'line': 1,
+                  'column': 45,
+                  'index': 45
+                }
+              },
+              'id': null,
+              'expression': false,
+              'generator': false,
+              'async': true,
+              'params': [],
+              'returnType': {
+                'type': 'TSTypeAnnotation',
+                'start': 27,
+                'end': 42,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 27,
+                    'index': 27
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 42,
+                    'index': 42
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeReference',
+                  'start': 29,
+                  'end': 42,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 29,
+                      'index': 29
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 42,
+                      'index': 42
+                    }
+                  },
+                  'typeName': {
+                    'type': 'Identifier',
+                    'start': 29,
+                    'end': 36,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 29,
+                        'index': 29
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 36,
+                        'index': 36
+                      }
+                    },
+                    'name': 'Promise'
+                  },
+                  'typeParameters': {
+                    'type': 'TSTypeParameterInstantiation',
+                    'start': 36,
+                    'end': 42,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 36,
+                        'index': 36
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 42,
+                        'index': 42
+                      }
+                    },
+                    'params': [
+                      {
+                        'type': 'TSVoidKeyword',
+                        'start': 37,
+                        'end': 41,
+                        'loc': {
+                          'start': {
+                            'line': 1,
+                            'column': 37,
+                            'index': 37
+                          },
+                          'end': {
+                            'line': 1,
+                            'column': 41,
+                            'index': 41
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              'body': {
+                'type': 'BlockStatement',
+                'start': 43,
+                'end': 45,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 43,
+                    'index': 43
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 45,
+                    'index': 45
+                  }
+                },
+                'body': []
+              }
+            }
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
+  },
+  ExpressionEqualAsyncArrowFunction: {
+    'type': 'Program',
+    'start': 0,
+    'end': 40,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 40,
+        'index': 40
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 40,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 40,
+            'index': 40
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 4,
+            'end': 40,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 4,
+                'index': 4
+              },
+              'end': {
+                'line': 1,
+                'column': 40,
+                'index': 40
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 4,
+              'end': 8,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 4,
+                  'index': 4
+                },
+                'end': {
+                  'line': 1,
+                  'column': 8,
+                  'index': 8
+                }
+              },
+              'name': 'test'
+            },
+            'init': {
+              'type': 'ArrowFunctionExpression',
+              'start': 11,
+              'end': 40,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 11,
+                  'index': 11
+                },
+                'end': {
+                  'line': 1,
+                  'column': 40,
+                  'index': 40
+                }
+              },
+              'returnType': {
+                'type': 'TSTypeAnnotation',
+                'start': 19,
+                'end': 34,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 19,
+                    'index': 19
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 34,
+                    'index': 34
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeReference',
+                  'start': 21,
+                  'end': 34,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 21,
+                      'index': 21
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 34,
+                      'index': 34
+                    }
+                  },
+                  'typeName': {
+                    'type': 'Identifier',
+                    'start': 21,
+                    'end': 28,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 21,
+                        'index': 21
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 28,
+                        'index': 28
+                      }
+                    },
+                    'name': 'Promise'
+                  },
+                  'typeParameters': {
+                    'type': 'TSTypeParameterInstantiation',
+                    'start': 28,
+                    'end': 34,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 28,
+                        'index': 28
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 34,
+                        'index': 34
+                      }
+                    },
+                    'params': [
+                      {
+                        'type': 'TSVoidKeyword',
+                        'start': 29,
+                        'end': 33,
+                        'loc': {
+                          'start': {
+                            'line': 1,
+                            'column': 29,
+                            'index': 29
+                          },
+                          'end': {
+                            'line': 1,
+                            'column': 33,
+                            'index': 33
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              'id': null,
+              'expression': false,
+              'generator': false,
+              'async': true,
+              'params': [],
+              'body': {
+                'type': 'BlockStatement',
+                'start': 38,
+                'end': 40,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 38,
+                    'index': 38
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 40,
+                    'index': 40
+                  }
+                },
+                'body': []
+              }
+            }
+          }
+        ],
+        'kind': 'let'
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
