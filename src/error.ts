@@ -134,5 +134,9 @@ export const TypeScriptError = {
   UnsupportedSignatureParameterKind: ({ type }) =>
     `Name in a signature must be an Identifier, ObjectPattern or ArrayPattern, instead got ${type}.`,
   LetInLexicalBinding:
-    "'let' is not allowed to be used as a name in 'let' or 'const' declarations.",
+    '\'let\' is not allowed to be used as a name in \'let\' or \'const\' declarations.'
+}
+
+export const DecoratorsError = {
+  UnexpectedLeadingDecorator: 'Leading decorators must be attached to a class declaration.'
 }

@@ -176,6 +176,8 @@ export class AcornParseClass extends Parser {
 
   checkPatternErrors(refDestructuringErrors?: any, isAssign?: boolean)
 
+  parseExprSubscripts(refDestructuringErrors?: any, forInit?: boolean): any
+
   checkYieldAwaitInDefaultParams()
 
   parseParenExpression(): any

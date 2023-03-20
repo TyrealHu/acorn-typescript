@@ -16,16 +16,17 @@ export function generateAcornTypeScript(_acorn: any): AcornTypeScript {
   const acorn = _acorn.Parser.acorn || _acorn;
   let acornTypeScript = acornTypeScriptMap.get(acorn)
   if (!acornTypeScript) {
+    const tsKwTokenType = generateTsKwTokenType()
     const tsTokenType = generateTsTokenType()
     const tsKeywordsRegExp = new RegExp(
-      `^(?:${Object.keys(tsTokenType).join('|')})$`
+      `^(?:${Object.keys(tsKwTokenType).join('|')})$`
     )
 
     function tokenIsLiteralPropertyName(token: TokenType): boolean {
       return [
         ...[tokTypes.name, tokTypes.string, tokTypes.num],
         ...Object.values(keywordTypes),
-        ...Object.values(tsTokenType)
+        ...Object.values(tsKwTokenType)
       ].includes(token)
     }
 
@@ -33,31 +34,31 @@ export function generateAcornTypeScript(_acorn: any): AcornTypeScript {
       return [
         ...[tokTypes.name],
         ...Object.values(keywordTypes),
-        ...Object.values(tsTokenType)
+        ...Object.values(tsKwTokenType)
       ].includes(token)
     }
 
     function tokenIsIdentifier(token: TokenType): boolean {
-      return [...Object.values(tsTokenType), tokTypes.name].includes(token)
+      return [...Object.values(tsKwTokenType), tokTypes.name].includes(token)
     }
 
     function tokenIsTSDeclarationStart(token: TokenType): boolean {
       return [
-        tsTokenType.abstract,
-        tsTokenType.declare,
-        tsTokenType.enum,
-        tsTokenType.module,
-        tsTokenType.namespace,
-        tsTokenType.interface,
-        tsTokenType.type
+        tsKwTokenType.abstract,
+        tsKwTokenType.declare,
+        tsKwTokenType.enum,
+        tsKwTokenType.module,
+        tsKwTokenType.namespace,
+        tsKwTokenType.interface,
+        tsKwTokenType.type
       ].includes(token)
     }
 
     function tokenIsTSTypeOperator(token: TokenType): boolean {
       return [
-        tsTokenType.keyof,
-        tsTokenType.readonly,
-        tsTokenType.unique
+        tsKwTokenType.keyof,
+        tsKwTokenType.readonly,
+        tsKwTokenType.unique
       ].includes(token)
     }
 
@@ -66,7 +67,10 @@ export function generateAcornTypeScript(_acorn: any): AcornTypeScript {
     }
 
     acornTypeScript = {
-      tokTypes: tsTokenType,
+      tokTypes: {
+        ...tsKwTokenType,
+        ...tsTokenType
+      },
       keywordsRegExp: tsKeywordsRegExp,
       tokenIsLiteralPropertyName,
       tokenIsKeywordOrIdentifier,
@@ -80,7 +84,13 @@ export function generateAcornTypeScript(_acorn: any): AcornTypeScript {
   return acornTypeScript
 }
 
-export function generateTsTokenType() {
+function generateTsTokenType() {
+  return {
+    at: new TokenType('@')
+  }
+}
+
+function generateTsKwTokenType() {
   return {
     as: kwLike('name', { startsExpr }),
     assert: kwLike('assert', { startsExpr }),
@@ -96,7 +106,6 @@ export function generateTsTokenType() {
     static: kwLike('static', { startsExpr }),
     yield: kwLike('yield', { startsExpr }),
 
-    // Flow and TypeScript Keywordlike
     asserts: kwLike('asserts', { startsExpr }),
     checks: kwLike('checks', { startsExpr }),
     exports: kwLike('exports', { startsExpr }),
@@ -108,28 +117,18 @@ export function generateTsTokenType() {
     mixins: kwLike('mixins', { startsExpr }),
     proto: kwLike('proto', { startsExpr }),
     require: kwLike('require', { startsExpr }),
-    // start: isTSTypeOperator
     keyof: kwLike('keyof', { startsExpr }),
     readonly: kwLike('readonly', { startsExpr }),
     unique: kwLike('unique', { startsExpr }),
-    // end: isTSTypeOperator
-    // start: isTSDeclarationStart
     abstract: kwLike('abstract', { startsExpr }),
     declare: kwLike('declare', { startsExpr }),
     enum: kwLike('enum', { startsExpr }),
     module: kwLike('module', { startsExpr }),
     namespace: kwLike('namespace', { startsExpr }),
-    // start: isFlowInterfaceOrTypeOrOpaque
     interface: kwLike('interface', { startsExpr }),
     type: kwLike('type', { startsExpr }),
-    // end: isTSDeclarationStart
     opaque: kwLike('opaque', { startsExpr })
-    // end: isFlowInterfaceOrTypeOrOpaque
   }
 }
 
-export const jsxTokenType = {
-  // jsx
-  jsxTagStart: new TokenType('jsxTagStart', { startsExpr })
-}
 

@@ -27,7 +27,7 @@ import {
   DestructuringErrors,
   isPrivateNameConflicted
 } from './parseutil'
-import { TypeScriptError } from './error'
+import { DecoratorsError, TypeScriptError } from './error'
 import type { AcornParseClass } from './middleware'
 import type {
   ArrayExpression,
@@ -164,8 +164,10 @@ export default function tsPlugin(options?: {
   dts?: boolean
   // default false
   // disallowAmbiguousJSXLike?: boolean
+  // default true
+  allowDecorators?: boolean
 }) {
-  const { dts = false } = options || {}
+  const { dts = false, allowDecorators = true } = options || {}
   const disallowAmbiguousJSXLike = false
 
   return function(Parser: typeof AcornParseClass) {
@@ -214,6 +216,7 @@ export default function tsPlugin(options?: {
       canStartJSXElement: boolean = false
       shouldParseArrowReturnType: any | undefined = undefined
       shouldParseAsyncArrowReturnType: any | undefined = undefined
+      decoratorStack: any[] = []
       /**
        * we will only parse one import node or export node at same time.
        * default kind is undefined
@@ -234,6 +237,10 @@ export default function tsPlugin(options?: {
         return acornTypeScript
       }
 
+      hasJsx() {
+        return Boolean(acornJsx)
+      }
+
       getTokenFromCode(code: number): TokenType {
         if (this.inType) {
           if (code === charCodes.greaterThan) {
@@ -242,6 +249,11 @@ export default function tsPlugin(options?: {
           if (code === charCodes.lessThan) {
             return this.finishOp(tt.relational, 1)
           }
+        }
+
+        if (code === charCodes.atSign) {
+          ++this.pos
+          return this.finishToken(tokTypes.at)
         }
         return super.getTokenFromCode(code)
       }
@@ -651,7 +663,7 @@ export default function tsPlugin(options?: {
             startLoc, this.curPosition())
       }
 
-      finishToken(type: TokenType, val?: string) {
+      finishToken(type: TokenType, val?: string): any {
         this.preValue = this.value
         this.preToken = this.type
 
@@ -836,7 +848,7 @@ export default function tsPlugin(options?: {
       }
 
       matchJsx(type: keyof AcornJsx['tokTypes']): boolean {
-        return Boolean(acornJsx) && this.type === acornJsx.tokTypes[type]
+        return this.hasJsx() && this.type === acornJsx.tokTypes[type]
       }
 
       ts_eatWithState(type: TokenType, nextCount: number, state: LookaheadState) {
@@ -871,6 +883,10 @@ export default function tsPlugin(options?: {
           }
           return true
         }
+      }
+
+      canHaveLeadingDecorator(): boolean {
+        return this.match(tt._class);
       }
 
       eatContextual(name: string) {
@@ -3245,7 +3261,7 @@ export default function tsPlugin(options?: {
         incDec?: boolean,
         forInit?: boolean
       ): Expression {
-        if (!Boolean(acornJsx) && this.match(tt.relational)) {
+        if (!this.hasJsx() && this.match(tt.relational)) {
           return this.tsParseTypeAssertion()
         } else {
           return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
@@ -3541,7 +3557,84 @@ export default function tsPlugin(options?: {
         return declaration
       }
 
+      parseDecorators(allowExport?: boolean): void {
+        const currentContextDecorators = this.decoratorStack[this.decoratorStack.length - 1]
+        while (this.match(tokTypes.at)) {
+          const decorator = this.parseDecorator()
+          currentContextDecorators.push(decorator)
+        }
+
+        if (this.match(tt._export)) {
+          if (!allowExport) {
+            this.unexpected()
+          }
+
+        } else if (!this.canHaveLeadingDecorator()) {
+          this.raise(this.start, DecoratorsError.UnexpectedLeadingDecorator)
+        }
+      }
+
+      parseDecorator(): any {
+        const node = this.startNode()
+        this.next()
+
+        if (allowDecorators) {
+          // Every time a decorator class expression is evaluated, a new empty array is pushed onto the stack
+          // So that the decorators of any nested class expressions will be dealt with separately
+          this.decoratorStack.push([])
+
+          const startPos = this.start
+          const startLoc = this.startLoc
+          let expr: any
+
+          if (this.match(tt.parenL)) {
+            const startPos = this.start
+            const startLoc = this.startLoc
+            this.next() // eat '('
+            expr = this.parseExpression()
+            this.expect(tt.parenR)
+
+            if (this.options.preserveParens) {
+              let par = this.startNodeAt(startPos, startLoc)
+              par.expression = expr
+              expr = this.finishNode(par, "ParenthesizedExpression")
+            }
+          } else {
+            expr = this.parseIdent(false)
+
+            while (this.eat(tt.dot)) {
+              const node = this.startNodeAt(startPos, startLoc)
+              node.object = expr
+              node.property = this.parseIdent(true)
+              node.computed = false
+              expr = this.finishNode(node, 'MemberExpression')
+            }
+          }
+
+          node.expression = this.parseMaybeDecoratorArguments(expr)
+          this.decoratorStack.pop()
+        } else {
+          node.expression = this.parseExprSubscripts()
+        }
+        return this.finishNode(node, 'Decorator')
+      }
+
+      parseMaybeDecoratorArguments(expr: any): any {
+        if (this.eat(tt.parenL)) {
+          const node = this.startNodeAtNode(expr)
+          node.callee = expr
+          node.arguments = this.parseExprList(tt.parenR, false)
+          return this.finishNode(node, 'CallExpression')
+        }
+
+        return expr
+      }
+
       parseStatement(context: any, topLevel?: any, exports?: any) {
+        if (this.match(tokTypes.at)) {
+          this.parseDecorators(true)
+        }
+
         if (this.match(tt._const) && this.isLookaheadContextual('enum')) {
           const node = this.startNode()
           this.expect(tt._const) // eat 'const'
@@ -4115,8 +4208,7 @@ export default function tsPlugin(options?: {
         let typeCast
 
         if (
-          Boolean(acornJsx) &&
-          (this.matchJsx('jsxTagStart') || this.match(tt.relational))
+          this.matchJsx('jsxTagStart') || this.match(tt.relational)
         ) {
           // Prefer to parse JSX if possible. But may be an arrow fn.
           state = this.cloneCurLookaheadState()
