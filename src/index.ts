@@ -27,7 +27,7 @@ import {
   DestructuringErrors,
   isPrivateNameConflicted
 } from './parseutil'
-import { TypeScriptError } from './error'
+import { DecoratorsError, TypeScriptError } from './error'
 import type { AcornParseClass } from './middleware'
 import type {
   ArrayExpression,
@@ -164,8 +164,10 @@ export default function tsPlugin(options?: {
   dts?: boolean
   // default false
   // disallowAmbiguousJSXLike?: boolean
+  // default true
+  allowDecorators?: boolean
 }) {
-  const { dts = false } = options || {}
+  const { dts = false, allowDecorators = true } = options || {}
   const disallowAmbiguousJSXLike = false
 
   return function(Parser: typeof AcornParseClass) {
@@ -214,6 +216,7 @@ export default function tsPlugin(options?: {
       canStartJSXElement: boolean = false
       shouldParseArrowReturnType: any | undefined = undefined
       shouldParseAsyncArrowReturnType: any | undefined = undefined
+      decoratorStack: any[] = [[]]
       /**
        * we will only parse one import node or export node at same time.
        * default kind is undefined
@@ -234,6 +237,10 @@ export default function tsPlugin(options?: {
         return acornTypeScript
       }
 
+      hasJsx() {
+        return Boolean(acornJsx)
+      }
+
       getTokenFromCode(code: number): TokenType {
         if (this.inType) {
           if (code === charCodes.greaterThan) {
@@ -242,6 +249,11 @@ export default function tsPlugin(options?: {
           if (code === charCodes.lessThan) {
             return this.finishOp(tt.relational, 1)
           }
+        }
+
+        if (code === charCodes.atSign) {
+          ++this.pos
+          return this.finishToken(tokTypes.at)
         }
         return super.getTokenFromCode(code)
       }
@@ -651,7 +663,7 @@ export default function tsPlugin(options?: {
             startLoc, this.curPosition())
       }
 
-      finishToken(type: TokenType, val?: string) {
+      finishToken(type: TokenType, val?: string): any {
         this.preValue = this.value
         this.preToken = this.type
 
@@ -836,7 +848,7 @@ export default function tsPlugin(options?: {
       }
 
       matchJsx(type: keyof AcornJsx['tokTypes']): boolean {
-        return Boolean(acornJsx) && this.type === acornJsx.tokTypes[type]
+        return this.hasJsx() && this.type === acornJsx.tokTypes[type]
       }
 
       ts_eatWithState(type: TokenType, nextCount: number, state: LookaheadState) {
@@ -871,6 +883,10 @@ export default function tsPlugin(options?: {
           }
           return true
         }
+      }
+
+      canHaveLeadingDecorator(): boolean {
+        return this.match(tt._class)
       }
 
       eatContextual(name: string) {
@@ -3149,6 +3165,10 @@ export default function tsPlugin(options?: {
             } else if (this.type === tt._class) {
               let cNode = this.startNode()
               node.declaration = this.parseClass(cNode, 'nullableID')
+            } else if (this.type === tokTypes.at) {
+              let dNode = this.startNode()
+              this.parseDecorators(false)
+              node.declaration = this.parseClass(dNode, true)
             } else {
               node.declaration = this.parseMaybeAssign()
               this.semicolon()
@@ -3245,7 +3265,7 @@ export default function tsPlugin(options?: {
         incDec?: boolean,
         forInit?: boolean
       ): Expression {
-        if (!Boolean(acornJsx) && this.match(tt.relational)) {
+        if (!this.hasJsx() && this.match(tt.relational)) {
           return this.tsParseTypeAssertion()
         } else {
           return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
@@ -3364,78 +3384,72 @@ export default function tsPlugin(options?: {
             }
 
           default:
-            if (tokenIsIdentifier(this.type)) {
-              // if (
-              //   this.ts_isContextual(tokTypes.module) &&
-              //   this.lookaheadCharCode() === charCodes.leftCurlyBrace &&
-              //   !this.hasFollowingLineBreak()
-              // ) {
-              //   return this.parseModuleExpression();
-              // }
-              const canBeArrow = this['potentialArrowAt'] === this.start
-              const containsEsc = this.containsEsc
-              const id = this.parseIdent()
-              if (
-                !containsEsc &&
-                id.name === 'async' &&
-                !this.canInsertSemicolon()
-              ) {
-                const { type } = this
-                if (type === tt._function) {
-                  this.next()
-                  return this.parseFunction(
-                    this.startNodeAtNode(id),
-                    undefined,
-                    true,
-                    true,
-                    forInit
-                  )
-                } else if (tokenIsIdentifier(type)) {
-                  // If the next token begins with "=", commit to parsing an async
-                  // arrow function. (Peeking ahead for "=" lets us avoid a more
-                  // expensive full-token lookahead on this common path.)
-                  if (this.lookaheadCharCode() === charCodes.equalsTo) {
-                    // although `id` is not used in async arrow unary function,
-                    // we don't need to reset `async`'s trailing comments because
-                    // it will be attached to the upcoming async arrow binding identifier
-                    if (this.canInsertSemicolon() || !this.eat(tt.arrow))
-                      this.unexpected()
+            return this.parseExprAtomDefault()
+        }
+      }
 
-                    return this.parseArrowExpression(
-                      this.startNodeAtNode(id),
-                      [id], true, forInit
-                    )
-                  } else {
-                    // Otherwise, treat "async" as an identifier and let calling code
-                    // deal with the current tt.name token.
-                    return id
-                  }
-                }
-                // todo supprt parse do
-                // else if (type === tt._do) {
-                //   this.resetPreviousNodeTrailingComments(id);
-                //   return this.parseDo(this.startNodeAtNode(id), true);
-                // }
-              }
+      parseExprAtomDefault() {
+        if (this.type === tokTypes.at) {
+          this.parseDecorators()
+          return this.parseExprAtom()
+        }
 
-              if (
-                canBeArrow &&
-                this.match(tt.arrow) &&
-                !this.canInsertSemicolon()
-              ) {
-                this.next()
+        if (tokenIsIdentifier(this.type)) {
+          const canBeArrow = this['potentialArrowAt'] === this.start
+          const containsEsc = this.containsEsc
+          const id = this.parseIdent()
+          if (
+            !containsEsc &&
+            id.name === 'async' &&
+            !this.canInsertSemicolon()
+          ) {
+            const { type } = this
+            if (type === tt._function) {
+              this.next()
+              return this.parseFunction(
+                this.startNodeAtNode(id),
+                undefined,
+                true,
+                true
+              )
+            } else if (tokenIsIdentifier(type)) {
+              // If the next token begins with "=", commit to parsing an async
+              // arrow function. (Peeking ahead for "=" lets us avoid a more
+              // expensive full-token lookahead on this common path.)
+              if (this.lookaheadCharCode() === charCodes.equalsTo) {
+                // although `id` is not used in async arrow unary function,
+                // we don't need to reset `async`'s trailing comments because
+                // it will be attached to the upcoming async arrow binding identifier
+                if (this.canInsertSemicolon() || !this.eat(tt.arrow))
+                  this.unexpected()
+
                 return this.parseArrowExpression(
                   this.startNodeAtNode(id),
                   [id],
-                  false,
-                  forInit
+                  true
                 )
+              } else {
+                return id
               }
-
-              return id
-            } else {
-              this.unexpected()
             }
+          }
+
+          if (
+            canBeArrow &&
+            this.match(tt.arrow) &&
+            !this.canInsertSemicolon()
+          ) {
+            this.next()
+            return this.parseArrowExpression(
+              this.startNodeAtNode(id),
+              [id],
+              false
+            )
+          }
+
+          return id
+        } else {
+          this.unexpected()
         }
       }
 
@@ -3541,7 +3555,94 @@ export default function tsPlugin(options?: {
         return declaration
       }
 
+      takeDecorators(node: any): void {
+        const decorators =
+          this.decoratorStack[this.decoratorStack.length - 1];
+        if (decorators.length) {
+          node.decorators = decorators;
+          this.resetStartLocationFromNode(node, decorators[0]);
+          this.decoratorStack[this.decoratorStack.length - 1] = [];
+        }
+      }
+
+      parseDecorators(allowExport?: boolean): void {
+        const currentContextDecorators = this.decoratorStack[this.decoratorStack.length - 1]
+        while (this.match(tokTypes.at)) {
+          const decorator = this.parseDecorator()
+          currentContextDecorators.push(decorator)
+        }
+
+        if (this.match(tt._export)) {
+          if (!allowExport) {
+            this.unexpected()
+          }
+
+        } else if (!this.canHaveLeadingDecorator()) {
+          this.raise(this.start, DecoratorsError.UnexpectedLeadingDecorator)
+        }
+      }
+
+      parseDecorator(): any {
+        const node = this.startNode()
+        this.next()
+
+        if (allowDecorators) {
+          // Every time a decorator class expression is evaluated, a new empty array is pushed onto the stack
+          // So that the decorators of any nested class expressions will be dealt with separately
+          this.decoratorStack.push([])
+
+          const startPos = this.start
+          const startLoc = this.startLoc
+          let expr: any
+
+          if (this.match(tt.parenL)) {
+            const startPos = this.start
+            const startLoc = this.startLoc
+            this.next() // eat '('
+            expr = this.parseExpression()
+            this.expect(tt.parenR)
+
+            if (this.options.preserveParens) {
+              let par = this.startNodeAt(startPos, startLoc)
+              par.expression = expr
+              expr = this.finishNode(par, 'ParenthesizedExpression')
+            }
+          } else {
+            expr = this.parseIdent(false)
+
+            while (this.eat(tt.dot)) {
+              const node = this.startNodeAt(startPos, startLoc)
+              node.object = expr
+              node.property = this.parseIdent(true)
+              node.computed = false
+              expr = this.finishNode(node, 'MemberExpression')
+            }
+          }
+
+          node.expression = this.parseMaybeDecoratorArguments(expr)
+          this.decoratorStack.pop()
+        } else {
+          node.expression = this.parseExprSubscripts()
+        }
+        return this.finishNode(node, 'Decorator')
+      }
+
+      parseMaybeDecoratorArguments(expr: any): any {
+        if (this.eat(tt.parenL)) {
+          const node = this.startNodeAtNode(expr)
+          node.callee = expr
+          node.arguments = this.parseExprList(tt.parenR, false)
+          return this.finishNode(node, 'CallExpression')
+        }
+
+        return expr
+      }
+
       parseStatement(context: any, topLevel?: any, exports?: any) {
+        if (this.match(tokTypes.at)) {
+          this.parseDecorators(true)
+        }
+
         if (this.match(tt._const) && this.isLookaheadContextual('enum')) {
           const node = this.startNode()
           this.expect(tt._const) // eat 'const'
@@ -3596,9 +3697,13 @@ export default function tsPlugin(options?: {
         return decl || super.parseExpressionStatement(node, expr)
       }
 
-      // todo this is shouldParseExportDeclaration
       shouldParseExportStatement(): boolean {
         if (this.tsIsDeclarationStart()) return true
+
+        if (this.match(tokTypes.at)) {
+          return true
+        }
+
         return super.shouldParseExportStatement()
       }
 
@@ -4032,7 +4137,7 @@ export default function tsPlugin(options?: {
         node: any,
         params: any[],
         isAsync: boolean,
-        forInit: boolean
+        forInit?: boolean
       ): ArrowFunctionExpression {
         if (this.match(tt.colon)) {
           node.returnType = this.tsParseTypeAnnotation()
@@ -4115,8 +4220,7 @@ export default function tsPlugin(options?: {
         let typeCast
 
         if (
-          Boolean(acornJsx) &&
-          (this.matchJsx('jsxTagStart') || this.match(tt.relational))
+          this.matchJsx('jsxTagStart') || this.match(tt.relational)
         ) {
           // Prefer to parse JSX if possible. But may be an arrow fn.
           state = this.cloneCurLookaheadState()
@@ -4240,6 +4344,11 @@ export default function tsPlugin(options?: {
       parseAssignableListItem(
         allowModifiers: boolean | undefined | null
       ) {
+        const decorators = [];
+        while (this.match(tokTypes.at)) {
+          decorators.push(this.parseDecorator());
+        }
+
         // Store original location/position to include modifiers in range
         const startPos = this.start
         const startLoc = this.startLoc
@@ -4272,6 +4381,9 @@ export default function tsPlugin(options?: {
         const left = this.parseMaybeDefault(startPos, startLoc)
         this.parseBindingListItem(left)
         const elt = this.parseMaybeDefault(left['start'], left['loc'], left)
+        if (decorators.length) {
+          elt.decorators = decorators
+        }
         if (accessibility || readonly || override) {
           const pp = this.startNodeAt(startPos, startLoc)
           if (accessibility) pp.accessibility = accessibility
@@ -4824,6 +4936,33 @@ export default function tsPlugin(options?: {
         }
       }
 
+      parseProperty(isPattern, refDestructuringErrors) {
+        if (!isPattern) {
+          let decorators = []
+
+          if (this.match(tokTypes.at)) {
+            while (this.match(tokTypes.at)) {
+              decorators.push(this.parseDecorator())
+            }
+          }
+
+          const property = super.parseProperty(isPattern, refDestructuringErrors)
+
+          if (property.type === 'SpreadElement') {
+            if (decorators.length) this.raise(property.start, DecoratorsError.SpreadElementDecorator)
+          }
+
+          if (decorators.length) {
+            property.decorators = decorators;
+            decorators = [];
+          }
+
+          return property
+        }
+
+        return super.parseProperty(isPattern, refDestructuringErrors)
+      }
+
       parsePropertyValue(prop, isPattern, isGenerator, isAsync, startPos, startLoc, refDestructuringErrors, containsEsc) {
         const typeParameters = this.tsTryParseTypeParameters()
         if (typeParameters) prop.typeParameters = typeParameters
@@ -4913,6 +5052,7 @@ export default function tsPlugin(options?: {
         this.inAbstractClass = !!(node as any).abstract
         try {
           this.next()
+          this.takeDecorators(node)
 
           // ---start origin parseClass
           // ecma-262 14.6 Class Definitions
@@ -4928,16 +5068,33 @@ export default function tsPlugin(options?: {
           const classBody = this.startNode()
           let hadConstructor = false
           classBody.body = []
+          let decorators = []
 
           this.expect(tt.braceL)
           while (this.type !== tt.braceR) {
+            if (this.match(tokTypes.at)) {
+              decorators.push(this.parseDecorator())
+              continue
+            }
             const element = this.parseClassElement(node.superClass !== null)
+
+            if (decorators.length) {
+              element.decorators = decorators
+              this.resetStartLocationFromNode(element, decorators[0])
+              decorators = []
+            }
+
             if (element) {
               classBody.body.push(element)
               if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
-                if (hadConstructor) this.raiseRecoverable(element.start, 'Duplicate'
-                  + ' constructor in the same class')
+                if (hadConstructor) {
+                  this.raiseRecoverable(element.start, 'Duplicate constructor in the same class')
+                }
                 hadConstructor = true
+
+                if (element.decorators && element.decorators.length > 0) {
+                  this.raise(element.start, DecoratorsError.DecoratorConstructor)
+                }
               } else if (element.key && element.key.type === 'PrivateIdentifier' && isPrivateNameConflicted(privateNameMap, element)) {
                 this.raiseRecoverable(element.key.start, `Identifier '#${element.key.name}' has already been declared`)
               }
@@ -4945,6 +5102,10 @@ export default function tsPlugin(options?: {
           }
           this.strict = oldStrict
           this.next()
+
+          if (decorators.length) {
+            this.raise(this.start, DecoratorsError.TrailingDecorator)
+          }
 
           node.body = this.finishNode(classBody, 'ClassBody')
 

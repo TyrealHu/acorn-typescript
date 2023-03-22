@@ -54,14 +54,16 @@ export {
 })
 ```
 
+## SUPPORTED
+- Typescript normal syntax
+- Support to parse TypeScript [Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
+
 ## CHANGELOG
 
 [click](./CHANGELOG.md)
 
 ## RoadMap
-
 - Support to parse JSX & TSX in the future.
-- Support to parse TypeScript [Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
 
 ## License
 [MIT](https://couto.mit-license.org/)
