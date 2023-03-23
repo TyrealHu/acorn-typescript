@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/TyrealHu/acorn-typescript/compare/v1.1.1...v1.1.2) (2023-03-23)
+
+
+### 🐛 Bug Fixes
+
+* 🐛the bugs of isContextual ([fcf13f3](https://github.com/TyrealHu/acorn-typescript/commit/fcf13f3634788055d1ef02cfd7aff4c6a7ce7e4d))
+
 ### [1.1.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.1.0...v1.1.1) (2023-03-23)
 
 
