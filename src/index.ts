@@ -783,8 +783,10 @@ export default function tsPlugin(options?: {
           case 'let': {
             return this.ts_isContextual(tokTypes.let)
           }
+          case 'of': {
+            return this.ts_isContextual(tokTypes.of)
+          }
           default: {
-
             return super.isContextual(keyword)
           }
         }
@@ -3489,10 +3491,8 @@ export default function tsPlugin(options?: {
         node.declarations = []
         node.kind = kind
         for (; ;) {
-
           let decl = this.startNode()
           this.parseVarId(decl, kind)
-
           if (this.eat(tt.eq)) {
             decl.init = this.parseMaybeAssign(isFor)
 
@@ -3557,11 +3557,11 @@ export default function tsPlugin(options?: {
 
       takeDecorators(node: any): void {
         const decorators =
-          this.decoratorStack[this.decoratorStack.length - 1];
+          this.decoratorStack[this.decoratorStack.length - 1]
         if (decorators.length) {
-          node.decorators = decorators;
-          this.resetStartLocationFromNode(node, decorators[0]);
-          this.decoratorStack[this.decoratorStack.length - 1] = [];
+          node.decorators = decorators
+          this.resetStartLocationFromNode(node, decorators[0])
+          this.decoratorStack[this.decoratorStack.length - 1] = []
         }
       }
 
@@ -4344,9 +4344,9 @@ export default function tsPlugin(options?: {
       parseAssignableListItem(
         allowModifiers: boolean | undefined | null
       ) {
-        const decorators = [];
+        const decorators = []
         while (this.match(tokTypes.at)) {
-          decorators.push(this.parseDecorator());
+          decorators.push(this.parseDecorator())
         }
 
         // Store original location/position to include modifiers in range
@@ -4953,8 +4953,8 @@ export default function tsPlugin(options?: {
           }
 
           if (decorators.length) {
-            property.decorators = decorators;
-            decorators = [];
+            property.decorators = decorators
+            decorators = []
           }
 
           return property
