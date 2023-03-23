@@ -786,6 +786,15 @@ export default function tsPlugin(options?: {
           case 'of': {
             return this.ts_isContextual(tokTypes.of)
           }
+          case 'yield': {
+            return this.ts_isContextual(tokTypes.yield)
+          }
+          case 'await': {
+            return this.ts_isContextual(tokTypes.await)
+          }
+          case 'async': {
+            return this.ts_isContextual(tokTypes.async)
+          }
           default: {
             return super.isContextual(keyword)
           }
