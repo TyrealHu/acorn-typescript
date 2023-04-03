@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.1.2...v1.2.0) (2023-04-03)
+
+
+### ✨ Features
+
+* 🚀 support parse jsx and tsx ([0e5974c](https://github.com/TyrealHu/acorn-typescript/commit/0e5974ce0505cb56422d6d6db1e76652c17415bc))
+
 ### [1.1.2](https://github.com/TyrealHu/acorn-typescript/compare/v1.1.1...v1.1.2) (2023-03-23)
 
 
