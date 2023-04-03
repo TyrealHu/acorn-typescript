@@ -1,7 +1,12 @@
 import * as acorn from 'acorn'
 import tsPlugin from '../src'
 
-const Parser = acorn.Parser.extend(tsPlugin())
+const Parser = acorn.Parser.extend(tsPlugin({
+  jsx: {
+    allowNamespacedObjects: true,
+    allowNamespaces: true
+  }
+}))
 
 export function equalNode(node, snapshot) {
   expect(node).toEqual(snapshot)

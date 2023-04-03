@@ -55,6 +55,7 @@ export type TryParse<Node, Error, Thrown, Aborted, FailState> = {
 
 export type AcornTypeScript = {
   tokTypes: Record<string, TokenType>
+  tokContexts: Record<string, TokenType>
   keywordsRegExp: RegExp
   tokenIsLiteralPropertyName(token: TokenType): boolean
   tokenIsKeywordOrIdentifier(token: TokenType): boolean

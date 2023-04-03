@@ -1,4 +1,4 @@
-import { Parser, Node, TokenType, Position } from 'acorn'
+import type { Parser, Node, TokenType, Position } from 'acorn'
 import type { Options } from 'acorn'
 
 export class AcornParseClass extends Parser {
@@ -10,6 +10,7 @@ export class AcornParseClass extends Parser {
   yieldPos: number
   value: any
   containsEsc: boolean
+  decoratorStack: any[]
   awaitPos: number
   keywords: any
   awaitIdentPos: number
@@ -88,7 +89,7 @@ export class AcornParseClass extends Parser {
 
   parseArrowExpression(node: any, param: any, isAsync?: boolean, forInit?: boolean)
 
-  curContext(): any[]
+  curContext(): any
 
   updateContext(prevType: TokenType)
 
@@ -209,4 +210,40 @@ export class AcornParseClass extends Parser {
   parseYield(forInit?: any): any
 
   parseProperty(isPattern?: boolean, refDestructuringErrors?: any): any
+
+  takeDecorators(node: any): void
+
+  parseDecorators(allowExport?: boolean): void
+
+  parseDecorator(): any
+
+  parseMaybeDecoratorArguments(expr: any): any
+
+  resetStartLocationFromNode(node: Node, locationNode: Node): void
+
+  match(type: TokenType): boolean
+
+  canHaveLeadingDecorator(): boolean
+
+  startNodeAtNode(type: Node): any
+
+  readToken(code: number): any
+
+  jsx_readToken(): any
+
+  jsx_readString(quote: any): any
+
+  jsx_parseText(): any
+
+  jsx_parseElement(): any
+
+  jsx_readWord(): any
+
+  jsx_parseElementName(): any
+
+  jsx_parseAttribute(): any
+
+  finishToken(token: TokenType, val?: string): any
+
+  parseExprAtom(refDestructuringErrors?: any, forInit?: boolean, forNew?: boolean): any
 }

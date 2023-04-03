@@ -1,11 +1,9 @@
 import * as acornNamespace from 'acorn'
-import * as charCodes from 'charcodes'
 import {
   generateAcornTypeScript
 } from './tokenType'
 import {
   Accessibility,
-  AcornJsx,
   LookaheadState,
   ModifierBase,
   ParsingContext,
@@ -47,6 +45,8 @@ import type {
   Position,
   Options
 } from 'acorn'
+import generateParseDecorators from './extentions/decorators'
+import generateJsxParser from './extentions/jsx'
 
 export const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
 
@@ -165,9 +165,12 @@ export default function tsPlugin(options?: {
   // default false
   // disallowAmbiguousJSXLike?: boolean
   // default true
-  allowDecorators?: boolean
+  jsx?: {
+    allowNamespaces?: boolean,
+    allowNamespacedObjects?: boolean
+  }
 }) {
-  const { dts = false, allowDecorators = true } = options || {}
+  const { dts = false } = options || {}
   const disallowAmbiguousJSXLike = false
 
   return function(Parser: typeof AcornParseClass) {
@@ -176,6 +179,7 @@ export default function tsPlugin(options?: {
     const tt = _acorn.tokTypes
     // @ts-ignore
     const keywordTypes = _acorn.keywordTypes
+    const isIdentifierStart = _acorn.isIdentifierStart
     const lineBreak = _acorn.lineBreak
     const isNewLine = _acorn.isNewLine
     const tokContexts = _acorn.tokContexts
@@ -183,6 +187,7 @@ export default function tsPlugin(options?: {
 
     const {
       tokTypes,
+      tokContexts: tsTokContexts,
       keywordsRegExp,
       tokenIsLiteralPropertyName,
       tokenIsTemplate,
@@ -201,10 +206,13 @@ export default function tsPlugin(options?: {
       return -1
     }
 
-    // @ts-ignore
-    let acornJsx: AcornJsx | undefined
+    // extend decorators
+    Parser = generateParseDecorators(Parser, acornTypeScript, _acorn)
 
-    return class TypeScriptParser extends Parser {
+    // extend jsx
+    Parser = generateJsxParser(_acorn, acornTypeScript, Parser, options?.jsx)
+
+    class TypeScriptParser extends Parser {
       preValue: any = null
       preToken: any = null
       isLookahead: boolean = false
@@ -237,24 +245,52 @@ export default function tsPlugin(options?: {
         return acornTypeScript
       }
 
-      hasJsx() {
-        return Boolean(acornJsx)
+      getTokenFromCodeInType(code: number): TokenType {
+        if (code === 62) {
+          return this.finishOp(tt.relational, 1)
+        }
+        if (code === 60) {
+          return this.finishOp(tt.relational, 1)
+        }
+
+        return super.getTokenFromCode(code)
+      }
+
+      readToken(code: number): any {
+        if (!this.inType) {
+          let context = this.curContext()
+          if (context === tsTokContexts.tc_expr) return this.jsx_readToken()
+
+          if (context === tsTokContexts.tc_oTag || context === tsTokContexts.tc_cTag) {
+            if (isIdentifierStart(code)) return this.jsx_readWord()
+
+            if (code == 62) {
+              ++this.pos
+              return this.finishToken(tokTypes.jsxTagEnd)
+            }
+
+            if ((code === 34 || code === 39) && context == tsTokContexts.tc_oTag)
+              return this.jsx_readString(code)
+          }
+
+          if (code === 60 && this.exprAllowed && this.input.charCodeAt(this.pos + 1) !== 33) {
+            ++this.pos
+            return this.finishToken(tokTypes.jsxTagStart)
+          }
+        }
+        return super.readToken(code)
       }
 
       getTokenFromCode(code: number): TokenType {
         if (this.inType) {
-          if (code === charCodes.greaterThan) {
-            return this.finishOp(tt.relational, 1)
-          }
-          if (code === charCodes.lessThan) {
-            return this.finishOp(tt.relational, 1)
-          }
+          return this.getTokenFromCodeInType(code)
         }
 
-        if (code === charCodes.atSign) {
+        if (code === 64) {
           ++this.pos
           return this.finishToken(tokTypes.at)
         }
+
         return super.getTokenFromCode(code)
       }
 
@@ -286,6 +322,7 @@ export default function tsPlugin(options?: {
         } = { node: null }
         try {
           const node = fn((node = null) => {
+            debugger
             abortSignal.node = node
             throw abortSignal
           })
@@ -328,7 +365,6 @@ export default function tsPlugin(options?: {
         resultError?: any
       ) {
         refExpressionErrors.optionalParametersLoc =
-
           resultError?.loc ?? this.startLoc
       }
 
@@ -379,7 +415,7 @@ export default function tsPlugin(options?: {
       tsIsStartOfStaticBlocks() {
         return (
           this.ts_isContextual(tokTypes.static) &&
-          this.lookaheadCharCode() === charCodes.leftCurlyBrace
+          this.lookaheadCharCode() === 123
         )
       }
 
@@ -858,8 +894,8 @@ export default function tsPlugin(options?: {
         return this.type === type
       }
 
-      matchJsx(type: keyof AcornJsx['tokTypes']): boolean {
-        return this.hasJsx() && this.type === acornJsx.tokTypes[type]
+      matchJsx(type: string): boolean {
+        return this.type === acornTypeScript.tokTypes[type]
       }
 
       ts_eatWithState(type: TokenType, nextCount: number, state: LookaheadState) {
@@ -916,7 +952,7 @@ export default function tsPlugin(options?: {
       tsIsExternalModuleReference(): boolean {
         return (
           this.ts_isContextual(tokTypes.require) &&
-          this.lookaheadCharCode() === charCodes.leftParenthesis
+          this.lookaheadCharCode() === 40
         )
       }
 
@@ -1370,9 +1406,7 @@ export default function tsPlugin(options?: {
         t: any = this.startNode()
       ): any {
         this.tsInType(() => {
-
           if (eatColon) this.expect(tt.colon)
-
           t.typeAnnotation = this.tsParseType()
         })
         return this.finishNode(t, 'TSTypeAnnotation')
@@ -1445,7 +1479,6 @@ export default function tsPlugin(options?: {
               // : type
               return this.tsParseTypeAnnotation(/* eatColon */ false, t)
             }
-
             // : asserts foo
 
             node.parameterName = this.parseIdent()
@@ -1535,7 +1568,6 @@ export default function tsPlugin(options?: {
         const types = []
         do {
           types.push(parseConstituentType())
-
         } while (this.eat(operator))
         if (types.length === 1 && !hasLeadingOperator) {
           return types[0]
@@ -1877,7 +1909,7 @@ export default function tsPlugin(options?: {
                     : keywordTypeFromName(this.value)
               if (
                 nodeType !== undefined &&
-                this.lookaheadCharCode() !== charCodes.dot
+                this.lookaheadCharCode() !== 46
               ) {
                 const node = this.startNode()
                 this.next()
@@ -2269,18 +2301,18 @@ export default function tsPlugin(options?: {
         })
       }
 
-      tsParseTypeAssertion(): any {
-        if (disallowAmbiguousJSXLike) {
-          this.raise(this.start, TypeScriptError.ReservedTypeAssertion)
-        }
-
-        const node = this.startNode()
-        const _const = this.tsTryNextParseConstantContext()
-        node.typeAnnotation = _const || this.tsNextThenParseType()
-        this.expect(tt.relational)
-        node.expression = this.parseMaybeUnary()
-        return this.finishNode(node, 'TSTypeAssertion')
-      }
+      // tsParseTypeAssertion(): any {
+      //   if (disallowAmbiguousJSXLike) {
+      //     this.raise(this.start, TypeScriptError.ReservedTypeAssertion)
+      //   }
+      //
+      //   const node = this.startNode()
+      //   const _const = this.tsTryNextParseConstantContext()
+      //   node.typeAnnotation = _const || this.tsNextThenParseType()
+      //   this.expect(tt.relational)
+      //   node.expression = this.parseMaybeUnary()
+      //   return this.finishNode(node, 'TSTypeAssertion')
+      // }
 
       tsParseTypeArguments(): any {
         const node = this.startNode()
@@ -2297,6 +2329,7 @@ export default function tsPlugin(options?: {
         if (node.params.length === 0) {
           this.raise(this.start, TypeScriptError.EmptyTypeArguments)
         }
+        this.exprAllowed = false
         this.expect(tt.relational)
         return this.finishNode(node, 'TSTypeParameterInstantiation')
       }
@@ -2620,7 +2653,7 @@ export default function tsPlugin(options?: {
         const next = this.nextTokenStart()
         const hasFrom = this.isUnparsedContextual(next, 'from')
         if (
-          this.input.charCodeAt(next) === charCodes.comma ||
+          this.input.charCodeAt(next) === 44 ||
           (tokenIsIdentifier(this.type) && hasFrom)
         ) {
           return true
@@ -2631,8 +2664,8 @@ export default function tsPlugin(options?: {
             this.nextTokenStartSince(next + 4)
           )
           return (
-            nextAfterFrom === charCodes.quotationMark ||
-            nextAfterFrom === charCodes.apostrophe
+            nextAfterFrom === 34 ||
+            nextAfterFrom === 39
           )
         }
         return false
@@ -2817,7 +2850,7 @@ export default function tsPlugin(options?: {
         const next = this.nextTokenStart()
         const hasFrom = this.isUnparsedContextual(next, 'from')
         if (
-          this.input.charCodeAt(next) === charCodes.comma ||
+          this.input.charCodeAt(next) === 44 ||
           (tokenIsIdentifier(this.type) && hasFrom)
         ) {
           return true
@@ -2828,8 +2861,8 @@ export default function tsPlugin(options?: {
             this.nextTokenStartSince(next + 4)
           )
           return (
-            nextAfterFrom === charCodes.quotationMark ||
-            nextAfterFrom === charCodes.apostrophe
+            nextAfterFrom === 34 ||
+            nextAfterFrom === 39
           )
         }
         return false
@@ -3088,7 +3121,7 @@ export default function tsPlugin(options?: {
         if (this.ts_eatWithState(tt._import, 2, enterHead)) {
           if (
             this.ts_isContextual(tokTypes.type) &&
-            this.lookaheadCharCode() !== charCodes.equalsTo
+            this.lookaheadCharCode() !== 61
           ) {
             node.importKind = 'type'
             this.importOrExportOuterKind = 'type'
@@ -3269,142 +3302,133 @@ export default function tsPlugin(options?: {
         }
       }
 
-      // Handle type assertions
-      parseMaybeUnary(
-        refExpressionErrors?: any,
-        sawUnary?: boolean,
-        incDec?: boolean,
-        forInit?: boolean
-      ): Expression {
-        if (!this.hasJsx() && this.match(tt.relational)) {
-          return this.tsParseTypeAssertion()
-        } else {
-          return super.parseMaybeUnary(refExpressionErrors, sawUnary, incDec, forInit)
-        }
-      }
-
       parseExprAtom(refDestructuringErrors?: DestructuringErrors, forInit?: boolean, forNew?: boolean) {
-        // If a division operator appears in an expression position, the
-        // tokenizer got confused, and we force it to read a regexp instead.
-        if (this.type === tt.slash) this.readRegexp()
+        if (this.type === tokTypes.jsxText) {
+          return this.jsx_parseText()
+        } else if (this.type === tokTypes.jsxTagStart) {
+          return this.jsx_parseElement()
+        } else if (this.type === tokTypes.at) {
+          this.parseDecorators()
+          return this.parseExprAtom()
+        } else {
+          // If a division operator appears in an expression position, the
+          // tokenizer got confused, and we force it to read a regexp instead.
 
-        let node, canBeArrow = this['potentialArrowAt'] === this.start
-        switch (this.type) {
-          case tt._super:
-            if (!this['allowSuper'])
-              this.raise(this.start, '\'super\' keyword outside a method')
+          if (this.type === tt.slash) this.readRegexp()
 
-            node = this.startNode()
-            this.next()
-            if (this.type === tt.parenL && !this['allowDirectSuper'])
-              this.raise(node.start, 'super() call outside constructor of a subclass')
-            // The `super` keyword can appear at below:
-            // SuperProperty:
-            //     super [ Expression ]
-            //     super . IdentifierName
-            // SuperCall:
-            //     super ( Arguments )
-            if (this.type !== tt.dot && this.type !== tt.bracketL && this.type !== tt.parenL)
-              this.unexpected()
-            return this.finishNode(node, 'Super')
+          let node, canBeArrow = this['potentialArrowAt'] === this.start
+          switch (this.type) {
+            case tt._super:
+              if (!this['allowSuper'])
+                this.raise(this.start, '\'super\' keyword outside a method')
 
-          case tt._this:
-            node = this.startNode()
-            this.next()
-            return this.finishNode(node, 'ThisExpression')
+              node = this.startNode()
+              this.next()
+              if (this.type === tt.parenL && !this['allowDirectSuper'])
+                this.raise(node.start, 'super() call outside constructor of a subclass')
+              // The `super` keyword can appear at below:
+              // SuperProperty:
+              //     super [ Expression ]
+              //     super . IdentifierName
+              // SuperCall:
+              //     super ( Arguments )
+              if (this.type !== tt.dot && this.type !== tt.bracketL && this.type !== tt.parenL)
+                this.unexpected()
+              return this.finishNode(node, 'Super')
 
-          case tt.name:
-            let startPos = this.start, startLoc = this.startLoc,
-              containsEsc = this.containsEsc
-            let id = this.parseIdent(false)
-            if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === 'async' && !this.canInsertSemicolon() && this.eat(tt._function)) {
-              this.overrideContext(tokContexts.f_expr)
-              return this.parseFunction(this.startNodeAt(startPos, startLoc), 0, false, true, forInit)
-            }
-            if (canBeArrow && !this.canInsertSemicolon()) {
-              if (this.eat(tt.arrow))
-                return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
-              if (this.options.ecmaVersion >= 8 && id.name === 'async' && this.type === tt.name && !containsEsc &&
-                (!this.potentialArrowInForAwait || this.value !== 'of' || this.containsEsc)) {
-                id = this.parseIdent(false)
-                if (this.canInsertSemicolon() || !this.eat(tt.arrow))
-                  this.unexpected()
-                return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], true, forInit)
+            case tt._this:
+              node = this.startNode()
+              this.next()
+              return this.finishNode(node, 'ThisExpression')
+
+            case tt.name:
+              let startPos = this.start, startLoc = this.startLoc,
+                containsEsc = this.containsEsc
+              let id = this.parseIdent(false)
+              if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === 'async' && !this.canInsertSemicolon() && this.eat(tt._function)) {
+                this.overrideContext(tokContexts.f_expr)
+                return this.parseFunction(this.startNodeAt(startPos, startLoc), 0, false, true, forInit)
               }
-            }
-            return id
-          case tt.regexp:
-            let value = this.value
-            node = this.parseLiteral(value.value)
-            node.regex = { pattern: value.pattern, flags: value.flags }
-            return node
-          case tt.num:
-          case tt.string:
-            return this.parseLiteral(this.value)
-          case tt._null:
-          case tt._true:
-          case tt._false:
-            node = this.startNode()
-            node.value = this.type === tt._null ? null : this.type === tt._true
-            node.raw = this.type.keyword
-            this.next()
-            return this.finishNode(node, 'Literal')
+              if (canBeArrow && !this.canInsertSemicolon()) {
+                if (this.eat(tt.arrow))
+                  return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
+                if (this.options.ecmaVersion >= 8 && id.name === 'async' && this.type === tt.name && !containsEsc &&
+                  (!this.potentialArrowInForAwait || this.value !== 'of' || this.containsEsc)) {
+                  id = this.parseIdent(false)
+                  if (this.canInsertSemicolon() || !this.eat(tt.arrow))
+                    this.unexpected()
+                  return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], true, forInit)
+                }
+              }
+              return id
+            case tt.regexp:
+              let value = this.value
+              node = this.parseLiteral(value.value)
+              node.regex = { pattern: value.pattern, flags: value.flags }
+              return node
+            case tt.num:
+            case tt.string:
+              return this.parseLiteral(this.value)
+            case tt._null:
+            case tt._true:
+            case tt._false:
+              node = this.startNode()
+              node.value = this.type === tt._null ? null : this.type === tt._true
+              node.raw = this.type.keyword
+              this.next()
+              return this.finishNode(node, 'Literal')
 
-          case tt.parenL:
-            let start = this.start,
-              expr = this.parseParenAndDistinguishExpression(canBeArrow, forInit)
-            if (refDestructuringErrors) {
-              if (refDestructuringErrors.parenthesizedAssign < 0 && !this.isSimpleAssignTarget(expr))
-                refDestructuringErrors.parenthesizedAssign = start
-              if (refDestructuringErrors.parenthesizedBind < 0)
-                refDestructuringErrors.parenthesizedBind = start
-            }
-            return expr
+            case tt.parenL:
+              let start = this.start,
+                expr = this.parseParenAndDistinguishExpression(canBeArrow, forInit)
+              if (refDestructuringErrors) {
+                if (refDestructuringErrors.parenthesizedAssign < 0 && !this.isSimpleAssignTarget(expr))
+                  refDestructuringErrors.parenthesizedAssign = start
+                if (refDestructuringErrors.parenthesizedBind < 0)
+                  refDestructuringErrors.parenthesizedBind = start
+              }
+              return expr
 
-          case tt.bracketL:
-            node = this.startNode()
-            this.next()
-            node.elements = this.parseExprList(tt.bracketR, true, true, refDestructuringErrors)
-            // NODE check array like here
-            this.tsCheckForInvalidTypeCasts(node.elements)
-            return this.finishNode(node, 'ArrayExpression')
+            case tt.bracketL:
+              node = this.startNode()
+              this.next()
+              node.elements = this.parseExprList(tt.bracketR, true, true, refDestructuringErrors)
+              // NODE check array like here
+              this.tsCheckForInvalidTypeCasts(node.elements)
+              return this.finishNode(node, 'ArrayExpression')
 
-          case tt.braceL:
-            this.overrideContext(tokContexts.b_expr)
-            return this.parseObj(false, refDestructuringErrors)
+            case tt.braceL:
+              this.overrideContext(tokContexts.b_expr)
+              return this.parseObj(false, refDestructuringErrors)
 
-          case tt._function:
-            node = this.startNode()
-            this.next()
-            return this.parseFunction(node, 0)
+            case tt._function:
+              node = this.startNode()
+              this.next()
+              return this.parseFunction(node, 0)
 
-          case tt._class:
-            return this.parseClass(this.startNode(), false)
+            case tt._class:
+              return this.parseClass(this.startNode(), false)
 
-          case tt._new:
-            return this.parseNew()
+            case tt._new:
+              return this.parseNew()
 
-          case tt.backQuote:
-            return this.parseTemplate()
+            case tt.backQuote:
+              return this.parseTemplate()
 
-          case tt._import:
-            if (this.options.ecmaVersion >= 11) {
-              return this.parseExprImport(forNew)
-            } else {
-              return this.unexpected()
-            }
+            case tt._import:
+              if (this.options.ecmaVersion >= 11) {
+                return this.parseExprImport(forNew)
+              } else {
+                return this.unexpected()
+              }
 
-          default:
-            return this.parseExprAtomDefault()
+            default:
+              return this.parseExprAtomDefault()
+          }
         }
       }
 
       parseExprAtomDefault() {
-        if (this.type === tokTypes.at) {
-          this.parseDecorators()
-          return this.parseExprAtom()
-        }
-
         if (tokenIsIdentifier(this.type)) {
           const canBeArrow = this['potentialArrowAt'] === this.start
           const containsEsc = this.containsEsc
@@ -3427,7 +3451,7 @@ export default function tsPlugin(options?: {
               // If the next token begins with "=", commit to parsing an async
               // arrow function. (Peeking ahead for "=" lets us avoid a more
               // expensive full-token lookahead on this common path.)
-              if (this.lookaheadCharCode() === charCodes.equalsTo) {
+              if (this.lookaheadCharCode() === 61) {
                 // although `id` is not used in async arrow unary function,
                 // we don't need to reset `async`'s trailing comments because
                 // it will be attached to the upcoming async arrow binding identifier
@@ -3562,89 +3586,6 @@ export default function tsPlugin(options?: {
         }
 
         return declaration
-      }
-
-      takeDecorators(node: any): void {
-        const decorators =
-          this.decoratorStack[this.decoratorStack.length - 1]
-        if (decorators.length) {
-          node.decorators = decorators
-          this.resetStartLocationFromNode(node, decorators[0])
-          this.decoratorStack[this.decoratorStack.length - 1] = []
-        }
-      }
-
-      parseDecorators(allowExport?: boolean): void {
-        const currentContextDecorators = this.decoratorStack[this.decoratorStack.length - 1]
-        while (this.match(tokTypes.at)) {
-          const decorator = this.parseDecorator()
-          currentContextDecorators.push(decorator)
-        }
-
-        if (this.match(tt._export)) {
-          if (!allowExport) {
-            this.unexpected()
-          }
-
-        } else if (!this.canHaveLeadingDecorator()) {
-          this.raise(this.start, DecoratorsError.UnexpectedLeadingDecorator)
-        }
-      }
-
-      parseDecorator(): any {
-        const node = this.startNode()
-        this.next()
-
-        if (allowDecorators) {
-          // Every time a decorator class expression is evaluated, a new empty array is pushed onto the stack
-          // So that the decorators of any nested class expressions will be dealt with separately
-          this.decoratorStack.push([])
-
-          const startPos = this.start
-          const startLoc = this.startLoc
-          let expr: any
-
-          if (this.match(tt.parenL)) {
-            const startPos = this.start
-            const startLoc = this.startLoc
-            this.next() // eat '('
-            expr = this.parseExpression()
-            this.expect(tt.parenR)
-
-            if (this.options.preserveParens) {
-              let par = this.startNodeAt(startPos, startLoc)
-              par.expression = expr
-              expr = this.finishNode(par, 'ParenthesizedExpression')
-            }
-          } else {
-            expr = this.parseIdent(false)
-
-            while (this.eat(tt.dot)) {
-              const node = this.startNodeAt(startPos, startLoc)
-              node.object = expr
-              node.property = this.parseIdent(true)
-              node.computed = false
-              expr = this.finishNode(node, 'MemberExpression')
-            }
-          }
-
-          node.expression = this.parseMaybeDecoratorArguments(expr)
-          this.decoratorStack.pop()
-        } else {
-          node.expression = this.parseExprSubscripts()
-        }
-        return this.finishNode(node, 'Decorator')
-      }
-
-      parseMaybeDecoratorArguments(expr: any): any {
-        if (this.eat(tt.parenL)) {
-          const node = this.startNodeAtNode(expr)
-          node.callee = expr
-          node.arguments = this.parseExprList(tt.parenR, false)
-          return this.finishNode(node, 'CallExpression')
-        }
-
-        return expr
       }
 
       parseStatement(context: any, topLevel?: any, exports?: any) {
@@ -4249,7 +4190,7 @@ export default function tsPlugin(options?: {
           const context = this.context
           const currentContext = context[context.length - 1]
 
-          if (currentContext === acornJsx.tokContexts.tc_oTag || currentContext === acornJsx.tokContexts.tc_expr) {
+          if (currentContext === acornTypeScript.tokContexts.tc_oTag || currentContext === acornTypeScript.tokContexts.tc_expr) {
             context.pop()
           }
         }
@@ -4742,7 +4683,7 @@ export default function tsPlugin(options?: {
         let isOptionalCall = false
         if (
           this.match(tt.questionDot) &&
-          this.lookaheadCharCode() === charCodes.lessThan
+          this.lookaheadCharCode() === 60
         ) {
           if (noCalls) {
             // NODE: we don't need to change state's stop to false.
@@ -4845,7 +4786,7 @@ export default function tsPlugin(options?: {
               result.type === 'TSInstantiationExpression' &&
               (this.match(tt.dot) ||
                 (this.match(tt.questionDot) &&
-                  this.lookaheadCharCode() !== charCodes.leftParenthesis))
+                  this.lookaheadCharCode() !== 40))
             ) {
               this.raise(
                 this.start,
@@ -5204,8 +5145,6 @@ export default function tsPlugin(options?: {
       }
 
       static parse(input: string, options: Options) {
-        acornJsx = this['acornJsx']
-
         const parser = new this(options, input)
         if (dts) {
           parser.isAmbientContext = true
@@ -5421,7 +5360,7 @@ export default function tsPlugin(options?: {
             if (
               this.isAmbientContext &&
               this.match(tt.comma) &&
-              this.lookaheadCharCode() === charCodes.rightParenthesis
+              this.lookaheadCharCode() === 41
             ) {
               this.next()
               return
@@ -5441,6 +5380,48 @@ export default function tsPlugin(options?: {
       raise(pos: number, message: string) {
         return this.raiseCommonCheck(pos, message, true)
       }
+
+      updateContext(prevType) {
+        if (this.type == tt.braceL) {
+          var curContext = this.curContext()
+          if (curContext == tsTokContexts.tc_oTag) this.context.push(tokContexts.b_expr)
+          else if (curContext == tsTokContexts.tc_expr) this.context.push(tokContexts.b_tmpl)
+          else super.updateContext(prevType)
+          this.exprAllowed = true
+        } else if (this.type === tt.slash && prevType === tokTypes.jsxTagStart) {
+          this.context.length -= 2 // do not consider JSX expr -> JSX open tag -> ... anymore
+          this.context.push(tsTokContexts.tc_cTag) // reconsider as closing
+          // tag context
+          this.exprAllowed = false
+        } else {
+          return super.updateContext(prevType);
+        }
+      }
+
+      // Parses JSX opening tag starting after '<'.
+
+      jsx_parseOpeningElementAt(startPos, startLoc): any {
+        let node = this.startNodeAt(startPos, startLoc)
+        let nodeName = this.jsx_parseElementName()
+        if (nodeName) node.name = nodeName
+
+        if (this.match(tt.relational) || this.match(tt.bitShift)) {
+          const typeArguments = this.tsTryParseAndCatch(() =>
+            // @ts-expect-error: refine typings
+            this.tsParseTypeArgumentsInExpression(),
+          );
+          if (typeArguments) node.typeParameters = typeArguments;
+        }
+
+        node.attributes = []
+        while (this.type !== tt.slash && this.type !== tokTypes.jsxTagEnd)
+          node.attributes.push(this.jsx_parseAttribute())
+        node.selfClosing = this.eat(tt.slash)
+        this.expect(tokTypes.jsxTagEnd)
+        return this.finishNode(node, nodeName ? 'JSXOpeningElement' : 'JSXOpeningFragment')
+      }
     }
+
+    return TypeScriptParser
   }
 }
