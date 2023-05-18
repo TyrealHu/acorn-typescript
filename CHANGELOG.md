@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.3...v1.2.4) (2023-05-18)
+
+
+### 🐛 Bug Fixes
+
+* bugs of exports ([ca33992](https://github.com/TyrealHu/acorn-typescript/commit/ca339928e51df18805078801681025b31169982a))
+* support import default in commonjs tsc ([bb69884](https://github.com/TyrealHu/acorn-typescript/commit/bb69884dd47b636096c41a3ffd021dde84703c1f))
+
 ### [1.2.3](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.2...v1.2.3) (2023-05-18)
 
 
