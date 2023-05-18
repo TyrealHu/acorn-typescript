@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.0...v1.2.1) (2023-05-18)
+
+
+### ✨ Features
+
+* 🚀 support parse accessor modifier ([ac1e54b](https://github.com/TyrealHu/acorn-typescript/commit/ac1e54b48f33699a1f2aac871e659e41c1bcd9ed))
+
 ## [1.2.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.1.2...v1.2.0) (2023-04-03)
 
 
