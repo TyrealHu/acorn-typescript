@@ -5441,7 +5441,3 @@ export {
   tsPlugin as default,
   tsPlugin
 }
-
-if (typeof exports === 'object' && typeof module !== 'undefined') {
-  module.exports = tsPlugin
-}
