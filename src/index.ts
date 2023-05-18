@@ -3528,11 +3528,8 @@ export default function tsPlugin(options?: {
           this.parseVarId(decl, kind)
           if (this.eat(tt.eq)) {
             decl.init = this.parseMaybeAssign(isFor)
-
           } else if (!allowMissingInitializer && kind === 'const' && !(this.type === tt._in || (this.options.ecmaVersion >= 6 && this.isContextual('of')))) {
-
             this.unexpected()
-
           } else if (!allowMissingInitializer && decl.id.type !== 'Identifier' && !(isFor && (this.type === tt._in || this.isContextual('of')))) {
             this.raise(this.lastTokEnd, 'Complex binding patterns require an initialization value')
           } else {
