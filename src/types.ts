@@ -1,17 +1,20 @@
 import type { Position, TokContext, TokenType } from 'acorn'
 
-export type Accessibility = "public" | "protected" | "private";
+export type Accessibility = 'public' | 'protected' | 'private';
 
-export type VarianceAnnotations = "in" | "out";
+export type VarianceAnnotations = 'in' | 'out';
+
+export type ClassAccessor = 'accessor'
 
 export type TsModifier =
-  | "readonly"
-  | "abstract"
-  | "declare"
-  | "static"
-  | "override"
+  | 'readonly'
+  | 'abstract'
+  | 'declare'
+  | 'static'
+  | 'override'
   | Accessibility
-  | VarianceAnnotations;
+  | VarianceAnnotations
+  | ClassAccessor;
 
 export type LookaheadState = {
   pos: number;
@@ -33,11 +36,11 @@ export type LookaheadState = {
 };
 
 export type ParsingContext =
-  | "EnumMembers"
-  | "HeritageClauseElement"
-  | "TupleElementTypes"
-  | "TypeMembers"
-  | "TypeParametersOrArguments";
+  | 'EnumMembers'
+  | 'HeritageClauseElement'
+  | 'TupleElementTypes'
+  | 'TypeMembers'
+  | 'TypeParametersOrArguments';
 
 export type ModifierBase = {
   accessibility?: Accessibility;

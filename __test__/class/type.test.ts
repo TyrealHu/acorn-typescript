@@ -238,5 +238,18 @@ describe('class', () => {
 
     equalNode(node, ClassTypeSnapshot.DefiniteProperty)
   })
+
+  it('accessor', () => {
+    const node = parseSource(generateSource([
+      `class Person {`,
+      `  accessor name: string;`,
+      `  constructor(name: string) {`,
+      `    this.name = name;`,
+      `  }`,
+      `}`
+    ]))
+
+    console.log(JSON.stringify(node, null, 2))
+  })
 })
 

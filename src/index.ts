@@ -56,6 +56,10 @@ function assert(x: boolean): void {
   }
 }
 
+function tsIsClassAccessor(modifier: string): any {
+  return modifier === 'accessor'
+}
+
 function tsIsVarianceAnnotations(
   modifier: string
 ): any {
@@ -2248,6 +2252,7 @@ export default function tsPlugin(options?: {
               enforceOrder(startLoc, modifier, modifier, 'override')
               enforceOrder(startLoc, modifier, modifier, 'static')
               enforceOrder(startLoc, modifier, modifier, 'readonly')
+              enforceOrder(startLoc, modifier, modifier, 'accessor')
 
               modifiedMap.accessibility = modifier
               modified['accessibility'] = modifier
@@ -2255,11 +2260,23 @@ export default function tsPlugin(options?: {
           } else if (tsIsVarianceAnnotations(modifier)) {
             if (modified[modifier]) {
               this.raise(this.start, TypeScriptError.DuplicateModifier({ modifier }))
-            }
-            modifiedMap[modifier] = modifier
-            modified[modifier] = true
+            } else {
+              enforceOrder(startLoc, modifier, 'in', 'out')
 
-            enforceOrder(startLoc, modifier, 'in', 'out')
+              modifiedMap[modifier] = modifier
+              modified[modifier] = true
+            }
+          } else if (tsIsClassAccessor(modifier)) {
+            if (modified[modifier]) {
+              this.raise(this.start, TypeScriptError.DuplicateModifier({ modifier }))
+            } else {
+              incompatible(startLoc, modifier, 'accessor', 'readonly')
+              incompatible(startLoc, modifier, 'accessor', 'static')
+              incompatible(startLoc, modifier, 'accessor', 'override')
+
+              modifiedMap[modifier] = modifier
+              modified[modifier] = true
+            }
           } else {
             if (Object.hasOwnProperty.call(modified, modifier)) {
               this.raise(this.start, TypeScriptError.DuplicateModifier({ modifier }))
@@ -2271,9 +2288,10 @@ export default function tsPlugin(options?: {
 
               incompatible(startLoc, modifier, 'declare', 'override')
               incompatible(startLoc, modifier, 'static', 'abstract')
+
+              modifiedMap[modifier] = modifier
+              modified[modifier] = true
             }
-            modifiedMap[modifier] = modifier
-            modified[modifier] = true
           }
 
           if (disallowedModifiers?.includes(modifier)) {
@@ -3909,6 +3927,7 @@ export default function tsPlugin(options?: {
           'private',
           'public',
           'protected',
+          'accessor',
           'override',
           'abstract',
           'readonly',
@@ -3929,9 +3948,7 @@ export default function tsPlugin(options?: {
             if (this.tsHasSomeModifiers(node, modifiers)) {
               this.raise(this.start, TypeScriptError.StaticBlockCannotHaveModifier)
             }
-
             if (ecmaVersion >= 13) {
-
               super.parseClassStaticBlock(
                 node
               )
@@ -3973,7 +3990,6 @@ export default function tsPlugin(options?: {
 
             node.static = isStatic
             if (isStatic) {
-
               if (!(this.isClassElementNameStart() || this.type === tt.star)) {
                 keyName = 'static'
               }
@@ -4006,12 +4022,10 @@ export default function tsPlugin(options?: {
               // 'async', 'get', 'set', or 'static' were not a keyword contextually.
               // The last token is any of those. Make it the element name.
               node.computed = false
-
               node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)
               node.key.name = keyName
               this.finishNode(node.key, 'Identifier')
             } else {
-
               this.parseClassElementName(node)
             }
 
@@ -5391,7 +5405,7 @@ export default function tsPlugin(options?: {
           // tag context
           this.exprAllowed = false
         } else {
-          return super.updateContext(prevType);
+          return super.updateContext(prevType)
         }
       }
 
@@ -5405,9 +5419,9 @@ export default function tsPlugin(options?: {
         if (this.match(tt.relational) || this.match(tt.bitShift)) {
           const typeArguments = this.tsTryParseAndCatch(() =>
             // @ts-expect-error: refine typings
-            this.tsParseTypeArgumentsInExpression(),
-          );
-          if (typeArguments) node.typeParameters = typeArguments;
+            this.tsParseTypeArgumentsInExpression()
+          )
+          if (typeArguments) node.typeParameters = typeArguments
         }
 
         node.attributes = []
