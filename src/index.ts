@@ -163,7 +163,7 @@ function keywordTypeFromName(
   }
 }
 
-export default function tsPlugin(options?: {
+function tsPlugin(options?: {
   // default false
   dts?: boolean
   // default false
@@ -5435,4 +5435,8 @@ export default function tsPlugin(options?: {
 
     return TypeScriptParser
   }
+}
+
+export {
+  tsPlugin as default
 }
