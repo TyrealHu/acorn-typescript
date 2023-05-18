@@ -48,7 +48,7 @@ import type {
 import generateParseDecorators from './extentions/decorators'
 import generateJsxParser from './extentions/jsx'
 
-export const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
+const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
 
 function assert(x: boolean): void {
   if (!x) {
@@ -121,7 +121,7 @@ function tsIsAccessModifier(modifier: string): modifier is Accessibility {
   )
 }
 
-export function tokenCanStartExpression(token: TokenType): boolean {
+function tokenCanStartExpression(token: TokenType): boolean {
   return Boolean(token.startsExpr)
 }
 
@@ -5438,5 +5438,10 @@ function tsPlugin(options?: {
 }
 
 export {
-  tsPlugin as default
+  tsPlugin as default,
+  tsPlugin
+}
+
+if (typeof exports === 'object' && typeof module !== 'undefined') {
+  exports = tsPlugin
 }
