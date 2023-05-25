@@ -4,7 +4,7 @@
   "description": "Alternative, TypeScript parser",
   "source": "src/index.ts",
   "main": "lib/index.js",
-  "module": "lib/index.esm.js",
+  "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production --no-sourcemap --tsconfig ./tsconfig.json --format esm,cjs",
@@ -16,7 +16,7 @@
   "exports": {
     ".": [
       {
-        "import": "./lib/index.esm.js",
+        "import": "./lib/index.mjs",
         "require": "./lib/index.js",
         "default": "./lib/index.js"
       },
