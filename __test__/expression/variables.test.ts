@@ -187,4 +187,13 @@ describe('variables declaration', () => {
 
     equalNode(node, VariablesTypeSnapshot.ExpressionEqualAsyncArrowFunction)
   })
+
+  it('1 as  number', () => {
+    const node = parseSource(generateSource([
+      `let test = 1 as number`
+    ]))
+
+    console.log(JSON.stringify(node, null, 2))
+    // equalNode(node, VariablesTypeSnapshot.ExpressionEqualAsyncArrowFunction)
+  })
 })
