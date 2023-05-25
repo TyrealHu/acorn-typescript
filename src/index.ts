@@ -5169,7 +5169,7 @@ function tsPlugin(options?: {
           parser.isAmbientContext = true
         }
         parser.nextToken()
-        return (parser as any).parseExpressionAt()
+        return parser.parseExpression()
       }
 
       parseImportSpecifiers() {
