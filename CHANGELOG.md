@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.6...v1.2.7) (2023-05-25)
+
+
+### ♻️ Code Refactoring
+
+* use mjs instead of esm ([8700da9](https://github.com/TyrealHu/acorn-typescript/commit/8700da9e7bda11043a39329a7693a8b85c5eec45))
+
 ### [1.2.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.5...v1.2.6) (2023-05-25)
 
 
