@@ -3797,7 +3797,7 @@ function tsPlugin(options?: {
 
       parseClassId(
         node: any,
-        isStatement: boolean
+        isStatement: boolean | 'nullableID'
       ): void {
         if ((!isStatement) && this.ts_isContextual(tokTypes.implements)) {
           return
@@ -5006,7 +5006,7 @@ function tsPlugin(options?: {
 
       parseClass(
         node: any,
-        isStatement: boolean | string
+        isStatement: boolean | 'nullableID'
       ): any {
         const oldInAbstractClass = this.inAbstractClass
         this.inAbstractClass = !!(node as any).abstract
@@ -5020,7 +5020,7 @@ function tsPlugin(options?: {
           const oldStrict = this.strict
           this.strict = true
 
-          this.parseClassId(node, Boolean(isStatement))
+          this.parseClassId(node, isStatement)
           this.parseClassSuper(node)
 
           const privateNameMap = this.enterClassBody()

@@ -701,6 +701,49 @@ const NormalExportSnapshot = {
     ],
     'sourceType': 'module'
   },
+  ExportDefaultAnonymousClass: {
+    type: "Program",
+    start: 0,
+    end: 23,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 1, column: 23, index: 23 },
+    },
+    body: [
+      {
+        type: "ExportDefaultDeclaration",
+        start: 0,
+        end: 23,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 1, column: 23, index: 23 },
+        },
+        exportKind: "value",
+        declaration: {
+          type: "ClassDeclaration",
+          start: 15,
+          end: 23,
+          loc: {
+            start: { line: 1, column: 15, index: 15 },
+            end: { line: 1, column: 23, index: 23 },
+          },
+          id: null,
+          superClass: null,
+          body: {
+            type: "ClassBody",
+            start: 21,
+            end: 23,
+            loc: {
+              start: { line: 1, column: 21, index: 21 },
+              end: { line: 1, column: 23, index: 23 },
+            },
+            body: [],
+          },
+        },
+      },
+    ],
+    sourceType: "module",
+  },
   ExportConst: {
     'type': 'Program',
     'start': 0,

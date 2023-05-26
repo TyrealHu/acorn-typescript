@@ -42,6 +42,14 @@ describe('normal export', () => {
     equalNode(node, NormalExportSnapshot.ExportDefaultArrowFunction)
   })
 
+  it('export default anonymous class', () => {
+    const node = parseSource(generateSource([
+      `export default class {}`,
+    ]))
+
+    equalNode(node, NormalExportSnapshot.ExportDefaultAnonymousClass)
+  })
+
   it('export const', () => {
     const node = parseSource(generateSource([
       `export const test = '12345'`
