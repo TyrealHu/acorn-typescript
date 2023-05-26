@@ -3990,13 +3990,7 @@ function tsPlugin(options?: {
 
             node.static = isStatic
             if (isStatic) {
-              if (!(
-                this.isClassElementNameStart() ||
-                this.type === tt.star ||
-                this.type === tokTypes.async ||
-                this.type === tokTypes.get ||
-                this.type === tokTypes.set
-              )) {
+              if (!(this.isClassElementNameStart() || this.type === tt.star)) {
                 keyName = 'static'
               }
             }
@@ -4057,6 +4051,14 @@ function tsPlugin(options?: {
         }
         // --- end
         return node
+      }
+
+      isClassElementNameStart() {
+        if (this.tsIsIdentifier()) {
+          return true
+        }
+      
+        return super.isClassElementNameStart()
       }
 
       parseClassSuper(node: any): void {
