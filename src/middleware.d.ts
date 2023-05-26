@@ -155,7 +155,7 @@ export class AcornParseClass extends Parser {
 
   parseParenItem(item: any): any
 
-  parseClassId(node: any, isStatement?: boolean)
+  parseClassId(node: any, isStatement?: boolean | 'nullableID')
 
   parseClassField(field: any): any
 
