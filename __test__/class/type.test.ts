@@ -122,6 +122,21 @@ describe('class', () => {
     equalNode(node, ClassTypeSnapshot.StaticFunction)
   })
 
+  it('static async methods', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` static async study(): Promise<void> {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      ` static async * students(): AsyncIterable<string> {`,
+      `   yield 'John Smith'`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.StaticAsyncMethods)
+  })
+
   it('private class method', () => {
     const node = parseSource(generateSource([
       `class Student {`,

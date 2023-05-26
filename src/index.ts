@@ -3990,7 +3990,7 @@ function tsPlugin(options?: {
 
             node.static = isStatic
             if (isStatic) {
-              if (!(this.isClassElementNameStart() || this.type === tt.star)) {
+              if (!(this.isClassElementNameStart() || this.type === tt.star || this.type === tokTypes.async)) {
                 keyName = 'static'
               }
             }
