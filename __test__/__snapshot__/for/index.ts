@@ -312,7 +312,121 @@ const ForSnapshot = {
       }
     ],
     'sourceType': 'module'
-  }
-}
+  },
+  inWithoutDecl: {
+    type: "Program",
+    start: 0,
+    end: 42,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 3, column: 1, index: 42 },
+    },
+    body: [
+      {
+        type: "ForInStatement",
+        start: 0,
+        end: 42,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 3, column: 1, index: 42 },
+        },
+        left: {
+          type: "Identifier",
+          start: 5,
+          end: 9,
+          loc: {
+            start: { line: 1, column: 5, index: 5 },
+            end: { line: 1, column: 9, index: 9 },
+          },
+          name: "word",
+        },
+        right: {
+          type: "Identifier",
+          start: 13,
+          end: 18,
+          loc: {
+            start: { line: 1, column: 13, index: 13 },
+            end: { line: 1, column: 18, index: 18 },
+          },
+          name: "words",
+        },
+        body: {
+          type: "BlockStatement",
+          start: 20,
+          end: 42,
+          loc: {
+            start: { line: 1, column: 20, index: 20 },
+            end: { line: 3, column: 1, index: 42 },
+          },
+          body: [
+            {
+              type: "ExpressionStatement",
+              start: 23,
+              end: 40,
+              loc: {
+                start: { line: 2, column: 1, index: 23 },
+                end: { line: 2, column: 18, index: 40 },
+              },
+              expression: {
+                type: "CallExpression",
+                start: 23,
+                end: 40,
+                loc: {
+                  start: { line: 2, column: 1, index: 23 },
+                  end: { line: 2, column: 18, index: 40 },
+                },
+                callee: {
+                  type: "MemberExpression",
+                  start: 23,
+                  end: 34,
+                  loc: {
+                    start: { line: 2, column: 1, index: 23 },
+                    end: { line: 2, column: 12, index: 34 },
+                  },
+                  object: {
+                    type: "Identifier",
+                    start: 23,
+                    end: 30,
+                    loc: {
+                      start: { line: 2, column: 1, index: 23 },
+                      end: { line: 2, column: 8, index: 30 },
+                    },
+                    name: "console",
+                  },
+                  property: {
+                    type: "Identifier",
+                    start: 31,
+                    end: 34,
+                    loc: {
+                      start: { line: 2, column: 9, index: 31 },
+                      end: { line: 2, column: 12, index: 34 },
+                    },
+                    name: "log",
+                  },
+                  computed: false,
+                  optional: false,
+                },
+                arguments: [
+                  {
+                    type: "Identifier",
+                    start: 35,
+                    end: 39,
+                    loc: {
+                      start: { line: 2, column: 13, index: 35 },
+                      end: { line: 2, column: 17, index: 39 },
+                    },
+                    name: "word",
+                  },
+                ],
+                optional: false,
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  },
+};
 
-export default ForSnapshot
+export default ForSnapshot;

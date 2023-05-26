@@ -3073,7 +3073,7 @@ function tsPlugin(options?: {
             forInit
           )
         }
-        return super.parseExprOp(left, leftStartPos, leftStartLoc, minPrec)
+        return super.parseExprOp(left, leftStartPos, leftStartLoc, minPrec, forInit)
       }
 
       /**

@@ -12,5 +12,14 @@ describe('for', () => {
 
     equalNode(node, ForSnapshot.of)
   })
+  it('in without decl', () => {
+    const node = parseSource(generateSource([
+      `for (word in words) {`,
+      ` console.log(word)`,
+      `}`
+    ]))
+
+    equalNode(node, ForSnapshot.inWithoutDecl)
+  })
 })
 
