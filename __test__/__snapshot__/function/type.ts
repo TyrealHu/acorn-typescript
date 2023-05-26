@@ -4315,6 +4315,82 @@ const FunctionTypeSnapshot = {
     ],
     sourceType: "module",
   },
+  AsyncArrowFunctionWithOneParam: {
+    type: "Program",
+    start: 0,
+    end: 17,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 1, column: 17, index: 17 },
+    },
+    body: [
+      {
+        type: "ExpressionStatement",
+        start: 0,
+        end: 17,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 1, column: 17, index: 17 },
+        },
+        expression: {
+          type: "AssignmentExpression",
+          start: 0,
+          end: 17,
+          loc: {
+            start: { line: 1, column: 0, index: 0 },
+            end: { line: 1, column: 17, index: 17 },
+          },
+          operator: "=",
+          left: {
+            type: "Identifier",
+            start: 0,
+            end: 1,
+            loc: {
+              start: { line: 1, column: 0, index: 0 },
+              end: { line: 1, column: 1, index: 1 },
+            },
+            name: "a",
+          },
+          right: {
+            type: "ArrowFunctionExpression",
+            start: 4,
+            end: 17,
+            loc: {
+              start: { line: 1, column: 4, index: 4 },
+              end: { line: 1, column: 17, index: 17 },
+            },
+            id: null,
+            expression: false,
+            generator: false,
+            async: true,
+            params: [
+              {
+                type: "Identifier",
+                start: 10,
+                end: 11,
+                loc: {
+                  start: { line: 1, column: 10, index: 10 },
+                  end: { line: 1, column: 11, index: 11 },
+                },
+                name: "x",
+              },
+            ],
+            body: {
+              type: "BlockStatement",
+              start: 15,
+              end: 17,
+              loc: {
+                start: { line: 1, column: 15, index: 15 },
+                end: { line: 1, column: 17, index: 17 },
+              },
+              body: [],
+            },
+          },
+        },
+      },
+    ],
+    sourceType: "module",
+  },  
   DeclareFunctionTypes: {
     'type': 'Program',
     'start': 0,
