@@ -4446,7 +4446,6 @@ function tsPlugin(options?: {
             if (!isBinding && node.left.type === 'TSTypeCastExpression') {
               node.left = this.typeCastToParameter(node.left)
             }
-            return node
           /* fall through */
           default:
             return super.toAssignable(node, isBinding, refDestructuringErrors)
