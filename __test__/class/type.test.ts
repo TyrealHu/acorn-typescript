@@ -122,6 +122,32 @@ describe('class', () => {
     equalNode(node, ClassTypeSnapshot.StaticFunction)
   })
 
+  it('static async methods', () => {
+    const node = parseSource(generateSource([
+      `class Student {`,
+      ` static async study(): Promise<void> {`,
+      `   console.log('Im studying')`,
+      ` }`,
+      ` static async * students(): AsyncIterable<string> {`,
+      `   yield 'John Smith'`,
+      ` }`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.StaticAsyncMethods)
+  })
+
+  it('static getter/setter', () => {
+    const node = parseSource(generateSource([
+      `class C {`,
+      `  static get foo(): number {}`,
+      `  static set foo(value: number) {}`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.StaticGetterSetter)
+  })
+
   it('private class method', () => {
     const node = parseSource(generateSource([
       `class Student {`,

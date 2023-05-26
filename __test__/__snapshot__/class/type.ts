@@ -5556,6 +5556,514 @@ const ClassTypeSnapshot = {
     ],
     'sourceType': 'module'
   },
+  StaticAsyncMethods: {
+    type: "Program",
+    start: 0,
+    end: 166,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 8, column: 1, index: 166 },
+    },
+    body: [
+      {
+        type: "ClassDeclaration",
+        start: 0,
+        end: 166,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 8, column: 1, index: 166 },
+        },
+        id: {
+          type: "Identifier",
+          start: 6,
+          end: 13,
+          loc: {
+            start: { line: 1, column: 6, index: 6 },
+            end: { line: 1, column: 13, index: 13 },
+          },
+          name: "Student",
+        },
+        superClass: null,
+        body: {
+          type: "ClassBody",
+          start: 14,
+          end: 166,
+          loc: {
+            start: { line: 1, column: 14, index: 14 },
+            end: { line: 8, column: 1, index: 166 },
+          },
+          body: [
+            {
+              type: "MethodDefinition",
+              start: 17,
+              end: 87,
+              loc: {
+                start: { line: 2, column: 1, index: 17 },
+                end: { line: 4, column: 2, index: 87 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 30,
+                end: 35,
+                loc: {
+                  start: { line: 2, column: 14, index: 30 },
+                  end: { line: 2, column: 19, index: 35 },
+                },
+                name: "study",
+              },
+              kind: "method",
+              value: {
+                type: "FunctionExpression",
+                start: 35,
+                end: 87,
+                loc: {
+                  start: { line: 2, column: 19, index: 35 },
+                  end: { line: 4, column: 2, index: 87 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: true,
+                params: [],
+                returnType: {
+                  type: "TSTypeAnnotation",
+                  start: 37,
+                  end: 52,
+                  loc: {
+                    start: { line: 2, column: 21, index: 37 },
+                    end: { line: 2, column: 36, index: 52 },
+                  },
+                  typeAnnotation: {
+                    type: "TSTypeReference",
+                    start: 39,
+                    end: 52,
+                    loc: {
+                      start: { line: 2, column: 23, index: 39 },
+                      end: { line: 2, column: 36, index: 52 },
+                    },
+                    typeName: {
+                      type: "Identifier",
+                      start: 39,
+                      end: 46,
+                      loc: {
+                        start: { line: 2, column: 23, index: 39 },
+                        end: { line: 2, column: 30, index: 46 },
+                      },
+                      name: "Promise",
+                    },
+                    typeParameters: {
+                      type: "TSTypeParameterInstantiation",
+                      start: 46,
+                      end: 52,
+                      loc: {
+                        start: { line: 2, column: 30, index: 46 },
+                        end: { line: 2, column: 36, index: 52 },
+                      },
+                      params: [
+                        {
+                          type: "TSVoidKeyword",
+                          start: 47,
+                          end: 51,
+                          loc: {
+                            start: { line: 2, column: 31, index: 47 },
+                            end: { line: 2, column: 35, index: 51 },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                body: {
+                  type: "BlockStatement",
+                  start: 53,
+                  end: 87,
+                  loc: {
+                    start: { line: 2, column: 37, index: 53 },
+                    end: { line: 4, column: 2, index: 87 },
+                  },
+                  body: [
+                    {
+                      type: "ExpressionStatement",
+                      start: 58,
+                      end: 84,
+                      loc: {
+                        start: { line: 3, column: 3, index: 58 },
+                        end: { line: 3, column: 29, index: 84 },
+                      },
+                      expression: {
+                        type: "CallExpression",
+                        start: 58,
+                        end: 84,
+                        loc: {
+                          start: { line: 3, column: 3, index: 58 },
+                          end: { line: 3, column: 29, index: 84 },
+                        },
+                        callee: {
+                          type: "MemberExpression",
+                          start: 58,
+                          end: 69,
+                          loc: {
+                            start: { line: 3, column: 3, index: 58 },
+                            end: { line: 3, column: 14, index: 69 },
+                          },
+                          object: {
+                            type: "Identifier",
+                            start: 58,
+                            end: 65,
+                            loc: {
+                              start: { line: 3, column: 3, index: 58 },
+                              end: { line: 3, column: 10, index: 65 },
+                            },
+                            name: "console",
+                          },
+                          property: {
+                            type: "Identifier",
+                            start: 66,
+                            end: 69,
+                            loc: {
+                              start: { line: 3, column: 11, index: 66 },
+                              end: { line: 3, column: 14, index: 69 },
+                            },
+                            name: "log",
+                          },
+                          computed: false,
+                          optional: false,
+                        },
+                        arguments: [
+                          {
+                            type: "Literal",
+                            start: 70,
+                            end: 83,
+                            loc: {
+                              start: { line: 3, column: 15, index: 70 },
+                              end: { line: 3, column: 28, index: 83 },
+                            },
+                            value: "Im studying",
+                            raw: "'Im studying'",
+                          },
+                        ],
+                        optional: false,
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              type: "MethodDefinition",
+              start: 89,
+              end: 164,
+              loc: {
+                start: { line: 5, column: 1, index: 89 },
+                end: { line: 7, column: 2, index: 164 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 104,
+                end: 112,
+                loc: {
+                  start: { line: 5, column: 16, index: 104 },
+                  end: { line: 5, column: 24, index: 112 },
+                },
+                name: "students",
+              },
+              kind: "method",
+              value: {
+                type: "FunctionExpression",
+                start: 112,
+                end: 164,
+                loc: {
+                  start: { line: 5, column: 24, index: 112 },
+                  end: { line: 7, column: 2, index: 164 },
+                },
+                id: null,
+                expression: false,
+                generator: true,
+                async: true,
+                params: [],
+                returnType: {
+                  type: "TSTypeAnnotation",
+                  start: 114,
+                  end: 137,
+                  loc: {
+                    start: { line: 5, column: 26, index: 114 },
+                    end: { line: 5, column: 49, index: 137 },
+                  },
+                  typeAnnotation: {
+                    type: "TSTypeReference",
+                    start: 116,
+                    end: 137,
+                    loc: {
+                      start: { line: 5, column: 28, index: 116 },
+                      end: { line: 5, column: 49, index: 137 },
+                    },
+                    typeName: {
+                      type: "Identifier",
+                      start: 116,
+                      end: 129,
+                      loc: {
+                        start: { line: 5, column: 28, index: 116 },
+                        end: { line: 5, column: 41, index: 129 },
+                      },
+                      name: "AsyncIterable",
+                    },
+                    typeParameters: {
+                      type: "TSTypeParameterInstantiation",
+                      start: 129,
+                      end: 137,
+                      loc: {
+                        start: { line: 5, column: 41, index: 129 },
+                        end: { line: 5, column: 49, index: 137 },
+                      },
+                      params: [
+                        {
+                          type: "TSStringKeyword",
+                          start: 130,
+                          end: 136,
+                          loc: {
+                            start: { line: 5, column: 42, index: 130 },
+                            end: { line: 5, column: 48, index: 136 },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                body: {
+                  type: "BlockStatement",
+                  start: 138,
+                  end: 164,
+                  loc: {
+                    start: { line: 5, column: 50, index: 138 },
+                    end: { line: 7, column: 2, index: 164 },
+                  },
+                  body: [
+                    {
+                      type: "ExpressionStatement",
+                      start: 143,
+                      end: 161,
+                      loc: {
+                        start: { line: 6, column: 3, index: 143 },
+                        end: { line: 6, column: 21, index: 161 },
+                      },
+                      expression: {
+                        type: "YieldExpression",
+                        start: 143,
+                        end: 161,
+                        loc: {
+                          start: { line: 6, column: 3, index: 143 },
+                          end: { line: 6, column: 21, index: 161 },
+                        },
+                        delegate: false,
+                        argument: {
+                          type: "Literal",
+                          start: 149,
+                          end: 161,
+                          loc: {
+                            start: { line: 6, column: 9, index: 149 },
+                            end: { line: 6, column: 21, index: 161 },
+                          },
+                          value: "John Smith",
+                          raw: "'John Smith'",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  },
+  StaticGetterSetter: {
+    type: "Program",
+    start: 0,
+    end: 76,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 4, column: 1, index: 76 },
+    },
+    body: [
+      {
+        type: "ClassDeclaration",
+        start: 0,
+        end: 76,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 4, column: 1, index: 76 },
+        },
+        id: {
+          type: "Identifier",
+          start: 6,
+          end: 7,
+          loc: {
+            start: { line: 1, column: 6, index: 6 },
+            end: { line: 1, column: 7, index: 7 },
+          },
+          name: "C",
+        },
+        superClass: null,
+        body: {
+          type: "ClassBody",
+          start: 8,
+          end: 76,
+          loc: {
+            start: { line: 1, column: 8, index: 8 },
+            end: { line: 4, column: 1, index: 76 },
+          },
+          body: [
+            {
+              type: "MethodDefinition",
+              start: 12,
+              end: 39,
+              loc: {
+                start: { line: 2, column: 2, index: 12 },
+                end: { line: 2, column: 29, index: 39 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 23,
+                end: 26,
+                loc: {
+                  start: { line: 2, column: 13, index: 23 },
+                  end: { line: 2, column: 16, index: 26 },
+                },
+                name: "foo",
+              },
+              kind: "get",
+              value: {
+                type: "FunctionExpression",
+                start: 26,
+                end: 39,
+                loc: {
+                  start: { line: 2, column: 16, index: 26 },
+                  end: { line: 2, column: 29, index: 39 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [],
+                returnType: {
+                  type: "TSTypeAnnotation",
+                  start: 28,
+                  end: 36,
+                  loc: {
+                    start: { line: 2, column: 18, index: 28 },
+                    end: { line: 2, column: 26, index: 36 },
+                  },
+                  typeAnnotation: {
+                    type: "TSNumberKeyword",
+                    start: 30,
+                    end: 36,
+                    loc: {
+                      start: { line: 2, column: 20, index: 30 },
+                      end: { line: 2, column: 26, index: 36 },
+                    },
+                  },
+                },
+                body: {
+                  type: "BlockStatement",
+                  start: 37,
+                  end: 39,
+                  loc: {
+                    start: { line: 2, column: 27, index: 37 },
+                    end: { line: 2, column: 29, index: 39 },
+                  },
+                  body: [],
+                },
+              },
+            },
+            {
+              type: "MethodDefinition",
+              start: 42,
+              end: 74,
+              loc: {
+                start: { line: 3, column: 2, index: 42 },
+                end: { line: 3, column: 34, index: 74 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 53,
+                end: 56,
+                loc: {
+                  start: { line: 3, column: 13, index: 53 },
+                  end: { line: 3, column: 16, index: 56 },
+                },
+                name: "foo",
+              },
+              kind: "set",
+              value: {
+                type: "FunctionExpression",
+                start: 56,
+                end: 74,
+                loc: {
+                  start: { line: 3, column: 16, index: 56 },
+                  end: { line: 3, column: 34, index: 74 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [
+                  {
+                    type: "Identifier",
+                    start: 57,
+                    end: 30,
+                    loc: {
+                      start: { line: 3, column: 17, index: 57 },
+                      end: { line: 3, column: 30, index: 70 },
+                    },
+                    name: "value",
+                    typeAnnotation: {
+                      type: "TSTypeAnnotation",
+                      start: 62,
+                      end: 70,
+                      loc: {
+                        start: { line: 3, column: 22, index: 62 },
+                        end: { line: 3, column: 30, index: 70 },
+                      },
+                      typeAnnotation: {
+                        type: "TSNumberKeyword",
+                        start: 64,
+                        end: 70,
+                        loc: {
+                          start: { line: 3, column: 24, index: 64 },
+                          end: { line: 3, column: 30, index: 70 },
+                        },
+                      },
+                    },
+                  },
+                ],
+                body: {
+                  type: "BlockStatement",
+                  start: 72,
+                  end: 74,
+                  loc: {
+                    start: { line: 3, column: 32, index: 72 },
+                    end: { line: 3, column: 34, index: 74 },
+                  },
+                  body: [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  },
   ComputedProperty: {
     'type': 'Program',
     'start': 0,

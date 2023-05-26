@@ -4053,6 +4053,14 @@ function tsPlugin(options?: {
         return node
       }
 
+      isClassElementNameStart() {
+        if (this.tsIsIdentifier()) {
+          return true
+        }
+      
+        return super.isClassElementNameStart()
+      }
+
       parseClassSuper(node: any): void {
         super.parseClassSuper(node)
         // handle `extends f<<T>
