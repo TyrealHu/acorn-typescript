@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.8](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.7...v1.2.8) (2023-05-26)
+
+
+### 🐛 Bug Fixes
+
+* syntax error in async generator function ([94c3cfa](https://github.com/TyrealHu/acorn-typescript/commit/94c3cfabd54e360f45dc7e78f076d59e8a8646c0))
+* syntax error in export default anonymous class ([af10901](https://github.com/TyrealHu/acorn-typescript/commit/af10901ebd1306289d020c4b5ca4615b23ab01d0))
+* syntax error in for-in without decl ([c544039](https://github.com/TyrealHu/acorn-typescript/commit/c5440398da480de7ef8f421495ed9fb7cf826593))
+* syntax error in static async methods ([eba80f4](https://github.com/TyrealHu/acorn-typescript/commit/eba80f48c5e92c42fe594c9ada7dfc831b0386bc))
+* syntax error in static getter/setter ([e8fb775](https://github.com/TyrealHu/acorn-typescript/commit/e8fb77586897610b7fc893b1eb275c92910c1af2))
+* syntax error when arrow function parameter is assignment pattern ([7f84e5c](https://github.com/TyrealHu/acorn-typescript/commit/7f84e5c29afdf74a0306547072cde2156c02a76d))
+
 ### [1.2.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.6...v1.2.7) (2023-05-25)
 
 
