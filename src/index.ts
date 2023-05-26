@@ -5224,7 +5224,7 @@ function tsPlugin(options?: {
           } else {
             node.importKind = 'value'
             if (this.eatContextual('as')) {
-              node.local = super.parseIdent()
+              node.local = this.parseIdent()
             } else {
               this.checkUnreserved(node.imported)
               node.local = node.imported
