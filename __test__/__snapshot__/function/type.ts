@@ -4145,6 +4145,176 @@ const FunctionTypeSnapshot = {
     ],
     'sourceType': 'module'
   },
+  AsyncGeneratorFunction: {
+    type: "Program",
+    start: 0,
+    end: 71,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 3, column: 1, index: 71 },
+    },
+    body: [
+      {
+        type: "FunctionDeclaration",
+        start: 0,
+        end: 71,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 3, column: 1, index: 71 },
+        },
+        id: {
+          type: "Identifier",
+          start: 17,
+          end: 21,
+          loc: {
+            start: { line: 1, column: 17, index: 17 },
+            end: { line: 1, column: 21, index: 21 },
+          },
+          name: "test",
+        },
+        expression: false,
+        generator: true,
+        async: true,
+        params: [
+          {
+            type: "Identifier",
+            start: 22,
+            end: 42,
+            loc: {
+              start: { line: 1, column: 22, index: 22 },
+              end: { line: 1, column: 42, index: 42 },
+            },
+            name: "p",
+            typeAnnotation: {
+              type: "TSTypeAnnotation",
+              start: 23,
+              end: 42,
+              loc: {
+                start: { line: 1, column: 23, index: 23 },
+                end: { line: 1, column: 42, index: 42 },
+              },
+              typeAnnotation: {
+                type: "TSTypeReference",
+                start: 25,
+                end: 42,
+                loc: {
+                  start: { line: 1, column: 25, index: 25 },
+                  end: { line: 1, column: 42, index: 42 },
+                },
+                typeName: {
+                  type: "Identifier",
+                  start: 25,
+                  end: 32,
+                  loc: {
+                    start: { line: 1, column: 25, index: 25 },
+                    end: { line: 1, column: 32, index: 32 },
+                  },
+                  name: "Promise",
+                },
+                typeParameters: {
+                  type: "TSTypeParameterInstantiation",
+                  start: 32,
+                  end: 42,
+                  loc: {
+                    start: { line: 1, column: 32, index: 32 },
+                    end: { line: 1, column: 42, index: 42 },
+                  },
+                  params: [
+                    {
+                      type: "TSArrayType",
+                      start: 33,
+                      end: 41,
+                      loc: {
+                        start: { line: 1, column: 33, index: 33 },
+                        end: { line: 1, column: 41, index: 41 },
+                      },
+                      elementType: {
+                        type: "TSStringKeyword",
+                        start: 33,
+                        end: 39,
+                        loc: {
+                          start: { line: 1, column: 33, index: 33 },
+                          end: { line: 1, column: 39, index: 39 },
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
+        returnType: {
+          type: "TSTypeAnnotation",
+          start: 43,
+          end: 49,
+          loc: {
+            start: { line: 1, column: 43, index: 43 },
+            end: { line: 1, column: 49, index: 49 },
+          },
+          typeAnnotation: {
+            type: "TSVoidKeyword",
+            start: 45,
+            end: 49,
+            loc: {
+              start: { line: 1, column: 45, index: 45 },
+              end: { line: 1, column: 49, index: 49 },
+            },
+          },
+        },
+        body: {
+          type: "BlockStatement",
+          start: 50,
+          end: 71,
+          loc: {
+            start: { line: 1, column: 50, index: 50 },
+            end: { line: 3, column: 1, index: 71 },
+          },
+          body: [
+            {
+              type: "ExpressionStatement",
+              start: 54,
+              end: 69,
+              loc: {
+                start: { line: 2, column: 2, index: 54 },
+                end: { line: 2, column: 17, index: 69 },
+              },
+              expression: {
+                type: "YieldExpression",
+                start: 54,
+                end: 69,
+                loc: {
+                  start: { line: 2, column: 2, index: 54 },
+                  end: { line: 2, column: 17, index: 69 },
+                },
+                delegate: true,
+                argument: {
+                  type: "AwaitExpression",
+                  start: 62,
+                  end: 69,
+                  loc: {
+                    start: { line: 2, column: 10, index: 62 },
+                    end: { line: 2, column: 17, index: 69 },
+                  },
+                  argument: {
+                    type: "Identifier",
+                    start: 68,
+                    end: 69,
+                    loc: {
+                      start: { line: 2, column: 16, index: 68 },
+                      end: { line: 2, column: 17, index: 69 },
+                    },
+                    name: "p",
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  },
   DeclareFunctionTypes: {
     'type': 'Program',
     'start': 0,

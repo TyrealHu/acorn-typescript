@@ -187,6 +187,16 @@ describe('function type test', () => {
     equalNode(node, FunctionTypeSnapshot.ComplexFunction)
   })
 
+  it('async generator function', () => {
+    const node = parseSource(generateSource([
+      `async function * test(p: Promise<string[]>): void {`,
+      `  yield * await p`,
+      `}`
+    ]))
+
+    equalNode(node, FunctionTypeSnapshot.AsyncGeneratorFunction)
+  })
+
   it('declare function types', () => {
     const node = parseSource(generateSource([
       `function test(a: string): string`,
