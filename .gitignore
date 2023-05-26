@@ -110,4 +110,5 @@ lib
 
 .DS_Store
 
-
+test262/yarn.lock
+test262/package-lock.json
