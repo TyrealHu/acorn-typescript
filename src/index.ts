@@ -2906,14 +2906,14 @@ function tsPlugin(options?: {
 
       parseFunction(
         node: any,
-        statement?: any,
+        statement?: number,
         allowExpressionBody?: boolean,
         isAsync?: boolean,
         forInit?: boolean
       ) {
         this.initFunction(node)
         if (this.options.ecmaVersion >= 9 || this.options.ecmaVersion >= 6 && !isAsync) {
-          if (this.type === tt.star && (statement && FUNC_HANGING_STATEMENT)) {
+          if (this.type === tt.star && (statement & FUNC_HANGING_STATEMENT)) {
             this.unexpected()
           }
           node.generator = this.eat(tt.star)
@@ -2921,9 +2921,9 @@ function tsPlugin(options?: {
         if (this.options.ecmaVersion >= 8) {
           node.async = !!isAsync
         }
-        if (statement && FUNC_STATEMENT) {
-          node.id = (statement && FUNC_NULLABLE_ID) && this.type !== tt.name ? null : this.parseIdent()
-          if (node.id && !(statement && FUNC_HANGING_STATEMENT)) {
+        if (statement & FUNC_STATEMENT) {
+          node.id = (statement & FUNC_NULLABLE_ID) && this.type !== tt.name ? null : this.parseIdent()
+          if (node.id && !(statement & FUNC_HANGING_STATEMENT)) {
             // If it is a regular function declaration in sloppy mode, then it is
             // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
             // mode depends on properties of the current scope (see
@@ -2944,7 +2944,7 @@ function tsPlugin(options?: {
         this.awaitIdentPos = 0
         this.enterScope(functionFlags(node.async, node.generator))
 
-        if (!(statement && FUNC_STATEMENT)) {
+        if (!(statement & FUNC_STATEMENT)) {
           node.id = this.type === tt.name ? this.parseIdent() : null
         }
 
