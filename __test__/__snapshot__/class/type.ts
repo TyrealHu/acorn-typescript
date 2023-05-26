@@ -5882,6 +5882,188 @@ const ClassTypeSnapshot = {
     ],
     sourceType: "module",
   },
+  StaticGetterSetter: {
+    type: "Program",
+    start: 0,
+    end: 76,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 4, column: 1, index: 76 },
+    },
+    body: [
+      {
+        type: "ClassDeclaration",
+        start: 0,
+        end: 76,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 4, column: 1, index: 76 },
+        },
+        id: {
+          type: "Identifier",
+          start: 6,
+          end: 7,
+          loc: {
+            start: { line: 1, column: 6, index: 6 },
+            end: { line: 1, column: 7, index: 7 },
+          },
+          name: "C",
+        },
+        superClass: null,
+        body: {
+          type: "ClassBody",
+          start: 8,
+          end: 76,
+          loc: {
+            start: { line: 1, column: 8, index: 8 },
+            end: { line: 4, column: 1, index: 76 },
+          },
+          body: [
+            {
+              type: "MethodDefinition",
+              start: 12,
+              end: 39,
+              loc: {
+                start: { line: 2, column: 2, index: 12 },
+                end: { line: 2, column: 29, index: 39 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 23,
+                end: 26,
+                loc: {
+                  start: { line: 2, column: 13, index: 23 },
+                  end: { line: 2, column: 16, index: 26 },
+                },
+                name: "foo",
+              },
+              kind: "get",
+              value: {
+                type: "FunctionExpression",
+                start: 26,
+                end: 39,
+                loc: {
+                  start: { line: 2, column: 16, index: 26 },
+                  end: { line: 2, column: 29, index: 39 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [],
+                returnType: {
+                  type: "TSTypeAnnotation",
+                  start: 28,
+                  end: 36,
+                  loc: {
+                    start: { line: 2, column: 18, index: 28 },
+                    end: { line: 2, column: 26, index: 36 },
+                  },
+                  typeAnnotation: {
+                    type: "TSNumberKeyword",
+                    start: 30,
+                    end: 36,
+                    loc: {
+                      start: { line: 2, column: 20, index: 30 },
+                      end: { line: 2, column: 26, index: 36 },
+                    },
+                  },
+                },
+                body: {
+                  type: "BlockStatement",
+                  start: 37,
+                  end: 39,
+                  loc: {
+                    start: { line: 2, column: 27, index: 37 },
+                    end: { line: 2, column: 29, index: 39 },
+                  },
+                  body: [],
+                },
+              },
+            },
+            {
+              type: "MethodDefinition",
+              start: 42,
+              end: 74,
+              loc: {
+                start: { line: 3, column: 2, index: 42 },
+                end: { line: 3, column: 34, index: 74 },
+              },
+              static: true,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 53,
+                end: 56,
+                loc: {
+                  start: { line: 3, column: 13, index: 53 },
+                  end: { line: 3, column: 16, index: 56 },
+                },
+                name: "foo",
+              },
+              kind: "set",
+              value: {
+                type: "FunctionExpression",
+                start: 56,
+                end: 74,
+                loc: {
+                  start: { line: 3, column: 16, index: 56 },
+                  end: { line: 3, column: 34, index: 74 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [
+                  {
+                    type: "Identifier",
+                    start: 57,
+                    end: 30,
+                    loc: {
+                      start: { line: 3, column: 17, index: 57 },
+                      end: { line: 3, column: 30, index: 70 },
+                    },
+                    name: "value",
+                    typeAnnotation: {
+                      type: "TSTypeAnnotation",
+                      start: 62,
+                      end: 70,
+                      loc: {
+                        start: { line: 3, column: 22, index: 62 },
+                        end: { line: 3, column: 30, index: 70 },
+                      },
+                      typeAnnotation: {
+                        type: "TSNumberKeyword",
+                        start: 64,
+                        end: 70,
+                        loc: {
+                          start: { line: 3, column: 24, index: 64 },
+                          end: { line: 3, column: 30, index: 70 },
+                        },
+                      },
+                    },
+                  },
+                ],
+                body: {
+                  type: "BlockStatement",
+                  start: 72,
+                  end: 74,
+                  loc: {
+                    start: { line: 3, column: 32, index: 72 },
+                    end: { line: 3, column: 34, index: 74 },
+                  },
+                  body: [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  },
   ComputedProperty: {
     'type': 'Program',
     'start': 0,

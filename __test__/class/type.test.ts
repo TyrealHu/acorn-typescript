@@ -137,6 +137,17 @@ describe('class', () => {
     equalNode(node, ClassTypeSnapshot.StaticAsyncMethods)
   })
 
+  it('static getter/setter', () => {
+    const node = parseSource(generateSource([
+      `class C {`,
+      `  static get foo(): number {}`,
+      `  static set foo(value: number) {}`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.StaticGetterSetter)
+  })
+
   it('private class method', () => {
     const node = parseSource(generateSource([
       `class Student {`,
