@@ -125,31 +125,8 @@ function generateTsTokenType() {
 
 function generateTsKwTokenType() {
   return {
-    as: kwLike('name', { startsExpr }),
-    assert: kwLike('assert', { startsExpr }),
-    async: kwLike('async', { startsExpr }),
-    await: kwLike('await', { startsExpr }),
-    from: kwLike('from', { startsExpr }),
-    get: kwLike('get', { startsExpr }),
-    let: kwLike('let', { startsExpr }),
-    meta: kwLike('meta', { startsExpr }),
-    of: kwLike('of', { startsExpr }),
-    sent: kwLike('sent', { startsExpr }),
-    set: kwLike('set', { startsExpr }),
-    static: kwLike('static', { startsExpr }),
-    yield: kwLike('yield', { startsExpr }),
-
     asserts: kwLike('asserts', { startsExpr }),
-    checks: kwLike('checks', { startsExpr }),
-    exports: kwLike('exports', { startsExpr }),
     global: kwLike('global', { startsExpr }),
-    implements: kwLike('implements', { startsExpr }),
-    intrinsic: kwLike('intrinsic', { startsExpr }),
-    infer: kwLike('infer', { startsExpr }),
-    is: kwLike('is', { startsExpr }),
-    mixins: kwLike('mixins', { startsExpr }),
-    proto: kwLike('proto', { startsExpr }),
-    require: kwLike('require', { startsExpr }),
     keyof: kwLike('keyof', { startsExpr }),
     readonly: kwLike('readonly', { startsExpr }),
     unique: kwLike('unique', { startsExpr }),
@@ -159,8 +136,7 @@ function generateTsKwTokenType() {
     module: kwLike('module', { startsExpr }),
     namespace: kwLike('namespace', { startsExpr }),
     interface: kwLike('interface', { startsExpr }),
-    type: kwLike('type', { startsExpr }),
-    opaque: kwLike('opaque', { startsExpr })
+    type: kwLike('type', { startsExpr })
   }
 }
 
