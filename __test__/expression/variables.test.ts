@@ -193,7 +193,6 @@ describe('variables declaration', () => {
       `let test = 1 as number`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
-    // equalNode(node, VariablesTypeSnapshot.ExpressionEqualAsyncArrowFunction)
+    equalNode(node, VariablesTypeSnapshot.OneAsNumber)
   })
 })

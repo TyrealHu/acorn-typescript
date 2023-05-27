@@ -4302,7 +4302,79 @@ const VariablesTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
-  }
+  },
+  OneAsNumber: {
+    type: "Program",
+    start: 0,
+    end: 22,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 1, column: 22, index: 22 },
+    },
+    body: [
+      {
+        type: "VariableDeclaration",
+        start: 0,
+        end: 22,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 1, column: 22, index: 22 },
+        },
+        declarations: [
+          {
+            type: "VariableDeclarator",
+            start: 4,
+            end: 22,
+            loc: {
+              start: { line: 1, column: 4, index: 4 },
+              end: { line: 1, column: 22, index: 22 },
+            },
+            id: {
+              type: "Identifier",
+              start: 4,
+              end: 8,
+              loc: {
+                start: { line: 1, column: 4, index: 4 },
+                end: { line: 1, column: 8, index: 8 },
+              },
+              name: "test",
+            },
+            init: {
+              type: "TSAsExpression",
+              start: 11,
+              end: 22,
+              loc: {
+                start: { line: 1, column: 11, index: 11 },
+                end: { line: 1, column: 22, index: 22 },
+              },
+              expression: {
+                type: "Literal",
+                start: 11,
+                end: 12,
+                loc: {
+                  start: { line: 1, column: 11, index: 11 },
+                  end: { line: 1, column: 12, index: 12 },
+                },
+                value: 1,
+                raw: "1",
+              },
+              typeAnnotation: {
+                type: "TSNumberKeyword",
+                start: 16,
+                end: 22,
+                loc: {
+                  start: { line: 1, column: 16, index: 16 },
+                  end: { line: 1, column: 22, index: 22 },
+                },
+              },
+            },
+          },
+        ],
+        kind: "let",
+      },
+    ],
+    sourceType: "module",
+  }  
 }
 
 export default VariablesTypeSnapshot

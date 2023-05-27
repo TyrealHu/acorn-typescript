@@ -7,7 +7,6 @@ describe('arrow-function type test', () => {
       `(x = 42): void => {}`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
     equalNode(node, ArrowFunctionTypeSnapshot.AssignmentPattern)
   })
 })
