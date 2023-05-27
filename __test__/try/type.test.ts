@@ -22,4 +22,16 @@ describe('try statement', function() {
     // console.log(JSON.stringify(node, null, 2))
     equalNode(node, TryTypeSnapshot.WithType)
   })
+
+  it('catch redeclared var statement captured', function() {
+    const node = parseSource(generateSource([
+      `try {`,
+      `  throw new Error();`,
+      `} catch (foo) {`,
+      `  var foo = "initializer in catch";`,
+      `}`
+    ]))
+
+    equalNode(node, TryTypeSnapshot.CatchRedeclaredVarStatementCaptured)
+  })
 })
