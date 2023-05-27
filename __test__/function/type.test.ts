@@ -197,6 +197,14 @@ describe('function type test', () => {
     equalNode(node, FunctionTypeSnapshot.AsyncGeneratorFunction)
   })
 
+  it('async arrow function with one param', () => {
+    const node = parseSource(generateSource([
+      `a = async x => {}`
+    ]))
+
+    equalNode(node, FunctionTypeSnapshot.AsyncArrowFunctionWithOneParam)
+  })
+
   it('declare function types', () => {
     const node = parseSource(generateSource([
       `function test(a: string): string`,
