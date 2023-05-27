@@ -474,6 +474,140 @@ const TryTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  CatchRedeclaredVarStatementCaptured: {
+    type: "Program",
+    start: 0,
+    end: 80,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 5, column: 1, index: 80 },
+    },
+    body: [
+      {
+        type: "TryStatement",
+        start: 0,
+        end: 80,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 5, column: 1, index: 80 },
+        },
+        block: {
+          type: "BlockStatement",
+          start: 4,
+          end: 28,
+          loc: {
+            start: { line: 1, column: 4, index: 4 },
+            end: { line: 3, column: 1, index: 28 },
+          },
+          body: [
+            {
+              type: "ThrowStatement",
+              start: 8,
+              end: 26,
+              loc: {
+                start: { line: 2, column: 2, index: 8 },
+                end: { line: 2, column: 20, index: 26 },
+              },
+              argument: {
+                type: "NewExpression",
+                start: 14,
+                end: 25,
+                loc: {
+                  start: { line: 2, column: 8, index: 14 },
+                  end: { line: 2, column: 19, index: 25 },
+                },
+                callee: {
+                  type: "Identifier",
+                  start: 18,
+                  end: 23,
+                  loc: {
+                    start: { line: 2, column: 12, index: 18 },
+                    end: { line: 2, column: 17, index: 23 },
+                  },
+                  name: "Error",
+                },
+                arguments: [],
+              },
+            },
+          ],
+        },
+        handler: {
+          type: "CatchClause",
+          start: 29,
+          end: 80,
+          loc: {
+            start: { line: 3, column: 2, index: 29 },
+            end: { line: 5, column: 1, index: 80 },
+          },
+          param: {
+            type: "Identifier",
+            start: 36,
+            end: 39,
+            loc: {
+              start: { line: 3, column: 9, index: 36 },
+              end: { line: 3, column: 12, index: 39 },
+            },
+            name: "foo",
+          },
+          body: {
+            type: "BlockStatement",
+            start: 41,
+            end: 80,
+            loc: {
+              start: { line: 3, column: 14, index: 41 },
+              end: { line: 5, column: 1, index: 80 },
+            },
+            body: [
+              {
+                type: "VariableDeclaration",
+                start: 45,
+                end: 78,
+                loc: {
+                  start: { line: 4, column: 2, index: 45 },
+                  end: { line: 4, column: 35, index: 78 },
+                },
+                declarations: [
+                  {
+                    type: "VariableDeclarator",
+                    start: 49,
+                    end: 77,
+                    loc: {
+                      start: { line: 4, column: 6, index: 49 },
+                      end: { line: 4, column: 34, index: 77 },
+                    },
+                    id: {
+                      type: "Identifier",
+                      start: 49,
+                      end: 52,
+                      loc: {
+                        start: { line: 4, column: 6, index: 49 },
+                        end: { line: 4, column: 9, index: 52 },
+                      },
+                      name: "foo",
+                    },
+                    init: {
+                      type: "Literal",
+                      start: 55,
+                      end: 77,
+                      loc: {
+                        start: { line: 4, column: 12, index: 55 },
+                        end: { line: 4, column: 34, index: 77 },
+                      },
+                      value: "initializer in catch",
+                      raw: '"initializer in catch"',
+                    },
+                  },
+                ],
+                kind: "var",
+              },
+            ],
+          },
+        },
+        finalizer: null,
+      },
+    ],
+    sourceType: "module",
   }
 }
 

@@ -15,9 +15,8 @@ import {
   BIND_TS_INTERFACE,
   BIND_TS_NAMESPACE,
   BIND_TS_TYPE,
-  SCOPE_OTHER,
-  SCOPE_SIMPLE_CATCH,
-  SCOPE_TS_MODULE
+  TS_SCOPE_OTHER,
+  TS_SCOPE_TS_MODULE
 } from './scopeflags'
 import { skipWhiteSpaceToLineBreak } from './whitespace'
 import {
@@ -993,7 +992,7 @@ function tsPlugin(options?: {
 
       tsParseModuleBlock(): Node {
         const node = this.startNode()
-        super.enterScope(SCOPE_OTHER)
+        super.enterScope(TS_SCOPE_OTHER)
         this.expect(tt.braceL)
         // Inside of a module block is considered "top-level", meaning it can have imports and exports.
         node.body = []
@@ -1023,7 +1022,7 @@ function tsPlugin(options?: {
         }
         if (this.match(tt.braceL)) {
 
-          super.enterScope(SCOPE_TS_MODULE)
+          super.enterScope(TS_SCOPE_TS_MODULE)
 
           node.body = this.tsParseModuleBlock()
 
@@ -2588,7 +2587,7 @@ function tsPlugin(options?: {
             // Would like to use tsParseAmbientExternalModuleDeclaration here, but already ran past "global".
             if (this.match(tt.braceL)) {
 
-              super.enterScope(SCOPE_TS_MODULE)
+              super.enterScope(TS_SCOPE_TS_MODULE)
               const mod = node
               mod.global = true
               mod.id = expr
@@ -2695,7 +2694,7 @@ function tsPlugin(options?: {
           node.body = inner
         } else {
 
-          super.enterScope(SCOPE_TS_MODULE)
+          super.enterScope(TS_SCOPE_TS_MODULE)
 
           node.body = this.tsParseModuleBlock()
 
@@ -4945,7 +4944,7 @@ function tsPlugin(options?: {
       parseCatchClauseParam() {
         const param = this.parseBindingAtom()
         let simple = param.type === 'Identifier'
-        this.enterScope(simple ? SCOPE_SIMPLE_CATCH : 0)
+        this.enterScope(simple ? acornScope.SCOPE_SIMPLE_CATCH : 0)
         this.checkLValPattern(param, simple ? acornScope.BIND_SIMPLE_CATCH : acornScope.BIND_LEXICAL)
         // start add ts support
         const type = this.tsTryParseTypeAnnotation()
