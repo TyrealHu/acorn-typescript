@@ -2126,7 +2126,7 @@ function tsPlugin(options?: {
         // more things are considered modifiers there.
         // This implementation only handles modifiers not handled by @babel/parser itself. And "static".
         // TODO: Would be nice to avoid lookahead. Want a hasLineBreakUpNext() method...
-        this.next()
+        this.next(true)
         return this.tsTokenCanFollowModifier()
       }
 

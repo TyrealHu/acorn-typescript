@@ -10742,7 +10742,90 @@ const ClassTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
-  }
+  },
+  EscapedKeywordProperty: {
+    type: "Program",
+    start: 0,
+    end: 28,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 3, column: 1, index: 28 },
+    },
+    body: [
+      {
+        type: "ClassDeclaration",
+        start: 0,
+        end: 28,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 3, column: 1, index: 28 },
+        },
+        id: {
+          type: "Identifier",
+          start: 6,
+          end: 7,
+          loc: {
+            start: { line: 1, column: 6, index: 6 },
+            end: { line: 1, column: 7, index: 7 },
+          },
+          name: "C",
+        },
+        superClass: null,
+        body: {
+          type: "ClassBody",
+          start: 8,
+          end: 28,
+          loc: {
+            start: { line: 1, column: 8, index: 8 },
+            end: { line: 3, column: 1, index: 28 },
+          },
+          body: [
+            {
+              type: "PropertyDefinition",
+              start: 11,
+              end: 26,
+              loc: {
+                start: { line: 2, column: 1, index: 11 },
+                end: { line: 2, column: 16, index: 26 },
+              },
+              static: false,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 11,
+                end: 18,
+                loc: {
+                  start: { line: 2, column: 1, index: 11 },
+                  end: { line: 2, column: 8, index: 18 },
+                },
+                name: "in",
+              },
+              typeAnnotation: {
+                type: "TSTypeAnnotation",
+                start: 18,
+                end: 26,
+                loc: {
+                  start: { line: 2, column: 8, index: 18 },
+                  end: { line: 2, column: 16, index: 26 },
+                },
+                typeAnnotation: {
+                  type: "TSStringKeyword",
+                  start: 20,
+                  end: 26,
+                  loc: {
+                    start: { line: 2, column: 10, index: 20 },
+                    end: { line: 2, column: 16, index: 26 },
+                  },
+                },
+              },
+              value: null,
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  }  
 }
 
 export default ClassTypeSnapshot

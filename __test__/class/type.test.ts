@@ -275,7 +275,17 @@ describe('class', () => {
       `}`
     ]))
 
-    console.log(JSON.stringify(node, null, 2))
+    equalNode(node, ClassTypeSnapshot.Accessor)
+  })
+
+  it.only('escaped keyword property ', () => {
+    const node = parseSource(generateSource([
+      `class C {`,
+      ` \\u0069n: string`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.EscapedKeywordProperty)
   })
 })
 
