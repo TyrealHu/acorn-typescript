@@ -418,7 +418,7 @@ function tsPlugin(options?: {
 
       tsIsStartOfStaticBlocks() {
         return (
-          this.ts_isContextual(tokTypes.static) &&
+          this.isContextual('static') &&
           this.lookaheadCharCode() === 123
         )
       }
@@ -818,38 +818,8 @@ function tsPlugin(options?: {
         return state.type === token && !state.containsEsc
       }
 
-      isContextual(keyword: string): boolean {
-        switch (keyword) {
-          case 'let': {
-            return this.ts_isContextual(tokTypes.let)
-          }
-          case 'of': {
-            return this.ts_isContextual(tokTypes.of)
-          }
-          case 'yield': {
-            return this.ts_isContextual(tokTypes.yield)
-          }
-          case 'await': {
-            return this.ts_isContextual(tokTypes.await)
-          }
-          case 'async': {
-            return this.ts_isContextual(tokTypes.async)
-          }
-          default: {
-            return super.isContextual(keyword)
-          }
-        }
-      }
-
       isContextualWithState(keyword: string, state: LookaheadState): boolean {
-        switch (keyword) {
-          case 'let': {
-            return this.ts_isContextualWithState(state, tokTypes.let)
-          }
-          default: {
-            return state.type === tt.name && state.value === keyword && !state.containsEsc
-          }
-        }
+        return state.type === tt.name && state.value === keyword && !state.containsEsc
       }
 
       tsIsStartOfMappedType(): boolean {
@@ -949,13 +919,13 @@ function tsPlugin(options?: {
           return false
         } else {
 
-          super.eatContextual(name)
+          return super.eatContextual(name)
         }
       }
 
       tsIsExternalModuleReference(): boolean {
         return (
-          this.ts_isContextual(tokTypes.require) &&
+          this.isContextual('require') &&
           this.lookaheadCharCode() === 40
         )
       }
@@ -1073,7 +1043,7 @@ function tsPlugin(options?: {
         let starttype = this.type
         let kind: 'let' | null
 
-        if (this.ts_isContextual(tokTypes.let)) {
+        if (this.isContextual('let')) {
           starttype = tt._var
           kind = 'let' as const
         }
@@ -1427,7 +1397,7 @@ function tsPlugin(options?: {
 
       tsParseThisTypeOrThisTypePredicate(): any {
         const thisKeyword = this.tsParseThisTypeNode()
-        if (this.ts_isContextual(tokTypes.is) && !this.hasPrecedingLineBreak()) {
+        if (this.isContextual('is') && !this.hasPrecedingLineBreak()) {
           return this.tsParseThisTypePredicate(thisKeyword)
         } else {
           return thisKeyword
@@ -1436,7 +1406,7 @@ function tsPlugin(options?: {
 
       tsParseTypePredicatePrefix(): Identifier | undefined | null {
         const id = this.parseIdent()
-        if (this.ts_isContextual(tokTypes.is) && !this.hasPrecedingLineBreak()) {
+        if (this.isContextual('is') && !this.hasPrecedingLineBreak()) {
           this.next()
           return id
         }
@@ -1950,7 +1920,7 @@ function tsPlugin(options?: {
           tokenIsTSTypeOperator(this.type) && !this.containsEsc
         return isTypeOperator
           ? this.tsParseTypeOperator()
-          : this.ts_isContextual(tokTypes.infer)
+          : this.isContextual('infer')
             ? this.tsParseInferType()
             : this.tsInAllowConditionalTypesContext(() =>
               this.tsParseArrayTypeOrHigher()
@@ -2652,14 +2622,14 @@ function tsPlugin(options?: {
             (type === tokTypes.type || type === tokTypes.interface) &&
             !this.containsEsc
           ) {
-            const { type: nextType } = this.lookahead()
+            const ahead = this.lookahead()
             // If we see any variable name other than `from` after `type` keyword,
             // we consider it as flow/typescript type exports
             // note that this approach may fail on some pedantic cases
             // export type from = number
             if (
-              (tokenIsIdentifier(nextType) && nextType !== tokTypes.from) ||
-              nextType === tt.braceL
+              (tokenIsIdentifier(ahead.type) && !this.isContextualWithState('from', ahead)) ||
+              ahead.type === tt.braceL
             ) {
               return false
             }
@@ -2842,21 +2812,21 @@ function tsPlugin(options?: {
 
         const { type } = this
         if (tokenIsIdentifier(type)) {
-          if ((type === tokTypes.async && !this.containsEsc) || type === tokTypes.let) {
+          if (this.isContextual('async') || this.isContextual('let')) {
             return false
           }
           if (
             (type === tokTypes.type || type === tokTypes.interface) &&
             !this.containsEsc
           ) {
-            const { type: nextType } = this.lookahead()
+            const ahead = this.lookahead()
             // If we see any variable name other than `from` after `type` keyword,
             // we consider it as flow/typescript type exports
             // note that this approach may fail on some pedantic cases
             // export type from = number
             if (
-              (tokenIsIdentifier(nextType) && nextType !== tokTypes.from) ||
-              nextType === tt.braceL
+              (tokenIsIdentifier(ahead.type) && !this.isContextualWithState('from', ahead)) ||
+              ahead.type === tt.braceL
             ) {
               return false
             }
@@ -3049,7 +3019,7 @@ function tsPlugin(options?: {
         if (
           tt._in.binop > minPrec &&
           !this.hasPrecedingLineBreak() &&
-          this.ts_isContextual(tokTypes.as)
+          this.isContextual('as')
         ) {
           const node = this.startNodeAt(
             leftStartPos,
@@ -3097,7 +3067,7 @@ function tsPlugin(options?: {
             // import type, { a } from "b";
             ahead.type !== tt.comma &&
             // import type from "a";
-            ahead.type !== tokTypes.from &&
+            !this.isContextualWithState('from', ahead) &&
             // import type = require("a");
             ahead.type !== tt.eq &&
             this.ts_eatContextualWithState('type', 1, enterHead)
@@ -3799,7 +3769,7 @@ function tsPlugin(options?: {
         node: any,
         isStatement: boolean | 'nullableID'
       ): void {
-        if ((!isStatement) && this.ts_isContextual(tokTypes.implements)) {
+        if ((!isStatement) && this.isContextual('implements')) {
           return
         }
         super.parseClassId(
@@ -5301,10 +5271,10 @@ function tsPlugin(options?: {
 
         const loc = leftOfAs.start
 
-        if (this.ts_isContextual(tokTypes.as)) {
+        if (this.isContextual('as')) {
           // { type as ...? }
           const firstAs = this.parseIdent()
-          if (this.ts_isContextual(tokTypes.as)) {
+          if (this.isContextual('as')) {
             // { type as as ...? }
             const secondAs = this.parseIdent()
             if (tokenIsKeywordOrIdentifier(this.type)) {
@@ -5336,7 +5306,7 @@ function tsPlugin(options?: {
           hasTypeSpecifier = true
           if (isImport) {
             leftOfAs = super.parseIdent(true)
-            if (!this.ts_isContextual(tokTypes.as)) {
+            if (!this.isContextual('as')) {
 
               this.checkUnreserved(leftOfAs)
             }
