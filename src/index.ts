@@ -2139,7 +2139,7 @@ function tsPlugin(options?: {
         }
 
         const modifier = this.value as any
-        if (allowedModifiers.indexOf(modifier) !== -1) {
+        if (allowedModifiers.indexOf(modifier) !== -1 && !this.containsEsc) {
           if (stopOnStartOfClassStaticBlock && this.tsIsStartOfStaticBlocks()) {
             return undefined
           }

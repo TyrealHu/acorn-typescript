@@ -148,6 +148,17 @@ describe('class', () => {
     equalNode(node, ClassTypeSnapshot.StaticGetterSetter)
   })
 
+  it('escaped static method ', () => {
+    // See: https://github.com/tc39/test262/blob/main/test/language/statements/class/syntax/escaped-static.js
+    expect(() => {
+      parseSource(generateSource([
+        `class C {`,
+        ` st\\u0061tic m() {}`,
+        `}`
+      ]))
+    }).toThrowError()
+  })
+
   it('private class method', () => {
     const node = parseSource(generateSource([
       `class Student {`,
@@ -278,7 +289,7 @@ describe('class', () => {
     equalNode(node, ClassTypeSnapshot.Accessor)
   })
 
-  it.only('escaped keyword property ', () => {
+  it('escaped keyword property ', () => {
     const node = parseSource(generateSource([
       `class C {`,
       ` \\u0069n: string`,
