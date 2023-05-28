@@ -10825,7 +10825,132 @@ const ClassTypeSnapshot = {
       },
     ],
     sourceType: "module",
-  }  
+  },
+  ConstructorSignature: {
+    type: "Program",
+    start: 0,
+    end: 43,
+    loc: {
+      start: { line: 1, column: 0, index: 0 },
+      end: { line: 4, column: 1, index: 43 },
+    },
+    body: [
+      {
+        type: "ClassDeclaration",
+        start: 0,
+        end: 43,
+        loc: {
+          start: { line: 1, column: 0, index: 0 },
+          end: { line: 4, column: 1, index: 43 },
+        },
+        id: {
+          type: "Identifier",
+          start: 6,
+          end: 7,
+          loc: {
+            start: { line: 1, column: 6, index: 6 },
+            end: { line: 1, column: 7, index: 7 },
+          },
+          name: "C",
+        },
+        superClass: null,
+        body: {
+          type: "ClassBody",
+          start: 8,
+          end: 43,
+          loc: {
+            start: { line: 1, column: 8, index: 8 },
+            end: { line: 4, column: 1, index: 43 },
+          },
+          body: [
+            {
+              type: "MethodDefinition",
+              start: 11,
+              end: 24,
+              loc: {
+                start: { line: 2, column: 1, index: 11 },
+                end: { line: 2, column: 14, index: 24 },
+              },
+              static: false,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 11,
+                end: 22,
+                loc: {
+                  start: { line: 2, column: 1, index: 11 },
+                  end: { line: 2, column: 12, index: 22 },
+                },
+                name: "constructor",
+              },
+              kind: "constructor",
+              value: {
+                type: "TSDeclareMethod",
+                start: 22,
+                end: 24,
+                loc: {
+                  start: { line: 2, column: 12, index: 22 },
+                  end: { line: 2, column: 14, index: 24 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [],
+              },
+            },
+            {
+              type: "MethodDefinition",
+              start: 26,
+              end: 41,
+              loc: {
+                start: { line: 3, column: 1, index: 26 },
+                end: { line: 3, column: 16, index: 41 },
+              },
+              static: false,
+              computed: false,
+              key: {
+                type: "Identifier",
+                start: 26,
+                end: 37,
+                loc: {
+                  start: { line: 3, column: 1, index: 26 },
+                  end: { line: 3, column: 12, index: 37 },
+                },
+                name: "constructor",
+              },
+              kind: "constructor",
+              value: {
+                type: "FunctionExpression",
+                start: 37,
+                end: 41,
+                loc: {
+                  start: { line: 3, column: 12, index: 37 },
+                  end: { line: 3, column: 16, index: 41 },
+                },
+                id: null,
+                expression: false,
+                generator: false,
+                async: false,
+                params: [],
+                body: {
+                  type: "BlockStatement",
+                  start: 39,
+                  end: 41,
+                  loc: {
+                    start: { line: 3, column: 14, index: 39 },
+                    end: { line: 3, column: 16, index: 41 },
+                  },
+                  body: [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+    sourceType: "module",
+  }
 }
 
 export default ClassTypeSnapshot
