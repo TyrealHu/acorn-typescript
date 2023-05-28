@@ -5025,7 +5025,7 @@ function tsPlugin(options?: {
 
             if (element) {
               classBody.body.push(element)
-              if (element.type === 'MethodDefinition' && element.kind === 'constructor') {
+              if (element.type === 'MethodDefinition' && element.kind === 'constructor' && element.value.type === 'FunctionExpression') {
                 if (hadConstructor) {
                   this.raiseRecoverable(element.start, 'Duplicate constructor in the same class')
                 }
@@ -5343,8 +5343,6 @@ function tsPlugin(options?: {
 
       raiseCommonCheck(pos: number, message: string, recoverable: boolean) {
         switch (message) {
-          case 'Duplicate constructor in the same class':
-            return
           case 'Comma is not permitted after the rest element': {
             if (
               this.isAmbientContext &&

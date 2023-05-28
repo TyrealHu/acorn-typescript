@@ -298,5 +298,27 @@ describe('class', () => {
 
     equalNode(node, ClassTypeSnapshot.EscapedKeywordProperty)
   })
+
+  it('duplicate constructor', () => {
+    expect(() => {
+      parseSource(generateSource([
+        `class C {`,
+        ` constructor(){}`,
+        ` constructor(){}`,
+        `}`
+      ]))
+    }).toThrowError()
+  })
+
+  it('constructor signature', () => {
+    const node = parseSource(generateSource([
+      `class C {`,
+      ` constructor()`,
+      ` constructor(){}`,
+      `}`
+    ]))
+
+    equalNode(node, ClassTypeSnapshot.ConstructorSignature)
+  })
 })
 
