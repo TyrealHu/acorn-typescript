@@ -27,8 +27,6 @@ const WHITELIST: string[] = [
   "language/identifiers/val-this.js",
   "language/identifiers/val-this-via-escape-hex.js",
   "language/identifiers/val-this-via-escape-hex4.js",
-  // escaped `static`. e.g. `class { st\u0061tic m() {} }`
-  "language/statements/class/syntax/escaped-static.js",
 ].flatMap((s) => [s + " (default)", s + " (strict mode)"]);
 
 run(
