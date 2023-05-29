@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.9...v1.2.10) (2023-05-29)
+
+
+### ♻️ Code Refactoring
+
+* async arrow function with one param ([2cd5a29](https://github.com/TyrealHu/acorn-typescript/commit/2cd5a29c61f5c2248eb84d74d1b84c9752777f97))
+
+
+### 🐛 Bug Fixes
+
+* async in for of without decl ([c73f2f0](https://github.com/TyrealHu/acorn-typescript/commit/c73f2f0e9eb0e7762171da97722f87c25408d2da))
+
 ### [1.2.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.8...v1.2.9) (2023-05-29)
 
 
