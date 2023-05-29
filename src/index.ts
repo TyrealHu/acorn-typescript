@@ -3302,30 +3302,7 @@ function tsPlugin(options?: {
           // tokenizer got confused, and we force it to read a regexp instead.
 
           if (this.type === tt.slash) this.readRegexp()
-
           let node, canBeArrow = this['potentialArrowAt'] === this.start
-
-          if (this.type === tt.name || tokenIsIdentifier(this.type)) {
-            let startPos = this.start, startLoc = this.startLoc,
-              containsEsc = this.containsEsc
-            let id = this.parseIdent(false)
-            if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === 'async' && !this.canInsertSemicolon() && this.eat(tt._function)) {
-              this.overrideContext(tokContexts.f_expr)
-              return this.parseFunction(this.startNodeAt(startPos, startLoc), 0, false, true, forInit)
-            }
-            if (canBeArrow && !this.canInsertSemicolon()) {
-              if (this.eat(tt.arrow))
-                return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
-              if (this.options.ecmaVersion >= 8 && id.name === 'async' && this.type === tt.name && !containsEsc &&
-                (!this.potentialArrowInForAwait || this.value !== 'of' || this.containsEsc)) {
-                id = this.parseIdent(false)
-                if (this.canInsertSemicolon() || !this.eat(tt.arrow))
-                  this.unexpected()
-                return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], true, forInit)
-              }
-            }
-            return id
-          }
           switch (this.type) {
             case tt._super:
               if (!this['allowSuper'])
@@ -3444,12 +3421,13 @@ function tsPlugin(options?: {
                 // although `id` is not used in async arrow unary function,
                 // we don't need to reset `async`'s trailing comments because
                 // it will be attached to the upcoming async arrow binding identifier
+                const paramId = this.parseIdent(false)
                 if (this.canInsertSemicolon() || !this.eat(tt.arrow))
                   this.unexpected()
 
                 return this.parseArrowExpression(
                   this.startNodeAtNode(id),
-                  [id],
+                  [paramId],
                   true
                 )
               } else {
@@ -4028,7 +4006,7 @@ function tsPlugin(options?: {
         if (this.tsIsIdentifier()) {
           return true
         }
-      
+
         return super.isClassElementNameStart()
       }
 
