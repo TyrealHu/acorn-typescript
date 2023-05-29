@@ -38,7 +38,7 @@ run(
     });
   },
   {
-    testsDirectory: path.dirname(require.resolve("test262/package.json")),
+    testsDirectory: path.dirname(require.resolve("../package.json")),
     skip: (test) => {
       return (
         (test.attrs.features &&
