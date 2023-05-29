@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.8...v1.2.9) (2023-05-29)
+
+
+### 🐛 Bug Fixes
+
+* eatContextual and reduce keywords ([d280912](https://github.com/TyrealHu/acorn-typescript/commit/d2809122f4d89013c89c00234926dc1f24ede606))
+* syntax error in async arrow function with one param ([d13794e](https://github.com/TyrealHu/acorn-typescript/commit/d13794e168a57d90e96d06c2a69279490636e73c))
+* syntax error in catch redeclared var statement captured ([cd6f0de](https://github.com/TyrealHu/acorn-typescript/commit/cd6f0ded06f22169eb360c9a053a1976ca41fd3a))
+* syntax error in escaped keyword property ([2c11ea9](https://github.com/TyrealHu/acorn-typescript/commit/2c11ea98d5f1aa601ee619a7b5b213c880a98b63))
+* syntax error in identifier named `as` in export and import declarations ([ad797e8](https://github.com/TyrealHu/acorn-typescript/commit/ad797e8a4761e24b25ce2192bf6f333870ea9e1c))
+* to raise error in escaped static method ([0c3f381](https://github.com/TyrealHu/acorn-typescript/commit/0c3f381198a191a9d3b6ecb422f69dc0e81afb77))
+* to raise error in multiple constructors ([20ab1bd](https://github.com/TyrealHu/acorn-typescript/commit/20ab1bdd5c85dc767ef4126a758f921eca60192a))
+
 ### [1.2.8](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.7...v1.2.8) (2023-05-26)
 
 
