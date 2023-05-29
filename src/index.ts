@@ -3297,100 +3297,28 @@ function tsPlugin(options?: {
         } else if (this.type === tokTypes.at) {
           this.parseDecorators()
           return this.parseExprAtom()
-        } else {
-          // If a division operator appears in an expression position, the
-          // tokenizer got confused, and we force it to read a regexp instead.
-
-          if (this.type === tt.slash) this.readRegexp()
-          let node, canBeArrow = this['potentialArrowAt'] === this.start
-          switch (this.type) {
-            case tt._super:
-              if (!this['allowSuper'])
-                this.raise(this.start, '\'super\' keyword outside a method')
-
-              node = this.startNode()
-              this.next()
-              if (this.type === tt.parenL && !this['allowDirectSuper'])
-                this.raise(node.start, 'super() call outside constructor of a subclass')
-              // The `super` keyword can appear at below:
-              // SuperProperty:
-              //     super [ Expression ]
-              //     super . IdentifierName
-              // SuperCall:
-              //     super ( Arguments )
-              if (this.type !== tt.dot && this.type !== tt.bracketL && this.type !== tt.parenL)
-                this.unexpected()
-              return this.finishNode(node, 'Super')
-
-            case tt._this:
-              node = this.startNode()
-              this.next()
-              return this.finishNode(node, 'ThisExpression')
-
-            case tt.regexp:
-              let value = this.value
-              node = this.parseLiteral(value.value)
-              node.regex = { pattern: value.pattern, flags: value.flags }
-              return node
-            case tt.num:
-            case tt.string:
-              return this.parseLiteral(this.value)
-            case tt._null:
-            case tt._true:
-            case tt._false:
-              node = this.startNode()
-              node.value = this.type === tt._null ? null : this.type === tt._true
-              node.raw = this.type.keyword
-              this.next()
-              return this.finishNode(node, 'Literal')
-
-            case tt.parenL:
-              let start = this.start,
-                expr = this.parseParenAndDistinguishExpression(canBeArrow, forInit)
-              if (refDestructuringErrors) {
-                if (refDestructuringErrors.parenthesizedAssign < 0 && !this.isSimpleAssignTarget(expr))
-                  refDestructuringErrors.parenthesizedAssign = start
-                if (refDestructuringErrors.parenthesizedBind < 0)
-                  refDestructuringErrors.parenthesizedBind = start
-              }
-              return expr
-
-            case tt.bracketL:
-              node = this.startNode()
-              this.next()
-              node.elements = this.parseExprList(tt.bracketR, true, true, refDestructuringErrors)
-              // NODE check array like here
-              this.tsCheckForInvalidTypeCasts(node.elements)
-              return this.finishNode(node, 'ArrayExpression')
-
-            case tt.braceL:
-              this.overrideContext(tokContexts.b_expr)
-              return this.parseObj(false, refDestructuringErrors)
-
-            case tt._function:
-              node = this.startNode()
-              this.next()
-              return this.parseFunction(node, 0)
-
-            case tt._class:
-              return this.parseClass(this.startNode(), false)
-
-            case tt._new:
-              return this.parseNew()
-
-            case tt.backQuote:
-              return this.parseTemplate()
-
-            case tt._import:
-              if (this.options.ecmaVersion >= 11) {
-                return this.parseExprImport(forNew)
-              } else {
-                return this.unexpected()
-              }
-
-            default:
-              return this.parseExprAtomDefault()
+        } else if (tokenIsIdentifier(this.type)) {
+          let canBeArrow = this.potentialArrowAt === this.start
+          let startPos = this.start, startLoc = this.startLoc, containsEsc = this.containsEsc
+          let id = this.parseIdent(false)
+          if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === "async" && !this.canInsertSemicolon() && this.eat(tt._function)) {
+            this.overrideContext(tokContexts.f_expr)
+            return this.parseFunction(this.startNodeAt(startPos, startLoc), 0, false, true, forInit)
           }
+          if (canBeArrow && !this.canInsertSemicolon()) {
+            if (this.eat(tt.arrow))
+              return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
+            if (this.options.ecmaVersion >= 8 && id.name === "async" && this.type === tt.name && !containsEsc &&
+              (!this.potentialArrowInForAwait || this.value !== "of" || this.containsEsc)) {
+              id = this.parseIdent(false)
+              if (this.canInsertSemicolon() || !this.eat(tt.arrow))
+                this.unexpected()
+              return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], true, forInit)
+            }
+          }
+          return id
+        } else {
+          return super.parseExprAtom(refDestructuringErrors, forInit, forNew)
         }
       }
 

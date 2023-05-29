@@ -9,6 +9,7 @@
   "scripts": {
     "build": "microbundle --define process.env.NODE_ENV=production --no-sourcemap --tsconfig ./tsconfig.json --format esm,cjs",
     "test": "jest --collect-coverage --silent",
+    "test:test262": "ts-node -T __test__/run_test262.ts",
     "release-major": "yarn build && yarn test && standard-version --release-as major",
     "release-minor": "yarn build && yarn test && standard-version --release-as minor",
     "release-patch": "yarn build && yarn test && standard-version --release-as patch"
@@ -43,7 +44,9 @@
     "standard-version": "^9.5.0",
     "ts-jest": "^26.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "test262": "git+https://github.com/tc39/test262.git#dac69563480b9f22709fd49d61a32b3a0513b6b1",
+    "test262-parser-runner": "^0.5.0"
   },
   "peerDependencies": {
     "acorn": ">=8.0.0"

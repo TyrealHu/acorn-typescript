@@ -1,4 +1,9 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseSource,
+  parseSourceShouldThrowError
+} from '../utils'
 import ForSnapshot from '../__snapshot__/for'
 
 describe('for', () => {
@@ -20,6 +25,14 @@ describe('for', () => {
     ]))
 
     equalNode(node, ForSnapshot.inWithoutDecl)
+  })
+  it('async in for of without decl', () => {
+    const res = parseSourceShouldThrowError(generateSource([
+      `var async;`,
+      `for (async of [1]) ;`
+    ]), 'Unexpected token', '(2:14)')
+
+    expect(res).toBe(true)
   })
 })
 

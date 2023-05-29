@@ -1,7 +1,7 @@
 import * as path from "path";
 // @ts-ignore - no types
 import * as run from "test262-parser-runner";
-import * as acorn from "../node_modules/acorn";
+import * as acorn from "acorn";
 import { tsPlugin } from "../src";
 
 const parser = acorn.Parser.extend(tsPlugin());

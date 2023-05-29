@@ -31,18 +31,7 @@ jobs:
       - run: yarn build
       - run: yarn global add codecov
       - run: yarn test
+      - run: yarn test:test262
 
       - run: codecov -f coverage/*.json
       - run: bash <(curl -s https://codecov.io/bash)
-  test262:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          cache: 'yarn'
-      - run: |+
-          yarn
-          cd ./test262
-          yarn
-          yarn test:test262
