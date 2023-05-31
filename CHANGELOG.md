@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.10...v1.3.0) (2023-05-31)
+
+
+### 🐛 Bug Fixes
+
+* parse generics with trailing comma ([028d787](https://github.com/TyrealHu/acorn-typescript/commit/028d787dc463a34a821f8fc415b3399abb1f40e9))
+
 ### [1.2.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.9...v1.2.10) (2023-05-29)
 
 
