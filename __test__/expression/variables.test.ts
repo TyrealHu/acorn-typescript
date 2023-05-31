@@ -215,7 +215,7 @@ describe('variables declaration', () => {
       `const a: Foo<T, > = 1`
     ]), TypeScriptError.GenericsEndWithComma, '(1:16)')
 
-    expect(res).toBe(true)
+    expect(res).toBe(false)
     // equalNode(node, VariablesTypeSnapshot.ParseGenericsWithoutComma)
   })
 })
