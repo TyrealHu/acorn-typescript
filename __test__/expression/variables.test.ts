@@ -1,5 +1,11 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseSource,
+  parseSourceShouldThrowError
+} from '../utils'
 import VariablesTypeSnapshot from '../__snapshot__/expression/variables'
+import { TypeScriptError } from '../../src/error'
 
 describe('variables declaration', () => {
   it('number', () => {
@@ -194,5 +200,22 @@ describe('variables declaration', () => {
     ]))
 
     equalNode(node, VariablesTypeSnapshot.OneAsNumber)
+  })
+  //console.log(JSON.stringify(node, null, 2))
+  it('parse generics without comma', () => {
+    const node = parseSource(generateSource([
+      `const a: Foo<T> = 1`
+    ]))
+
+    equalNode(node, VariablesTypeSnapshot.ParseGenericsWithoutComma)
+  })
+
+  it('parse generics with comma', () => {
+    const res = parseSourceShouldThrowError(generateSource([
+      `const a: Foo<T, > = 1`
+    ]), TypeScriptError.GenericsEndWithComma, '(1:16)')
+
+    expect(res).toBe(true)
+    // equalNode(node, VariablesTypeSnapshot.ParseGenericsWithoutComma)
   })
 })

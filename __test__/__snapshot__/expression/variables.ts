@@ -4304,77 +4304,277 @@ const VariablesTypeSnapshot = {
     'sourceType': 'module'
   },
   OneAsNumber: {
-    type: "Program",
+    type: 'Program',
     start: 0,
     end: 22,
     loc: {
       start: { line: 1, column: 0, index: 0 },
-      end: { line: 1, column: 22, index: 22 },
+      end: { line: 1, column: 22, index: 22 }
     },
     body: [
       {
-        type: "VariableDeclaration",
+        type: 'VariableDeclaration',
         start: 0,
         end: 22,
         loc: {
           start: { line: 1, column: 0, index: 0 },
-          end: { line: 1, column: 22, index: 22 },
+          end: { line: 1, column: 22, index: 22 }
         },
         declarations: [
           {
-            type: "VariableDeclarator",
+            type: 'VariableDeclarator',
             start: 4,
             end: 22,
             loc: {
               start: { line: 1, column: 4, index: 4 },
-              end: { line: 1, column: 22, index: 22 },
+              end: { line: 1, column: 22, index: 22 }
             },
             id: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 4,
               end: 8,
               loc: {
                 start: { line: 1, column: 4, index: 4 },
-                end: { line: 1, column: 8, index: 8 },
+                end: { line: 1, column: 8, index: 8 }
               },
-              name: "test",
+              name: 'test'
             },
             init: {
-              type: "TSAsExpression",
+              type: 'TSAsExpression',
               start: 11,
               end: 22,
               loc: {
                 start: { line: 1, column: 11, index: 11 },
-                end: { line: 1, column: 22, index: 22 },
+                end: { line: 1, column: 22, index: 22 }
               },
               expression: {
-                type: "Literal",
+                type: 'Literal',
                 start: 11,
                 end: 12,
                 loc: {
                   start: { line: 1, column: 11, index: 11 },
-                  end: { line: 1, column: 12, index: 12 },
+                  end: { line: 1, column: 12, index: 12 }
                 },
                 value: 1,
-                raw: "1",
+                raw: '1'
               },
               typeAnnotation: {
-                type: "TSNumberKeyword",
+                type: 'TSNumberKeyword',
                 start: 16,
                 end: 22,
                 loc: {
                   start: { line: 1, column: 16, index: 16 },
-                  end: { line: 1, column: 22, index: 22 },
-                },
-              },
-            },
-          },
+                  end: { line: 1, column: 22, index: 22 }
+                }
+              }
+            }
+          }
         ],
-        kind: "let",
-      },
+        kind: 'let'
+      }
     ],
-    sourceType: "module",
-  }  
+    sourceType: 'module'
+  },
+  ParseGenericsWithoutComma: {
+    'type': 'Program',
+    'start': 0,
+    'end': 19,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 19,
+        'index': 19
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 19,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 19,
+            'index': 19
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 6,
+            'end': 19,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 6,
+                'index': 6
+              },
+              'end': {
+                'line': 1,
+                'column': 19,
+                'index': 19
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 6,
+              'end': 15,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 6,
+                  'index': 6
+                },
+                'end': {
+                  'line': 1,
+                  'column': 15,
+                  'index': 15
+                }
+              },
+              'name': 'a',
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 7,
+                'end': 15,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 7,
+                    'index': 7
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 15,
+                    'index': 15
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeReference',
+                  'start': 9,
+                  'end': 15,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 9,
+                      'index': 9
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 15,
+                      'index': 15
+                    }
+                  },
+                  'typeName': {
+                    'type': 'Identifier',
+                    'start': 9,
+                    'end': 12,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 9,
+                        'index': 9
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 12,
+                        'index': 12
+                      }
+                    },
+                    'name': 'Foo'
+                  },
+                  'typeParameters': {
+                    'type': 'TSTypeParameterInstantiation',
+                    'start': 12,
+                    'end': 15,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 12,
+                        'index': 12
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 15,
+                        'index': 15
+                      }
+                    },
+                    'params': [
+                      {
+                        'type': 'TSTypeReference',
+                        'start': 13,
+                        'end': 14,
+                        'loc': {
+                          'start': {
+                            'line': 1,
+                            'column': 13,
+                            'index': 13
+                          },
+                          'end': {
+                            'line': 1,
+                            'column': 14,
+                            'index': 14
+                          }
+                        },
+                        'typeName': {
+                          'type': 'Identifier',
+                          'start': 13,
+                          'end': 14,
+                          'loc': {
+                            'start': {
+                              'line': 1,
+                              'column': 13,
+                              'index': 13
+                            },
+                            'end': {
+                              'line': 1,
+                              'column': 14,
+                              'index': 14
+                            }
+                          },
+                          'name': 'T'
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            'init': {
+              'type': 'Literal',
+              'start': 18,
+              'end': 19,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 18,
+                  'index': 18
+                },
+                'end': {
+                  'line': 1,
+                  'column': 19,
+                  'index': 19
+                }
+              },
+              'value': 1,
+              'raw': '1'
+            }
+          }
+        ],
+        'kind': 'const'
+      }
+    ],
+    'sourceType': 'module'
+  }
 }
 
 export default VariablesTypeSnapshot

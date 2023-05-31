@@ -125,6 +125,7 @@ export const TypeScriptError = {
     'A parameter property is only allowed in a constructor implementation.',
   UnexpectedReadonly:
     '\'readonly\' type modifier is only permitted on array and tuple literal types.',
+  GenericsEndWithComma: `Trailing comma is not allowed at the end of generics.`,
   UnexpectedTypeAnnotation: 'Did not expect a type annotation here.',
   UnexpectedTypeCastInParameter: 'Unexpected type cast in parameter position.',
   UnsupportedImportTypeArgument:

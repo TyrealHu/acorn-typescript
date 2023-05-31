@@ -1115,10 +1115,8 @@ function tsPlugin(options?: {
           case 'TupleElementTypes':
             return this.match(tt.bracketR)
           case 'TypeParametersOrArguments':
-            return this.match(tt.relational)
+            return this.match(tt.relational) && this.value === '>'
         }
-
-        throw new Error('Unreachable')
       }
 
       /**
@@ -1149,6 +1147,10 @@ function tsPlugin(options?: {
           result.push(element)
 
           if (this.eat(tt.comma)) {
+            if (this.tsIsListTerminator(kind)) {
+              this.raise(this.start, TypeScriptError.GenericsEndWithComma)
+            }
+
             trailingCommaPos = this.lastTokStart
             continue
           }
@@ -1159,7 +1161,6 @@ function tsPlugin(options?: {
 
           if (expectSuccess) {
             // This will fail with an error about a missing comma
-
             this.expect(tt.comma)
           }
           return undefined
@@ -1200,10 +1201,8 @@ function tsPlugin(options?: {
       ): T[] {
         if (!skipFirstToken) {
           if (bracket) {
-
             this.expect(tt.bracketL)
           } else {
-
             this.expect(tt.relational)
           }
         }
@@ -1215,10 +1214,8 @@ function tsPlugin(options?: {
         )
 
         if (bracket) {
-
           this.expect(tt.bracketR)
         } else {
-
           this.expect(tt.relational)
         }
 
@@ -1801,7 +1798,7 @@ function tsPlugin(options?: {
       tsParseTypeReference(): any {
         const node = this.startNode()
         node.typeName = this.tsParseEntityName()
-        if (!this.hasPrecedingLineBreak() && this.match(tt.relational)) {
+        if (!this.hasPrecedingLineBreak() && this.match(tt.relational) && this.value === '<') {
           node.typeParameters = this.tsParseTypeArguments()
         }
         return this.finishNode(node, 'TSTypeReference')
@@ -3299,17 +3296,18 @@ function tsPlugin(options?: {
           return this.parseExprAtom()
         } else if (tokenIsIdentifier(this.type)) {
           let canBeArrow = this.potentialArrowAt === this.start
-          let startPos = this.start, startLoc = this.startLoc, containsEsc = this.containsEsc
+          let startPos = this.start, startLoc = this.startLoc,
+            containsEsc = this.containsEsc
           let id = this.parseIdent(false)
-          if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === "async" && !this.canInsertSemicolon() && this.eat(tt._function)) {
+          if (this.options.ecmaVersion >= 8 && !containsEsc && id.name === 'async' && !this.canInsertSemicolon() && this.eat(tt._function)) {
             this.overrideContext(tokContexts.f_expr)
             return this.parseFunction(this.startNodeAt(startPos, startLoc), 0, false, true, forInit)
           }
           if (canBeArrow && !this.canInsertSemicolon()) {
             if (this.eat(tt.arrow))
               return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false, forInit)
-            if (this.options.ecmaVersion >= 8 && id.name === "async" && this.type === tt.name && !containsEsc &&
-              (!this.potentialArrowInForAwait || this.value !== "of" || this.containsEsc)) {
+            if (this.options.ecmaVersion >= 8 && id.name === 'async' && this.type === tt.name && !containsEsc &&
+              (!this.potentialArrowInForAwait || this.value !== 'of' || this.containsEsc)) {
               id = this.parseIdent(false)
               if (this.canInsertSemicolon() || !this.eat(tt.arrow))
                 this.unexpected()
