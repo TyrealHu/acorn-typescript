@@ -1147,10 +1147,6 @@ function tsPlugin(options?: {
           result.push(element)
 
           if (this.eat(tt.comma)) {
-            if (this.tsIsListTerminator(kind)) {
-              this.raise(this.start, TypeScriptError.GenericsEndWithComma)
-            }
-
             trailingCommaPos = this.lastTokStart
             continue
           }
