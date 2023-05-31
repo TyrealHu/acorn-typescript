@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.0...v1.3.1) (2023-05-31)
+
+
+### ♻️ Code Refactoring
+
+* allow comma at the end of generics ([3e0bf3d](https://github.com/TyrealHu/acorn-typescript/commit/3e0bf3d60a1ea090288a297e1c562d631177ea53))
+* allow comma at the end of generics ([fa1b6cf](https://github.com/TyrealHu/acorn-typescript/commit/fa1b6cfc826d10325854a50850a3f7329189dbf3))
+
 ## [1.3.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.2.10...v1.3.0) (2023-05-31)
 
 
