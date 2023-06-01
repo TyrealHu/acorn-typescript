@@ -466,7 +466,6 @@ function tsPlugin(options?: {
         this.maybeInArrowParameters = true
 
         const res = this.tsTryParseAndCatch(() => {
-
           const node = this.startNodeAt(
             startPos,
             startLoc
@@ -3568,6 +3567,12 @@ function tsPlugin(options?: {
         if (this.checkExpressionErrors(refDestructuringErrors)) return expr
         // todo parseConditional ts support
         if (!this.maybeInArrowParameters || !this.match(tt.question)) {
+          if (this.match(tt.question)) {
+            const nextToken = this.lookahead()
+            if (nextToken.type === tt.colon) {
+              return expr
+            }
+          }
           return this.parseConditional(
             expr,
             startPos,
@@ -3598,7 +3603,6 @@ function tsPlugin(options?: {
         const startLoc = this.startLoc
         node = super.parseParenItem(node)
         if (this.eat(tt.question)) {
-
           node.optional = true
           // Include questionmark in location of node
           // Don't use this.finishNode() as otherwise we might process comments twice and
@@ -3607,7 +3611,6 @@ function tsPlugin(options?: {
         }
 
         if (this.match(tt.colon)) {
-
           const typeCastNode = this.startNodeAt(
             startPos,
             startLoc
@@ -4449,7 +4452,7 @@ function tsPlugin(options?: {
               }
               break
             } else {
-              exprList.push(this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem))
+              exprList.push(this.parseMaybeAssign(forInit, refDestructuringErrors, this.parseParenItem))
             }
           }
           let innerEndPos = this.lastTokEnd,

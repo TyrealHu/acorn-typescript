@@ -224,4 +224,12 @@ describe('function type test', () => {
 
     equalNode(node, FunctionTypeSnapshot.DeclareFunctionCommaAfterRestElement)
   })
+
+  it('arrow function with optional param', () => {
+    const node = parseSource(generateSource([
+      `const test = (name: string, age?: number) => 42`
+    ]))
+
+    equalNode(node, FunctionTypeSnapshot.ArrowFunctionWithOptionalParam)
+  })
 })

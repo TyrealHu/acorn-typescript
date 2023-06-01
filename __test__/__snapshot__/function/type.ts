@@ -4146,218 +4146,218 @@ const FunctionTypeSnapshot = {
     'sourceType': 'module'
   },
   AsyncGeneratorFunction: {
-    type: "Program",
+    type: 'Program',
     start: 0,
     end: 71,
     loc: {
       start: { line: 1, column: 0, index: 0 },
-      end: { line: 3, column: 1, index: 71 },
+      end: { line: 3, column: 1, index: 71 }
     },
     body: [
       {
-        type: "FunctionDeclaration",
+        type: 'FunctionDeclaration',
         start: 0,
         end: 71,
         loc: {
           start: { line: 1, column: 0, index: 0 },
-          end: { line: 3, column: 1, index: 71 },
+          end: { line: 3, column: 1, index: 71 }
         },
         id: {
-          type: "Identifier",
+          type: 'Identifier',
           start: 17,
           end: 21,
           loc: {
             start: { line: 1, column: 17, index: 17 },
-            end: { line: 1, column: 21, index: 21 },
+            end: { line: 1, column: 21, index: 21 }
           },
-          name: "test",
+          name: 'test'
         },
         expression: false,
         generator: true,
         async: true,
         params: [
           {
-            type: "Identifier",
+            type: 'Identifier',
             start: 22,
             end: 42,
             loc: {
               start: { line: 1, column: 22, index: 22 },
-              end: { line: 1, column: 42, index: 42 },
+              end: { line: 1, column: 42, index: 42 }
             },
-            name: "p",
+            name: 'p',
             typeAnnotation: {
-              type: "TSTypeAnnotation",
+              type: 'TSTypeAnnotation',
               start: 23,
               end: 42,
               loc: {
                 start: { line: 1, column: 23, index: 23 },
-                end: { line: 1, column: 42, index: 42 },
+                end: { line: 1, column: 42, index: 42 }
               },
               typeAnnotation: {
-                type: "TSTypeReference",
+                type: 'TSTypeReference',
                 start: 25,
                 end: 42,
                 loc: {
                   start: { line: 1, column: 25, index: 25 },
-                  end: { line: 1, column: 42, index: 42 },
+                  end: { line: 1, column: 42, index: 42 }
                 },
                 typeName: {
-                  type: "Identifier",
+                  type: 'Identifier',
                   start: 25,
                   end: 32,
                   loc: {
                     start: { line: 1, column: 25, index: 25 },
-                    end: { line: 1, column: 32, index: 32 },
+                    end: { line: 1, column: 32, index: 32 }
                   },
-                  name: "Promise",
+                  name: 'Promise'
                 },
                 typeParameters: {
-                  type: "TSTypeParameterInstantiation",
+                  type: 'TSTypeParameterInstantiation',
                   start: 32,
                   end: 42,
                   loc: {
                     start: { line: 1, column: 32, index: 32 },
-                    end: { line: 1, column: 42, index: 42 },
+                    end: { line: 1, column: 42, index: 42 }
                   },
                   params: [
                     {
-                      type: "TSArrayType",
+                      type: 'TSArrayType',
                       start: 33,
                       end: 41,
                       loc: {
                         start: { line: 1, column: 33, index: 33 },
-                        end: { line: 1, column: 41, index: 41 },
+                        end: { line: 1, column: 41, index: 41 }
                       },
                       elementType: {
-                        type: "TSStringKeyword",
+                        type: 'TSStringKeyword',
                         start: 33,
                         end: 39,
                         loc: {
                           start: { line: 1, column: 33, index: 33 },
-                          end: { line: 1, column: 39, index: 39 },
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
-            },
-          },
+                          end: { line: 1, column: 39, index: 39 }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
         ],
         returnType: {
-          type: "TSTypeAnnotation",
+          type: 'TSTypeAnnotation',
           start: 43,
           end: 49,
           loc: {
             start: { line: 1, column: 43, index: 43 },
-            end: { line: 1, column: 49, index: 49 },
+            end: { line: 1, column: 49, index: 49 }
           },
           typeAnnotation: {
-            type: "TSVoidKeyword",
+            type: 'TSVoidKeyword',
             start: 45,
             end: 49,
             loc: {
               start: { line: 1, column: 45, index: 45 },
-              end: { line: 1, column: 49, index: 49 },
-            },
-          },
+              end: { line: 1, column: 49, index: 49 }
+            }
+          }
         },
         body: {
-          type: "BlockStatement",
+          type: 'BlockStatement',
           start: 50,
           end: 71,
           loc: {
             start: { line: 1, column: 50, index: 50 },
-            end: { line: 3, column: 1, index: 71 },
+            end: { line: 3, column: 1, index: 71 }
           },
           body: [
             {
-              type: "ExpressionStatement",
+              type: 'ExpressionStatement',
               start: 54,
               end: 69,
               loc: {
                 start: { line: 2, column: 2, index: 54 },
-                end: { line: 2, column: 17, index: 69 },
+                end: { line: 2, column: 17, index: 69 }
               },
               expression: {
-                type: "YieldExpression",
+                type: 'YieldExpression',
                 start: 54,
                 end: 69,
                 loc: {
                   start: { line: 2, column: 2, index: 54 },
-                  end: { line: 2, column: 17, index: 69 },
+                  end: { line: 2, column: 17, index: 69 }
                 },
                 delegate: true,
                 argument: {
-                  type: "AwaitExpression",
+                  type: 'AwaitExpression',
                   start: 62,
                   end: 69,
                   loc: {
                     start: { line: 2, column: 10, index: 62 },
-                    end: { line: 2, column: 17, index: 69 },
+                    end: { line: 2, column: 17, index: 69 }
                   },
                   argument: {
-                    type: "Identifier",
+                    type: 'Identifier',
                     start: 68,
                     end: 69,
                     loc: {
                       start: { line: 2, column: 16, index: 68 },
-                      end: { line: 2, column: 17, index: 69 },
+                      end: { line: 2, column: 17, index: 69 }
                     },
-                    name: "p",
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
+                    name: 'p'
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
     ],
-    sourceType: "module",
+    sourceType: 'module'
   },
   AsyncArrowFunctionWithOneParam: {
-    type: "Program",
+    type: 'Program',
     start: 0,
     end: 17,
     loc: {
       start: { line: 1, column: 0, index: 0 },
-      end: { line: 1, column: 17, index: 17 },
+      end: { line: 1, column: 17, index: 17 }
     },
     body: [
       {
-        type: "ExpressionStatement",
+        type: 'ExpressionStatement',
         start: 0,
         end: 17,
         loc: {
           start: { line: 1, column: 0, index: 0 },
-          end: { line: 1, column: 17, index: 17 },
+          end: { line: 1, column: 17, index: 17 }
         },
         expression: {
-          type: "AssignmentExpression",
+          type: 'AssignmentExpression',
           start: 0,
           end: 17,
           loc: {
             start: { line: 1, column: 0, index: 0 },
-            end: { line: 1, column: 17, index: 17 },
+            end: { line: 1, column: 17, index: 17 }
           },
-          operator: "=",
+          operator: '=',
           left: {
-            type: "Identifier",
+            type: 'Identifier',
             start: 0,
             end: 1,
             loc: {
               start: { line: 1, column: 0, index: 0 },
-              end: { line: 1, column: 1, index: 1 },
+              end: { line: 1, column: 1, index: 1 }
             },
-            name: "a",
+            name: 'a'
           },
           right: {
-            type: "ArrowFunctionExpression",
+            type: 'ArrowFunctionExpression',
             start: 4,
             end: 17,
             loc: {
               start: { line: 1, column: 4, index: 4 },
-              end: { line: 1, column: 17, index: 17 },
+              end: { line: 1, column: 17, index: 17 }
             },
             id: null,
             expression: false,
@@ -4365,32 +4365,32 @@ const FunctionTypeSnapshot = {
             async: true,
             params: [
               {
-                type: "Identifier",
+                type: 'Identifier',
                 start: 10,
                 end: 11,
                 loc: {
                   start: { line: 1, column: 10, index: 10 },
-                  end: { line: 1, column: 11, index: 11 },
+                  end: { line: 1, column: 11, index: 11 }
                 },
-                name: "x",
-              },
+                name: 'x'
+              }
             ],
             body: {
-              type: "BlockStatement",
+              type: 'BlockStatement',
               start: 15,
               end: 17,
               loc: {
                 start: { line: 1, column: 15, index: 15 },
-                end: { line: 1, column: 17, index: 17 },
+                end: { line: 1, column: 17, index: 17 }
               },
-              body: [],
-            },
-          },
-        },
-      },
+              body: []
+            }
+          }
+        }
+      }
     ],
-    sourceType: "module",
-  },  
+    sourceType: 'module'
+  },
   DeclareFunctionTypes: {
     'type': 'Program',
     'start': 0,
@@ -5165,6 +5165,218 @@ const FunctionTypeSnapshot = {
             ]
           }
         }
+      }
+    ],
+    'sourceType': 'module'
+  },
+  ArrowFunctionWithOptionalParam: {
+    'type': 'Program',
+    'start': 0,
+    'end': 47,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 47,
+        'index': 47
+      }
+    },
+    'body': [
+      {
+        'type': 'VariableDeclaration',
+        'start': 0,
+        'end': 47,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 47,
+            'index': 47
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 6,
+            'end': 47,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 6,
+                'index': 6
+              },
+              'end': {
+                'line': 1,
+                'column': 47,
+                'index': 47
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 6,
+              'end': 10,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 6,
+                  'index': 6
+                },
+                'end': {
+                  'line': 1,
+                  'column': 10,
+                  'index': 10
+                }
+              },
+              'name': 'test'
+            },
+            'init': {
+              'type': 'ArrowFunctionExpression',
+              'start': 13,
+              'end': 47,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 13,
+                  'index': 13
+                },
+                'end': {
+                  'line': 1,
+                  'column': 47,
+                  'index': 47
+                }
+              },
+              'id': null,
+              'expression': true,
+              'generator': false,
+              'async': false,
+              'params': [
+                {
+                  'type': 'Identifier',
+                  'start': 14,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 14,
+                      'index': 14
+                    },
+                    'end': 26
+                  },
+                  'name': 'name',
+                  'typeAnnotation': {
+                    'type': 'TSTypeAnnotation',
+                    'start': 18,
+                    'end': 26,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 18,
+                        'index': 18
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 26,
+                        'index': 26
+                      }
+                    },
+                    'typeAnnotation': {
+                      'type': 'TSStringKeyword',
+                      'start': 20,
+                      'end': 26,
+                      'loc': {
+                        'start': {
+                          'line': 1,
+                          'column': 20,
+                          'index': 20
+                        },
+                        'end': {
+                          'line': 1,
+                          'column': 26,
+                          'index': 26
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  'type': 'Identifier',
+                  'start': 28,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 28,
+                      'index': 28
+                    },
+                    'end': 40
+                  },
+                  'name': 'age',
+                  'optional': true,
+                  'typeAnnotation': {
+                    'type': 'TSTypeAnnotation',
+                    'start': 32,
+                    'end': 40,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 32,
+                        'index': 32
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 40,
+                        'index': 40
+                      }
+                    },
+                    'typeAnnotation': {
+                      'type': 'TSNumberKeyword',
+                      'start': 34,
+                      'end': 40,
+                      'loc': {
+                        'start': {
+                          'line': 1,
+                          'column': 34,
+                          'index': 34
+                        },
+                        'end': {
+                          'line': 1,
+                          'column': 40,
+                          'index': 40
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              'body': {
+                'type': 'Literal',
+                'start': 45,
+                'end': 47,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 45,
+                    'index': 45
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 47,
+                    'index': 47
+                  }
+                },
+                'value': 42,
+                'raw': '42'
+              }
+            }
+          }
+        ],
+        'kind': 'const'
       }
     ],
     'sourceType': 'module'
