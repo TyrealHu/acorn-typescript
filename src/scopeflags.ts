@@ -76,3 +76,5 @@ export type ClassElementTypes =
   | typeof CLASS_ELEMENT_INSTANCE_GETTER
   | typeof CLASS_ELEMENT_INSTANCE_SETTER
   | typeof CLASS_ELEMENT_OTHER;
+
+export const SCOPE_ARROW = 16

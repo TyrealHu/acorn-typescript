@@ -216,6 +216,13 @@ describe('variables declaration', () => {
     ]), TypeScriptError.GenericsEndWithComma, '(1:16)')
 
     expect(res).toBe(false)
-    // equalNode(node, VariablesTypeSnapshot.ParseGenericsWithoutComma)
+  })
+
+  it('parse condition express error', () => {
+    const res = parseSourceShouldThrowError(generateSource([
+      `const a = true ? : 1`
+    ]), 'Unexpected token', '(1:17)')
+
+    expect(res).toBe(true)
   })
 })

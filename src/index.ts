@@ -14,7 +14,7 @@ import {
   BIND_LEXICAL,
   BIND_TS_INTERFACE,
   BIND_TS_NAMESPACE,
-  BIND_TS_TYPE,
+  BIND_TS_TYPE, SCOPE_ARROW,
   TS_SCOPE_OTHER,
   TS_SCOPE_TS_MODULE
 } from './scopeflags'
@@ -2900,6 +2900,8 @@ function tsPlugin(options?: {
 
         let oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
           oldAwaitIdentPos = this.awaitIdentPos
+        const oldMaybeInArrowParameters = this.maybeInArrowParameters;
+        this.maybeInArrowParameters = false;
         this.yieldPos = 0
         this.awaitPos = 0
         this.awaitIdentPos = 0
@@ -2924,6 +2926,7 @@ function tsPlugin(options?: {
         this.yieldPos = oldYieldPos
         this.awaitPos = oldAwaitPos
         this.awaitIdentPos = oldAwaitIdentPos
+        this.maybeInArrowParameters = oldMaybeInArrowParameters;
         return this.finishNode(node, isDeclaration ? 'FunctionDeclaration' : 'FunctionExpression')
       }
 
@@ -3259,7 +3262,7 @@ function tsPlugin(options?: {
       toAssignableList(
         exprList: any[],
         isBinding: boolean
-      ): void {
+      ): any {
         for (let i = 0; i < exprList.length; i++) {
           const expr = exprList[i]
 
@@ -3567,12 +3570,6 @@ function tsPlugin(options?: {
         if (this.checkExpressionErrors(refDestructuringErrors)) return expr
         // todo parseConditional ts support
         if (!this.maybeInArrowParameters || !this.match(tt.question)) {
-          if (this.match(tt.question)) {
-            const nextToken = this.lookahead()
-            if (nextToken.type === tt.colon) {
-              return expr
-            }
-          }
           return this.parseConditional(
             expr,
             startPos,
@@ -3985,12 +3982,31 @@ function tsPlugin(options?: {
         if (this.match(tt.colon)) {
           node.returnType = this.tsParseTypeAnnotation()
         }
-        return super.parseArrowExpression(
-          node,
-          params,
-          isAsync,
-          forInit
-        )
+
+        // origin parseArrowExpression
+        let oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
+          oldAwaitIdentPos = this.awaitIdentPos
+
+        this.enterScope(functionFlags(isAsync, false) | SCOPE_ARROW)
+        this.initFunction(node)
+        const oldMaybeInArrowParameters = this.maybeInArrowParameters
+        if (this.options.ecmaVersion >= 8) node.async = !!isAsync
+
+        this.yieldPos = 0
+        this.awaitPos = 0
+        this.awaitIdentPos = 0
+
+        this.maybeInArrowParameters = true
+        node.params = this.toAssignableList(params, true)
+        this.maybeInArrowParameters = false
+        this.parseFunctionBody(node, true, false, forInit)
+
+        this.yieldPos = oldYieldPos
+        this.awaitPos = oldAwaitPos
+        this.awaitIdentPos = oldAwaitIdentPos
+        this.maybeInArrowParameters = oldMaybeInArrowParameters
+        return this.finishNode(node, 'ArrowFunctionExpression')
+        // end
       }
 
       parseMaybeAssignOrigin(
@@ -4430,6 +4446,8 @@ function tsPlugin(options?: {
         let startPos = this.start, startLoc = this.startLoc, val,
           allowTrailingComma = this.options.ecmaVersion >= 8
         if (this.options.ecmaVersion >= 6) {
+          const oldMaybeInArrowParameters = this.maybeInArrowParameters
+          this.maybeInArrowParameters = true
           this.next()
           let innerStartPos = this.start, innerStartLoc = this.startLoc
           let exprList = [], first = true, lastIsComma = false
@@ -4458,7 +4476,7 @@ function tsPlugin(options?: {
           let innerEndPos = this.lastTokEnd,
             innerEndLoc = this.lastTokEndLoc
           this.expect(tt.parenR)
-
+          this.maybeInArrowParameters = oldMaybeInArrowParameters;
           if (
             canBeArrow &&
             this.shouldParseArrow(exprList) &&
@@ -4711,6 +4729,8 @@ function tsPlugin(options?: {
           }
           base = this.finishNode(node, 'MemberExpression')
         } else if (!noCalls && this.eat(tt.parenL)) {
+          const oldMaybeInArrowParameters = this.maybeInArrowParameters
+          this.maybeInArrowParameters = true
           let refDestructuringErrors = new DestructuringErrors,
             oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
             oldAwaitIdentPos = this.awaitIdentPos
@@ -4728,20 +4748,23 @@ function tsPlugin(options?: {
             this.yieldPos = oldYieldPos
             this.awaitPos = oldAwaitPos
             this.awaitIdentPos = oldAwaitIdentPos
-            return this.parseSubscriptAsyncArrow(startPos, startLoc, exprList, forInit)
-          }
-          this.checkExpressionErrors(refDestructuringErrors, true)
-          this.yieldPos = oldYieldPos || this.yieldPos
-          this.awaitPos = oldAwaitPos || this.awaitPos
-          this.awaitIdentPos = oldAwaitIdentPos || this.awaitIdentPos
+            base = this.parseSubscriptAsyncArrow(startPos, startLoc, exprList, forInit)
+          } else {
+            this.checkExpressionErrors(refDestructuringErrors, true)
+            this.yieldPos = oldYieldPos || this.yieldPos
+            this.awaitPos = oldAwaitPos || this.awaitPos
+            this.awaitIdentPos = oldAwaitIdentPos || this.awaitIdentPos
 
-          let node = this.startNodeAt(startPos, startLoc)
-          node.callee = base
-          node.arguments = exprList
-          if (optionalSupported) {
-            node.optional = optional
+            let node = this.startNodeAt(startPos, startLoc)
+            node.callee = base
+            node.arguments = exprList
+            if (optionalSupported) {
+              node.optional = optional
+            }
+            base = this.finishNode(node, 'CallExpression')
           }
-          base = this.finishNode(node, 'CallExpression')
+
+          this.maybeInArrowParameters = oldMaybeInArrowParameters
         } else if (this.type === tt.backQuote) {
           // NOTE: change to _optionalChained
           if (optional || _optionalChained) {
