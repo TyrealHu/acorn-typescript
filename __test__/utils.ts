@@ -3,16 +3,12 @@ import tsPlugin from '../src'
 
 export const Parser = acorn.Parser.extend(tsPlugin({
   jsx: {
-    allowNamespacedObjects: true,
     allowNamespaces: true
   }
 }))
 
 export const DtsParser = acorn.Parser.extend(tsPlugin({
-  jsx: {
-    allowNamespacedObjects: true,
-    allowNamespaces: true
-  }
+  dts: true
 }))
 
 export function equalNode(node, snapshot) {

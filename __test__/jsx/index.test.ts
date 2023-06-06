@@ -1,29 +1,6 @@
 import { equalNode, generateSource, parseSource } from '../utils'
 import JSXSnapshot from '../__snapshot__/jsx'
 
-const tsx = `import * as React from "react";
-import UserInterface from '../UserInterface'
-export default class UserComponent extends React.Component<UserInterface, {}> {
-constructor (props: UserInterface){
-  super(props);
-}
-render() {
-  return (  
-    <div>
-      <H1<string>>User Component</H1>
-        Hello, <b>{this.props.name}</b>
-        <br/>
-        You are <b>{this.props.age} years old</b>
-        <br/>
-        You live at: <b>{this.props.address}</b>
-        <br/>
-        You were born: <b>{this.props.dob.toDateString()}</b>
-    </div>
-    );
-  }
-}
-`
-
 describe('jsx', function() {
   it('simple', () => {
     const node = parseSource(generateSource([
@@ -58,8 +35,63 @@ describe('jsx', function() {
   })
 
   it('tsx', () => {
-    const node = parseSource(tsx)
+    const node = parseSource(generateSource([
+      'import * as React from "react";',
+      'import UserInterface from \'../UserInterface\'',
+      'export default class UserComponent extends React.Component<UserInterface, {}> {',
+      'constructor (props: UserInterface){',
+      '  super(props);',
+      '}',
+      'render() {',
+      '  return (  ',
+      '    <div>',
+      '      <H1<string>>User Component</H1>',
+      '        Hello, <b>{this.props.name}</b>',
+      '        <br/>',
+      '        You are <b>{this.props.age} years old</b>',
+      '        <br/>',
+      '        You live at: <b>{this.props.address}</b>',
+      '        <br/>',
+      '        You were born: <b>{this.props.dob.toDateString()}</b>',
+      '    </div>',
+      '    );',
+      '  }',
+      '}',
+      ''
+    ]))
 
     equalNode(node, JSXSnapshot.Tsx)
+  })
+
+  it('issue 29 jsx', () => {
+    const node = parseSource(generateSource(['import React, { forwardRef } from "react";',
+      'import PropTypes from "prop-types";',
+      'const CustomButton = forwardRef(',
+      '  (',
+      '    {',
+      '      iconStart,',
+      '      iconEnd,',
+      '      text',
+      '    },',
+      '    ref',
+      '  ) => {',
+      '    return (',
+      '      <Button ref={ref}>',
+      '        {iconStart}',
+      '        {text}',
+      '        {iconEnd}',
+      '      </Button>',
+      '    );',
+      '  }',
+      ');',
+      'CustomButton.displayName = "CustomButton";',
+      'CustomButton.propTypes = {',
+      '  text: PropTypes.string,',
+      '  iconStart: PropTypes.element,',
+      '  iconEnd: PropTypes.element,', '};',
+      'export default CustomButton;'
+      ]))
+
+    equalNode(node, JSXSnapshot.Issue29Jsx)
   })
 })
