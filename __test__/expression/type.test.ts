@@ -1,4 +1,9 @@
-import { equalNode, generateSource, parseSource } from '../utils'
+import {
+  equalNode,
+  generateSource,
+  parseDtsSource,
+  parseSource
+} from '../utils'
 import ExpressionTypeSnapshot from '../__snapshot__/expression/type'
 
 describe('expression type test', () => {
@@ -100,5 +105,25 @@ describe('expression type test', () => {
     ]))
 
     equalNode(node, ExpressionTypeSnapshot.DeclareNamespace)
+  })
+
+  it(`issue 29 dts`, () => {
+    const node = parseDtsSource(generateSource([`import type { ReactNode, Ref } from "react";`,
+      `import type { CommonProps } from "./types";`,
+      `export type SlideApi = {`,
+      `  goToNextSlide: () => void;`,
+      `  goToPreviousSlide: () => void;`,
+      `};`,
+      `export type SlideProps = CommonProps & {`,
+      `  children: ReactNode;    `,
+      `  defaultSlide?: number;  `,
+      `  onSlideChange?: (slide: number) => void;`,
+      `  ref?: Ref<SlideApi>;`,
+      `};`,
+      `declare function SlideProps(props: SlideProps): JSX.Element;`,
+      `export default SlideProps;`
+    ]))
+
+    equalNode(node, ExpressionTypeSnapshot.Issue29Dts)
   })
 })

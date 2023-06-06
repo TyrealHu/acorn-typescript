@@ -8,8 +8,23 @@ export const Parser = acorn.Parser.extend(tsPlugin({
   }
 }))
 
+export const DtsParser = acorn.Parser.extend(tsPlugin({
+  jsx: {
+    allowNamespacedObjects: true,
+    allowNamespaces: true
+  }
+}))
+
 export function equalNode(node, snapshot) {
   expect(node).toEqual(snapshot)
+}
+
+export function parseDtsSource(input: string) {
+  return DtsParser.parse(input, {
+    sourceType: 'module',
+    ecmaVersion: 'latest',
+    locations: true
+  })
 }
 
 export function parseSource(input: string) {

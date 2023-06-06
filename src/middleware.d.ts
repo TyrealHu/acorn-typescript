@@ -17,6 +17,7 @@ export class AcornParseClass extends Parser {
   strict: boolean
   lastTokStart: number
   lastTokEnd: number
+  treatFunctionsAsVar: boolean
   inGenerator: any
   exprAllowed: boolean
   labels: any[]

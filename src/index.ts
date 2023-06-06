@@ -2884,24 +2884,12 @@ function tsPlugin(options?: {
         }
         if (statement & FUNC_STATEMENT) {
           node.id = (statement & FUNC_NULLABLE_ID) && this.type !== tt.name ? null : this.parseIdent()
-          if (node.id && !(statement & FUNC_HANGING_STATEMENT)) {
-            // If it is a regular function declaration in sloppy mode, then it is
-            // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
-            // mode depends on properties of the current scope (see
-            // treatFunctionsAsVar).
-            this.checkLValSimple(
-              node.id,
-              (this.strict || node.generator || node.async) ?
-                this['treatFunctionsAsVar'] ?
-                  acornScope.BIND_VAR : acornScope.BIND_LEXICAL : acornScope.BIND_FUNCTION
-            )
-          }
         }
 
         let oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
           oldAwaitIdentPos = this.awaitIdentPos
-        const oldMaybeInArrowParameters = this.maybeInArrowParameters;
-        this.maybeInArrowParameters = false;
+        const oldMaybeInArrowParameters = this.maybeInArrowParameters
+        this.maybeInArrowParameters = false
         this.yieldPos = 0
         this.awaitPos = 0
         this.awaitIdentPos = 0
@@ -2923,10 +2911,30 @@ function tsPlugin(options?: {
           }
         )
 
+        if (node.id && !(statement & FUNC_HANGING_STATEMENT)) {
+          // If it is a regular function declaration in sloppy mode, then it is
+          // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
+          // mode depends on properties of the current scope (see
+          // treatFunctionsAsVar).
+          if (node.body) {
+            this.checkLValSimple(
+              node.id,
+              (this.strict || node.generator || node.async) ?
+                this.treatFunctionsAsVar ?
+                  acornScope.BIND_VAR : acornScope.BIND_LEXICAL : acornScope.BIND_FUNCTION
+            )
+          } else {
+            this.checkLValSimple(
+              node.id,
+              acornScope.BIND_NONE
+            )
+          }
+        }
+
         this.yieldPos = oldYieldPos
         this.awaitPos = oldAwaitPos
         this.awaitIdentPos = oldAwaitIdentPos
-        this.maybeInArrowParameters = oldMaybeInArrowParameters;
+        this.maybeInArrowParameters = oldMaybeInArrowParameters
         return this.finishNode(node, isDeclaration ? 'FunctionDeclaration' : 'FunctionExpression')
       }
 
@@ -4476,7 +4484,7 @@ function tsPlugin(options?: {
           let innerEndPos = this.lastTokEnd,
             innerEndLoc = this.lastTokEndLoc
           this.expect(tt.parenR)
-          this.maybeInArrowParameters = oldMaybeInArrowParameters;
+          this.maybeInArrowParameters = oldMaybeInArrowParameters
           if (
             canBeArrow &&
             this.shouldParseArrow(exprList) &&

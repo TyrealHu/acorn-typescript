@@ -3072,6 +3072,1373 @@ const ExpressionTypeSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  Issue29Dts: {
+    'type': 'Program',
+    'start': 0,
+    'end': 430,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 14,
+        'column': 26,
+        'index': 430
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 0,
+        'end': 44,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 44,
+            'index': 44
+          }
+        },
+        'importKind': 'type',
+        'specifiers': [
+          {
+            'type': 'ImportSpecifier',
+            'start': 14,
+            'end': 23,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 14,
+                'index': 14
+              },
+              'end': {
+                'line': 1,
+                'column': 23,
+                'index': 23
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 14,
+              'end': 23,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 14,
+                  'index': 14
+                },
+                'end': {
+                  'line': 1,
+                  'column': 23,
+                  'index': 23
+                }
+              },
+              'name': 'ReactNode'
+            },
+            'importKind': 'value',
+            'local': {
+              'type': 'Identifier',
+              'start': 14,
+              'end': 23,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 14,
+                  'index': 14
+                },
+                'end': {
+                  'line': 1,
+                  'column': 23,
+                  'index': 23
+                }
+              },
+              'name': 'ReactNode'
+            }
+          },
+          {
+            'type': 'ImportSpecifier',
+            'start': 25,
+            'end': 28,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 25,
+                'index': 25
+              },
+              'end': {
+                'line': 1,
+                'column': 28,
+                'index': 28
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 25,
+              'end': 28,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 25,
+                  'index': 25
+                },
+                'end': {
+                  'line': 1,
+                  'column': 28,
+                  'index': 28
+                }
+              },
+              'name': 'Ref'
+            },
+            'importKind': 'value',
+            'local': {
+              'type': 'Identifier',
+              'start': 25,
+              'end': 28,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 25,
+                  'index': 25
+                },
+                'end': {
+                  'line': 1,
+                  'column': 28,
+                  'index': 28
+                }
+              },
+              'name': 'Ref'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 36,
+          'end': 43,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 36,
+              'index': 36
+            },
+            'end': {
+              'line': 1,
+              'column': 43,
+              'index': 43
+            }
+          },
+          'value': 'react',
+          'raw': '"react"'
+        }
+      },
+      {
+        'type': 'ImportDeclaration',
+        'start': 45,
+        'end': 88,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 45
+          },
+          'end': {
+            'line': 2,
+            'column': 43,
+            'index': 88
+          }
+        },
+        'importKind': 'type',
+        'specifiers': [
+          {
+            'type': 'ImportSpecifier',
+            'start': 59,
+            'end': 70,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 14,
+                'index': 59
+              },
+              'end': {
+                'line': 2,
+                'column': 25,
+                'index': 70
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 59,
+              'end': 70,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 14,
+                  'index': 59
+                },
+                'end': {
+                  'line': 2,
+                  'column': 25,
+                  'index': 70
+                }
+              },
+              'name': 'CommonProps'
+            },
+            'importKind': 'value',
+            'local': {
+              'type': 'Identifier',
+              'start': 59,
+              'end': 70,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 14,
+                  'index': 59
+                },
+                'end': {
+                  'line': 2,
+                  'column': 25,
+                  'index': 70
+                }
+              },
+              'name': 'CommonProps'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 78,
+          'end': 87,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 33,
+              'index': 78
+            },
+            'end': {
+              'line': 2,
+              'column': 42,
+              'index': 87
+            }
+          },
+          'value': './types',
+          'raw': '"./types"'
+        }
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 89,
+        'end': 178,
+        'loc': {
+          'start': {
+            'line': 3,
+            'column': 0,
+            'index': 89
+          },
+          'end': {
+            'line': 6,
+            'column': 2,
+            'index': 178
+          }
+        },
+        'exportKind': 'type',
+        'declaration': {
+          'type': 'TSTypeAliasDeclaration',
+          'start': 96,
+          'end': 178,
+          'loc': {
+            'start': {
+              'line': 3,
+              'column': 7,
+              'index': 96
+            },
+            'end': {
+              'line': 6,
+              'column': 2,
+              'index': 178
+            }
+          },
+          'id': {
+            'type': 'Identifier',
+            'start': 101,
+            'end': 109,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 12,
+                'index': 101
+              },
+              'end': {
+                'line': 3,
+                'column': 20,
+                'index': 109
+              }
+            },
+            'name': 'SlideApi'
+          },
+          'typeAnnotation': {
+            'type': 'TSTypeLiteral',
+            'start': 112,
+            'end': 177,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 23,
+                'index': 112
+              },
+              'end': {
+                'line': 6,
+                'column': 1,
+                'index': 177
+              }
+            },
+            'members': [
+              {
+                'type': 'TSPropertySignature',
+                'start': 116,
+                'end': 142,
+                'loc': {
+                  'start': {
+                    'line': 4,
+                    'column': 2,
+                    'index': 116
+                  },
+                  'end': {
+                    'line': 4,
+                    'column': 28,
+                    'index': 142
+                  }
+                },
+                'computed': false,
+                'key': {
+                  'type': 'Identifier',
+                  'start': 116,
+                  'end': 129,
+                  'loc': {
+                    'start': {
+                      'line': 4,
+                      'column': 2,
+                      'index': 116
+                    },
+                    'end': {
+                      'line': 4,
+                      'column': 15,
+                      'index': 129
+                    }
+                  },
+                  'name': 'goToNextSlide'
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeAnnotation',
+                  'start': 129,
+                  'end': 141,
+                  'loc': {
+                    'start': {
+                      'line': 4,
+                      'column': 15,
+                      'index': 129
+                    },
+                    'end': {
+                      'line': 4,
+                      'column': 27,
+                      'index': 141
+                    }
+                  },
+                  'typeAnnotation': {
+                    'type': 'TSFunctionType',
+                    'start': 131,
+                    'end': 141,
+                    'loc': {
+                      'start': {
+                        'line': 4,
+                        'column': 17,
+                        'index': 131
+                      },
+                      'end': {
+                        'line': 4,
+                        'column': 27,
+                        'index': 141
+                      }
+                    },
+                    'parameters': [],
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 134,
+                      'end': 141,
+                      'loc': {
+                        'start': {
+                          'line': 4,
+                          'column': 20,
+                          'index': 134
+                        },
+                        'end': {
+                          'line': 4,
+                          'column': 27,
+                          'index': 141
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSVoidKeyword',
+                        'start': 137,
+                        'end': 141,
+                        'loc': {
+                          'start': {
+                            'line': 4,
+                            'column': 23,
+                            'index': 137
+                          },
+                          'end': {
+                            'line': 4,
+                            'column': 27,
+                            'index': 141
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                'type': 'TSPropertySignature',
+                'start': 145,
+                'end': 175,
+                'loc': {
+                  'start': {
+                    'line': 5,
+                    'column': 2,
+                    'index': 145
+                  },
+                  'end': {
+                    'line': 5,
+                    'column': 32,
+                    'index': 175
+                  }
+                },
+                'computed': false,
+                'key': {
+                  'type': 'Identifier',
+                  'start': 145,
+                  'end': 162,
+                  'loc': {
+                    'start': {
+                      'line': 5,
+                      'column': 2,
+                      'index': 145
+                    },
+                    'end': {
+                      'line': 5,
+                      'column': 19,
+                      'index': 162
+                    }
+                  },
+                  'name': 'goToPreviousSlide'
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeAnnotation',
+                  'start': 162,
+                  'end': 174,
+                  'loc': {
+                    'start': {
+                      'line': 5,
+                      'column': 19,
+                      'index': 162
+                    },
+                    'end': {
+                      'line': 5,
+                      'column': 31,
+                      'index': 174
+                    }
+                  },
+                  'typeAnnotation': {
+                    'type': 'TSFunctionType',
+                    'start': 164,
+                    'end': 174,
+                    'loc': {
+                      'start': {
+                        'line': 5,
+                        'column': 21,
+                        'index': 164
+                      },
+                      'end': {
+                        'line': 5,
+                        'column': 31,
+                        'index': 174
+                      }
+                    },
+                    'parameters': [],
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 167,
+                      'end': 174,
+                      'loc': {
+                        'start': {
+                          'line': 5,
+                          'column': 24,
+                          'index': 167
+                        },
+                        'end': {
+                          'line': 5,
+                          'column': 31,
+                          'index': 174
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSVoidKeyword',
+                        'start': 170,
+                        'end': 174,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 27,
+                            'index': 170
+                          },
+                          'end': {
+                            'line': 5,
+                            'column': 31,
+                            'index': 174
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        'specifiers': [],
+        'source': null
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 179,
+        'end': 342,
+        'loc': {
+          'start': {
+            'line': 7,
+            'column': 0,
+            'index': 179
+          },
+          'end': {
+            'line': 12,
+            'column': 2,
+            'index': 342
+          }
+        },
+        'exportKind': 'type',
+        'declaration': {
+          'type': 'TSTypeAliasDeclaration',
+          'start': 186,
+          'end': 342,
+          'loc': {
+            'start': {
+              'line': 7,
+              'column': 7,
+              'index': 186
+            },
+            'end': {
+              'line': 12,
+              'column': 2,
+              'index': 342
+            }
+          },
+          'id': {
+            'type': 'Identifier',
+            'start': 191,
+            'end': 201,
+            'loc': {
+              'start': {
+                'line': 7,
+                'column': 12,
+                'index': 191
+              },
+              'end': {
+                'line': 7,
+                'column': 22,
+                'index': 201
+              }
+            },
+            'name': 'SlideProps'
+          },
+          'typeAnnotation': {
+            'type': 'TSIntersectionType',
+            'start': 204,
+            'end': 341,
+            'loc': {
+              'start': {
+                'line': 7,
+                'column': 25,
+                'index': 204
+              },
+              'end': {
+                'line': 12,
+                'column': 1,
+                'index': 341
+              }
+            },
+            'types': [
+              {
+                'type': 'TSTypeReference',
+                'start': 204,
+                'end': 215,
+                'loc': {
+                  'start': {
+                    'line': 7,
+                    'column': 25,
+                    'index': 204
+                  },
+                  'end': {
+                    'line': 7,
+                    'column': 36,
+                    'index': 215
+                  }
+                },
+                'typeName': {
+                  'type': 'Identifier',
+                  'start': 204,
+                  'end': 215,
+                  'loc': {
+                    'start': {
+                      'line': 7,
+                      'column': 25,
+                      'index': 204
+                    },
+                    'end': {
+                      'line': 7,
+                      'column': 36,
+                      'index': 215
+                    }
+                  },
+                  'name': 'CommonProps'
+                }
+              },
+              {
+                'type': 'TSTypeLiteral',
+                'start': 218,
+                'end': 341,
+                'loc': {
+                  'start': {
+                    'line': 7,
+                    'column': 39,
+                    'index': 218
+                  },
+                  'end': {
+                    'line': 12,
+                    'column': 1,
+                    'index': 341
+                  }
+                },
+                'members': [
+                  {
+                    'type': 'TSPropertySignature',
+                    'start': 222,
+                    'end': 242,
+                    'loc': {
+                      'start': {
+                        'line': 8,
+                        'column': 2,
+                        'index': 222
+                      },
+                      'end': {
+                        'line': 8,
+                        'column': 22,
+                        'index': 242
+                      }
+                    },
+                    'computed': false,
+                    'key': {
+                      'type': 'Identifier',
+                      'start': 222,
+                      'end': 230,
+                      'loc': {
+                        'start': {
+                          'line': 8,
+                          'column': 2,
+                          'index': 222
+                        },
+                        'end': {
+                          'line': 8,
+                          'column': 10,
+                          'index': 230
+                        }
+                      },
+                      'name': 'children'
+                    },
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 230,
+                      'end': 241,
+                      'loc': {
+                        'start': {
+                          'line': 8,
+                          'column': 10,
+                          'index': 230
+                        },
+                        'end': {
+                          'line': 8,
+                          'column': 21,
+                          'index': 241
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSTypeReference',
+                        'start': 232,
+                        'end': 241,
+                        'loc': {
+                          'start': {
+                            'line': 8,
+                            'column': 12,
+                            'index': 232
+                          },
+                          'end': {
+                            'line': 8,
+                            'column': 21,
+                            'index': 241
+                          }
+                        },
+                        'typeName': {
+                          'type': 'Identifier',
+                          'start': 232,
+                          'end': 241,
+                          'loc': {
+                            'start': {
+                              'line': 8,
+                              'column': 12,
+                              'index': 232
+                            },
+                            'end': {
+                              'line': 8,
+                              'column': 21,
+                              'index': 241
+                            }
+                          },
+                          'name': 'ReactNode'
+                        }
+                      }
+                    }
+                  },
+                  {
+                    'type': 'TSPropertySignature',
+                    'start': 249,
+                    'end': 271,
+                    'loc': {
+                      'start': {
+                        'line': 9,
+                        'column': 2,
+                        'index': 249
+                      },
+                      'end': {
+                        'line': 9,
+                        'column': 24,
+                        'index': 271
+                      }
+                    },
+                    'computed': false,
+                    'key': {
+                      'type': 'Identifier',
+                      'start': 249,
+                      'end': 261,
+                      'loc': {
+                        'start': {
+                          'line': 9,
+                          'column': 2,
+                          'index': 249
+                        },
+                        'end': {
+                          'line': 9,
+                          'column': 14,
+                          'index': 261
+                        }
+                      },
+                      'name': 'defaultSlide'
+                    },
+                    'optional': true,
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 262,
+                      'end': 270,
+                      'loc': {
+                        'start': {
+                          'line': 9,
+                          'column': 15,
+                          'index': 262
+                        },
+                        'end': {
+                          'line': 9,
+                          'column': 23,
+                          'index': 270
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSNumberKeyword',
+                        'start': 264,
+                        'end': 270,
+                        'loc': {
+                          'start': {
+                            'line': 9,
+                            'column': 17,
+                            'index': 264
+                          },
+                          'end': {
+                            'line': 9,
+                            'column': 23,
+                            'index': 270
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    'type': 'TSPropertySignature',
+                    'start': 276,
+                    'end': 316,
+                    'loc': {
+                      'start': {
+                        'line': 10,
+                        'column': 2,
+                        'index': 276
+                      },
+                      'end': {
+                        'line': 10,
+                        'column': 42,
+                        'index': 316
+                      }
+                    },
+                    'computed': false,
+                    'key': {
+                      'type': 'Identifier',
+                      'start': 276,
+                      'end': 289,
+                      'loc': {
+                        'start': {
+                          'line': 10,
+                          'column': 2,
+                          'index': 276
+                        },
+                        'end': {
+                          'line': 10,
+                          'column': 15,
+                          'index': 289
+                        }
+                      },
+                      'name': 'onSlideChange'
+                    },
+                    'optional': true,
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 290,
+                      'end': 315,
+                      'loc': {
+                        'start': {
+                          'line': 10,
+                          'column': 16,
+                          'index': 290
+                        },
+                        'end': {
+                          'line': 10,
+                          'column': 41,
+                          'index': 315
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSFunctionType',
+                        'start': 292,
+                        'end': 315,
+                        'loc': {
+                          'start': {
+                            'line': 10,
+                            'column': 18,
+                            'index': 292
+                          },
+                          'end': {
+                            'line': 10,
+                            'column': 41,
+                            'index': 315
+                          }
+                        },
+                        'parameters': [
+                          {
+                            'type': 'Identifier',
+                            'start': 293,
+                            'end': 32,
+                            'loc': {
+                              'start': {
+                                'line': 10,
+                                'column': 19,
+                                'index': 293
+                              },
+                              'end': {
+                                'line': 10,
+                                'column': 32,
+                                'index': 306
+                              }
+                            },
+                            'name': 'slide',
+                            'typeAnnotation': {
+                              'type': 'TSTypeAnnotation',
+                              'start': 298,
+                              'end': 306,
+                              'loc': {
+                                'start': {
+                                  'line': 10,
+                                  'column': 24,
+                                  'index': 298
+                                },
+                                'end': {
+                                  'line': 10,
+                                  'column': 32,
+                                  'index': 306
+                                }
+                              },
+                              'typeAnnotation': {
+                                'type': 'TSNumberKeyword',
+                                'start': 300,
+                                'end': 306,
+                                'loc': {
+                                  'start': {
+                                    'line': 10,
+                                    'column': 26,
+                                    'index': 300
+                                  },
+                                  'end': {
+                                    'line': 10,
+                                    'column': 32,
+                                    'index': 306
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        'typeAnnotation': {
+                          'type': 'TSTypeAnnotation',
+                          'start': 308,
+                          'end': 315,
+                          'loc': {
+                            'start': {
+                              'line': 10,
+                              'column': 34,
+                              'index': 308
+                            },
+                            'end': {
+                              'line': 10,
+                              'column': 41,
+                              'index': 315
+                            }
+                          },
+                          'typeAnnotation': {
+                            'type': 'TSVoidKeyword',
+                            'start': 311,
+                            'end': 315,
+                            'loc': {
+                              'start': {
+                                'line': 10,
+                                'column': 37,
+                                'index': 311
+                              },
+                              'end': {
+                                'line': 10,
+                                'column': 41,
+                                'index': 315
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    'type': 'TSPropertySignature',
+                    'start': 319,
+                    'end': 339,
+                    'loc': {
+                      'start': {
+                        'line': 11,
+                        'column': 2,
+                        'index': 319
+                      },
+                      'end': {
+                        'line': 11,
+                        'column': 22,
+                        'index': 339
+                      }
+                    },
+                    'computed': false,
+                    'key': {
+                      'type': 'Identifier',
+                      'start': 319,
+                      'end': 322,
+                      'loc': {
+                        'start': {
+                          'line': 11,
+                          'column': 2,
+                          'index': 319
+                        },
+                        'end': {
+                          'line': 11,
+                          'column': 5,
+                          'index': 322
+                        }
+                      },
+                      'name': 'ref'
+                    },
+                    'optional': true,
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 323,
+                      'end': 338,
+                      'loc': {
+                        'start': {
+                          'line': 11,
+                          'column': 6,
+                          'index': 323
+                        },
+                        'end': {
+                          'line': 11,
+                          'column': 21,
+                          'index': 338
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSTypeReference',
+                        'start': 325,
+                        'end': 338,
+                        'loc': {
+                          'start': {
+                            'line': 11,
+                            'column': 8,
+                            'index': 325
+                          },
+                          'end': {
+                            'line': 11,
+                            'column': 21,
+                            'index': 338
+                          }
+                        },
+                        'typeName': {
+                          'type': 'Identifier',
+                          'start': 325,
+                          'end': 328,
+                          'loc': {
+                            'start': {
+                              'line': 11,
+                              'column': 8,
+                              'index': 325
+                            },
+                            'end': {
+                              'line': 11,
+                              'column': 11,
+                              'index': 328
+                            }
+                          },
+                          'name': 'Ref'
+                        },
+                        'typeParameters': {
+                          'type': 'TSTypeParameterInstantiation',
+                          'start': 328,
+                          'end': 338,
+                          'loc': {
+                            'start': {
+                              'line': 11,
+                              'column': 11,
+                              'index': 328
+                            },
+                            'end': {
+                              'line': 11,
+                              'column': 21,
+                              'index': 338
+                            }
+                          },
+                          'params': [
+                            {
+                              'type': 'TSTypeReference',
+                              'start': 329,
+                              'end': 337,
+                              'loc': {
+                                'start': {
+                                  'line': 11,
+                                  'column': 12,
+                                  'index': 329
+                                },
+                                'end': {
+                                  'line': 11,
+                                  'column': 20,
+                                  'index': 337
+                                }
+                              },
+                              'typeName': {
+                                'type': 'Identifier',
+                                'start': 329,
+                                'end': 337,
+                                'loc': {
+                                  'start': {
+                                    'line': 11,
+                                    'column': 12,
+                                    'index': 329
+                                  },
+                                  'end': {
+                                    'line': 11,
+                                    'column': 20,
+                                    'index': 337
+                                  }
+                                },
+                                'name': 'SlideApi'
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        'specifiers': [],
+        'source': null
+      },
+      {
+        'type': 'TSDeclareFunction',
+        'start': 343,
+        'end': 403,
+        'loc': {
+          'start': {
+            'line': 13,
+            'column': 0,
+            'index': 343
+          },
+          'end': {
+            'line': 13,
+            'column': 60,
+            'index': 403
+          }
+        },
+        'declare': true,
+        'id': {
+          'type': 'Identifier',
+          'start': 360,
+          'end': 370,
+          'loc': {
+            'start': {
+              'line': 13,
+              'column': 17,
+              'index': 360
+            },
+            'end': {
+              'line': 13,
+              'column': 27,
+              'index': 370
+            }
+          },
+          'name': 'SlideProps'
+        },
+        'expression': false,
+        'generator': false,
+        'async': false,
+        'params': [
+          {
+            'type': 'Identifier',
+            'start': 371,
+            'end': 45,
+            'loc': {
+              'start': {
+                'line': 13,
+                'column': 28,
+                'index': 371
+              },
+              'end': {
+                'line': 13,
+                'column': 45,
+                'index': 388
+              }
+            },
+            'name': 'props',
+            'typeAnnotation': {
+              'type': 'TSTypeAnnotation',
+              'start': 376,
+              'end': 388,
+              'loc': {
+                'start': {
+                  'line': 13,
+                  'column': 33,
+                  'index': 376
+                },
+                'end': {
+                  'line': 13,
+                  'column': 45,
+                  'index': 388
+                }
+              },
+              'typeAnnotation': {
+                'type': 'TSTypeReference',
+                'start': 378,
+                'end': 388,
+                'loc': {
+                  'start': {
+                    'line': 13,
+                    'column': 35,
+                    'index': 378
+                  },
+                  'end': {
+                    'line': 13,
+                    'column': 45,
+                    'index': 388
+                  }
+                },
+                'typeName': {
+                  'type': 'Identifier',
+                  'start': 378,
+                  'end': 388,
+                  'loc': {
+                    'start': {
+                      'line': 13,
+                      'column': 35,
+                      'index': 378
+                    },
+                    'end': {
+                      'line': 13,
+                      'column': 45,
+                      'index': 388
+                    }
+                  },
+                  'name': 'SlideProps'
+                }
+              }
+            }
+          }
+        ],
+        'returnType': {
+          'type': 'TSTypeAnnotation',
+          'start': 389,
+          'end': 402,
+          'loc': {
+            'start': {
+              'line': 13,
+              'column': 46,
+              'index': 389
+            },
+            'end': {
+              'line': 13,
+              'column': 59,
+              'index': 402
+            }
+          },
+          'typeAnnotation': {
+            'type': 'TSTypeReference',
+            'start': 391,
+            'end': 402,
+            'loc': {
+              'start': {
+                'line': 13,
+                'column': 48,
+                'index': 391
+              },
+              'end': {
+                'line': 13,
+                'column': 59,
+                'index': 402
+              }
+            },
+            'typeName': {
+              'type': 'TSQualifiedName',
+              'start': 391,
+              'end': 402,
+              'loc': {
+                'start': {
+                  'line': 13,
+                  'column': 48,
+                  'index': 391
+                },
+                'end': {
+                  'line': 13,
+                  'column': 59,
+                  'index': 402
+                }
+              },
+              'left': {
+                'type': 'Identifier',
+                'start': 391,
+                'end': 394,
+                'loc': {
+                  'start': {
+                    'line': 13,
+                    'column': 48,
+                    'index': 391
+                  },
+                  'end': {
+                    'line': 13,
+                    'column': 51,
+                    'index': 394
+                  }
+                },
+                'name': 'JSX'
+              },
+              'right': {
+                'type': 'Identifier',
+                'start': 395,
+                'end': 402,
+                'loc': {
+                  'start': {
+                    'line': 13,
+                    'column': 52,
+                    'index': 395
+                  },
+                  'end': {
+                    'line': 13,
+                    'column': 59,
+                    'index': 402
+                  }
+                },
+                'name': 'Element'
+              }
+            }
+          }
+        }
+      },
+      {
+        'type': 'ExportDefaultDeclaration',
+        'start': 404,
+        'end': 430,
+        'loc': {
+          'start': {
+            'line': 14,
+            'column': 0,
+            'index': 404
+          },
+          'end': {
+            'line': 14,
+            'column': 26,
+            'index': 430
+          }
+        },
+        'exportKind': 'value',
+        'declaration': {
+          'type': 'Identifier',
+          'start': 419,
+          'end': 429,
+          'loc': {
+            'start': {
+              'line': 14,
+              'column': 15,
+              'index': 419
+            },
+            'end': {
+              'line': 14,
+              'column': 25,
+              'index': 429
+            }
+          },
+          'name': 'SlideProps'
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
