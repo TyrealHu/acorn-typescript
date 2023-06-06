@@ -2911,11 +2911,17 @@ function tsPlugin(options?: {
           }
         )
 
-        if (node.id && !(statement & FUNC_HANGING_STATEMENT)) {
+        this.yieldPos = oldYieldPos
+        this.awaitPos = oldAwaitPos
+        this.awaitIdentPos = oldAwaitIdentPos
+
+
+        if (statement & FUNC_STATEMENT && node.id && !(statement & FUNC_HANGING_STATEMENT)) {
           // If it is a regular function declaration in sloppy mode, then it is
           // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
           // mode depends on properties of the current scope (see
           // treatFunctionsAsVar).
+
           if (node.body) {
             this.checkLValSimple(
               node.id,
@@ -2931,9 +2937,6 @@ function tsPlugin(options?: {
           }
         }
 
-        this.yieldPos = oldYieldPos
-        this.awaitPos = oldAwaitPos
-        this.awaitIdentPos = oldAwaitIdentPos
         this.maybeInArrowParameters = oldMaybeInArrowParameters
         return this.finishNode(node, isDeclaration ? 'FunctionDeclaration' : 'FunctionExpression')
       }
