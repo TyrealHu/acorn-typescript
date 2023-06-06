@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.5](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.4...v1.3.5) (2023-06-06)
+
+
+### ♻️ Code Refactoring
+
+* position checkLValSimple in function ([038e588](https://github.com/TyrealHu/acorn-typescript/commit/038e588f4ad99ec3fca16e5d7753e8b967de230f))
+
 ### [1.3.4](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.3...v1.3.4) (2023-06-06)
 
 
