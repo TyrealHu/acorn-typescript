@@ -25,20 +25,8 @@ import {
   isPrivateNameConflicted
 } from './parseutil'
 import { DecoratorsError, TypeScriptError } from './error'
-import type { AcornParseClass } from './middleware'
-import type {
-  ArrayExpression,
-  ArrayPattern,
-  ArrowFunctionExpression,
-  BaseNode,
-  Declaration,
-  Expression,
-  Identifier,
-  ObjectPattern,
-  Pattern,
-  RestElement
-} from 'estree'
-import type {
+import { AcornParseClass } from './middleware'
+import {
   Node,
   TokenType,
   Position,
@@ -422,7 +410,7 @@ function tsPlugin(options?: {
         )
       }
 
-      tsCheckForInvalidTypeCasts(items: Array<Expression | undefined | null | any>) {
+      tsCheckForInvalidTypeCasts(items: Array<undefined | null | any>) {
         items.forEach(node => {
           if (node?.type === 'TSTypeCastExpression') {
             this.raise(node.typeAnnotation.start, TypeScriptError.UnexpectedTypeAnnotation)
@@ -457,7 +445,7 @@ function tsPlugin(options?: {
         startPos: number,
         startLoc: Position,
         forInit: boolean
-      ): ArrowFunctionExpression | undefined | null {
+      ): any | undefined | null {
         if (!this.match(tt.relational)) {
           return undefined
         }
@@ -766,9 +754,9 @@ function tsPlugin(options?: {
       }
 
       createIdentifier(
-        node: Omit<Identifier, 'type'>,
+        node: Omit<any, 'type'>,
         name: string
-      ): Identifier {
+      ): any {
         node.name = name
         return this.finishNode(node, 'Identifier')
       }
@@ -783,7 +771,7 @@ function tsPlugin(options?: {
       // This is used in flow and typescript plugin
       // Determine whether a parameter is a this param
       isThisParam(
-        param: Pattern | Identifier
+        param: any
       ): boolean {
         return param.type === 'Identifier' && param.name === 'this'
       }
@@ -1217,7 +1205,7 @@ function tsPlugin(options?: {
         return result
       }
 
-      tsParseTypeParameterName(): Identifier | string {
+      tsParseTypeParameterName(): any | string {
         const typeName = this.parseIdent()
         return typeName.name
       }
@@ -1327,7 +1315,7 @@ function tsPlugin(options?: {
         }
       }
 
-      tsParseBindingListForSignature(): Array<Identifier | RestElement | ObjectPattern | ArrayPattern> {
+      tsParseBindingListForSignature(): Array<any> {
         return super.parseBindingList(tt.parenR, true, true)
           .map(pattern => {
             if (
@@ -1395,7 +1383,7 @@ function tsPlugin(options?: {
         }
       }
 
-      tsParseTypePredicatePrefix(): Identifier | undefined | null {
+      tsParseTypePredicatePrefix(): any | undefined | null {
         const id = this.parseIdent()
         if (this.isContextual('is') && !this.hasPrecedingLineBreak()) {
           this.next()
@@ -1713,7 +1701,7 @@ function tsPlugin(options?: {
             !type.typeParameters &&
             type.typeName.type === 'Identifier'
           ) {
-            labeledNode.label = type.typeName as Identifier
+            labeledNode.label = type.typeName as any
           } else {
             this.raise(type.start, TypeScriptError.InvalidTupleMemberLabel)
             // nodes representing the invalid source.
@@ -2344,7 +2332,7 @@ function tsPlugin(options?: {
         }
       }
 
-      tsTryParseAndCatch<T extends BaseNode | undefined | null>(
+      tsTryParseAndCatch<T extends any | undefined | null>(
         f: () => T
       ): T | undefined | null {
         const result = this.tryParse(
@@ -2726,7 +2714,7 @@ function tsPlugin(options?: {
         node: any,
         value: string,
         next: boolean
-      ): Declaration | undefined | null {
+      ): any | undefined | null {
         // no declaration apart from enum can be followed by a line break.
         switch (value) {
           case 'abstract':
@@ -2770,7 +2758,7 @@ function tsPlugin(options?: {
 
       // Note: this won't b·e called unless the keyword is allowed in
       // `shouldParseExportDeclaration`.
-      tsTryParseExportDeclaration(): Declaration | undefined | null {
+      tsTryParseExportDeclaration(): any | undefined | null {
         return this.tsParseDeclaration(
           this.startNode(),
           this.value,
@@ -3015,12 +3003,12 @@ function tsPlugin(options?: {
       }
 
       parseExprOp(
-        left: Expression,
+        left: any,
         leftStartPos: number,
         leftStartLoc: Position,
         minPrec: number,
         forInit: boolean
-      ): Expression {
+      ): any {
         if (
           tt._in.binop > minPrec &&
           !this.hasPrecedingLineBreak() &&
@@ -3557,7 +3545,7 @@ function tsPlugin(options?: {
       }
 
       parseConditional(
-        expr: Expression,
+        expr: any,
         startPos: number,
         startLoc: Position,
         forInit?: boolean,
@@ -3989,7 +3977,7 @@ function tsPlugin(options?: {
         params: any[],
         isAsync: boolean,
         forInit?: boolean
-      ): ArrowFunctionExpression {
+      ): any {
         if (this.match(tt.colon)) {
           node.returnType = this.tsParseTypeAnnotation()
         }
@@ -4082,7 +4070,7 @@ function tsPlugin(options?: {
         forInit?: boolean,
         refExpressionErrors?: any | null,
         afterLeftParse?: any
-      ): Expression {
+      ): any {
         // Note: When the JSX plugin is on, type assertions (`<T> x`) aren't valid syntax.
 
         let state: LookaheadState | undefined | null
@@ -4194,7 +4182,6 @@ function tsPlugin(options?: {
           /*:: invariant(arrow.failState) */
           this.setLookaheadState(arrow.failState)
           if (typeParameters) this.reportReservedArrowTypeParam(typeParameters)
-          // @ts-expect-error refine typings
           return arrow.node
         }
 
@@ -4315,7 +4302,7 @@ function tsPlugin(options?: {
           case 'SpreadElement':
             return this.isAssignable(node.argument)
           case 'ArrayExpression':
-            return (node as ArrayExpression).elements.every(
+            return (node as any).elements.every(
               element => element === null || this.isAssignable(element)
             )
           case 'AssignmentExpression':
@@ -4525,7 +4512,7 @@ function tsPlugin(options?: {
       }
 
       parseTaggedTemplateExpression(
-        base: Expression,
+        base: any,
         startPos: number,
         startLoc: Position,
         optionalChainMember: boolean
@@ -5331,7 +5318,6 @@ function tsPlugin(options?: {
 
         if (this.match(tt.relational) || this.match(tt.bitShift)) {
           const typeArguments = this.tsTryParseAndCatch(() =>
-            // @ts-expect-error: refine typings
             this.tsParseTypeArgumentsInExpression()
           )
           if (typeArguments) node.typeParameters = typeArguments

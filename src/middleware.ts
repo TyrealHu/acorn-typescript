@@ -1,7 +1,7 @@
 import type { Parser, Node, TokenType, Position } from 'acorn'
 import type { Options } from 'acorn'
 
-export class AcornParseClass extends Parser {
+export declare class AcornParseClass extends Parser {
   options: Options & {
     onComment: any
   }

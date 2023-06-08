@@ -35,7 +35,6 @@
   },
   "homepage": "https://github.com/TyrealHu/acorn-typescript#readme",
   "devDependencies": {
-    "@types/estree": "^1.0.0",
     "@types/jest": "^24.1.0",
     "acorn": "^8.8.2",
     "acorn-jsx": "^5.3.2",
