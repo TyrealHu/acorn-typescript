@@ -1,6 +1,6 @@
 {
   "name": "acorn-typescript",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "description": "Alternative, TypeScript parser",
   "source": "src/index.ts",
   "main": "lib/index.js",

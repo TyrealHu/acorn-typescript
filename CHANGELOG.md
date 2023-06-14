@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.6...v1.3.7) (2023-06-14)
+
+
+### ✨ Features
+
+* 🚀add locations validating in static method ([e707b64](https://github.com/TyrealHu/acorn-typescript/commit/e707b642141bb4ad10572d18c78b4ee2be4d27a5))
+
 ### [1.3.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.5...v1.3.6) (2023-06-08)
 
 
