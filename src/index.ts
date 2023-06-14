@@ -5058,6 +5058,12 @@ function tsPlugin(options?: {
       }
 
       static parse(input: string, options: Options) {
+        if (options.locations === false) {
+          throw new Error(`You have to enable options.locations while using acorn-typescript`)
+        } else {
+          options.locations = true
+        }
+
         const parser = new this(options, input)
         if (dts) {
           parser.isAmbientContext = true
@@ -5066,6 +5072,12 @@ function tsPlugin(options?: {
       }
 
       static parseExpressionAt(input: string, pos: number, options: Options) {
+        if (options.locations === false) {
+          throw new Error(`You have to enable options.locations while using acorn-typescript`)
+        } else {
+          options.locations = true
+        }
+
         const parser = new this(options, input, pos)
         if (dts) {
           parser.isAmbientContext = true

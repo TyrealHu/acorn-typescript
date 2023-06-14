@@ -54,6 +54,17 @@ export {
 })
 ```
 
+## Notice
+- You have to enable options.locations while using acorn-typescript
+```ts
+acorn.parse(input, {
+    sourceType: 'module',
+    ecmaVersion: 'latest',
+    // here
+    locations: true
+  })
+```
+
 ## SUPPORTED
 - Typescript normal syntax
 - Support to parse TypeScript [Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
