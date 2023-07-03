@@ -190,13 +190,21 @@ export declare class AcornParseClass extends Parser {
 
   parsePrivateIdent(): any
 
-  parseRestBinding: any
+  parseExportSpecifier(exports): any
+
+  parseRestBinding(): any
 
   parseBlock(createNewLexicalScope?: boolean, node?: any, exitStrict?: boolean): any
 
   enterClassBody(): any
 
   exitClassBody()
+
+  parseIdentNode(): any
+
+  parseVar(node, isFor, kind, allowMissingInitializer): any
+
+  parseExportDefaultDeclaration(): any
 
   parseIdent(liberal?: boolean): any
 

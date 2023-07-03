@@ -3097,6 +3097,25 @@ function tsPlugin(options?: {
         return importNode
       }
 
+      parseExportDefaultDeclaration() {
+        // ---start ts extension
+        if (this.isAbstractClass()) {
+          const cls = this.startNode()
+          this.next() // Skip "abstract"
+          cls.abstract = true
+          return this.parseClass(cls, true)
+        }
+
+        // export default interface allowed in:
+        // https://github.com/Microsoft/TypeScript/pull/16040
+        if (this.match(tokTypes.interface)) {
+          const result = this.tsParseInterfaceDeclaration(this.startNode())
+          if (result) return result
+        }
+        // ---end
+        return super.parseExportDefaultDeclaration()
+      }
+
       parseExport(node: any, exports: any): any {
         let enterHead = this.lookahead()
         if (this.ts_eatWithState(tt._import, 2, enterHead)) {
@@ -3146,92 +3165,7 @@ function tsPlugin(options?: {
             node.exportKind = 'value'
           }
 
-          // ---start origin parseExport
-          // export * from '...'
-          this.next()
-          if (this.eat(tt.star)) {
-            if (this.options.ecmaVersion >= 11) {
-              if (this.eatContextual('as')) {
-                node.exported = this.parseModuleExportName()
-                this.checkExport(exports, node.exported, this.lastTokStart)
-              } else {
-                node.exported = null
-              }
-            }
-            this.expectContextual('from')
-            if (this.type !== tt.string) this.unexpected()
-            node.source = this.parseExprAtom()
-            this.semicolon()
-            return this.finishNode(node, 'ExportAllDeclaration')
-          }
-          if (this.eat(tt._default)) { // export default ...
-            // ---start ts extension
-            if (this.isAbstractClass()) {
-              const cls = this.startNode()
-              this.next() // Skip "abstract"
-              cls.abstract = true
-              return this.parseClass(cls, true)
-            }
-
-            // export default interface allowed in:
-            // https://github.com/Microsoft/TypeScript/pull/16040
-            if (this.match(tokTypes.interface)) {
-              const result = this.tsParseInterfaceDeclaration(this.startNode())
-              if (result) return result
-            }
-            // ---end
-            this.checkExport(exports, 'default', this.lastTokStart)
-            let isAsync
-            if (this.type === tt._function || (isAsync = this.isAsyncFunction())) {
-              let fNode = this.startNode()
-              this.next()
-              if (isAsync) this.next()
-              node.declaration = this.parseFunction(fNode, FUNC_STATEMENT | FUNC_NULLABLE_ID, false, isAsync)
-            } else if (this.type === tt._class) {
-              let cNode = this.startNode()
-              node.declaration = this.parseClass(cNode, 'nullableID')
-            } else if (this.type === tokTypes.at) {
-              let dNode = this.startNode()
-              this.parseDecorators(false)
-              node.declaration = this.parseClass(dNode, true)
-            } else {
-              node.declaration = this.parseMaybeAssign()
-              this.semicolon()
-            }
-            return this.finishNode(node, 'ExportDefaultDeclaration')
-          }
-          // export var|const|let|function|class ...
-          if (this.shouldParseExportStatement()) {
-            node.declaration = this.parseExportDeclaration(node)
-            if (node.declaration.type === 'VariableDeclaration')
-              this.checkVariableExport(exports, node.declaration.declarations)
-            else
-              this.checkExport(exports, node.declaration.id, node.declaration.id.start)
-            node.specifiers = []
-            node.source = null
-          } else { // export { x, y as z } [from '...']
-            node.declaration = null
-            node.specifiers = this.parseExportSpecifiers(exports)
-            if (this.eatContextual('from')) {
-              if (this.type !== tt.string) this.unexpected()
-              node.source = this.parseExprAtom()
-            } else {
-              for (let spec of node.specifiers) {
-                // check for keywords used as local names
-                this.checkUnreserved(spec.local)
-                // check if export is defined
-                this.checkLocalExport(spec.local)
-
-                if (spec.local.type === 'Literal') {
-                  this.raise(spec.local.start, 'A string literal cannot be used as an exported binding without `from`.')
-                }
-              }
-              node.source = null
-            }
-            this.semicolon()
-          }
-          return this.finishNode(node, 'ExportNamedDeclaration')
-          // ---end
+          return super.parseExport(node, exports)
         }
       }
 
@@ -3378,57 +3312,14 @@ function tsPlugin(options?: {
         }
       }
 
-      // @ts-ignore
-      parseIdent(liberal?: boolean, isBinding?: boolean) {
-        var node = this.startNode()
-        if (this.type === tt.name) {
+      parseIdentNode() {
+        let node = this.startNode()
+        if (tokenIsKeywordOrIdentifier(this.type)) {
           node.name = this.value
-        } else if (tokenIsKeywordOrIdentifier(this.type)) {
-          node.name = this.value
-        } else if (this.type.keyword) {
-          node.name = this.type.keyword
-
-          // To fix https://github.com/acornjs/acorn/issues/575
-          // `class` and `function` keywords push new context into this.context.
-          // But there is no chance to pop the context if the keyword is consumed as an identifier such as a property name.
-          // If the previous token is a dot, this does not apply because the context-managing code already ignored the keyword
-          if ((node.name === 'class' || node.name === 'function') &&
-            (this.lastTokEnd !== this.lastTokStart + 1 || this.input.charCodeAt(this.lastTokStart) !== 46)) {
-            this.context.pop()
-          }
         } else {
-          this.unexpected()
+          return super.parseIdentNode()
         }
-        this.next(!!liberal)
-        this.finishNode(node, 'Identifier')
-        if (!liberal) {
-          this.checkUnreserved(node)
-          if (node.name === 'await' && !this.awaitIdentPos) {
-            this.awaitIdentPos = node.start
-          }
-        }
-        return node
-      };
 
-      parseVar(node, isFor, kind, allowMissingInitializer: boolean = false) {
-        node.declarations = []
-        node.kind = kind
-        for (; ;) {
-          let decl = this.startNode()
-          this.parseVarId(decl, kind)
-          if (this.eat(tt.eq)) {
-            decl.init = this.parseMaybeAssign(isFor)
-          } else if (!allowMissingInitializer && kind === 'const' && !(this.type === tt._in || (this.options.ecmaVersion >= 6 && this.isContextual('of')))) {
-            this.unexpected()
-          } else if (!allowMissingInitializer && decl.id.type !== 'Identifier' && !(isFor && (this.type === tt._in || this.isContextual('of')))) {
-            this.raise(this.lastTokEnd, 'Complex binding patterns require an initialization value')
-          } else {
-            decl.init = null
-          }
-          node.declarations.push(this.finishNode(decl, 'VariableDeclarator'))
-
-          if (!this.eat(tt.comma)) break
-        }
         return node
       }
 
@@ -3437,7 +3328,7 @@ function tsPlugin(options?: {
 
         // ---start origin parseVarStatement
         this.next()
-        this.parseVar(node, false, kind, allowMissingInitializer || isAmbientContext)
+        super.parseVar(node, false, kind, allowMissingInitializer || isAmbientContext)
         this.semicolon()
         const declaration = this.finishNode(node, 'VariableDeclaration')
         // ---end
@@ -4826,45 +4717,6 @@ function tsPlugin(options?: {
         return super.parseProperty(isPattern, refDestructuringErrors)
       }
 
-      parsePropertyValue(prop, isPattern, isGenerator, isAsync, startPos, startLoc, refDestructuringErrors, containsEsc) {
-        const typeParameters = this.tsTryParseTypeParameters()
-        if (typeParameters) prop.typeParameters = typeParameters
-
-        if ((isGenerator || isAsync) && this.type === tt.colon)
-          this.unexpected()
-        if (this.eat(tt.colon)) {
-          prop.value = isPattern ? this.parseMaybeDefault(this.start, this.startLoc) : this.parseMaybeAssign(false, refDestructuringErrors)
-          prop.kind = 'init'
-        } else if (this.options.ecmaVersion >= 6 && this.type === tt.parenL) {
-          if (isPattern) this.unexpected()
-          prop.kind = 'init'
-          prop.method = true
-          prop.value = this.parseMethod(isGenerator, isAsync)
-        } else if (!isPattern && !containsEsc &&
-          this.options.ecmaVersion >= 5 && !prop.computed && prop.key.type === 'Identifier' &&
-          (prop.key.name === 'get' || prop.key.name === 'set') &&
-          (this.type !== tt.comma && this.type !== tt.braceR && this.type !== tt.eq)) {
-          if (isGenerator || isAsync) this.unexpected()
-          this.parseGetterSetter(prop)
-        } else if (this.options.ecmaVersion >= 6 && !prop.computed && prop.key.type === 'Identifier') {
-          if (isGenerator || isAsync) this.unexpected()
-          this.checkUnreserved(prop.key)
-          if (prop.key.name === 'await' && !this.awaitIdentPos)
-            this.awaitIdentPos = startPos
-          prop.kind = 'init'
-          if (isPattern) {
-            prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key))
-          } else if (this.type === tt.eq && refDestructuringErrors) {
-            if (refDestructuringErrors.shorthandAssign < 0)
-              refDestructuringErrors.shorthandAssign = this.start
-            prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key))
-          } else {
-            prop.value = this.copyNode(prop.key)
-          }
-          prop.shorthand = true
-        } else this.unexpected()
-      }
-
       parseCatchClauseParam() {
         const param = this.parseBindingAtom()
         let simple = param.type === 'Identifier'
@@ -4880,31 +4732,6 @@ function tsPlugin(options?: {
         this.expect(tt.parenR)
 
         return param
-      }
-
-      parseTryStatement(node) {
-        this.next()
-        node.block = this.parseBlock()
-        node.handler = null
-        if (this.type === tt._catch) {
-          let clause = this.startNode()
-          this.next()
-          if (this.eat(tt.parenL)) {
-            // end
-            clause.param = this.parseCatchClauseParam()
-          } else {
-            if (this.options.ecmaVersion < 10) this.unexpected()
-            clause.param = null
-            this.enterScope(0)
-          }
-          clause.body = this.parseBlock(false)
-          this.exitScope()
-          node.handler = this.finishNode(clause, 'CatchClause')
-        }
-        node.finalizer = this.eat(tt._finally) ? this.parseBlock() : null
-        if (!node.handler && !node.finalizer)
-          this.raise(node.start, 'Missing catch or finally clause')
-        return this.finishNode(node, 'TryStatement')
       }
 
       parseClass(
@@ -4978,31 +4805,6 @@ function tsPlugin(options?: {
         } finally {
           this.inAbstractClass = oldInAbstractClass
         }
-      }
-
-      parseBindingList(close, allowEmpty, allowTrailingComma) {
-        let elts = [], first = true
-        while (!this.eat(close)) {
-          if (first) first = false
-          else this.expect(tt.comma)
-          if (allowEmpty && this.match(tt.comma)) {
-            elts.push(null)
-          } else if (allowTrailingComma && this.afterTrailingComma(close)) {
-            break
-          } else if (this.match(tt.ellipsis)) {
-            let rest = this.parseRestBinding()
-            this.parseBindingListItem(rest)
-            elts.push(rest)
-            if (this.type === tt.comma) {
-              this.raise(this.start, 'Comma is not permitted after the rest element')
-            }
-            this.expect(close)
-            break
-          } else {
-            elts.push(this.parseAssignableListItem(false))
-          }
-        }
-        return elts
       }
 
       parseMethod(
@@ -5086,110 +4888,49 @@ function tsPlugin(options?: {
         return parser.parseExpression()
       }
 
-      parseImportSpecifiers() {
-        let nodes = [], first = true
-        if (this.type === tt.name) {
-          // import defaultObj, { x, y as z } from '...'
-          let node = this.startNode()
-          node.local = this.parseIdent()
-          this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
-          nodes.push(this.finishNode(node, 'ImportDefaultSpecifier'))
+      parseImportSpecifier() {
+        const isMaybeTypeOnly = this.ts_isContextual(tokTypes.type)
 
-          if (!super.eat(tt.comma)) return nodes
-        }
-        if (this.type === tt.star) {
+        if (isMaybeTypeOnly) {
           let node = this.startNode()
-          this.next()
-          this.expectContextual('as')
-          node.local = this.parseIdent()
-          this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
-          nodes.push(this.finishNode(node, 'ImportNamespaceSpecifier'))
-          return nodes
-        }
-        super.expect(tt.braceL)
-        while (!this.eat(tt.braceR)) {
-          if (!first) {
-            this.expect(tt.comma)
-            if (this.afterTrailingComma(tt.braceR)) {
-              break
-            }
-          } else {
-            first = false
-          }
-
-          let node = this.startNode()
-          const isMaybeTypeOnly = this.ts_isContextual(tokTypes.type)
-
           node.imported = this.parseModuleExportName()
-          if (isMaybeTypeOnly) {
-            this.parseTypeOnlyImportExportSpecifier(
-              node,
-              /* isImport */ true,
-              this.importOrExportOuterKind === 'type'
-            )
-            nodes.push(this.finishNode(node, 'ImportSpecifier'))
-          } else {
-            node.importKind = 'value'
-            if (this.eatContextual('as')) {
-              node.local = this.parseIdent()
-            } else {
-              this.checkUnreserved(node.imported)
-              node.local = node.imported
-            }
-
-            this.checkLValSimple(node.local, acornScope.BIND_LEXICAL)
-            nodes.push(this.finishNode(node, 'ImportSpecifier'))
-          }
+          this.parseTypeOnlyImportExportSpecifier(
+            node,
+            /* isImport */ true,
+            this.importOrExportOuterKind === 'type'
+          )
+          return this.finishNode(node, 'ImportSpecifier')
+        } else {
+          const node = super.parseImportSpecifier()
+          node.importKind = 'value'
+          return node
         }
-        return nodes
       }
 
-      parseExportSpecifiers(exports) {
-        let nodes = [], first = true
-        // export { x, y as z } [from '...']
-        this.expect(tt.braceL)
-        while (!this.eat(tt.braceR)) {
-          if (!first) {
-            this.expect(tt.comma)
-            if (this.afterTrailingComma(tt.braceR)) break
-          } else {
-            first = false
-          }
-
-          const isMaybeTypeOnly = this.ts_isContextual(tokTypes.type)
-          const isString = this.match(tt.string)
-          // todo support exportDefaultFrom
-          // const isDefaultSpecifier = this.isExportDefaultSpecifier()
-
+      parseExportSpecifier(exports) {
+        const isMaybeTypeOnly = this.ts_isContextual(tokTypes.type)
+        const isString = this.match(tt.string)
+        if (!isString && isMaybeTypeOnly) {
           let node = this.startNode()
 
           node.local = this.parseModuleExportName()
-          if (!isString && isMaybeTypeOnly) {
-            this.parseTypeOnlyImportExportSpecifier(
-              node,
-              /* isImport */ false,
-              this.importOrExportOuterKind === 'type'
-            )
-            this.finishNode(node, 'ExportSpecifier')
-          } else {
-            node.exportKind = 'value'
-            if (this.eatContextual('as')) {
-              node.exported = this.parseModuleExportName()
-            } else {
-              node.exported = this.copyNode(node.local)
-            }
-            this.finishNode(node, 'ExportSpecifier')
-          }
-
+          this.parseTypeOnlyImportExportSpecifier(
+            node,
+            /* isImport */ false,
+            this.importOrExportOuterKind === 'type'
+          )
+          this.finishNode(node, 'ExportSpecifier')
           this.checkExport(
             exports,
             node.exported,
             node.exported.start
           )
-
-          nodes.push(node)
+          return node
+        } else {
+          const node = super.parseExportSpecifier(exports)
+          node.exportKind = 'value'
+          return node
         }
-        return nodes
       }
 
       parseTypeOnlyImportExportSpecifier(
