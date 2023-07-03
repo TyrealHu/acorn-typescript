@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.7...v1.4.0) (2023-07-03)
+
+
+### ✨ Features
+
+* 🚀rewrite some methonds in acorn 8.9.0 ([8666259](https://github.com/TyrealHu/acorn-typescript/commit/8666259cf6665bb7ac2459089422530641992451))
+
 ### [1.3.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.6...v1.3.7) (2023-06-14)
 
 
