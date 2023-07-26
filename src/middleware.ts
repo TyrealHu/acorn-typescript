@@ -126,7 +126,9 @@ export declare class AcornParseClass extends Parser {
 
   parseSubscripts(base: any, startPos: number, startLoc: Position, noCalls?: any, forInit?: any)
 
-  parseExprList(close: TokenType, allowTrailingComma?: any, allowEmpty?: any, refDestructuringErrors?: any)
+  parseSpread(refDestructuringErrors: any): any
+
+  parseExprList(close: TokenType, allowTrailingComma?: any, allowEmpty?: any, refDestructuringErrors?: any): any
 
   parseExprOp(left: any, leftStartPos: number, leftStartLoc: Position, minPrec?: any, forInit?: any)
 

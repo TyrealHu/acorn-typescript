@@ -9,4 +9,13 @@ describe('arrow-function type test', () => {
 
     equalNode(node, ArrowFunctionTypeSnapshot.AssignmentPattern)
   })
+
+  it('issue 32', () => {
+    const node = parseSource(generateSource([
+      `const testApp = async(app: string, index: number) => {`,
+      `};`
+    ]))
+
+    equalNode(node, ArrowFunctionTypeSnapshot.Issue32)
+  })
 })

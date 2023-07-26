@@ -313,7 +313,6 @@ function tsPlugin(options?: {
         } = { node: null }
         try {
           const node = fn((node = null) => {
-            debugger
             abortSignal.node = node
             throw abortSignal
           })
@@ -4453,6 +4452,29 @@ function tsPlugin(options?: {
         this.shouldParseAsyncArrowReturnType = undefined
 
         return this.parseArrowExpression(arrN, exprList, true, forInit)
+      }
+
+      parseExprList(close: TokenType, allowTrailingComma?: any, allowEmpty?: any, refDestructuringErrors?: any) {
+        let elts = [], first = true
+        while (!this.eat(close)) {
+          if (!first) {
+            this.expect(tt.comma)
+            if (allowTrailingComma && this.afterTrailingComma(close)) break
+          } else first = false
+
+          let elt
+          if (allowEmpty && this.type === tt.comma)
+            elt = null
+          else if (this.type === tt.ellipsis) {
+            elt = this.parseSpread(refDestructuringErrors)
+            if (refDestructuringErrors && this.type === tt.comma && refDestructuringErrors.trailingComma < 0)
+              refDestructuringErrors.trailingComma = this.start
+          } else {
+            elt = this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem)
+          }
+          elts.push(elt)
+        }
+        return elts
       }
 
       parseSubscript(base, startPos, startLoc, noCalls, maybeAsyncArrow, optionalChained, forInit) {
