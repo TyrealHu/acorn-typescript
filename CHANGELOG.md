@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.0...v1.4.1) (2023-07-26)
+
+
+### 🐛 Bug Fixes
+
+* 🐛bugs in parseExprList ([399f38e](https://github.com/TyrealHu/acorn-typescript/commit/399f38e03611710b29ad844c94cb674a54e345a7))
+
 ## [1.4.0](https://github.com/TyrealHu/acorn-typescript/compare/v1.3.7...v1.4.0) (2023-07-03)
 
 
