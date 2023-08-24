@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.1...v1.4.2) (2023-08-24)
+
+
+### 🐛 Bug Fixes
+
+* 🐛modifier params in class method ([5a06b09](https://github.com/TyrealHu/acorn-typescript/commit/5a06b09b488d0c66454f736490949a5b4b3c71c7))
+
 ### [1.4.1](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.0...v1.4.1) (2023-07-26)
 
 
