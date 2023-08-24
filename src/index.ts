@@ -12,6 +12,7 @@ import {
 } from './types'
 import {
   BIND_LEXICAL,
+  BIND_NONE,
   BIND_TS_INTERFACE,
   BIND_TS_NAMESPACE,
   BIND_TS_TYPE, SCOPE_ARROW,
@@ -221,6 +222,13 @@ function tsPlugin(options?: {
        * default kind is undefined
        * */
       importOrExportOuterKind: string | undefined = undefined
+
+      tsParseConstModifier = this.tsParseModifiers.bind(this, {
+        allowedModifiers: ['const'],
+        // for better error recovery
+        disallowedModifiers: ['in', 'out'],
+        errorTemplate: TypeScriptError.InvalidModifierOnTypeParameterPositions
+      })
 
       constructor(options: Options, input: string, startPos?: number) {
         super(options, input, startPos)
@@ -4143,6 +4151,18 @@ function tsPlugin(options?: {
           return this.finishNode(pp, 'TSParameterProperty')
         }
         return elt
+      }// AssignmentPattern
+
+      checkLValInnerPattern(expr, bindingType = BIND_NONE, checkClashes) {
+        switch (expr.type) {
+          case 'TSParameterProperty':
+            this.checkLValPattern(expr.parameter, bindingType, checkClashes)
+            break
+          default: {
+            super.checkLValInnerPattern(expr, bindingType, checkClashes)
+            break
+          }
+        }
       }
 
       // Allow type annotations inside of a parameter list.
@@ -4829,6 +4849,16 @@ function tsPlugin(options?: {
         }
       }
 
+      parseClassFunctionParams() {
+        const typeParameters = this.tsTryParseTypeParameters(
+          this.tsParseConstModifier
+        )
+        let params = this.parseBindingList(tt.parenR, false, this.options.ecmaVersion >= 8, true)
+        if (typeParameters) params.typeParameters = typeParameters
+
+        return params
+      }
+
       parseMethod(
         isGenerator: boolean,
         isAsync?: boolean,
@@ -4854,7 +4884,7 @@ function tsPlugin(options?: {
           (allowDirectSuper ? acornScope.SCOPE_DIRECT_SUPER : 0)
         )
         this.expect(tt.parenL)
-        node.params = this.parseBindingList(tt.parenR, false, this.options.ecmaVersion >= 8)
+        node.params = this.parseClassFunctionParams()
         this.checkYieldAwaitInDefaultParams()
         this.parseFunctionBody(node, false, true, false, {
           isClassMethod: inClassScope

@@ -214,6 +214,8 @@ export declare class AcornParseClass extends Parser {
 
   checkLValPattern(expr: any, bindingType?: number, checkClashes?: any)
 
+  checkLValInnerPattern(expr: any, bindingType?: number, checkClashes?: any)
+
   isAsyncProp(prop: any): boolean
 
   shouldParseArrow(): boolean

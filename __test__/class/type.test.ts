@@ -7,6 +7,21 @@ import {
 import ClassTypeSnapshot from '../__snapshot__/class/type'
 import { TypeScriptError } from '../../src/error'
 
+const issue33File = `
+export default class Bundle {
+    private readonly facadeChunkByModule = new Map<Module, Chunk>();
+    private readonly includedNamespaces = new Set<Module>();
+
+    constructor(
+        private readonly outputOptions: NormalizedOutputOptions,
+        private readonly unsetOptions: ReadonlySet<string>,
+        private readonly inputOptions: NormalizedInputOptions,
+        private readonly pluginDriver: PluginDriver,
+        private readonly graph: Graph
+    ) {}
+ }
+`
+
 describe('class', () => {
   it('normal property', () => {
     const node = parseSource(generateSource([
@@ -319,6 +334,12 @@ describe('class', () => {
     ]))
 
     equalNode(node, ClassTypeSnapshot.ConstructorSignature)
+  })
+
+  it('issue 33', () => {
+    const node = parseSource(issue33File)
+
+    equalNode(node, ClassTypeSnapshot.Issue33)
   })
 })
 
