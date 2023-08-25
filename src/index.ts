@@ -3583,7 +3583,13 @@ function tsPlugin(options?: {
       parseClassPropertyAnnotation(
         node: any
       ): void {
-        if (!node.optional && this.value === '!' && this.eat(tt.prefix)) node.definite = true
+        if (!node.optional) {
+          if (this.value === '!' && this.eat(tt.prefix)) {
+            node.definite = true
+          } else if (this.eat(tt.question)) {
+            node.optional = true;
+          }
+        }
 
         const type = this.tsTryParseTypeAnnotation()
         if (type) node.typeAnnotation = type
@@ -3676,6 +3682,10 @@ function tsPlugin(options?: {
           this.raiseRecoverable(value['params'][0].start, 'Setter cannot use rest params')
 
         return this.finishNode(method, 'MethodDefinition')
+      }
+
+      isClassMethod() {
+        return this.match(tt.relational);
       }
 
       parseClassElement(constructorAllowsSuper) {
@@ -3797,8 +3807,10 @@ function tsPlugin(options?: {
               this.parseClassElementName(node)
             }
 
+            this.parsePostMemberNameModifiers(node)
+
             // Parse element value
-            if (ecmaVersion < 13 || this.type === tt.parenL || kind !== 'method' || isGenerator || isAsync) {
+            if (this.isClassMethod() || ecmaVersion < 13 || this.type === tt.parenL || kind !== 'method' || isGenerator || isAsync) {
               const isConstructor = !node.static && checkKeyName(node, 'constructor')
               const allowsDirectSuper = isConstructor && constructorAllowsSuper
               // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
@@ -3995,8 +4007,11 @@ function tsPlugin(options?: {
           // messing with the tokens
           const context = this.context
           const currentContext = context[context.length - 1]
-
-          if (currentContext === acornTypeScript.tokContexts.tc_oTag || currentContext === acornTypeScript.tokContexts.tc_expr) {
+          const lastCurrentContext = context[context.length - 2]
+          if (currentContext === acornTypeScript.tokContexts.tc_oTag && lastCurrentContext === acornTypeScript.tokContexts.tc_expr) {
+            context.pop()
+            context.pop()
+          } else if (currentContext === acornTypeScript.tokContexts.tc_oTag || currentContext === acornTypeScript.tokContexts.tc_expr) {
             context.pop()
           }
         }

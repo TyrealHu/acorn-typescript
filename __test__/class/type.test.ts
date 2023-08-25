@@ -22,6 +22,98 @@ export default class Bundle {
  }
 `
 
+const issue34File = `
+export default class Graph {
+        readonly acornParser: typeof acorn.Parser;
+        readonly cachedModules = new Map<string, ModuleJSON>();
+        readonly deoptimizationTracker = new PathTracker();
+        entryModules: Module[] = [];
+        readonly fileOperationQueue: Queue;
+        readonly moduleLoader: ModuleLoader;
+        readonly modulesById = new Map<string, Module | ExternalModule>();
+        needsTreeshakingPass = false;
+        phase: BuildPhase = BuildPhase.LOAD_AND_PARSE;
+        readonly pluginDriver: PluginDriver;
+        readonly pureFunctions: PureFunctions;
+        readonly scope = new GlobalScope();
+        readonly watchFiles: Record<string, true> = Object.create(null);
+        watchMode = false;
+
+        private readonly externalModules: ExternalModule[] = [];
+        private implicitEntryModules: Module[] = [];
+        private modules: Module[] = [];
+        private declare pluginCache?: Record<string, SerializablePluginCache>;
+}
+`
+
+const issue35File = `
+export class PluginDriver {
+        public readonly emitFile: EmitFile;
+        public finaliseAssets: () => void;
+        public getFileName: (fileReferenceId: string) => string;
+        public readonly setChunkInformation: (facadeChunkByModule: ReadonlyMap<Module, Chunk>) => void;
+        public readonly setOutputBundle: (
+                bundle: OutputBundleWithPlaceholders,
+                outputOptions: NormalizedOutputOptions
+        ) => void;
+
+        private readonly fileEmitter: FileEmitter;
+        private readonly pluginContexts: ReadonlyMap<Plugin, PluginContext>;
+        private readonly plugins: readonly Plugin[];
+        private readonly sortedPlugins = new Map<AsyncPluginHooks, Plugin[]>();
+        private readonly unfulfilledActions = new Set<HookAction>();
+
+        hookFirst<H extends AsyncPluginHooks & FirstPluginHooks>(
+                hookName: H,
+                parameters: Parameters<FunctionPluginHooks[H]>,
+                replaceContext?: ReplaceContext | null,
+                skipped?: ReadonlySet<Plugin> | null
+        ): Promise<ReturnType<FunctionPluginHooks[H]> | null> {
+                let promise: Promise<ReturnType<FunctionPluginHooks[H]> | null> = Promise.resolve(null);
+                for (const plugin of this.getSortedPlugins(hookName)) {
+                        if (skipped && skipped.has(plugin)) continue;
+                        promise = promise.then(result => {
+                                if (result != null) return result;
+                                return this.runHook(hookName, parameters, plugin, replaceContext);
+                        });
+                }
+                return promise;
+        }
+}
+`
+
+const issue36File = `
+const getIdMatcher = <T extends Array<any>>(
+        option:
+                | undefined
+                | boolean
+                | string
+                | RegExp
+                | (string | RegExp)[]
+                | ((id: string, ...parameters: T) => boolean | null | void)
+): ((id: string, ...parameters: T) => boolean) => {
+        if (option === true) {
+                return () => true;
+        }
+        if (typeof option === 'function') {
+                return (id, ...parameters) => (!id.startsWith('\\0') && option(id, ...parameters)) || false;
+        }
+        if (option) {
+                const ids = new Set<string>();
+                const matchers: RegExp[] = [];
+                for (const value of ensureArray(option)) {
+                        if (value instanceof RegExp) {
+                                matchers.push(value);
+                        } else {
+                                ids.add(value);
+                        }
+                }
+                return (id: string, ..._arguments) => ids.has(id) || matchers.some(matcher => matcher.test(id));
+        }
+        return () => false;
+};
+`
+
 describe('class', () => {
   it('normal property', () => {
     const node = parseSource(generateSource([
@@ -340,6 +432,25 @@ describe('class', () => {
     const node = parseSource(issue33File)
 
     equalNode(node, ClassTypeSnapshot.Issue33)
+  })
+
+  it('issue 34', () => {
+    const node = parseSource(issue34File)
+
+    equalNode(node, ClassTypeSnapshot.Issue34)
+  })
+
+  it('issue 35', () => {
+    const node = parseSource(issue35File)
+
+    equalNode(node, ClassTypeSnapshot.Issue35)
+  })
+
+  it('issue 36', () => {
+    const node = parseSource(issue36File)
+
+    equalNode(node, ClassTypeSnapshot.Issue36)
+    console.log(JSON.stringify(node, null, 2))
   })
 })
 
