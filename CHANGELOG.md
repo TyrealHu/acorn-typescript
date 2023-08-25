@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.2...v1.4.3) (2023-08-25)
+
+
+### 🐛 Bug Fixes
+
+* 🐛 optional class property & class method generic types & arrow function generic type ([998969a](https://github.com/TyrealHu/acorn-typescript/commit/998969a5f86a0c032e9422f3bb33791d49c7214d))
+
 ### [1.4.2](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.1...v1.4.2) (2023-08-24)
 
 
