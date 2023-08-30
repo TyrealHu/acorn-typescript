@@ -1,6 +1,6 @@
 import {
   equalNode,
-  generateSource,
+  generateSource, parseDtsSource,
   parseSource,
   parseSourceShouldThrowError
 } from '../utils'
@@ -90,6 +90,15 @@ describe('export type', () => {
     ]))
 
     equalNode(node, ExportTypeSnapshot.ExportTypeAsAsWithName)
+  })
+
+  it('dts export duplicate', () => {
+    const node = parseDtsSource(generateSource([
+      `export function defineConfig(options: RollupOptions): RollupOptions;`,
+      `export function defineConfig(options: RollupOptions[]): RollupOptions[];`
+    ]))
+
+    equalNode(node, ExportTypeSnapshot.DtsExportDuplicate)
   })
 
   it('export outer type type with name', () => {

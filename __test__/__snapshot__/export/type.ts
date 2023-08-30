@@ -1,4 +1,422 @@
 const ExportTypeSnapshot = {
+  DtsExportDuplicate: {
+    'type': 'Program',
+    'start': 0,
+    'end': 141,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 2,
+        'column': 72,
+        'index': 141
+      }
+    },
+    'body': [
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 0,
+        'end': 68,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 68,
+            'index': 68
+          }
+        },
+        'exportKind': 'value',
+        'declaration': {
+          'type': 'TSDeclareFunction',
+          'start': 7,
+          'end': 68,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 7,
+              'index': 7
+            },
+            'end': {
+              'line': 1,
+              'column': 68,
+              'index': 68
+            }
+          },
+          'id': {
+            'type': 'Identifier',
+            'start': 16,
+            'end': 28,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 16,
+                'index': 16
+              },
+              'end': {
+                'line': 1,
+                'column': 28,
+                'index': 28
+              }
+            },
+            'name': 'defineConfig'
+          },
+          'expression': false,
+          'generator': false,
+          'async': false,
+          'params': [
+            {
+              'type': 'Identifier',
+              'start': 29,
+              'end': 51,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 29,
+                  'index': 29
+                },
+                'end': {
+                  'line': 1,
+                  'column': 51,
+                  'index': 51
+                }
+              },
+              'name': 'options',
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 36,
+                'end': 51,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 36,
+                    'index': 36
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 51,
+                    'index': 51
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSTypeReference',
+                  'start': 38,
+                  'end': 51,
+                  'loc': {
+                    'start': {
+                      'line': 1,
+                      'column': 38,
+                      'index': 38
+                    },
+                    'end': {
+                      'line': 1,
+                      'column': 51,
+                      'index': 51
+                    }
+                  },
+                  'typeName': {
+                    'type': 'Identifier',
+                    'start': 38,
+                    'end': 51,
+                    'loc': {
+                      'start': {
+                        'line': 1,
+                        'column': 38,
+                        'index': 38
+                      },
+                      'end': {
+                        'line': 1,
+                        'column': 51,
+                        'index': 51
+                      }
+                    },
+                    'name': 'RollupOptions'
+                  }
+                }
+              }
+            }
+          ],
+          'returnType': {
+            'type': 'TSTypeAnnotation',
+            'start': 52,
+            'end': 67,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 52,
+                'index': 52
+              },
+              'end': {
+                'line': 1,
+                'column': 67,
+                'index': 67
+              }
+            },
+            'typeAnnotation': {
+              'type': 'TSTypeReference',
+              'start': 54,
+              'end': 67,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 54,
+                  'index': 54
+                },
+                'end': {
+                  'line': 1,
+                  'column': 67,
+                  'index': 67
+                }
+              },
+              'typeName': {
+                'type': 'Identifier',
+                'start': 54,
+                'end': 67,
+                'loc': {
+                  'start': {
+                    'line': 1,
+                    'column': 54,
+                    'index': 54
+                  },
+                  'end': {
+                    'line': 1,
+                    'column': 67,
+                    'index': 67
+                  }
+                },
+                'name': 'RollupOptions'
+              }
+            }
+          }
+        },
+        'specifiers': [],
+        'source': null
+      },
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 69,
+        'end': 141,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 69
+          },
+          'end': {
+            'line': 2,
+            'column': 72,
+            'index': 141
+          }
+        },
+        'exportKind': 'value',
+        'declaration': {
+          'type': 'TSDeclareFunction',
+          'start': 76,
+          'end': 141,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 7,
+              'index': 76
+            },
+            'end': {
+              'line': 2,
+              'column': 72,
+              'index': 141
+            }
+          },
+          'id': {
+            'type': 'Identifier',
+            'start': 85,
+            'end': 97,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 16,
+                'index': 85
+              },
+              'end': {
+                'line': 2,
+                'column': 28,
+                'index': 97
+              }
+            },
+            'name': 'defineConfig'
+          },
+          'expression': false,
+          'generator': false,
+          'async': false,
+          'params': [
+            {
+              'type': 'Identifier',
+              'start': 98,
+              'end': 53,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 29,
+                  'index': 98
+                },
+                'end': {
+                  'line': 2,
+                  'column': 53,
+                  'index': 122
+                }
+              },
+              'name': 'options',
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 105,
+                'end': 122,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 36,
+                    'index': 105
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 53,
+                    'index': 122
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSArrayType',
+                  'start': 107,
+                  'end': 122,
+                  'loc': {
+                    'start': {
+                      'line': 2,
+                      'column': 38,
+                      'index': 107
+                    },
+                    'end': {
+                      'line': 2,
+                      'column': 53,
+                      'index': 122
+                    }
+                  },
+                  'elementType': {
+                    'type': 'TSTypeReference',
+                    'start': 107,
+                    'end': 120,
+                    'loc': {
+                      'start': {
+                        'line': 2,
+                        'column': 38,
+                        'index': 107
+                      },
+                      'end': {
+                        'line': 2,
+                        'column': 51,
+                        'index': 120
+                      }
+                    },
+                    'typeName': {
+                      'type': 'Identifier',
+                      'start': 107,
+                      'end': 120,
+                      'loc': {
+                        'start': {
+                          'line': 2,
+                          'column': 38,
+                          'index': 107
+                        },
+                        'end': {
+                          'line': 2,
+                          'column': 51,
+                          'index': 120
+                        }
+                      },
+                      'name': 'RollupOptions'
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          'returnType': {
+            'type': 'TSTypeAnnotation',
+            'start': 123,
+            'end': 140,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 54,
+                'index': 123
+              },
+              'end': {
+                'line': 2,
+                'column': 71,
+                'index': 140
+              }
+            },
+            'typeAnnotation': {
+              'type': 'TSArrayType',
+              'start': 125,
+              'end': 140,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 56,
+                  'index': 125
+                },
+                'end': {
+                  'line': 2,
+                  'column': 71,
+                  'index': 140
+                }
+              },
+              'elementType': {
+                'type': 'TSTypeReference',
+                'start': 125,
+                'end': 138,
+                'loc': {
+                  'start': {
+                    'line': 2,
+                    'column': 56,
+                    'index': 125
+                  },
+                  'end': {
+                    'line': 2,
+                    'column': 69,
+                    'index': 138
+                  }
+                },
+                'typeName': {
+                  'type': 'Identifier',
+                  'start': 125,
+                  'end': 138,
+                  'loc': {
+                    'start': {
+                      'line': 2,
+                      'column': 56,
+                      'index': 125
+                    },
+                    'end': {
+                      'line': 2,
+                      'column': 69,
+                      'index': 138
+                    }
+                  },
+                  'name': 'RollupOptions'
+                }
+              }
+            }
+          }
+        },
+        'specifiers': [],
+        'source': null
+      }
+    ],
+    'sourceType': 'module'
+  },
   Type: {
     'type': 'Program',
     'start': 0,

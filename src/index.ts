@@ -3176,6 +3176,18 @@ function tsPlugin(options?: {
         }
       }
 
+      checkExport(exports, name, _) {
+        if (!exports) { return }
+        if (typeof name !== "string") {
+          name = name.type === "Identifier" ? name.name : name.value;
+        }
+        // we won't check export in ts file
+        // if (Object.hasOwnProperty.call(exports, name)) {
+        //   this.raiseRecoverable(pos, "Duplicate export '" + name + "'");
+        // }
+        exports[name] = true;
+      };
+
       parseMaybeDefault(
         startPos?: number | null,
         startLoc?: Position | null,
@@ -4222,6 +4234,7 @@ function tsPlugin(options?: {
               }
             )
           }
+          case 'Property':
           case 'ObjectProperty':
             return this.isAssignable(node.value)
           case 'SpreadElement':
@@ -4268,6 +4281,9 @@ function tsPlugin(options?: {
               node.left = this.typeCastToParameter(node.left)
             }
             return super.toAssignable(node, isBinding, refDestructuringErrors)
+          case 'TSTypeCastExpression': {
+            return this.typeCastToParameter(node);
+          }
           default:
             return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
