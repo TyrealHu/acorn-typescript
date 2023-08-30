@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.4](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.3...v1.4.4) (2023-08-30)
+
+
+### 🐛 Bug Fixes
+
+* 🐛bugs of TSTypeCastExpression ([22be8a3](https://github.com/TyrealHu/acorn-typescript/commit/22be8a33bf09f49966e33e352d27a9f93fd9ae9e))
+
 ### [1.4.3](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.2...v1.4.3) (2023-08-25)
 
 
