@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.5](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.4...v1.4.5) (2023-09-06)
+
+
+### 🐛 Bug Fixes
+
+* 🐛checkLValInnerPattern in TSParameterProperty ([6de3ebd](https://github.com/TyrealHu/acorn-typescript/commit/6de3ebd0773f8051598fde971b313859564d34c0))
+
 ### [1.4.4](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.3...v1.4.4) (2023-08-30)
 
 
