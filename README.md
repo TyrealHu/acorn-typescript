@@ -75,7 +75,7 @@ acorn.parse(input, {
 [click](./CHANGELOG.md)
 
 ## RoadMap
-- parse error unit test
+- support import-assertions
 
 ## License
 [MIT](https://couto.mit-license.org/)

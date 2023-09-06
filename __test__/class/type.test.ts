@@ -114,6 +114,18 @@ const getIdMatcher = <T extends Array<any>>(
 };
 `
 
+// const issue41File = `import json from './foo.json' assert { type: 'json' };`
+
+const issue42File = `
+export class ObjectEntity extends ExpressionEntity {
+  constructor(
+    properties: ObjectProperty[] | PropertyMap,
+    private prototypeExpression: ExpressionEntity | null,
+    private immutable = false
+  ) {}
+}
+`
+
 describe('class', () => {
   it('normal property', () => {
     const node = parseSource(generateSource([
@@ -450,7 +462,18 @@ describe('class', () => {
     const node = parseSource(issue36File)
 
     equalNode(node, ClassTypeSnapshot.Issue36)
-    console.log(JSON.stringify(node, null, 2))
+  })
+
+  // todo: feature request
+  // it('issue 41', () => {
+  //   const node = parseSource(issue41File)
+  //   console.log(JSON.stringify(node, null, 2))
+  // })
+
+  it('issue 42', () => {
+    const node = parseSource(issue42File)
+
+    equalNode(node, ClassTypeSnapshot.Issue42)
   })
 })
 

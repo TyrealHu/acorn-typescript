@@ -4183,7 +4183,7 @@ function tsPlugin(options?: {
       checkLValInnerPattern(expr, bindingType = BIND_NONE, checkClashes) {
         switch (expr.type) {
           case 'TSParameterProperty':
-            this.checkLValPattern(expr.parameter, bindingType, checkClashes)
+            this.checkLValInnerPattern(expr.parameter, bindingType, checkClashes)
             break
           default: {
             super.checkLValInnerPattern(expr, bindingType, checkClashes)

@@ -1,4 +1,532 @@
 const ClassTypeSnapshot = {
+  Issue42: {
+    'type': 'Program',
+    'start': 0,
+    'end': 214,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 9,
+        'column': 0,
+        'index': 214
+      }
+    },
+    'body': [
+      {
+        'type': 'ExportNamedDeclaration',
+        'start': 1,
+        'end': 213,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 1
+          },
+          'end': {
+            'line': 8,
+            'column': 1,
+            'index': 213
+          }
+        },
+        'exportKind': 'value',
+        'declaration': {
+          'type': 'ClassDeclaration',
+          'start': 8,
+          'end': 213,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 7,
+              'index': 8
+            },
+            'end': {
+              'line': 8,
+              'column': 1,
+              'index': 213
+            }
+          },
+          'id': {
+            'type': 'Identifier',
+            'start': 14,
+            'end': 26,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 13,
+                'index': 14
+              },
+              'end': {
+                'line': 2,
+                'column': 25,
+                'index': 26
+              }
+            },
+            'name': 'ObjectEntity'
+          },
+          'superClass': {
+            'type': 'Identifier',
+            'start': 35,
+            'end': 51,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 34,
+                'index': 35
+              },
+              'end': {
+                'line': 2,
+                'column': 50,
+                'index': 51
+              }
+            },
+            'name': 'ExpressionEntity'
+          },
+          'body': {
+            'type': 'ClassBody',
+            'start': 52,
+            'end': 213,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 51,
+                'index': 52
+              },
+              'end': {
+                'line': 8,
+                'column': 1,
+                'index': 213
+              }
+            },
+            'body': [
+              {
+                'type': 'MethodDefinition',
+                'start': 56,
+                'end': 211,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 2,
+                    'index': 56
+                  },
+                  'end': {
+                    'line': 7,
+                    'column': 6,
+                    'index': 211
+                  }
+                },
+                'static': false,
+                'computed': false,
+                'key': {
+                  'type': 'Identifier',
+                  'start': 56,
+                  'end': 67,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 2,
+                      'index': 56
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 13,
+                      'index': 67
+                    }
+                  },
+                  'name': 'constructor'
+                },
+                'kind': 'constructor',
+                'value': {
+                  'type': 'FunctionExpression',
+                  'start': 67,
+                  'end': 211,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 13,
+                      'index': 67
+                    },
+                    'end': {
+                      'line': 7,
+                      'column': 6,
+                      'index': 211
+                    }
+                  },
+                  'id': null,
+                  'expression': false,
+                  'generator': false,
+                  'async': false,
+                  'params': [
+                    {
+                      'type': 'Identifier',
+                      'start': 73,
+                      'end': 46,
+                      'loc': {
+                        'start': {
+                          'line': 4,
+                          'column': 4,
+                          'index': 73
+                        },
+                        'end': {
+                          'line': 4,
+                          'column': 46,
+                          'index': 115
+                        }
+                      },
+                      'name': 'properties',
+                      'typeAnnotation': {
+                        'type': 'TSTypeAnnotation',
+                        'start': 83,
+                        'end': 115,
+                        'loc': {
+                          'start': {
+                            'line': 4,
+                            'column': 14,
+                            'index': 83
+                          },
+                          'end': {
+                            'line': 4,
+                            'column': 46,
+                            'index': 115
+                          }
+                        },
+                        'typeAnnotation': {
+                          'type': 'TSUnionType',
+                          'start': 85,
+                          'end': 115,
+                          'loc': {
+                            'start': {
+                              'line': 4,
+                              'column': 16,
+                              'index': 85
+                            },
+                            'end': {
+                              'line': 4,
+                              'column': 46,
+                              'index': 115
+                            }
+                          },
+                          'types': [
+                            {
+                              'type': 'TSArrayType',
+                              'start': 85,
+                              'end': 101,
+                              'loc': {
+                                'start': {
+                                  'line': 4,
+                                  'column': 16,
+                                  'index': 85
+                                },
+                                'end': {
+                                  'line': 4,
+                                  'column': 32,
+                                  'index': 101
+                                }
+                              },
+                              'elementType': {
+                                'type': 'TSTypeReference',
+                                'start': 85,
+                                'end': 99,
+                                'loc': {
+                                  'start': {
+                                    'line': 4,
+                                    'column': 16,
+                                    'index': 85
+                                  },
+                                  'end': {
+                                    'line': 4,
+                                    'column': 30,
+                                    'index': 99
+                                  }
+                                },
+                                'typeName': {
+                                  'type': 'Identifier',
+                                  'start': 85,
+                                  'end': 99,
+                                  'loc': {
+                                    'start': {
+                                      'line': 4,
+                                      'column': 16,
+                                      'index': 85
+                                    },
+                                    'end': {
+                                      'line': 4,
+                                      'column': 30,
+                                      'index': 99
+                                    }
+                                  },
+                                  'name': 'ObjectProperty'
+                                }
+                              }
+                            },
+                            {
+                              'type': 'TSTypeReference',
+                              'start': 104,
+                              'end': 115,
+                              'loc': {
+                                'start': {
+                                  'line': 4,
+                                  'column': 35,
+                                  'index': 104
+                                },
+                                'end': {
+                                  'line': 4,
+                                  'column': 46,
+                                  'index': 115
+                                }
+                              },
+                              'typeName': {
+                                'type': 'Identifier',
+                                'start': 104,
+                                'end': 115,
+                                'loc': {
+                                  'start': {
+                                    'line': 4,
+                                    'column': 35,
+                                    'index': 104
+                                  },
+                                  'end': {
+                                    'line': 4,
+                                    'column': 46,
+                                    'index': 115
+                                  }
+                                },
+                                'name': 'PropertyMap'
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      'type': 'TSParameterProperty',
+                      'start': 121,
+                      'end': 173,
+                      'loc': {
+                        'start': {
+                          'line': 5,
+                          'column': 4,
+                          'index': 121
+                        },
+                        'end': {
+                          'line': 5,
+                          'column': 56,
+                          'index': 173
+                        }
+                      },
+                      'accessibility': 'private',
+                      'parameter': {
+                        'type': 'Identifier',
+                        'start': 129,
+                        'end': 56,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 12,
+                            'index': 129
+                          },
+                          'end': {
+                            'line': 5,
+                            'column': 56,
+                            'index': 173
+                          }
+                        },
+                        'name': 'prototypeExpression',
+                        'typeAnnotation': {
+                          'type': 'TSTypeAnnotation',
+                          'start': 148,
+                          'end': 173,
+                          'loc': {
+                            'start': {
+                              'line': 5,
+                              'column': 31,
+                              'index': 148
+                            },
+                            'end': {
+                              'line': 5,
+                              'column': 56,
+                              'index': 173
+                            }
+                          },
+                          'typeAnnotation': {
+                            'type': 'TSUnionType',
+                            'start': 150,
+                            'end': 173,
+                            'loc': {
+                              'start': {
+                                'line': 5,
+                                'column': 33,
+                                'index': 150
+                              },
+                              'end': {
+                                'line': 5,
+                                'column': 56,
+                                'index': 173
+                              }
+                            },
+                            'types': [
+                              {
+                                'type': 'TSTypeReference',
+                                'start': 150,
+                                'end': 166,
+                                'loc': {
+                                  'start': {
+                                    'line': 5,
+                                    'column': 33,
+                                    'index': 150
+                                  },
+                                  'end': {
+                                    'line': 5,
+                                    'column': 49,
+                                    'index': 166
+                                  }
+                                },
+                                'typeName': {
+                                  'type': 'Identifier',
+                                  'start': 150,
+                                  'end': 166,
+                                  'loc': {
+                                    'start': {
+                                      'line': 5,
+                                      'column': 33,
+                                      'index': 150
+                                    },
+                                    'end': {
+                                      'line': 5,
+                                      'column': 49,
+                                      'index': 166
+                                    }
+                                  },
+                                  'name': 'ExpressionEntity'
+                                }
+                              },
+                              {
+                                'type': 'TSNullKeyword',
+                                'start': 169,
+                                'end': 173,
+                                'loc': {
+                                  'start': {
+                                    'line': 5,
+                                    'column': 52,
+                                    'index': 169
+                                  },
+                                  'end': {
+                                    'line': 5,
+                                    'column': 56,
+                                    'index': 173
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      'type': 'TSParameterProperty',
+                      'start': 179,
+                      'end': 204,
+                      'loc': {
+                        'start': {
+                          'line': 6,
+                          'column': 4,
+                          'index': 179
+                        },
+                        'end': {
+                          'line': 6,
+                          'column': 29,
+                          'index': 204
+                        }
+                      },
+                      'accessibility': 'private',
+                      'parameter': {
+                        'type': 'AssignmentPattern',
+                        'start': 179,
+                        'end': 29,
+                        'loc': {
+                          'start': {
+                            'line': 6,
+                            'column': 4,
+                            'index': 179
+                          },
+                          'end': {
+                            'line': 6,
+                            'column': 29,
+                            'index': 204
+                          }
+                        },
+                        'left': {
+                          'type': 'Identifier',
+                          'start': 187,
+                          'end': 196,
+                          'loc': {
+                            'start': {
+                              'line': 6,
+                              'column': 12,
+                              'index': 187
+                            },
+                            'end': {
+                              'line': 6,
+                              'column': 21,
+                              'index': 196
+                            }
+                          },
+                          'name': 'immutable'
+                        },
+                        'right': {
+                          'type': 'Literal',
+                          'start': 199,
+                          'end': 204,
+                          'loc': {
+                            'start': {
+                              'line': 6,
+                              'column': 24,
+                              'index': 199
+                            },
+                            'end': {
+                              'line': 6,
+                              'column': 29,
+                              'index': 204
+                            }
+                          },
+                          'value': false,
+                          'raw': 'false'
+                        }
+                      }
+                    }
+                  ],
+                  'body': {
+                    'type': 'BlockStatement',
+                    'start': 209,
+                    'end': 211,
+                    'loc': {
+                      'start': {
+                        'line': 7,
+                        'column': 4,
+                        'index': 209
+                      },
+                      'end': {
+                        'line': 7,
+                        'column': 6,
+                        'index': 211
+                      }
+                    },
+                    'body': []
+                  }
+                }
+              }
+            ]
+          }
+        },
+        'specifiers': [],
+        'source': null
+      }
+    ],
+    'sourceType': 'module'
+  },
   Issue36: {
     'type': 'Program',
     'start': 0,
