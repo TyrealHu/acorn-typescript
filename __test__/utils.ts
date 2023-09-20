@@ -41,7 +41,8 @@ export function parseSourceShouldThrowError(input: string, message: string, loc:
 
     return false
   } catch (e) {
-    // console.log(e)
+    // console.log(e.message)
+    // console.log(`${message} ${loc}`)
     return e.message === `${message} ${loc}`
   }
 }

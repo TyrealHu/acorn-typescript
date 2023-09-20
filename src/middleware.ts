@@ -259,4 +259,10 @@ export declare class AcornParseClass extends Parser {
   finishToken(token: TokenType, val?: string): any
 
   parseExprAtom(refDestructuringErrors?: any, forInit?: boolean, forNew?: boolean): any
+
+  parseImportSpecifiers(): any
+
+  parseImportAttributes(): any
+
+  parseMaybeImportAttributes(node: any): any
 }

@@ -1,4 +1,1103 @@
 const ClassTypeSnapshot = {
+  Issue44: {
+    'type': 'Program',
+    'start': 0,
+    'end': 354,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 14,
+        'column': 0,
+        'index': 354
+      }
+    },
+    'body': [
+      {
+        'type': 'ClassDeclaration',
+        'start': 1,
+        'end': 353,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 1
+          },
+          'end': {
+            'line': 13,
+            'column': 1,
+            'index': 353
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 7,
+          'end': 11,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 6,
+              'index': 7
+            },
+            'end': {
+              'line': 2,
+              'column': 10,
+              'index': 11
+            }
+          },
+          'name': 'Test'
+        },
+        'superClass': null,
+        'body': {
+          'type': 'ClassBody',
+          'start': 12,
+          'end': 353,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 11,
+              'index': 12
+            },
+            'end': {
+              'line': 13,
+              'column': 1,
+              'index': 353
+            }
+          },
+          'body': [
+            {
+              'type': 'MethodDefinition',
+              'start': 16,
+              'end': 351,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 2,
+                  'index': 16
+                },
+                'end': {
+                  'line': 12,
+                  'column': 3,
+                  'index': 351
+                }
+              },
+              'static': false,
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 16,
+                'end': 25,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 2,
+                    'index': 16
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 11,
+                    'index': 25
+                  }
+                },
+                'name': 'parseNode'
+              },
+              'kind': 'method',
+              'value': {
+                'type': 'FunctionExpression',
+                'start': 25,
+                'end': 351,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 11,
+                    'index': 25
+                  },
+                  'end': {
+                    'line': 12,
+                    'column': 3,
+                    'index': 351
+                  }
+                },
+                'id': null,
+                'expression': false,
+                'generator': false,
+                'async': false,
+                'params': [
+                  {
+                    'type': 'Identifier',
+                    'start': 26,
+                    'end': 41,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 12,
+                        'index': 26
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 41,
+                        'index': 55
+                      }
+                    },
+                    'name': 'esTreeNode',
+                    'typeAnnotation': {
+                      'type': 'TSTypeAnnotation',
+                      'start': 36,
+                      'end': 55,
+                      'loc': {
+                        'start': {
+                          'line': 3,
+                          'column': 22,
+                          'index': 36
+                        },
+                        'end': {
+                          'line': 3,
+                          'column': 41,
+                          'index': 55
+                        }
+                      },
+                      'typeAnnotation': {
+                        'type': 'TSTypeReference',
+                        'start': 38,
+                        'end': 55,
+                        'loc': {
+                          'start': {
+                            'line': 3,
+                            'column': 24,
+                            'index': 38
+                          },
+                          'end': {
+                            'line': 3,
+                            'column': 41,
+                            'index': 55
+                          }
+                        },
+                        'typeName': {
+                          'type': 'Identifier',
+                          'start': 38,
+                          'end': 55,
+                          'loc': {
+                            'start': {
+                              'line': 3,
+                              'column': 24,
+                              'index': 38
+                            },
+                            'end': {
+                              'line': 3,
+                              'column': 41,
+                              'index': 55
+                            }
+                          },
+                          'name': 'GenericEsTreeNode'
+                        }
+                      }
+                    }
+                  }
+                ],
+                'returnType': {
+                  'type': 'TSTypeAnnotation',
+                  'start': 56,
+                  'end': 62,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 42,
+                      'index': 56
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 48,
+                      'index': 62
+                    }
+                  },
+                  'typeAnnotation': {
+                    'type': 'TSVoidKeyword',
+                    'start': 58,
+                    'end': 62,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 44,
+                        'index': 58
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 48,
+                        'index': 62
+                      }
+                    }
+                  }
+                },
+                'body': {
+                  'type': 'BlockStatement',
+                  'start': 63,
+                  'end': 351,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 49,
+                      'index': 63
+                    },
+                    'end': {
+                      'line': 12,
+                      'column': 3,
+                      'index': 351
+                    }
+                  },
+                  'body': [
+                    {
+                      'type': 'VariableDeclaration',
+                      'start': 69,
+                      'end': 98,
+                      'loc': {
+                        'start': {
+                          'line': 4,
+                          'column': 4,
+                          'index': 69
+                        },
+                        'end': {
+                          'line': 4,
+                          'column': 33,
+                          'index': 98
+                        }
+                      },
+                      'declarations': [
+                        {
+                          'type': 'VariableDeclarator',
+                          'start': 75,
+                          'end': 97,
+                          'loc': {
+                            'start': {
+                              'line': 4,
+                              'column': 10,
+                              'index': 75
+                            },
+                            'end': {
+                              'line': 4,
+                              'column': 32,
+                              'index': 97
+                            }
+                          },
+                          'id': {
+                            'type': 'ObjectPattern',
+                            'start': 75,
+                            'end': 84,
+                            'loc': {
+                              'start': {
+                                'line': 4,
+                                'column': 10,
+                                'index': 75
+                              },
+                              'end': {
+                                'line': 4,
+                                'column': 19,
+                                'index': 84
+                              }
+                            },
+                            'properties': [
+                              {
+                                'type': 'Property',
+                                'start': 77,
+                                'end': 82,
+                                'loc': {
+                                  'start': {
+                                    'line': 4,
+                                    'column': 12,
+                                    'index': 77
+                                  },
+                                  'end': {
+                                    'line': 4,
+                                    'column': 17,
+                                    'index': 82
+                                  }
+                                },
+                                'method': false,
+                                'shorthand': true,
+                                'computed': false,
+                                'key': {
+                                  'type': 'Identifier',
+                                  'start': 77,
+                                  'end': 82,
+                                  'loc': {
+                                    'start': {
+                                      'line': 4,
+                                      'column': 12,
+                                      'index': 77
+                                    },
+                                    'end': {
+                                      'line': 4,
+                                      'column': 17,
+                                      'index': 82
+                                    }
+                                  },
+                                  'name': 'param'
+                                },
+                                'kind': 'init',
+                                'value': {
+                                  'type': 'Identifier',
+                                  'start': 77,
+                                  'end': 82,
+                                  'loc': {
+                                    'start': {
+                                      'line': 4,
+                                      'column': 12,
+                                      'index': 77
+                                    },
+                                    'end': {
+                                      'line': 4,
+                                      'column': 17,
+                                      'index': 82
+                                    }
+                                  },
+                                  'name': 'param'
+                                }
+                              }
+                            ]
+                          },
+                          'init': {
+                            'type': 'Identifier',
+                            'start': 87,
+                            'end': 97,
+                            'loc': {
+                              'start': {
+                                'line': 4,
+                                'column': 22,
+                                'index': 87
+                              },
+                              'end': {
+                                'line': 4,
+                                'column': 32,
+                                'index': 97
+                              }
+                            },
+                            'name': 'esTreeNode'
+                          }
+                        }
+                      ],
+                      'kind': 'const'
+                    },
+                    {
+                      'type': 'IfStatement',
+                      'start': 103,
+                      'end': 314,
+                      'loc': {
+                        'start': {
+                          'line': 5,
+                          'column': 4,
+                          'index': 103
+                        },
+                        'end': {
+                          'line': 10,
+                          'column': 5,
+                          'index': 314
+                        }
+                      },
+                      'test': {
+                        'type': 'Identifier',
+                        'start': 107,
+                        'end': 112,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 8,
+                            'index': 107
+                          },
+                          'end': {
+                            'line': 5,
+                            'column': 13,
+                            'index': 112
+                          }
+                        },
+                        'name': 'param'
+                      },
+                      'consequent': {
+                        'type': 'BlockStatement',
+                        'start': 114,
+                        'end': 314,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 15,
+                            'index': 114
+                          },
+                          'end': {
+                            'line': 10,
+                            'column': 5,
+                            'index': 314
+                          }
+                        },
+                        'body': [
+                          {
+                            'type': 'ExpressionStatement',
+                            'start': 122,
+                            'end': 248,
+                            'loc': {
+                              'start': {
+                                'line': 6,
+                                'column': 6,
+                                'index': 122
+                              },
+                              'end': {
+                                'line': 8,
+                                'column': 8,
+                                'index': 248
+                              }
+                            },
+                            'expression': {
+                              'type': 'AssignmentExpression',
+                              'start': 122,
+                              'end': 247,
+                              'loc': {
+                                'start': {
+                                  'line': 6,
+                                  'column': 6,
+                                  'index': 122
+                                },
+                                'end': {
+                                  'line': 8,
+                                  'column': 7,
+                                  'index': 247
+                                }
+                              },
+                              'operator': '=',
+                              'left': {
+                                'type': 'MemberExpression',
+                                'start': 123,
+                                'end': 133,
+                                'loc': {
+                                  'start': {
+                                    'line': 6,
+                                    'column': 7,
+                                    'index': 123
+                                  },
+                                  'end': {
+                                    'line': 6,
+                                    'column': 17,
+                                    'index': 133
+                                  }
+                                },
+                                'object': {
+                                  'type': 'ThisExpression',
+                                  'start': 123,
+                                  'end': 127,
+                                  'loc': {
+                                    'start': {
+                                      'line': 6,
+                                      'column': 7,
+                                      'index': 123
+                                    },
+                                    'end': {
+                                      'line': 6,
+                                      'column': 11,
+                                      'index': 127
+                                    }
+                                  }
+                                },
+                                'property': {
+                                  'type': 'Identifier',
+                                  'start': 128,
+                                  'end': 133,
+                                  'loc': {
+                                    'start': {
+                                      'line': 6,
+                                      'column': 12,
+                                      'index': 128
+                                    },
+                                    'end': {
+                                      'line': 6,
+                                      'column': 17,
+                                      'index': 133
+                                    }
+                                  },
+                                  'name': 'param'
+                                },
+                                'computed': false,
+                                'optional': false
+                              },
+                              'right': {
+                                'type': 'NewExpression',
+                                'start': 158,
+                                'end': 247,
+                                'loc': {
+                                  'start': {
+                                    'line': 6,
+                                    'column': 42,
+                                    'index': 158
+                                  },
+                                  'end': {
+                                    'line': 8,
+                                    'column': 7,
+                                    'index': 247
+                                  }
+                                },
+                                'callee': {
+                                  'type': 'CallExpression',
+                                  'start': 163,
+                                  'end': 206,
+                                  'loc': {
+                                    'start': {
+                                      'line': 6,
+                                      'column': 47,
+                                      'index': 163
+                                    },
+                                    'end': {
+                                      'line': 6,
+                                      'column': 90,
+                                      'index': 206
+                                    }
+                                  },
+                                  'callee': {
+                                    'type': 'MemberExpression',
+                                    'start': 163,
+                                    'end': 194,
+                                    'loc': {
+                                      'start': {
+                                        'line': 6,
+                                        'column': 47,
+                                        'index': 163
+                                      },
+                                      'end': {
+                                        'line': 6,
+                                        'column': 78,
+                                        'index': 194
+                                      }
+                                    },
+                                    'object': {
+                                      'type': 'MemberExpression',
+                                      'start': 163,
+                                      'end': 175,
+                                      'loc': {
+                                        'start': {
+                                          'line': 6,
+                                          'column': 47,
+                                          'index': 163
+                                        },
+                                        'end': {
+                                          'line': 6,
+                                          'column': 59,
+                                          'index': 175
+                                        }
+                                      },
+                                      'object': {
+                                        'type': 'ThisExpression',
+                                        'start': 163,
+                                        'end': 167,
+                                        'loc': {
+                                          'start': {
+                                            'line': 6,
+                                            'column': 47,
+                                            'index': 163
+                                          },
+                                          'end': {
+                                            'line': 6,
+                                            'column': 51,
+                                            'index': 167
+                                          }
+                                        }
+                                      },
+                                      'property': {
+                                        'type': 'Identifier',
+                                        'start': 168,
+                                        'end': 175,
+                                        'loc': {
+                                          'start': {
+                                            'line': 6,
+                                            'column': 52,
+                                            'index': 168
+                                          },
+                                          'end': {
+                                            'line': 6,
+                                            'column': 59,
+                                            'index': 175
+                                          }
+                                        },
+                                        'name': 'context'
+                                      },
+                                      'computed': false,
+                                      'optional': false
+                                    },
+                                    'property': {
+                                      'type': 'Identifier',
+                                      'start': 176,
+                                      'end': 194,
+                                      'loc': {
+                                        'start': {
+                                          'line': 6,
+                                          'column': 60,
+                                          'index': 176
+                                        },
+                                        'end': {
+                                          'line': 6,
+                                          'column': 78,
+                                          'index': 194
+                                        }
+                                      },
+                                      'name': 'getNodeConstructor'
+                                    },
+                                    'computed': false,
+                                    'optional': false
+                                  },
+                                  'arguments': [
+                                    {
+                                      'type': 'MemberExpression',
+                                      'start': 195,
+                                      'end': 205,
+                                      'loc': {
+                                        'start': {
+                                          'line': 6,
+                                          'column': 79,
+                                          'index': 195
+                                        },
+                                        'end': {
+                                          'line': 6,
+                                          'column': 89,
+                                          'index': 205
+                                        }
+                                      },
+                                      'object': {
+                                        'type': 'Identifier',
+                                        'start': 195,
+                                        'end': 200,
+                                        'loc': {
+                                          'start': {
+                                            'line': 6,
+                                            'column': 79,
+                                            'index': 195
+                                          },
+                                          'end': {
+                                            'line': 6,
+                                            'column': 84,
+                                            'index': 200
+                                          }
+                                        },
+                                        'name': 'param'
+                                      },
+                                      'property': {
+                                        'type': 'Identifier',
+                                        'start': 201,
+                                        'end': 205,
+                                        'loc': {
+                                          'start': {
+                                            'line': 6,
+                                            'column': 85,
+                                            'index': 201
+                                          },
+                                          'end': {
+                                            'line': 6,
+                                            'column': 89,
+                                            'index': 205
+                                          }
+                                        },
+                                        'name': 'type'
+                                      },
+                                      'computed': false,
+                                      'optional': false
+                                    }
+                                  ],
+                                  'optional': false
+                                },
+                                'arguments': [
+                                  {
+                                    'type': 'Identifier',
+                                    'start': 217,
+                                    'end': 222,
+                                    'loc': {
+                                      'start': {
+                                        'line': 7,
+                                        'column': 8,
+                                        'index': 217
+                                      },
+                                      'end': {
+                                        'line': 7,
+                                        'column': 13,
+                                        'index': 222
+                                      }
+                                    },
+                                    'name': 'param'
+                                  },
+                                  {
+                                    'type': 'ThisExpression',
+                                    'start': 224,
+                                    'end': 228,
+                                    'loc': {
+                                      'start': {
+                                        'line': 7,
+                                        'column': 15,
+                                        'index': 224
+                                      },
+                                      'end': {
+                                        'line': 7,
+                                        'column': 19,
+                                        'index': 228
+                                      }
+                                    }
+                                  },
+                                  {
+                                    'type': 'MemberExpression',
+                                    'start': 229,
+                                    'end': 239,
+                                    'loc': {
+                                      'start': {
+                                        'line': 7,
+                                        'column': 20,
+                                        'index': 229
+                                      },
+                                      'end': {
+                                        'line': 7,
+                                        'column': 30,
+                                        'index': 239
+                                      }
+                                    },
+                                    'object': {
+                                      'type': 'ThisExpression',
+                                      'start': 229,
+                                      'end': 233,
+                                      'loc': {
+                                        'start': {
+                                          'line': 7,
+                                          'column': 20,
+                                          'index': 229
+                                        },
+                                        'end': {
+                                          'line': 7,
+                                          'column': 24,
+                                          'index': 233
+                                        }
+                                      }
+                                    },
+                                    'property': {
+                                      'type': 'Identifier',
+                                      'start': 234,
+                                      'end': 239,
+                                      'loc': {
+                                        'start': {
+                                          'line': 7,
+                                          'column': 25,
+                                          'index': 234
+                                        },
+                                        'end': {
+                                          'line': 7,
+                                          'column': 30,
+                                          'index': 239
+                                        }
+                                      },
+                                      'name': 'scope'
+                                    },
+                                    'computed': false,
+                                    'optional': false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            'type': 'ExpressionStatement',
+                            'start': 255,
+                            'end': 308,
+                            'loc': {
+                              'start': {
+                                'line': 9,
+                                'column': 6,
+                                'index': 255
+                              },
+                              'end': {
+                                'line': 9,
+                                'column': 59,
+                                'index': 308
+                              }
+                            },
+                            'expression': {
+                              'type': 'CallExpression',
+                              'start': 255,
+                              'end': 307,
+                              'loc': {
+                                'start': {
+                                  'line': 9,
+                                  'column': 6,
+                                  'index': 255
+                                },
+                                'end': {
+                                  'line': 9,
+                                  'column': 58,
+                                  'index': 307
+                                }
+                              },
+                              'callee': {
+                                'type': 'MemberExpression',
+                                'start': 255,
+                                'end': 274,
+                                'loc': {
+                                  'start': {
+                                    'line': 9,
+                                    'column': 6,
+                                    'index': 255
+                                  },
+                                  'end': {
+                                    'line': 9,
+                                    'column': 25,
+                                    'index': 274
+                                  }
+                                },
+                                'object': {
+                                  'type': 'TSNonNullExpression',
+                                  'start': 255,
+                                  'end': 266,
+                                  'loc': {
+                                    'start': {
+                                      'line': 9,
+                                      'column': 6,
+                                      'index': 255
+                                    },
+                                    'end': {
+                                      'line': 9,
+                                      'column': 17,
+                                      'index': 266
+                                    }
+                                  },
+                                  'expression': {
+                                    'type': 'MemberExpression',
+                                    'start': 255,
+                                    'end': 265,
+                                    'loc': {
+                                      'start': {
+                                        'line': 9,
+                                        'column': 6,
+                                        'index': 255
+                                      },
+                                      'end': {
+                                        'line': 9,
+                                        'column': 16,
+                                        'index': 265
+                                      }
+                                    },
+                                    'object': {
+                                      'type': 'ThisExpression',
+                                      'start': 255,
+                                      'end': 259,
+                                      'loc': {
+                                        'start': {
+                                          'line': 9,
+                                          'column': 6,
+                                          'index': 255
+                                        },
+                                        'end': {
+                                          'line': 9,
+                                          'column': 10,
+                                          'index': 259
+                                        }
+                                      }
+                                    },
+                                    'property': {
+                                      'type': 'Identifier',
+                                      'start': 260,
+                                      'end': 265,
+                                      'loc': {
+                                        'start': {
+                                          'line': 9,
+                                          'column': 11,
+                                          'index': 260
+                                        },
+                                        'end': {
+                                          'line': 9,
+                                          'column': 16,
+                                          'index': 265
+                                        }
+                                      },
+                                      'name': 'param'
+                                    },
+                                    'computed': false,
+                                    'optional': false
+                                  }
+                                },
+                                'property': {
+                                  'type': 'Identifier',
+                                  'start': 267,
+                                  'end': 274,
+                                  'loc': {
+                                    'start': {
+                                      'line': 9,
+                                      'column': 18,
+                                      'index': 267
+                                    },
+                                    'end': {
+                                      'line': 9,
+                                      'column': 25,
+                                      'index': 274
+                                    }
+                                  },
+                                  'name': 'declare'
+                                },
+                                'computed': false,
+                                'optional': false
+                              },
+                              'arguments': [
+                                {
+                                  'type': 'Literal',
+                                  'start': 275,
+                                  'end': 286,
+                                  'loc': {
+                                    'start': {
+                                      'line': 9,
+                                      'column': 26,
+                                      'index': 275
+                                    },
+                                    'end': {
+                                      'line': 9,
+                                      'column': 37,
+                                      'index': 286
+                                    }
+                                  },
+                                  'value': 'parameter',
+                                  'raw': '\'parameter\''
+                                },
+                                {
+                                  'type': 'Identifier',
+                                  'start': 288,
+                                  'end': 306,
+                                  'loc': {
+                                    'start': {
+                                      'line': 9,
+                                      'column': 39,
+                                      'index': 288
+                                    },
+                                    'end': {
+                                      'line': 9,
+                                      'column': 57,
+                                      'index': 306
+                                    }
+                                  },
+                                  'name': 'UNKNOWN_EXPRESSION'
+                                }
+                              ],
+                              'optional': false
+                            }
+                          }
+                        ]
+                      },
+                      'alternate': null
+                    },
+                    {
+                      'type': 'ExpressionStatement',
+                      'start': 319,
+                      'end': 347,
+                      'loc': {
+                        'start': {
+                          'line': 11,
+                          'column': 4,
+                          'index': 319
+                        },
+                        'end': {
+                          'line': 11,
+                          'column': 32,
+                          'index': 347
+                        }
+                      },
+                      'expression': {
+                        'type': 'CallExpression',
+                        'start': 319,
+                        'end': 346,
+                        'loc': {
+                          'start': {
+                            'line': 11,
+                            'column': 4,
+                            'index': 319
+                          },
+                          'end': {
+                            'line': 11,
+                            'column': 31,
+                            'index': 346
+                          }
+                        },
+                        'callee': {
+                          'type': 'MemberExpression',
+                          'start': 319,
+                          'end': 334,
+                          'loc': {
+                            'start': {
+                              'line': 11,
+                              'column': 4,
+                              'index': 319
+                            },
+                            'end': {
+                              'line': 11,
+                              'column': 19,
+                              'index': 334
+                            }
+                          },
+                          'object': {
+                            'type': 'Super',
+                            'start': 319,
+                            'end': 324,
+                            'loc': {
+                              'start': {
+                                'line': 11,
+                                'column': 4,
+                                'index': 319
+                              },
+                              'end': {
+                                'line': 11,
+                                'column': 9,
+                                'index': 324
+                              }
+                            }
+                          },
+                          'property': {
+                            'type': 'Identifier',
+                            'start': 325,
+                            'end': 334,
+                            'loc': {
+                              'start': {
+                                'line': 11,
+                                'column': 10,
+                                'index': 325
+                              },
+                              'end': {
+                                'line': 11,
+                                'column': 19,
+                                'index': 334
+                              }
+                            },
+                            'name': 'parseNode'
+                          },
+                          'computed': false,
+                          'optional': false
+                        },
+                        'arguments': [
+                          {
+                            'type': 'Identifier',
+                            'start': 335,
+                            'end': 345,
+                            'loc': {
+                              'start': {
+                                'line': 11,
+                                'column': 20,
+                                'index': 335
+                              },
+                              'end': {
+                                'line': 11,
+                                'column': 30,
+                                'index': 345
+                              }
+                            },
+                            'name': 'esTreeNode'
+                          }
+                        ],
+                        'optional': false
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    'sourceType': 'module'
+  },
   Issue42: {
     'type': 'Program',
     'start': 0,

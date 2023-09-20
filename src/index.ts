@@ -35,6 +35,7 @@ import {
 } from 'acorn'
 import generateParseDecorators from './extentions/decorators'
 import generateJsxParser from './extentions/jsx'
+import generateParseImportAssertions from './extentions/import-assertions'
 
 const skipWhiteSpace = /(?:\s|\/\/.*|\/\*[^]*?\*\/)*/g
 
@@ -203,6 +204,9 @@ function tsPlugin(options?: {
 
     // extend jsx
     Parser = generateJsxParser(_acorn, acornTypeScript, Parser, options?.jsx)
+
+    // extend import asset
+    Parser = generateParseImportAssertions(Parser, acornTypeScript, _acorn)
 
     class TypeScriptParser extends Parser {
       preValue: any = null
@@ -3086,7 +3090,23 @@ function tsPlugin(options?: {
           }
         }
 
-        const importNode = super.parseImport(node)
+        // parse import start
+        this.next()
+        // import '...'
+        if (this.type === tt.string) {
+          node.specifiers = []
+          node.source = this.parseExprAtom()
+        } else {
+          node.specifiers = this.parseImportSpecifiers()
+          this.expectContextual('from')
+          node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected()
+        }
+        // import assertions
+        this.parseMaybeImportAttributes(node)
+
+        this.semicolon()
+        this.finishNode(node, 'ImportDeclaration')
+        // end
 
         this.importOrExportOuterKind = 'value'
         /*:: invariant(importNode.type !== "TSImportEqualsDeclaration") */
@@ -3094,14 +3114,14 @@ function tsPlugin(options?: {
         // `import type` can only be used on imports with named imports or with a
         // default import - but not both
         if (
-          importNode.importKind === 'type' &&
-          importNode.specifiers.length > 1 &&
-          importNode.specifiers[0].type === 'ImportDefaultSpecifier'
+          node.importKind === 'type' &&
+          node.specifiers.length > 1 &&
+          node.specifiers[0].type === 'ImportDefaultSpecifier'
         ) {
-          this.raise(importNode.start, TypeScriptError.TypeImportCannotSpecifyDefaultAndNamed)
+          this.raise(node.start, TypeScriptError.TypeImportCannotSpecifyDefaultAndNamed)
         }
 
-        return importNode
+        return node
       }
 
       parseExportDefaultDeclaration() {
@@ -3121,6 +3141,49 @@ function tsPlugin(options?: {
         }
         // ---end
         return super.parseExportDefaultDeclaration()
+      }
+
+      parseExportAllDeclaration(node, exports) {
+        if (this.options.ecmaVersion >= 11) {
+          if (this.eatContextual("as")) {
+            node.exported = this.parseModuleExportName()
+            this.checkExport(exports, node.exported, this.lastTokStart)
+          } else {
+            node.exported = null
+          }
+        }
+        this.expectContextual("from")
+        if (this.type !== tt.string) this.unexpected()
+        node.source = this.parseExprAtom()
+
+        this.parseMaybeImportAttributes(node)
+
+        this.semicolon()
+        return this.finishNode(node, "ExportAllDeclaration")
+      }
+
+      parseDynamicImport(node) {
+        this.next(); // skip `(`
+
+        // Parse node.source.
+        node.source = this.parseMaybeAssign();
+
+        if (this.eat(tt.comma)) {
+          const expr = this.parseExpression();
+          node.arguments = [expr];
+        }
+
+        // Verify ending.
+        if (!this.eat(tt.parenR)) {
+          const errorPos = this.start;
+          if (this.eat(tt.comma) && this.eat(tt.parenR)) {
+            this.raiseRecoverable(errorPos, "Trailing comma is not allowed in import()");
+          } else {
+            this.unexpected(errorPos);
+          }
+        }
+
+        return this.finishNode(node, "ImportExpression")
       }
 
       parseExport(node: any, exports: any): any {
@@ -3172,20 +3235,67 @@ function tsPlugin(options?: {
             node.exportKind = 'value'
           }
 
-          return super.parseExport(node, exports)
+          // start parse export
+          this.next()
+          // export * from '...'
+          if (this.eat(tt.star)) {
+            return this.parseExportAllDeclaration(node, exports)
+          }
+          if (this.eat(tt._default)) { // export default ...
+            this.checkExport(exports, "default", this.lastTokStart)
+            node.declaration = this.parseExportDefaultDeclaration()
+            return this.finishNode(node, "ExportDefaultDeclaration")
+          }
+          // export var|const|let|function|class ...
+          if (this.shouldParseExportStatement()) {
+            node.declaration = this.parseExportDeclaration(node)
+            if (node.declaration.type === "VariableDeclaration")
+              this.checkVariableExport(exports, node.declaration.declarations)
+            else
+              this.checkExport(exports, node.declaration.id, node.declaration.id.start)
+            node.specifiers = []
+            node.source = null
+          } else { // export { x, y as z } [from '...']
+            node.declaration = null
+            node.specifiers = this.parseExportSpecifiers(exports)
+            if (this.eatContextual("from")) {
+              if (this.type !== tt.string) this.unexpected()
+              node.source = this.parseExprAtom()
+
+              this.parseMaybeImportAttributes(node)
+            } else {
+              for (let spec of node.specifiers) {
+                // check for keywords used as local names
+                this.checkUnreserved(spec.local)
+                // check if export is defined
+                this.checkLocalExport(spec.local)
+
+                if (spec.local.type === "Literal") {
+                  this.raise(spec.local.start, "A string literal cannot be used as an exported binding without `from`.")
+                }
+              }
+
+              node.source = null
+            }
+            this.semicolon()
+          }
+          return this.finishNode(node, "ExportNamedDeclaration")
+          // end
         }
       }
 
       checkExport(exports, name, _) {
-        if (!exports) { return }
-        if (typeof name !== "string") {
-          name = name.type === "Identifier" ? name.name : name.value;
+        if (!exports) {
+          return
+        }
+        if (typeof name !== 'string') {
+          name = name.type === 'Identifier' ? name.name : name.value
         }
         // we won't check export in ts file
         // if (Object.hasOwnProperty.call(exports, name)) {
         //   this.raiseRecoverable(pos, "Duplicate export '" + name + "'");
         // }
-        exports[name] = true;
+        exports[name] = true
       };
 
       parseMaybeDefault(
@@ -3599,7 +3709,7 @@ function tsPlugin(options?: {
           if (this.value === '!' && this.eat(tt.prefix)) {
             node.definite = true
           } else if (this.eat(tt.question)) {
-            node.optional = true;
+            node.optional = true
           }
         }
 
@@ -3697,7 +3807,7 @@ function tsPlugin(options?: {
       }
 
       isClassMethod() {
-        return this.match(tt.relational);
+        return this.match(tt.relational)
       }
 
       parseClassElement(constructorAllowsSuper) {
@@ -3965,7 +4075,7 @@ function tsPlugin(options?: {
           let node = this.startNodeAt(startPos, startLoc)
           node.operator = this.value
           if (this.type === tt.eq)
-            left = this.toAssignable(left, false, refDestructuringErrors)
+            left = this.toAssignable(left, true, refDestructuringErrors)
           if (!ownDestructuringErrors) {
             refDestructuringErrors.parenthesizedAssign = refDestructuringErrors.trailingComma = refDestructuringErrors.doubleProto = -1
           }
@@ -4276,6 +4386,9 @@ function tsPlugin(options?: {
               this.raise(node.start, TypeScriptError.UnexpectedTypeCastInParameter)
             }
             return this.toAssignable(node.expression, isBinding, refDestructuringErrors)
+          case 'MemberExpression':
+            // we just break member expression check here
+            break
           case 'AssignmentExpression':
             if (!isBinding && node.left.type === 'TSTypeCastExpression') {
               node.left = this.typeCastToParameter(node.left)
@@ -4287,6 +4400,7 @@ function tsPlugin(options?: {
           default:
             return super.toAssignable(node, isBinding, refDestructuringErrors)
         }
+        return node
       }
 
       toAssignableParenthesizedExpression(

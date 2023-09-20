@@ -125,6 +125,7 @@ function generateTsTokenType() {
 
 function generateTsKwTokenType() {
   return {
+    assert: kwLike('assert', { startsExpr }),
     asserts: kwLike('asserts', { startsExpr }),
     global: kwLike('global', { startsExpr }),
     keyof: kwLike('keyof', { startsExpr }),

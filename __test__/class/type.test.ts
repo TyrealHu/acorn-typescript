@@ -126,6 +126,21 @@ export class ObjectEntity extends ExpressionEntity {
 }
 `
 
+const issue44File = `
+class Test {
+  parseNode(esTreeNode: GenericEsTreeNode): void {
+    const { param } = esTreeNode;
+    if (param) {
+      (this.param as GenericEsTreeNode) = new (this.context.getNodeConstructor(param.type))(
+        param, this,this.scope
+      );
+      this.param!.declare('parameter', UNKNOWN_EXPRESSION);
+    }
+    super.parseNode(esTreeNode);
+  }
+}
+`
+
 describe('class', () => {
   it('normal property', () => {
     const node = parseSource(generateSource([
@@ -474,6 +489,12 @@ describe('class', () => {
     const node = parseSource(issue42File)
 
     equalNode(node, ClassTypeSnapshot.Issue42)
+  })
+
+  it('issue 44', () => {
+    const node = parseSource(issue44File)
+
+    equalNode(node, ClassTypeSnapshot.Issue44)
   })
 })
 
