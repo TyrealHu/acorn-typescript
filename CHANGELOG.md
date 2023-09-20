@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.5...v1.4.6) (2023-09-20)
+
+
+### ✨ Features
+
+* 🚀 support import assertions and type check ([e6d286d](https://github.com/TyrealHu/acorn-typescript/commit/e6d286d0f2ba5b63413d6a4b1062f955756dc0a5))
+
 ### [1.4.5](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.4...v1.4.5) (2023-09-06)
 
 
