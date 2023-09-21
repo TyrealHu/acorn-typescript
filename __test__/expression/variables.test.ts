@@ -7,6 +7,14 @@ import {
 import VariablesTypeSnapshot from '../__snapshot__/expression/variables'
 import { TypeScriptError } from '../../src/error'
 
+const issueFile43 = `
+const binaryOperators: {
+  [operator in any]?: (left: any, right: any) => any;
+} = {
+  '<': (left, right) => left! < right!
+};
+`
+
 describe('variables declaration', () => {
   it('number', () => {
     const node = parseSource(generateSource([
@@ -224,5 +232,11 @@ describe('variables declaration', () => {
     ]), 'Unexpected token', '(1:17)')
 
     expect(res).toBe(true)
+  })
+
+  it('issue 43', () => {
+    const node = parseSource(issueFile43)
+
+    equalNode(node, VariablesTypeSnapshot.IssueFile43)
   })
 })

@@ -217,7 +217,6 @@ function tsPlugin(options?: {
       inType: boolean = false
       inDisallowConditionalTypesContext: boolean = false
       maybeInArrowParameters: boolean = false
-      canStartJSXElement: boolean = false
       shouldParseArrowReturnType: any | undefined = undefined
       shouldParseAsyncArrowReturnType: any | undefined = undefined
       decoratorStack: any[] = [[]]
@@ -4654,7 +4653,7 @@ function tsPlugin(options?: {
           // When ! is consumed as a postfix operator (non-null assertion),
           // disallow JSX tag forming after. e.g. When parsing `p! < n.p!`
           // `<n.p` can not be a start of JSX tag
-          this.canStartJSXElement = false
+          this.exprAllowed = false
           this.next()
 
           const nonNullExpression = this.startNodeAt(
@@ -5243,13 +5242,14 @@ function tsPlugin(options?: {
       }
 
       updateContext(prevType) {
-        if (this.type == tt.braceL) {
+        const { type } = this
+        if (type == tt.braceL) {
           var curContext = this.curContext()
           if (curContext == tsTokContexts.tc_oTag) this.context.push(tokContexts.b_expr)
           else if (curContext == tsTokContexts.tc_expr) this.context.push(tokContexts.b_tmpl)
           else super.updateContext(prevType)
           this.exprAllowed = true
-        } else if (this.type === tt.slash && prevType === tokTypes.jsxTagStart) {
+        } else if (type === tt.slash && prevType === tokTypes.jsxTagStart) {
           this.context.length -= 2 // do not consider JSX expr -> JSX open tag -> ... anymore
           this.context.push(tsTokContexts.tc_cTag) // reconsider as closing
           // tag context
