@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.6...v1.4.7) (2023-09-21)
+
+
+### 🐛 Bug Fixes
+
+* 🐛 JSX token parse in ! > ! case ([a519fab](https://github.com/TyrealHu/acorn-typescript/commit/a519fab69a9d8e16af95f97265d53a6f19cc2f0b))
+
 ### [1.4.6](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.5...v1.4.6) (2023-09-20)
 
 
