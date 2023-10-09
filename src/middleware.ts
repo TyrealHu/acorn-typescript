@@ -262,6 +262,10 @@ export declare class AcornParseClass extends Parser {
 
   parseImportSpecifiers(): any
 
+  parseImportDefaultSpecifier(): any
+
+  parseImportNamespaceSpecifier(): any
+
   parseImportAttributes(): any
 
   parseMaybeImportAttributes(node: any): any

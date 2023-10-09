@@ -91,4 +91,12 @@ describe('normal syntax', () => {
 
     equalNode(node, NormalImportSnapshot.ImportTypeSpecifierWithAsAsSomethings)
   })
+
+  it('issue 45', function() {
+    const node = parseSource(generateSource([
+      `import assert from './index.js'`,
+    ]))
+
+    equalNode(node, NormalImportSnapshot.Issue45)
+  })
 })

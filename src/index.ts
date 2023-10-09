@@ -3049,6 +3049,28 @@ function tsPlugin(options?: {
         return super.parseExprOp(left, leftStartPos, leftStartLoc, minPrec, forInit)
       }
 
+      parseImportSpecifiers() {
+        let nodes = [], first = true
+        if (acornTypeScript.tokenIsIdentifier(this.type)) {
+          nodes.push(this.parseImportDefaultSpecifier())
+          if (!this.eat(tt.comma)) return nodes
+        }
+        if (this.type === tt.star) {
+          nodes.push(this.parseImportNamespaceSpecifier())
+          return nodes
+        }
+        this.expect(tt.braceL)
+        while (!this.eat(tt.braceR)) {
+          if (!first) {
+            this.expect(tt.comma)
+            if (this.afterTrailingComma(tt.braceR)) break
+          } else first = false
+
+          nodes.push(this.parseImportSpecifier())
+        }
+        return nodes
+      }
+
       /**
        * @param {Node} node this may be ImportDeclaration |
        * TsImportEqualsDeclaration
@@ -3144,45 +3166,45 @@ function tsPlugin(options?: {
 
       parseExportAllDeclaration(node, exports) {
         if (this.options.ecmaVersion >= 11) {
-          if (this.eatContextual("as")) {
+          if (this.eatContextual('as')) {
             node.exported = this.parseModuleExportName()
             this.checkExport(exports, node.exported, this.lastTokStart)
           } else {
             node.exported = null
           }
         }
-        this.expectContextual("from")
+        this.expectContextual('from')
         if (this.type !== tt.string) this.unexpected()
         node.source = this.parseExprAtom()
 
         this.parseMaybeImportAttributes(node)
 
         this.semicolon()
-        return this.finishNode(node, "ExportAllDeclaration")
+        return this.finishNode(node, 'ExportAllDeclaration')
       }
 
       parseDynamicImport(node) {
-        this.next(); // skip `(`
+        this.next() // skip `(`
 
         // Parse node.source.
-        node.source = this.parseMaybeAssign();
+        node.source = this.parseMaybeAssign()
 
         if (this.eat(tt.comma)) {
-          const expr = this.parseExpression();
-          node.arguments = [expr];
+          const expr = this.parseExpression()
+          node.arguments = [expr]
         }
 
         // Verify ending.
         if (!this.eat(tt.parenR)) {
-          const errorPos = this.start;
+          const errorPos = this.start
           if (this.eat(tt.comma) && this.eat(tt.parenR)) {
-            this.raiseRecoverable(errorPos, "Trailing comma is not allowed in import()");
+            this.raiseRecoverable(errorPos, 'Trailing comma is not allowed in import()')
           } else {
-            this.unexpected(errorPos);
+            this.unexpected(errorPos)
           }
         }
 
-        return this.finishNode(node, "ImportExpression")
+        return this.finishNode(node, 'ImportExpression')
       }
 
       parseExport(node: any, exports: any): any {
@@ -3241,14 +3263,14 @@ function tsPlugin(options?: {
             return this.parseExportAllDeclaration(node, exports)
           }
           if (this.eat(tt._default)) { // export default ...
-            this.checkExport(exports, "default", this.lastTokStart)
+            this.checkExport(exports, 'default', this.lastTokStart)
             node.declaration = this.parseExportDefaultDeclaration()
-            return this.finishNode(node, "ExportDefaultDeclaration")
+            return this.finishNode(node, 'ExportDefaultDeclaration')
           }
           // export var|const|let|function|class ...
           if (this.shouldParseExportStatement()) {
             node.declaration = this.parseExportDeclaration(node)
-            if (node.declaration.type === "VariableDeclaration")
+            if (node.declaration.type === 'VariableDeclaration')
               this.checkVariableExport(exports, node.declaration.declarations)
             else
               this.checkExport(exports, node.declaration.id, node.declaration.id.start)
@@ -3257,7 +3279,7 @@ function tsPlugin(options?: {
           } else { // export { x, y as z } [from '...']
             node.declaration = null
             node.specifiers = this.parseExportSpecifiers(exports)
-            if (this.eatContextual("from")) {
+            if (this.eatContextual('from')) {
               if (this.type !== tt.string) this.unexpected()
               node.source = this.parseExprAtom()
 
@@ -3269,8 +3291,8 @@ function tsPlugin(options?: {
                 // check if export is defined
                 this.checkLocalExport(spec.local)
 
-                if (spec.local.type === "Literal") {
-                  this.raise(spec.local.start, "A string literal cannot be used as an exported binding without `from`.")
+                if (spec.local.type === 'Literal') {
+                  this.raise(spec.local.start, 'A string literal cannot be used as an exported binding without `from`.')
                 }
               }
 
@@ -3278,7 +3300,7 @@ function tsPlugin(options?: {
             }
             this.semicolon()
           }
-          return this.finishNode(node, "ExportNamedDeclaration")
+          return this.finishNode(node, 'ExportNamedDeclaration')
           // end
         }
       }
@@ -4394,7 +4416,7 @@ function tsPlugin(options?: {
             }
             return super.toAssignable(node, isBinding, refDestructuringErrors)
           case 'TSTypeCastExpression': {
-            return this.typeCastToParameter(node);
+            return this.typeCastToParameter(node)
           }
           default:
             return super.toAssignable(node, isBinding, refDestructuringErrors)

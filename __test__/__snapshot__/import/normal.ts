@@ -1813,6 +1813,100 @@ const NormalImportSnapshot = {
       }
     ],
     'sourceType': 'module'
+  },
+  Issue45: {
+    'type': 'Program',
+    'start': 0,
+    'end': 31,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 1,
+        'column': 31,
+        'index': 31
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 0,
+        'end': 31,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 31,
+            'index': 31
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportDefaultSpecifier',
+            'start': 7,
+            'end': 13,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 7,
+                'index': 7
+              },
+              'end': {
+                'line': 1,
+                'column': 13,
+                'index': 13
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 7,
+              'end': 13,
+              'loc': {
+                'start': {
+                  'line': 1,
+                  'column': 7,
+                  'index': 7
+                },
+                'end': {
+                  'line': 1,
+                  'column': 13,
+                  'index': 13
+                }
+              },
+              'name': 'assert'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 19,
+          'end': 31,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 19,
+              'index': 19
+            },
+            'end': {
+              'line': 1,
+              'column': 31,
+              'index': 31
+            }
+          },
+          'value': './index.js',
+          'raw': '\'./index.js\''
+        }
+      }
+    ],
+    'sourceType': 'module'
   }
 }
 
