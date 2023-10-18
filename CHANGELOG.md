@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.8...v1.4.9) (2023-10-18)
+
+
+### ♻️ Code Refactoring
+
+* 🌟set jsx options to true, while its empty ([77e26cd](https://github.com/TyrealHu/acorn-typescript/commit/77e26cd54947242b6b994cd24e4ff476422edeb9))
+
 ### [1.4.8](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.7...v1.4.8) (2023-10-09)
 
 
