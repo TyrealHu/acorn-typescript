@@ -44,10 +44,10 @@ export default function generateJsxParser(
   const tok = acornTypeScript.tokTypes
   const isNewLine = acorn.isNewLine
   const isIdentifierChar = acorn.isIdentifierChar
-  const options = {
-    allowNamespaces: (Boolean(jsxOptions?.allowNamespaces)) !== false,
-    allowNamespacedObjects: !!(jsxOptions?.allowNamespacedObjects)
-  }
+  const options = Object.assign({
+    allowNamespaces: true,
+    allowNamespacedObjects: true
+  }, jsxOptions || {})
 
   return class JsxParser extends Parser {
     // Reads inline JSX contents token.

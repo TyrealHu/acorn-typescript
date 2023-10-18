@@ -1,11 +1,7 @@
 import * as acorn from 'acorn'
 import tsPlugin from '../src'
 
-export const Parser = acorn.Parser.extend(tsPlugin({
-  jsx: {
-    allowNamespaces: true
-  }
-}))
+export const Parser = acorn.Parser.extend(tsPlugin())
 
 export const DtsParser = acorn.Parser.extend(tsPlugin({
   dts: true
