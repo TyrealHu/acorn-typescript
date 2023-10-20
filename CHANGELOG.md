@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.9...v1.4.10) (2023-10-20)
+
+
+### 🐛 Bug Fixes
+
+* 🐛bugs of left relational and right relational ([de5984c](https://github.com/TyrealHu/acorn-typescript/commit/de5984c67eec2e46d199067a6691557cd6923a21))
+
 ### [1.4.9](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.8...v1.4.9) (2023-10-18)
 
 
