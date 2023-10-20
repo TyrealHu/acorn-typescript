@@ -1,6 +1,13 @@
 import { equalNode, generateSource, parseSource } from '../utils'
 import JSXSnapshot from '../__snapshot__/jsx'
 
+const issue46File = `
+import * as React from 'react'
+import { Link as RRLink } from 'react-router-dom';
+
+const Link = (props: React.ComponentProps<typeof RRLink>) => null
+`;
+
 describe('jsx', function() {
   it('simple', () => {
     const node = parseSource(generateSource([
@@ -93,5 +100,11 @@ describe('jsx', function() {
       ]))
 
     equalNode(node, JSXSnapshot.Issue29Jsx)
+  })
+
+  it('issue 46', () => {
+    const node = parseSource(issue46File)
+
+    equalNode(node, JSXSnapshot.Issue46)
   })
 })

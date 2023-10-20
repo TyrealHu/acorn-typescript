@@ -456,7 +456,7 @@ function tsPlugin(options?: {
         startLoc: Position,
         forInit: boolean
       ): any | undefined | null {
-        if (!this.match(tt.relational)) {
+        if (!this.tsMatchLeftRelational()) {
           return undefined
         }
 
@@ -1112,7 +1112,7 @@ function tsPlugin(options?: {
           case 'TupleElementTypes':
             return this.match(tt.bracketR)
           case 'TypeParametersOrArguments':
-            return this.match(tt.relational) && this.value === '>'
+            return this.tsMatchRightRelational()
         }
       }
 
@@ -1304,7 +1304,7 @@ function tsPlugin(options?: {
       }
 
       tsIsStartOfFunctionType() {
-        if (this.match(tt.relational)) {
+        if (this.tsMatchLeftRelational()) {
           return true
         }
         return (
@@ -1628,7 +1628,7 @@ function tsPlugin(options?: {
           // qualifier, so allow it to be a reserved word as well.
           node.qualifier = this.tsParseEntityName()
         }
-        if (this.match(tt.relational)) {
+        if (this.tsMatchLeftRelational()) {
           node.typeParameters = this.tsParseTypeArguments()
         }
         return this.finishNode(node, 'TSImportType')
@@ -1642,7 +1642,7 @@ function tsPlugin(options?: {
         } else {
           node.exprName = this.tsParseEntityName()
         }
-        if (!this.hasPrecedingLineBreak() && this.match(tt.relational)) {
+        if (!this.hasPrecedingLineBreak() && this.tsMatchLeftRelational()) {
           node.typeParameters = this.tsParseTypeArguments()
         }
         return this.finishNode(node, 'TSTypeQuery')
@@ -1791,10 +1791,18 @@ function tsPlugin(options?: {
       tsParseTypeReference(): any {
         const node = this.startNode()
         node.typeName = this.tsParseEntityName()
-        if (!this.hasPrecedingLineBreak() && this.match(tt.relational) && this.value === '<') {
+        if (!this.hasPrecedingLineBreak() && this.tsMatchLeftRelational()) {
           node.typeParameters = this.tsParseTypeArguments()
         }
         return this.finishNode(node, 'TSTypeReference')
+      }
+
+      tsMatchLeftRelational() {
+        return this.match(tt.relational) && this.value === '<'
+      }
+
+      tsMatchRightRelational() {
+        return this.match(tt.relational) && this.value === '>'
       }
 
       tsParseParenthesizedType(): any {
@@ -2055,7 +2063,7 @@ function tsPlugin(options?: {
       ) {
         const node = this.startNode()
 
-        if (this.match(tt.relational) || this.matchJsx('jsxTagStart')) {
+        if (this.tsMatchLeftRelational() || this.matchJsx('jsxTagStart')) {
           this.next()
         } else {
           this.unexpected()
@@ -2082,7 +2090,7 @@ function tsPlugin(options?: {
       tsTryParseTypeParameters(
         parseModifiers?: ((node) => void) | null
       ) {
-        if (this.match(tt.relational)) {
+        if (this.tsMatchLeftRelational()) {
           return this.tsParseTypeParameters(parseModifiers)
         }
       }
@@ -2321,7 +2329,7 @@ function tsPlugin(options?: {
           () => {
             const node = this.startNode()
             node.expression = this.tsParseEntityName()
-            if (this.match(tt.relational)) {
+            if (this.tsMatchLeftRelational()) {
               node.typeParameters = this.tsParseTypeArguments()
             }
 
@@ -2373,12 +2381,12 @@ function tsPlugin(options?: {
         if (this.eat(tt.question)) node.optional = true
         const nodeAny: any = node
 
-        if (this.match(tt.parenL) || this.match(tt.relational)) {
+        if (this.match(tt.parenL) || this.tsMatchLeftRelational()) {
           if (readonly) {
             this.raise(node.start, TypeScriptError.ReadonlyForMethodSignature)
           }
           const method = nodeAny
-          if (method.kind && this.match(tt.relational)) {
+          if (method.kind && this.tsMatchLeftRelational()) {
             this.raise(this.start, TypeScriptError.AccesorCannotHaveTypeParameters)
           }
           this.tsFillSignature(tt.colon, method)
@@ -2431,7 +2439,7 @@ function tsPlugin(options?: {
       tsParseTypeMember(): any {
         const node: any = this.startNode()
 
-        if (this.match(tt.parenL) || this.match(tt.relational)) {
+        if (this.match(tt.parenL) || this.tsMatchLeftRelational()) {
           return this.tsParseSignatureMember('TSCallSignatureDeclaration', node)
         }
 
@@ -2439,7 +2447,7 @@ function tsPlugin(options?: {
 
           const id = this.startNode()
           this.next()
-          if (this.match(tt.parenL) || this.match(tt.relational)) {
+          if (this.match(tt.parenL) || this.tsMatchLeftRelational()) {
             return this.tsParseSignatureMember(
               'TSConstructSignatureDeclaration',
               node
@@ -3987,7 +3995,7 @@ function tsPlugin(options?: {
       parseClassSuper(node: any): void {
         super.parseClassSuper(node)
         // handle `extends f<<T>
-        if (node.superClass && (this.match(tt.relational) || this.match(tt.bitShift))) {
+        if (node.superClass && (this.tsMatchLeftRelational() || this.match(tt.bitShift))) {
           node.superTypeParameters = this.tsParseTypeArgumentsInExpression()
         }
         if (this.eatContextual('implements')) {
@@ -4131,7 +4139,7 @@ function tsPlugin(options?: {
         let typeCast
 
         if (
-          this.matchJsx('jsxTagStart') || this.match(tt.relational)
+          this.matchJsx('jsxTagStart') || this.tsMatchLeftRelational()
         ) {
           // Prefer to parse JSX if possible. But may be an arrow fn.
           state = this.cloneCurLookaheadState()
@@ -4159,7 +4167,7 @@ function tsPlugin(options?: {
           }
         }
 
-        if (!jsx?.error && !this.match(tt.relational)) {
+        if (!jsx?.error && !this.tsMatchLeftRelational()) {
           return this.parseMaybeAssignOrigin(forInit, refExpressionErrors, afterLeftParse)
         }
 
@@ -4703,7 +4711,7 @@ function tsPlugin(options?: {
         }
 
         // handles 'f<<T>'
-        if (this.match(tt.relational) || this.match(tt.bitShift)) {
+        if (this.tsMatchLeftRelational() || this.match(tt.bitShift)) {
           let missingParenErrorLoc
           // tsTryParseAndCatch is expensive, so avoid if not necessary.
           // There are number of things we are going to "maybe" parse, like type arguments on
@@ -4765,7 +4773,7 @@ function tsPlugin(options?: {
             const tokenType = this.type
             if (
               // a<b>>c is not (a<b>)>c, but a<(b>>c)
-              tokenType === tt.relational ||
+              this.tsMatchRightRelational() ||
               // a<b>>>c is not (a<b>)>>c, but a<(b>>>c)
               tokenType === tt.bitShift ||
               // a<b>c is (a<b)>c

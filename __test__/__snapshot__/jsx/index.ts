@@ -3339,6 +3339,444 @@ const JSXSnapshot = {
     ],
     'sourceType': 'module'
   },
+  Issue46: {
+    'type': 'Program',
+    'start': 0,
+    'end': 150,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 6,
+        'column': 0,
+        'index': 150
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 1,
+        'end': 31,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 1
+          },
+          'end': {
+            'line': 2,
+            'column': 30,
+            'index': 31
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportNamespaceSpecifier',
+            'start': 8,
+            'end': 18,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 7,
+                'index': 8
+              },
+              'end': {
+                'line': 2,
+                'column': 17,
+                'index': 18
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 13,
+              'end': 18,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 12,
+                  'index': 13
+                },
+                'end': {
+                  'line': 2,
+                  'column': 17,
+                  'index': 18
+                }
+              },
+              'name': 'React'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 24,
+          'end': 31,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 23,
+              'index': 24
+            },
+            'end': {
+              'line': 2,
+              'column': 30,
+              'index': 31
+            }
+          },
+          'value': 'react',
+          'raw': '\'react\''
+        }
+      },
+      {
+        'type': 'ImportDeclaration',
+        'start': 32,
+        'end': 82,
+        'loc': {
+          'start': {
+            'line': 3,
+            'column': 0,
+            'index': 32
+          },
+          'end': {
+            'line': 3,
+            'column': 50,
+            'index': 82
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportSpecifier',
+            'start': 41,
+            'end': 55,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 9,
+                'index': 41
+              },
+              'end': {
+                'line': 3,
+                'column': 23,
+                'index': 55
+              }
+            },
+            'imported': {
+              'type': 'Identifier',
+              'start': 41,
+              'end': 45,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 9,
+                  'index': 41
+                },
+                'end': {
+                  'line': 3,
+                  'column': 13,
+                  'index': 45
+                }
+              },
+              'name': 'Link'
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 49,
+              'end': 55,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 17,
+                  'index': 49
+                },
+                'end': {
+                  'line': 3,
+                  'column': 23,
+                  'index': 55
+                }
+              },
+              'name': 'RRLink'
+            },
+            'importKind': 'value'
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 63,
+          'end': 81,
+          'loc': {
+            'start': {
+              'line': 3,
+              'column': 31,
+              'index': 63
+            },
+            'end': {
+              'line': 3,
+              'column': 49,
+              'index': 81
+            }
+          },
+          'value': 'react-router-dom',
+          'raw': '\'react-router-dom\''
+        }
+      },
+      {
+        'type': 'VariableDeclaration',
+        'start': 84,
+        'end': 149,
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 0,
+            'index': 84
+          },
+          'end': {
+            'line': 5,
+            'column': 65,
+            'index': 149
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 90,
+            'end': 149,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 6,
+                'index': 90
+              },
+              'end': {
+                'line': 5,
+                'column': 65,
+                'index': 149
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 90,
+              'end': 94,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 6,
+                  'index': 90
+                },
+                'end': {
+                  'line': 5,
+                  'column': 10,
+                  'index': 94
+                }
+              },
+              'name': 'Link'
+            },
+            'init': {
+              'type': 'ArrowFunctionExpression',
+              'start': 97,
+              'end': 149,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 13,
+                  'index': 97
+                },
+                'end': {
+                  'line': 5,
+                  'column': 65,
+                  'index': 149
+                }
+              },
+              'id': null,
+              'expression': true,
+              'generator': false,
+              'async': false,
+              'params': [
+                {
+                  'type': 'Identifier',
+                  'start': 98,
+                  'loc': {
+                    'start': {
+                      'line': 5,
+                      'column': 14,
+                      'index': 98
+                    },
+                    'end': 140
+                  },
+                  'name': 'props',
+                  'typeAnnotation': {
+                    'type': 'TSTypeAnnotation',
+                    'start': 103,
+                    'end': 140,
+                    'loc': {
+                      'start': {
+                        'line': 5,
+                        'column': 19,
+                        'index': 103
+                      },
+                      'end': {
+                        'line': 5,
+                        'column': 56,
+                        'index': 140
+                      }
+                    },
+                    'typeAnnotation': {
+                      'type': 'TSTypeReference',
+                      'start': 105,
+                      'end': 140,
+                      'loc': {
+                        'start': {
+                          'line': 5,
+                          'column': 21,
+                          'index': 105
+                        },
+                        'end': {
+                          'line': 5,
+                          'column': 56,
+                          'index': 140
+                        }
+                      },
+                      'typeName': {
+                        'type': 'TSQualifiedName',
+                        'start': 105,
+                        'end': 125,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 21,
+                            'index': 105
+                          },
+                          'end': {
+                            'line': 5,
+                            'column': 41,
+                            'index': 125
+                          }
+                        },
+                        'left': {
+                          'type': 'Identifier',
+                          'start': 105,
+                          'end': 110,
+                          'loc': {
+                            'start': {
+                              'line': 5,
+                              'column': 21,
+                              'index': 105
+                            },
+                            'end': {
+                              'line': 5,
+                              'column': 26,
+                              'index': 110
+                            }
+                          },
+                          'name': 'React'
+                        },
+                        'right': {
+                          'type': 'Identifier',
+                          'start': 111,
+                          'end': 125,
+                          'loc': {
+                            'start': {
+                              'line': 5,
+                              'column': 27,
+                              'index': 111
+                            },
+                            'end': {
+                              'line': 5,
+                              'column': 41,
+                              'index': 125
+                            }
+                          },
+                          'name': 'ComponentProps'
+                        }
+                      },
+                      'typeParameters': {
+                        'type': 'TSTypeParameterInstantiation',
+                        'start': 125,
+                        'end': 140,
+                        'loc': {
+                          'start': {
+                            'line': 5,
+                            'column': 41,
+                            'index': 125
+                          },
+                          'end': {
+                            'line': 5,
+                            'column': 56,
+                            'index': 140
+                          }
+                        },
+                        'params': [
+                          {
+                            'type': 'TSTypeQuery',
+                            'start': 126,
+                            'end': 139,
+                            'loc': {
+                              'start': {
+                                'line': 5,
+                                'column': 42,
+                                'index': 126
+                              },
+                              'end': {
+                                'line': 5,
+                                'column': 55,
+                                'index': 139
+                              }
+                            },
+                            'exprName': {
+                              'type': 'Identifier',
+                              'start': 133,
+                              'end': 139,
+                              'loc': {
+                                'start': {
+                                  'line': 5,
+                                  'column': 49,
+                                  'index': 133
+                                },
+                                'end': {
+                                  'line': 5,
+                                  'column': 55,
+                                  'index': 139
+                                }
+                              },
+                              'name': 'RRLink'
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              'body': {
+                'type': 'Literal',
+                'start': 145,
+                'end': 149,
+                'loc': {
+                  'start': {
+                    'line': 5,
+                    'column': 61,
+                    'index': 145
+                  },
+                  'end': {
+                    'line': 5,
+                    'column': 65,
+                    'index': 149
+                  }
+                },
+                'value': null,
+                'raw': 'null'
+              }
+            }
+          }
+        ],
+        'kind': 'const'
+      }
+    ],
+    'sourceType': 'module'
+  },
   Issue29Jsx: {
     'type': 'Program',
     'start': 0,
