@@ -8,6 +8,18 @@ import { Link as RRLink } from 'react-router-dom';
 const Link = (props: React.ComponentProps<typeof RRLink>) => null
 `;
 
+const issue48File = `
+import styled from 'styled-components';
+
+type ExtendedProps = {
+    $anyprop: string;
+};
+
+const StyledDiv = styled.div<ExtendedProps>\`
+    color: red;
+\`;
+`
+
 describe('jsx', function() {
   it('simple', () => {
     const node = parseSource(generateSource([
@@ -67,6 +79,7 @@ describe('jsx', function() {
       ''
     ]))
 
+    console.log(JSON.stringify(node, null, 2))
     equalNode(node, JSXSnapshot.Tsx)
   })
 
@@ -106,5 +119,11 @@ describe('jsx', function() {
     const node = parseSource(issue46File)
 
     equalNode(node, JSXSnapshot.Issue46)
+  })
+
+  it('issue 48', () => {
+    const node = parseSource(issue48File)
+
+    equalNode(node, JSXSnapshot.Issue48)
   })
 })

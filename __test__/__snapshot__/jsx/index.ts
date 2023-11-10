@@ -1550,6 +1550,78 @@ const JSXSnapshot = {
             'computed': false,
             'optional': false
           },
+          'superTypeParameters': {
+            'type': 'TSTypeParameterInstantiation',
+            'start': 135,
+            'end': 154,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 58,
+                'index': 135
+              },
+              'end': {
+                'line': 3,
+                'column': 77,
+                'index': 154
+              }
+            },
+            'params': [
+              {
+                'type': 'TSTypeReference',
+                'start': 136,
+                'end': 149,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 59,
+                    'index': 136
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 72,
+                    'index': 149
+                  }
+                },
+                'typeName': {
+                  'type': 'Identifier',
+                  'start': 136,
+                  'end': 149,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 59,
+                      'index': 136
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 72,
+                      'index': 149
+                    }
+                  },
+                  'name': 'UserInterface'
+                }
+              },
+              {
+                'type': 'TSTypeLiteral',
+                'start': 151,
+                'end': 153,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 74,
+                    'index': 151
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 76,
+                    'index': 153
+                  }
+                },
+                'members': []
+              }
+            ]
+          },
           'body': {
             'type': 'ClassBody',
             'start': 155,
@@ -3768,6 +3840,447 @@ const JSXSnapshot = {
                 },
                 'value': null,
                 'raw': 'null'
+              }
+            }
+          }
+        ],
+        'kind': 'const'
+      }
+    ],
+    'sourceType': 'module'
+  },
+  Issue48: {
+    'type': 'Program',
+    'start': 0,
+    'end': 155,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 11,
+        'column': 0,
+        'index': 155
+      }
+    },
+    'body': [
+      {
+        'type': 'ImportDeclaration',
+        'start': 1,
+        'end': 40,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 1
+          },
+          'end': {
+            'line': 2,
+            'column': 39,
+            'index': 40
+          }
+        },
+        'importKind': 'value',
+        'specifiers': [
+          {
+            'type': 'ImportDefaultSpecifier',
+            'start': 8,
+            'end': 14,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 7,
+                'index': 8
+              },
+              'end': {
+                'line': 2,
+                'column': 13,
+                'index': 14
+              }
+            },
+            'local': {
+              'type': 'Identifier',
+              'start': 8,
+              'end': 14,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 7,
+                  'index': 8
+                },
+                'end': {
+                  'line': 2,
+                  'column': 13,
+                  'index': 14
+                }
+              },
+              'name': 'styled'
+            }
+          }
+        ],
+        'source': {
+          'type': 'Literal',
+          'start': 20,
+          'end': 39,
+          'loc': {
+            'start': {
+              'line': 2,
+              'column': 19,
+              'index': 20
+            },
+            'end': {
+              'line': 2,
+              'column': 38,
+              'index': 39
+            }
+          },
+          'value': 'styled-components',
+          'raw': '\'styled-components\''
+        }
+      },
+      {
+        'type': 'TSTypeAliasDeclaration',
+        'start': 42,
+        'end': 89,
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 0,
+            'index': 42
+          },
+          'end': {
+            'line': 6,
+            'column': 2,
+            'index': 89
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 47,
+          'end': 60,
+          'loc': {
+            'start': {
+              'line': 4,
+              'column': 5,
+              'index': 47
+            },
+            'end': {
+              'line': 4,
+              'column': 18,
+              'index': 60
+            }
+          },
+          'name': 'ExtendedProps'
+        },
+        'typeAnnotation': {
+          'type': 'TSTypeLiteral',
+          'start': 63,
+          'end': 88,
+          'loc': {
+            'start': {
+              'line': 4,
+              'column': 21,
+              'index': 63
+            },
+            'end': {
+              'line': 6,
+              'column': 1,
+              'index': 88
+            }
+          },
+          'members': [
+            {
+              'type': 'TSPropertySignature',
+              'start': 69,
+              'end': 86,
+              'loc': {
+                'start': {
+                  'line': 5,
+                  'column': 4,
+                  'index': 69
+                },
+                'end': {
+                  'line': 5,
+                  'column': 21,
+                  'index': 86
+                }
+              },
+              'computed': false,
+              'key': {
+                'type': 'Identifier',
+                'start': 69,
+                'end': 77,
+                'loc': {
+                  'start': {
+                    'line': 5,
+                    'column': 4,
+                    'index': 69
+                  },
+                  'end': {
+                    'line': 5,
+                    'column': 12,
+                    'index': 77
+                  }
+                },
+                'name': '$anyprop'
+              },
+              'typeAnnotation': {
+                'type': 'TSTypeAnnotation',
+                'start': 77,
+                'end': 85,
+                'loc': {
+                  'start': {
+                    'line': 5,
+                    'column': 12,
+                    'index': 77
+                  },
+                  'end': {
+                    'line': 5,
+                    'column': 20,
+                    'index': 85
+                  }
+                },
+                'typeAnnotation': {
+                  'type': 'TSStringKeyword',
+                  'start': 79,
+                  'end': 85,
+                  'loc': {
+                    'start': {
+                      'line': 5,
+                      'column': 14,
+                      'index': 79
+                    },
+                    'end': {
+                      'line': 5,
+                      'column': 20,
+                      'index': 85
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        'type': 'VariableDeclaration',
+        'start': 91,
+        'end': 154,
+        'loc': {
+          'start': {
+            'line': 8,
+            'column': 0,
+            'index': 91
+          },
+          'end': {
+            'line': 10,
+            'column': 2,
+            'index': 154
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 97,
+            'end': 153,
+            'loc': {
+              'start': {
+                'line': 8,
+                'column': 6,
+                'index': 97
+              },
+              'end': {
+                'line': 10,
+                'column': 1,
+                'index': 153
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 97,
+              'end': 106,
+              'loc': {
+                'start': {
+                  'line': 8,
+                  'column': 6,
+                  'index': 97
+                },
+                'end': {
+                  'line': 8,
+                  'column': 15,
+                  'index': 106
+                }
+              },
+              'name': 'StyledDiv'
+            },
+            'init': {
+              'type': 'TaggedTemplateExpression',
+              'start': 109,
+              'end': 153,
+              'loc': {
+                'start': {
+                  'line': 8,
+                  'column': 18,
+                  'index': 109
+                },
+                'end': {
+                  'line': 10,
+                  'column': 1,
+                  'index': 153
+                }
+              },
+              'tag': {
+                'type': 'MemberExpression',
+                'start': 109,
+                'end': 119,
+                'loc': {
+                  'start': {
+                    'line': 8,
+                    'column': 18,
+                    'index': 109
+                  },
+                  'end': {
+                    'line': 8,
+                    'column': 28,
+                    'index': 119
+                  }
+                },
+                'object': {
+                  'type': 'Identifier',
+                  'start': 109,
+                  'end': 115,
+                  'loc': {
+                    'start': {
+                      'line': 8,
+                      'column': 18,
+                      'index': 109
+                    },
+                    'end': {
+                      'line': 8,
+                      'column': 24,
+                      'index': 115
+                    }
+                  },
+                  'name': 'styled'
+                },
+                'property': {
+                  'type': 'Identifier',
+                  'start': 116,
+                  'end': 119,
+                  'loc': {
+                    'start': {
+                      'line': 8,
+                      'column': 25,
+                      'index': 116
+                    },
+                    'end': {
+                      'line': 8,
+                      'column': 28,
+                      'index': 119
+                    }
+                  },
+                  'name': 'div'
+                },
+                'computed': false,
+                'optional': false
+              },
+              'quasi': {
+                'type': 'TemplateLiteral',
+                'start': 134,
+                'end': 153,
+                'loc': {
+                  'start': {
+                    'line': 8,
+                    'column': 43,
+                    'index': 134
+                  },
+                  'end': {
+                    'line': 10,
+                    'column': 1,
+                    'index': 153
+                  }
+                },
+                'expressions': [],
+                'quasis': [
+                  {
+                    'type': 'TemplateElement',
+                    'start': 135,
+                    'end': 152,
+                    'loc': {
+                      'start': {
+                        'line': 8,
+                        'column': 44,
+                        'index': 135
+                      },
+                      'end': {
+                        'line': 10,
+                        'column': 0,
+                        'index': 152
+                      }
+                    },
+                    'value': {
+                      'raw': '\n    color: red;\n',
+                      'cooked': '\n    color: red;\n'
+                    },
+                    'tail': true
+                  }
+                ]
+              },
+              'typeParameters': {
+                'type': 'TSTypeParameterInstantiation',
+                'start': 119,
+                'end': 134,
+                'loc': {
+                  'start': {
+                    'line': 8,
+                    'column': 28,
+                    'index': 119
+                  },
+                  'end': {
+                    'line': 8,
+                    'column': 43,
+                    'index': 134
+                  }
+                },
+                'params': [
+                  {
+                    'type': 'TSTypeReference',
+                    'start': 120,
+                    'end': 133,
+                    'loc': {
+                      'start': {
+                        'line': 8,
+                        'column': 29,
+                        'index': 120
+                      },
+                      'end': {
+                        'line': 8,
+                        'column': 42,
+                        'index': 133
+                      }
+                    },
+                    'typeName': {
+                      'type': 'Identifier',
+                      'start': 120,
+                      'end': 133,
+                      'loc': {
+                        'start': {
+                          'line': 8,
+                          'column': 29,
+                          'index': 120
+                        },
+                        'end': {
+                          'line': 8,
+                          'column': 42,
+                          'index': 133
+                        }
+                      },
+                      'name': 'ExtendedProps'
+                    }
+                  }
+                ]
               }
             }
           }

@@ -4736,7 +4736,7 @@ function tsPlugin(options?: {
               missingParenErrorLoc = this.curPosition()
               return base
             }
-            if (tokenIsTemplate(this.type)) {
+            if (tokenIsTemplate(this.type) || this.type === tt.backQuote) {
               const result = this.parseTaggedTemplateExpression(
                 base,
                 startPos,
@@ -4744,8 +4744,7 @@ function tsPlugin(options?: {
                 _optionalChained
               )
               result.typeParameters = typeArguments
-              base = result
-              return base
+              return result
             }
 
             if (!noCalls && this.eat(tt.parenL)) {
@@ -4782,7 +4781,7 @@ function tsPlugin(options?: {
                 !this.hasPrecedingLineBreak())
             ) {
               // Bail out.
-              return base
+              return
             }
             const node = this.startNodeAt(
               startPos,
@@ -4790,8 +4789,7 @@ function tsPlugin(options?: {
             )
             node.expression = base
             node.typeParameters = typeArguments
-            base = this.finishNode(node, 'TSInstantiationExpression')
-            return base
+            return this.finishNode(node, 'TSInstantiationExpression')
           })
           if (missingParenErrorLoc) {
             this.unexpected(missingParenErrorLoc)
