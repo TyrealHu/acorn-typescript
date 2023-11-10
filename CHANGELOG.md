@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.11](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.10...v1.4.11) (2023-11-10)
+
+
+### 🐛 Bug Fixes
+
+* 🐛parse tagged template expression with type ([575ab8c](https://github.com/TyrealHu/acorn-typescript/commit/575ab8cb3e209d45fa09e8dba784b18ec734783f))
+
 ### [1.4.10](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.9...v1.4.10) (2023-10-20)
 
 
