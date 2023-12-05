@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.12](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.11...v1.4.12) (2023-12-05)
+
+
+### 🐛 Bug Fixes
+
+* 🐛the scope flag between type value and ident ([da26d27](https://github.com/TyrealHu/acorn-typescript/commit/da26d27a181d18ff615cd078459b0d4847c5faee))
+
 ### [1.4.11](https://github.com/TyrealHu/acorn-typescript/compare/v1.4.10...v1.4.11) (2023-11-10)
 
 
