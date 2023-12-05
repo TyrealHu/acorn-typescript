@@ -22,6 +22,7 @@ export declare class AcornParseClass extends Parser {
   exprAllowed: boolean
   labels: any[]
   scopeStack: any[]
+  inModule: any
   undefinedExports: any
   lastTokEndLoc: any
   lastTokStartLoc: any
@@ -33,6 +34,12 @@ export declare class AcornParseClass extends Parser {
   constructor(options: Options, input: string, startPos?: number);
 
   parseImport(node: Node): any;
+
+  currentScope(): any
+
+  treatFunctionsAsVarInScope(scope: any): boolean
+
+  declareName(name?: any, bindingType?: any, loc?: any): any
 
   parseImportSpecifier(): any
 

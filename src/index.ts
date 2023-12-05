@@ -11,11 +11,6 @@ import {
   TsModifier
 } from './types'
 import {
-  BIND_LEXICAL,
-  BIND_NONE,
-  BIND_TS_INTERFACE,
-  BIND_TS_NAMESPACE,
-  BIND_TS_TYPE, SCOPE_ARROW,
   TS_SCOPE_OTHER,
   TS_SCOPE_TS_MODULE
 } from './scopeflags'
@@ -73,7 +68,17 @@ const acornScope = {
   BIND_LEXICAL: 2, // Let- or const-style binding
   BIND_FUNCTION: 3, // Function declaration
   BIND_SIMPLE_CATCH: 4, // Simple (identifier pattern) catch binding
-  BIND_OUTSIDE: 5 // Special case for function names as bound inside the
+  BIND_OUTSIDE: 5, // Special case for function names as bound inside the
+  BIND_TS_TYPE: 6,
+  BIND_TS_INTERFACE: 7,
+  BIND_TS_NAMESPACE: 8,
+  BIND_FLAGS_TS_EXPORT_ONLY: 0b00010000_0000_00,
+  BIND_FLAGS_TS_IMPORT: 0b01000000_0000_00,
+  BIND_KIND_VALUE: 0,
+  BIND_KIND_TYPE: 0,
+  BIND_FLAGS_TS_ENUM: 0b00000100_0000_00,
+  BIND_FLAGS_TS_CONST_ENUM: 0b00001000_0000_00,
+  BIND_FLAGS_CLASS: 0b00000010_0000_00
   // function
 }
 
@@ -220,6 +225,7 @@ function tsPlugin(options?: {
       shouldParseArrowReturnType: any | undefined = undefined
       shouldParseAsyncArrowReturnType: any | undefined = undefined
       decoratorStack: any[] = [[]]
+      importsStack: any[] = [[]]
       /**
        * we will only parse one import node or export node at same time.
        * default kind is undefined
@@ -235,6 +241,7 @@ function tsPlugin(options?: {
 
       constructor(options: Options, input: string, startPos?: number) {
         super(options, input, startPos)
+
       }
 
       // support in Class static
@@ -2523,7 +2530,7 @@ function tsPlugin(options?: {
         if (properties.declare) node.declare = true
         if (tokenIsIdentifier(this.type)) {
           node.id = this.parseIdent()
-          this.checkLValSimple(node.id, BIND_TS_INTERFACE)
+          this.checkLValSimple(node.id, acornScope.BIND_TS_INTERFACE)
         } else {
           node.id = null
           this.raise(this.start, TypeScriptError.MissingInterfaceName)
@@ -2683,7 +2690,7 @@ function tsPlugin(options?: {
 
         if (!nested) {
 
-          this.checkLValSimple(node.id, BIND_TS_NAMESPACE)
+          this.checkLValSimple(node.id, acornScope.BIND_TS_NAMESPACE)
         }
         if (this.eat(tt.dot)) {
 
@@ -2701,11 +2708,15 @@ function tsPlugin(options?: {
         return this.finishNode(node, 'TSModuleDeclaration')
       }
 
+      checkLValSimple(expr: any, bindingType: any = acornScope.BIND_NONE, checkClashes?: any) {
+        return super.checkLValSimple(expr, bindingType, checkClashes)
+      }
+
       tsParseTypeAliasDeclaration(
         node: any
       ): any {
         node.id = this.parseIdent()
-        this.checkLValSimple(node.id, BIND_TS_TYPE)
+        this.checkLValSimple(node.id, acornScope.BIND_TS_TYPE)
         node.typeAnnotation = this.tsInType(() => {
           node.typeParameters = this.tsTryParseTypeParameters(
             this.tsParseInOutModifiers.bind(this)
@@ -2790,7 +2801,7 @@ function tsPlugin(options?: {
       ): Node {
         node.isExport = isExport || false
         node.id = this.parseIdent()
-        this.checkLValSimple(node.id, BIND_LEXICAL)
+        this.checkLValSimple(node.id, acornScope.BIND_LEXICAL)
         super.expect(tt.eq)
         const moduleReference = this.tsParseModuleReference()
         if (
@@ -4047,7 +4058,7 @@ function tsPlugin(options?: {
         let oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos,
           oldAwaitIdentPos = this.awaitIdentPos
 
-        this.enterScope(functionFlags(isAsync, false) | SCOPE_ARROW)
+        this.enterScope(functionFlags(isAsync, false) | acornScope.SCOPE_ARROW)
         this.initFunction(node)
         const oldMaybeInArrowParameters = this.maybeInArrowParameters
         if (this.options.ecmaVersion >= 8) node.async = !!isAsync
@@ -4319,7 +4330,7 @@ function tsPlugin(options?: {
         return elt
       }// AssignmentPattern
 
-      checkLValInnerPattern(expr, bindingType = BIND_NONE, checkClashes) {
+      checkLValInnerPattern(expr, bindingType = acornScope.BIND_NONE, checkClashes) {
         switch (expr.type) {
           case 'TSParameterProperty':
             this.checkLValInnerPattern(expr.parameter, bindingType, checkClashes)
@@ -5238,7 +5249,7 @@ function tsPlugin(options?: {
           node[rightOfAsKey] = this.copyNode(node[leftOfAsKey])
         }
         if (isImport) {
-          this.checkLValSimple(node[rightOfAsKey], BIND_LEXICAL)
+          this.checkLValSimple(node[rightOfAsKey], acornScope.BIND_LEXICAL)
         }
       }
 
@@ -5307,6 +5318,144 @@ function tsPlugin(options?: {
         node.selfClosing = this.eat(tt.slash)
         this.expect(tokTypes.jsxTagEnd)
         return this.finishNode(node, nodeName ? 'JSXOpeningElement' : 'JSXOpeningFragment')
+      }
+
+      enterScope(flags: any) {
+        if (flags === TS_SCOPE_TS_MODULE) {
+          this.importsStack.push([])
+        }
+
+        super.enterScope(flags)
+        const scope = super.currentScope()
+
+        scope.types = []
+
+        scope.enums = []
+
+        scope.constEnums = []
+
+        scope.classes = []
+
+        scope.exportOnlyBindings = []
+      }
+
+      exitScope() {
+        const scope = super.currentScope()
+
+        if (scope.flags === TS_SCOPE_TS_MODULE) {
+          this.importsStack.pop()
+        }
+
+        super.exitScope()
+      }
+
+      hasImport(name: string, allowShadow?: boolean) {
+        const len = this.importsStack.length;
+        if (this.importsStack[len - 1].indexOf(name) > -1) {
+          return true;
+        }
+        if (!allowShadow && len > 1) {
+          for (let i = 0; i < len - 1; i++) {
+            if (this.importsStack[i].indexOf(name) > -1) return true;
+          }
+        }
+        return false;
+      }
+
+      maybeExportDefined(scope: any, name: string) {
+        if (this.inModule && scope.flags & acornScope.SCOPE_TOP) {
+          this.undefinedExports.delete(name);
+        }
+      }
+
+      isRedeclaredInScope(
+        scope: any,
+        name: string,
+        bindingType: any,
+      ): boolean {
+        if (!(bindingType & acornScope.BIND_KIND_VALUE)) return false;
+
+        if (bindingType & acornScope.BIND_LEXICAL) {
+          return (
+            scope.lexical.indexOf(name) > -1 ||
+            scope.functions.indexOf(name) > -1 ||
+            scope.var.indexOf(name) > -1
+          );
+        }
+
+        if (bindingType & acornScope.BIND_FUNCTION) {
+          return (
+            scope.lexical.indexOf(name) > -1 ||
+            (!super.treatFunctionsAsVarInScope(scope) && scope.var.indexOf(name) > -1)
+          );
+        }
+
+        return (
+          (scope.lexical.indexOf(name) > -1 &&
+            // Annex B.3.4
+            // https://tc39.es/ecma262/#sec-variablestatements-in-catch-blocks
+            !(
+              scope.flags & acornScope.SCOPE_SIMPLE_CATCH &&
+              scope.lexical[0] === name
+            )) ||
+          (!this.treatFunctionsAsVarInScope(scope) && scope.functions.indexOf(name) > -1)
+        );
+      }
+
+      checkRedeclarationInScope(
+        scope: any,
+        name: string,
+        bindingType: any,
+        loc: any,
+      ) {
+        if (this.isRedeclaredInScope(scope, name, bindingType)) {
+          this.raise(loc, `Identifier '${name}' has already been declared.`);
+        }
+      }
+
+      declareName(name, bindingType, pos) {
+        if (bindingType & acornScope.BIND_FLAGS_TS_IMPORT) {
+          if (this.hasImport(name, true)) {
+            this.raise(pos, `Identifier '${name}' has already been declared.`);
+          }
+          this.importsStack[this.importsStack.length - 1].push(name);
+          return;
+        }
+
+        const scope = this.currentScope();
+        if (bindingType & acornScope.BIND_FLAGS_TS_EXPORT_ONLY) {
+          this.maybeExportDefined(scope, name);
+          scope.exportOnlyBindings.push(name);
+          return;
+        }
+
+        super.declareName(name, bindingType, pos);
+
+        if (bindingType & acornScope.BIND_KIND_TYPE) {
+          if (!(bindingType & acornScope.BIND_KIND_VALUE)) {
+            // "Value" bindings have already been registered by the superclass.
+            this.checkRedeclarationInScope(scope, name, bindingType, pos);
+            this.maybeExportDefined(scope, name);
+          }
+          scope.types.push(name);
+        }
+        if (bindingType & acornScope.BIND_FLAGS_TS_ENUM) scope.enums.push(name);
+        if (bindingType & acornScope.BIND_FLAGS_TS_CONST_ENUM) scope.constEnums.push(name);
+        if (bindingType & acornScope.BIND_FLAGS_CLASS) scope.classes.push(name);
+      }
+
+      checkLocalExport(id) {
+        const { name } = id;
+
+        if (this.hasImport(name)) return;
+
+        const len = this.scopeStack.length;
+        for (let i = len - 1; i >= 0; i--) {
+          const scope = this.scopeStack[i];
+          if (scope.types.indexOf(name) > -1 || scope.exportOnlyBindings.indexOf(name) > -1) return;
+        }
+
+        super.checkLocalExport(id);
       }
     }
 

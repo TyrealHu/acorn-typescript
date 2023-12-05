@@ -17,4 +17,12 @@ describe("normal identifier test", () => {
 
     equalNode(node, NormalIdentifierSnapshot.ImportIdentifierAs);
   });
+
+  it('issue 50', () => {
+    const node = parseSource(
+      generateSource([`type abc = 1234;`, `var abc;`])
+    );
+
+    equalNode(node, NormalIdentifierSnapshot.Issue50);
+  })
 });

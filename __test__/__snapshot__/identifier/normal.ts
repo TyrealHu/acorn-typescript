@@ -1,167 +1,314 @@
 const NormalIdentifierSnapshot = {
+  Issue50: {
+    'type': 'Program',
+    'start': 0,
+    'end': 25,
+    'loc': {
+      'start': {
+        'line': 1,
+        'column': 0,
+        'index': 0
+      },
+      'end': {
+        'line': 2,
+        'column': 8,
+        'index': 25
+      }
+    },
+    'body': [
+      {
+        'type': 'TSTypeAliasDeclaration',
+        'start': 0,
+        'end': 16,
+        'loc': {
+          'start': {
+            'line': 1,
+            'column': 0,
+            'index': 0
+          },
+          'end': {
+            'line': 1,
+            'column': 16,
+            'index': 16
+          }
+        },
+        'id': {
+          'type': 'Identifier',
+          'start': 5,
+          'end': 8,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 5,
+              'index': 5
+            },
+            'end': {
+              'line': 1,
+              'column': 8,
+              'index': 8
+            }
+          },
+          'name': 'abc'
+        },
+        'typeAnnotation': {
+          'type': 'TSLiteralType',
+          'start': 11,
+          'end': 15,
+          'loc': {
+            'start': {
+              'line': 1,
+              'column': 11,
+              'index': 11
+            },
+            'end': {
+              'line': 1,
+              'column': 15,
+              'index': 15
+            }
+          },
+          'literal': {
+            'type': 'Literal',
+            'start': 11,
+            'end': 15,
+            'loc': {
+              'start': {
+                'line': 1,
+                'column': 11,
+                'index': 11
+              },
+              'end': {
+                'line': 1,
+                'column': 15,
+                'index': 15
+              }
+            },
+            'value': 1234,
+            'raw': '1234'
+          }
+        }
+      },
+      {
+        'type': 'VariableDeclaration',
+        'start': 17,
+        'end': 25,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 0,
+            'index': 17
+          },
+          'end': {
+            'line': 2,
+            'column': 8,
+            'index': 25
+          }
+        },
+        'declarations': [
+          {
+            'type': 'VariableDeclarator',
+            'start': 21,
+            'end': 24,
+            'loc': {
+              'start': {
+                'line': 2,
+                'column': 4,
+                'index': 21
+              },
+              'end': {
+                'line': 2,
+                'column': 7,
+                'index': 24
+              }
+            },
+            'id': {
+              'type': 'Identifier',
+              'start': 21,
+              'end': 24,
+              'loc': {
+                'start': {
+                  'line': 2,
+                  'column': 4,
+                  'index': 21
+                },
+                'end': {
+                  'line': 2,
+                  'column': 7,
+                  'index': 24
+                }
+              },
+              'name': 'abc'
+            },
+            'init': null
+          }
+        ],
+        'kind': 'var'
+      }
+    ],
+    'sourceType': 'module'
+  },
   ExportIdentifierAs: {
-    type: "Program",
+    type: 'Program',
     start: 0,
     end: 34,
     loc: {
       start: { line: 1, column: 0, index: 0 },
-      end: { line: 2, column: 21, index: 34 },
+      end: { line: 2, column: 21, index: 34 }
     },
     body: [
       {
-        type: "VariableDeclaration",
+        type: 'VariableDeclaration',
         start: 0,
         end: 12,
         loc: {
           start: { line: 1, column: 0, index: 0 },
-          end: { line: 1, column: 12, index: 12 },
+          end: { line: 1, column: 12, index: 12 }
         },
         declarations: [
           {
-            type: "VariableDeclarator",
+            type: 'VariableDeclarator',
             start: 4,
             end: 11,
             loc: {
               start: { line: 1, column: 4, index: 4 },
-              end: { line: 1, column: 11, index: 11 },
+              end: { line: 1, column: 11, index: 11 }
             },
             id: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 4,
               end: 7,
               loc: {
                 start: { line: 1, column: 4, index: 4 },
-                end: { line: 1, column: 7, index: 7 },
+                end: { line: 1, column: 7, index: 7 }
               },
-              name: "foo",
+              name: 'foo'
             },
             init: {
-              type: "Literal",
+              type: 'Literal',
               start: 10,
               end: 11,
               loc: {
                 start: { line: 1, column: 10, index: 10 },
-                end: { line: 1, column: 11, index: 11 },
+                end: { line: 1, column: 11, index: 11 }
               },
               value: 8,
-              raw: "8",
-            },
-          },
+              raw: '8'
+            }
+          }
         ],
-        kind: "var",
+        kind: 'var'
       },
       {
-        type: "ExportNamedDeclaration",
+        type: 'ExportNamedDeclaration',
         start: 13,
         end: 34,
         loc: {
           start: { line: 2, column: 0, index: 13 },
-          end: { line: 2, column: 21, index: 34 },
+          end: { line: 2, column: 21, index: 34 }
         },
-        exportKind: "value",
+        exportKind: 'value',
         declaration: null,
         specifiers: [
           {
-            type: "ExportSpecifier",
+            type: 'ExportSpecifier',
             start: 22,
             end: 31,
             loc: {
               start: { line: 2, column: 9, index: 22 },
-              end: { line: 2, column: 18, index: 31 },
+              end: { line: 2, column: 18, index: 31 }
             },
             local: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 22,
               end: 25,
               loc: {
                 start: { line: 2, column: 9, index: 22 },
-                end: { line: 2, column: 12, index: 25 },
+                end: { line: 2, column: 12, index: 25 }
               },
-              name: "foo",
+              name: 'foo'
             },
-            exportKind: "value",
+            exportKind: 'value',
             exported: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 29,
               end: 31,
               loc: {
                 start: { line: 2, column: 16, index: 29 },
-                end: { line: 2, column: 18, index: 31 },
+                end: { line: 2, column: 18, index: 31 }
               },
-              name: "as",
-            },
-          },
+              name: 'as'
+            }
+          }
         ],
-        source: null,
-      },
+        source: null
+      }
     ],
-    sourceType: "module",
+    sourceType: 'module'
   },
   ImportIdentifierAs: {
-    type: "Program",
+    type: 'Program',
     start: 0,
     end: 36,
     loc: {
       start: { line: 1, column: 0, index: 0 },
-      end: { line: 1, column: 36, index: 36 },
+      end: { line: 1, column: 36, index: 36 }
     },
     body: [
       {
-        type: "ImportDeclaration",
+        type: 'ImportDeclaration',
         start: 0,
         end: 36,
         loc: {
           start: { line: 1, column: 0, index: 0 },
-          end: { line: 1, column: 36, index: 36 },
+          end: { line: 1, column: 36, index: 36 }
         },
-        importKind: "value",
+        importKind: 'value',
         specifiers: [
           {
-            type: "ImportSpecifier",
+            type: 'ImportSpecifier',
             start: 9,
             end: 17,
             loc: {
               start: { line: 1, column: 9, index: 9 },
-              end: { line: 1, column: 17, index: 17 },
+              end: { line: 1, column: 17, index: 17 }
             },
             imported: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 9,
               end: 11,
               loc: {
                 start: { line: 1, column: 9, index: 9 },
-                end: { line: 1, column: 11, index: 11 },
+                end: { line: 1, column: 11, index: 11 }
               },
-              name: "as",
+              name: 'as'
             },
-            importKind: "value",
+            importKind: 'value',
             local: {
-              type: "Identifier",
+              type: 'Identifier',
               start: 15,
               end: 17,
               loc: {
                 start: { line: 1, column: 15, index: 15 },
-                end: { line: 1, column: 17, index: 17 },
+                end: { line: 1, column: 17, index: 17 }
               },
-              name: "as",
-            },
-          },
+              name: 'as'
+            }
+          }
         ],
         source: {
-          type: "Literal",
+          type: 'Literal',
           start: 25,
           end: 35,
           loc: {
             start: { line: 1, column: 25, index: 25 },
-            end: { line: 1, column: 35, index: 35 },
+            end: { line: 1, column: 35, index: 35 }
           },
-          value: "./foo.js",
-          raw: "'./foo.js'",
-        },
-      },
+          value: './foo.js',
+          raw: '\'./foo.js\''
+        }
+      }
     ],
-    sourceType: "module",
-  },
-};
+    sourceType: 'module'
+  }
+}
 
-export default NormalIdentifierSnapshot;
+export default NormalIdentifierSnapshot
