@@ -166,9 +166,10 @@ function tsPlugin(options?: {
   jsx?: {
     allowNamespaces?: boolean,
     allowNamespacedObjects?: boolean
-  }
+  },
+  allowSatisfies?: boolean
 }) {
-  const { dts = false } = options || {}
+  const { dts = false, allowSatisfies = false } = options || {}
   const disallowAmbiguousJSXLike = false
 
   return function(Parser: typeof AcornParseClass) {
@@ -3040,30 +3041,42 @@ function tsPlugin(options?: {
       ): any {
         if (
           tt._in.binop > minPrec &&
-          !this.hasPrecedingLineBreak() &&
-          this.isContextual('as')
+          !this.hasPrecedingLineBreak()
         ) {
-          const node = this.startNodeAt(
-            leftStartPos,
-            leftStartLoc
-          )
-          node.expression = left
-          const _const = this.tsTryNextParseConstantContext()
-          if (_const) {
-            node.typeAnnotation = _const
-          } else {
-            node.typeAnnotation = this.tsNextThenParseType()
+
+          let nodeType
+
+          if (this.isContextual('as')) {
+            nodeType = 'TSAsExpression'
           }
-          this.finishNode(node, 'TSAsExpression')
-          // rescan `<`, `>` because they were scanned when this.state.inType was true
-          this.reScan_lt_gt()
-          return this.parseExprOp(
-            node,
-            leftStartPos,
-            leftStartLoc,
-            minPrec,
-            forInit
-          )
+
+          if (allowSatisfies && this.isContextual('satisfies')) {
+            nodeType = 'TSSatisfiesExpression'
+          }
+
+          if (nodeType) {
+            const node = this.startNodeAt(
+              leftStartPos,
+              leftStartLoc
+            )
+            node.expression = left
+            const _const = this.tsTryNextParseConstantContext()
+            if (_const) {
+              node.typeAnnotation = _const
+            } else {
+              node.typeAnnotation = this.tsNextThenParseType()
+            }
+            this.finishNode(node, nodeType)
+            // rescan `<`, `>` because they were scanned when this.state.inType was true
+            this.reScan_lt_gt()
+            return this.parseExprOp(
+              node,
+              leftStartPos,
+              leftStartLoc,
+              minPrec,
+              forInit
+            )
+          }
         }
         return super.parseExprOp(left, leftStartPos, leftStartLoc, minPrec, forInit)
       }
@@ -4414,6 +4427,7 @@ function tsPlugin(options?: {
           case 'ParenthesizedExpression':
             return this.toAssignableParenthesizedExpression(node, isBinding, refDestructuringErrors)
           case 'TSAsExpression':
+          case 'TSSatisfiesExpression':
           case 'TSNonNullExpression':
           case 'TSTypeAssertion':
             if (isBinding) {
@@ -4450,6 +4464,7 @@ function tsPlugin(options?: {
       ): void {
         switch (node.expression.type) {
           case 'TSAsExpression':
+          case 'TSSatisfiesExpression':
           case 'TSNonNullExpression':
           case 'TSTypeAssertion':
           case 'ParenthesizedExpression':
@@ -5350,44 +5365,44 @@ function tsPlugin(options?: {
       }
 
       hasImport(name: string, allowShadow?: boolean) {
-        const len = this.importsStack.length;
+        const len = this.importsStack.length
         if (this.importsStack[len - 1].indexOf(name) > -1) {
-          return true;
+          return true
         }
         if (!allowShadow && len > 1) {
           for (let i = 0; i < len - 1; i++) {
-            if (this.importsStack[i].indexOf(name) > -1) return true;
+            if (this.importsStack[i].indexOf(name) > -1) return true
           }
         }
-        return false;
+        return false
       }
 
       maybeExportDefined(scope: any, name: string) {
         if (this.inModule && scope.flags & acornScope.SCOPE_TOP) {
-          this.undefinedExports.delete(name);
+          this.undefinedExports.delete(name)
         }
       }
 
       isRedeclaredInScope(
         scope: any,
         name: string,
-        bindingType: any,
+        bindingType: any
       ): boolean {
-        if (!(bindingType & acornScope.BIND_KIND_VALUE)) return false;
+        if (!(bindingType & acornScope.BIND_KIND_VALUE)) return false
 
         if (bindingType & acornScope.BIND_LEXICAL) {
           return (
             scope.lexical.indexOf(name) > -1 ||
             scope.functions.indexOf(name) > -1 ||
             scope.var.indexOf(name) > -1
-          );
+          )
         }
 
         if (bindingType & acornScope.BIND_FUNCTION) {
           return (
             scope.lexical.indexOf(name) > -1 ||
             (!super.treatFunctionsAsVarInScope(scope) && scope.var.indexOf(name) > -1)
-          );
+          )
         }
 
         return (
@@ -5399,63 +5414,63 @@ function tsPlugin(options?: {
               scope.lexical[0] === name
             )) ||
           (!this.treatFunctionsAsVarInScope(scope) && scope.functions.indexOf(name) > -1)
-        );
+        )
       }
 
       checkRedeclarationInScope(
         scope: any,
         name: string,
         bindingType: any,
-        loc: any,
+        loc: any
       ) {
         if (this.isRedeclaredInScope(scope, name, bindingType)) {
-          this.raise(loc, `Identifier '${name}' has already been declared.`);
+          this.raise(loc, `Identifier '${name}' has already been declared.`)
         }
       }
 
       declareName(name, bindingType, pos) {
         if (bindingType & acornScope.BIND_FLAGS_TS_IMPORT) {
           if (this.hasImport(name, true)) {
-            this.raise(pos, `Identifier '${name}' has already been declared.`);
+            this.raise(pos, `Identifier '${name}' has already been declared.`)
           }
-          this.importsStack[this.importsStack.length - 1].push(name);
-          return;
+          this.importsStack[this.importsStack.length - 1].push(name)
+          return
         }
 
-        const scope = this.currentScope();
+        const scope = this.currentScope()
         if (bindingType & acornScope.BIND_FLAGS_TS_EXPORT_ONLY) {
-          this.maybeExportDefined(scope, name);
-          scope.exportOnlyBindings.push(name);
-          return;
+          this.maybeExportDefined(scope, name)
+          scope.exportOnlyBindings.push(name)
+          return
         }
 
-        super.declareName(name, bindingType, pos);
+        super.declareName(name, bindingType, pos)
 
         if (bindingType & acornScope.BIND_KIND_TYPE) {
           if (!(bindingType & acornScope.BIND_KIND_VALUE)) {
             // "Value" bindings have already been registered by the superclass.
-            this.checkRedeclarationInScope(scope, name, bindingType, pos);
-            this.maybeExportDefined(scope, name);
+            this.checkRedeclarationInScope(scope, name, bindingType, pos)
+            this.maybeExportDefined(scope, name)
           }
-          scope.types.push(name);
+          scope.types.push(name)
         }
-        if (bindingType & acornScope.BIND_FLAGS_TS_ENUM) scope.enums.push(name);
-        if (bindingType & acornScope.BIND_FLAGS_TS_CONST_ENUM) scope.constEnums.push(name);
-        if (bindingType & acornScope.BIND_FLAGS_CLASS) scope.classes.push(name);
+        if (bindingType & acornScope.BIND_FLAGS_TS_ENUM) scope.enums.push(name)
+        if (bindingType & acornScope.BIND_FLAGS_TS_CONST_ENUM) scope.constEnums.push(name)
+        if (bindingType & acornScope.BIND_FLAGS_CLASS) scope.classes.push(name)
       }
 
       checkLocalExport(id) {
-        const { name } = id;
+        const { name } = id
 
-        if (this.hasImport(name)) return;
+        if (this.hasImport(name)) return
 
-        const len = this.scopeStack.length;
+        const len = this.scopeStack.length
         for (let i = len - 1; i >= 0; i--) {
-          const scope = this.scopeStack[i];
-          if (scope.types.indexOf(name) > -1 || scope.exportOnlyBindings.indexOf(name) > -1) return;
+          const scope = this.scopeStack[i]
+          if (scope.types.indexOf(name) > -1 || scope.exportOnlyBindings.indexOf(name) > -1) return
         }
 
-        super.checkLocalExport(id);
+        super.checkLocalExport(id)
       }
     }
 

@@ -7,6 +7,10 @@ export const DtsParser = acorn.Parser.extend(tsPlugin({
   dts: true
 }))
 
+export const AllowSatisfiesParser = acorn.Parser.extend(tsPlugin({
+  allowSatisfies: true
+}))
+
 export function equalNode(node, snapshot) {
   expect(node).toEqual(snapshot)
 }
@@ -21,6 +25,14 @@ export function parseDtsSource(input: string) {
 
 export function parseSource(input: string) {
   return Parser.parse(input, {
+    sourceType: 'module',
+    ecmaVersion: 'latest',
+    locations: true
+  })
+}
+
+export function parseSourceAllowSatisfies(input: string) {
+  return AllowSatisfiesParser.parse(input, {
     sourceType: 'module',
     ecmaVersion: 'latest',
     locations: true
